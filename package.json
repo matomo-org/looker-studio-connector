@@ -1,0 +1,20 @@
+{
+  "name": "matomo-looker-studio-connector",
+  "version": "0.0.0",
+  "description": "Looker Studio Connector for Matomo instances",
+  "main": "index.js",
+  "scripts": {
+    "create": "clasp create --rootDir src --title='Matomo Looker Studio Connector' --type=standalone && mv ./src/.clasp.json .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matomo-org/google-looker-studio.git"
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/matomo-org/google-looker-studio/issues"
+  },
+  "homepage": "https://github.com/matomo-org/google-looker-studio#readme"
+}

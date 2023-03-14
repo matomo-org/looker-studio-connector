@@ -9,12 +9,30 @@ $ npm install @google/clasp -g
 $ clasp login
 ```
 
-## Push to apps script
+### Creating the App Script instance
+
+```
+$ npm run create
+```
+
+### Push to apps script
 
 ```
 $ clasp push
 ```
 
-## Test in Looker Studio
+### Deploy the currently pushed code to Apps Script
+
+```
+$ clasp deploy # this will automatically create a new version
+```
+
+## Tests
+
+### Unit tests
+
+### Integration tests
+
+## Manual Testing
 
 TODO: 
