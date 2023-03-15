@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "create": "clasp create --rootDir src --title='Matomo Looker Studio Connector' --type=standalone && mv ./src/.clasp.json .",
-    "test:unit": "jest",
-    "test": "npm run test:unit"
+    "test:unit": "jest --config=./jest.config.unit.ts",
+    "test:e2e": "jest --config=./jest.config.e2e.ts",
+    "test": "npm run test:unit && npm run test:e2e"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,10 @@
   },
   "homepage": "https://github.com/matomo-org/google-looker-studio#readme",
   "devDependencies": {
+    "@jest/globals": "^29.5.0",
     "jest": "^29.5.0",
+    "puppeteer": "^19.7.5",
+    "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1"
   }
 }

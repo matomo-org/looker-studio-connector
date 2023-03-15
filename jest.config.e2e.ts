@@ -5,10 +5,8 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
-import { describe, it, expect } from '@jest/globals';
-
-describe('simple', () =>{
-  it('should run', () => {
-
-  });
-});
+export default {
+  rootDir: 'tests/e2e',
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+};

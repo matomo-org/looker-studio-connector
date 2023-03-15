@@ -7,4 +7,6 @@
 
 export default {
   rootDir: 'tests/unit',
+  preset: 'ts-jest',
+  testEnvironment: 'node',
 };
