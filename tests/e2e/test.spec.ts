@@ -8,11 +8,13 @@
 import { describe, it, beforeAll, afterAll, expect } from '@jest/globals';
 import puppeteer, { Browser, Page } from 'puppeteer';
 
+const { LOOKER_STUDIO_TEST_REPORT } = process.env;
+
 let browser: Browser;
 let page: Page;
 
 beforeAll(async () => {
-  browser = await puppeteer.launch();
+  browser = await puppeteer.launch({ headless: false });
   page = await browser.newPage();
 });
 
@@ -24,6 +26,7 @@ afterAll(async () => {
 
 describe('simple', () => {
   it('should run', async () => {
-    await page.goto('https://developer.chrome.com/');
+    await page.goto(LOOKER_STUDIO_TEST_REPORT);
+    await new Promise((resolve) => setTimeout(resolve, 4000));
   });
 });

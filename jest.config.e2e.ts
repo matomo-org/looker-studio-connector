@@ -9,4 +9,6 @@ export default {
   rootDir: 'tests/e2e',
   preset: 'ts-jest',
   testEnvironment: 'node',
+  setupFiles: ['dotenv/config'],
+  testTimeout: 3 * 60 * 1000,
 };
