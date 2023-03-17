@@ -26,5 +26,8 @@
     "puppeteer": "^19.7.5",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "@types/google-apps-script": "^1.0.58"
   }
 }
