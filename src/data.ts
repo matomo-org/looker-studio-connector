@@ -5,8 +5,10 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
-import cc, { ConnectorParams } from './connector';
+import { ConnectorParams } from './connector';
 import * as Api from './api';
+
+const cc = DataStudioApp.createCommunityConnector();
 
 // TODO: make sure UX is good when exceptions Matomo requests errors
 

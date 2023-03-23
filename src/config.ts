@@ -5,9 +5,11 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
-import cc, { ConnectorParams } from './connector';
+import { ConnectorParams } from './connector';
 import * as Api from './api';
 import { config } from 'dotenv';
+
+const cc = DataStudioApp.createCommunityConnector();
 
 interface ConfigStep {
   isFilledOut(params: ConnectorParams): boolean;
@@ -145,6 +147,7 @@ function getCurrentStep(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
 }
 
 export function getConfig(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
+
     const configParams = request.configParams;
 
     const currentStep = getCurrentStep(request);

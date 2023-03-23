@@ -5,9 +5,9 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
-import cc from './connector';
 import * as Api from './api';
 
+const cc = DataStudioApp.createCommunityConnector();
 const DEBUG = true;
 
 export function getAuthType() {
