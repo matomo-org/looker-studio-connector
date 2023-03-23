@@ -6,7 +6,7 @@
  */
 
 import * as path from 'path';
-import { exec } from 'child_process';
+import { spawn } from 'child_process';
 import * as fs from 'fs';
 import * as chalk from 'chalk';
 
@@ -26,24 +26,23 @@ class Clasp {
   }
 
   async push() {
-    return this.runExecutable('push -f', { passthrough: true });
+    return this.runExecutable(['push', '-f'], { passthrough: true });
   }
 
   async run(functionName: string, ...args: any[]) {
-    const params = `-p "${JSON.stringify([...args, true])}"`
-    return this.runExecutable(`run ${params} ${functionName}`);
+    return this.runExecutable(['run', '-p', JSON.stringify([functionName, ...args]), 'callFunctionInTest']);
   }
 
-  async runExecutable(subcommand: string, options: RunOptions = {}) {
-    const command = `${this.claspPath} ${subcommand}`;
+  async runExecutable(subcommand: string[], options: RunOptions = {}) {
+    const commandStr = `${this.claspPath} ${subcommand.join(' ')}`;
 
     if (options.passthrough) {
-      process.stdout.write(chalk.yellow(`Running '${command}':\n`));
+      process.stdout.write(chalk.yellow(`Running '${commandStr}':\n`));
     }
 
     return new Promise((resolve, reject) => {
       try {
-        const proc = exec(command);
+        const proc = spawn(this.claspPath, subcommand);
 
         let output = '';
 
@@ -65,7 +64,7 @@ class Clasp {
           }
 
           if (code) {
-            reject(new Error(`${command} exited with code ${code}`));
+            reject(new Error(`'${commandStr}' exited with code ${code}`));
           } else {
             if (options.passthrough) {
               resolve(code);

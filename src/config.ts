@@ -146,39 +146,30 @@ function getCurrentStep(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     return stepsReversed.findIndex((step) => step.isFilledOut(configParams));
 }
 
-export function getConfig(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>, test = false) {
-  try { // TODO: note reason for this in docs. OR automate it w/ some kind of wrapper function?
-    const configParams = request.configParams;
+export function getConfig(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
+  const configParams = request.configParams;
 
-    const currentStep = getCurrentStep(request);
+  const currentStep = getCurrentStep(request);
 
-    const config = cc.getConfig();
-    if (currentStep < CONFIG_STEPS.length - 1) {
-      config.setIsSteppedConfig(true);
-    }
-
-    CONFIG_STEPS.forEach((step, index) => {
-      if (currentStep >= index) {
-        if (currentStep === index && step.validate) {
-          step.validate(configParams);
-        }
-
-        step.addControls(config);
-      }
-    });
-
-    if (currentStep >= CONFIG_STEPS.length - 1) {
-      config.setIsSteppedConfig(false);
-      config.setDateRangeRequired(true);
-    }
-
-    const result = config.build();
-    return test ? JSON.stringify(result) : result;
-  } catch (e) {
-    if (test) {
-      return JSON.stringify({ message: e.message, stack: e.stack });
-    } else {
-      throw e;
-    }
+  const config = cc.getConfig();
+  if (currentStep < CONFIG_STEPS.length - 1) {
+    config.setIsSteppedConfig(true);
   }
+
+  CONFIG_STEPS.forEach((step, index) => {
+    if (currentStep >= index) {
+      if (currentStep === index && step.validate) {
+        step.validate(configParams);
+      }
+
+      step.addControls(config);
+    }
+  });
+
+  if (currentStep >= CONFIG_STEPS.length - 1) {
+    config.setIsSteppedConfig(false);
+    config.setDateRangeRequired(true);
+  }
+
+  return config.build();
 }
