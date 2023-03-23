@@ -12,8 +12,8 @@ import { config } from 'dotenv';
 const cc = DataStudioApp.createCommunityConnector();
 
 interface ConfigStep {
-  isFilledOut(params: ConnectorParams): boolean;
-  validate(params: ConnectorParams): void;
+  isFilledOut(params?: ConnectorParams): boolean;
+  validate(params?: ConnectorParams): void;
   addControls(config: GoogleAppsScript.Data_Studio.Config): void;
 }
 
@@ -21,10 +21,10 @@ const CONFIG_STEPS = <ConfigStep[]>[
   // first step: select website
   {
     isFilledOut(params: ConnectorParams) {
-      return !!params.idsite;
+      return !!params?.idsite;
     },
-    validate(params: ConnectorParams) {
-      if (!params.idsite) {
+    validate(params?: ConnectorParams) {
+      if (!params?.idsite) {
         cc.newUserError()
           .setText('A website in your Matomo must be selected.')
           .throwException();
@@ -49,11 +49,11 @@ const CONFIG_STEPS = <ConfigStep[]>[
 
   // second step: pick report category
   {
-    isFilledOut(params: ConnectorParams) {
-      return !!params.reportCategory;
+    isFilledOut(params?: ConnectorParams) {
+      return !!params?.reportCategory;
     },
-    validate(params: ConnectorParams) {
-      if (!params.reportCategory) {
+    validate(params?: ConnectorParams) {
+      if (!params?.reportCategory) {
         cc.newUserError()
           .setText('Please select a report category to continue.')
           .throwException();
@@ -82,11 +82,11 @@ const CONFIG_STEPS = <ConfigStep[]>[
 
   // third step: pick report
   {
-    isFilledOut(params: ConnectorParams) {
-      return !!params.report;
+    isFilledOut(params?: ConnectorParams) {
+      return !!params?.report;
     },
-    validate(params: ConnectorParams) {
-      if (!params.report) {
+    validate(params?: ConnectorParams) {
+      if (!params?.report) {
         cc.newUserError()
           .setText('Please select a Matomo report to connect to.')
           .throwException();
@@ -110,10 +110,10 @@ const CONFIG_STEPS = <ConfigStep[]>[
 
   // fourth step: set report parameter defaults
   {
-    isFilledOut(params: ConnectorParams) {
+    isFilledOut(params?: ConnectorParams) {
       return typeof params.segment !== 'undefined';
     },
-    validate(params: ConnectorParams) {
+    validate(params?: ConnectorParams) {
       // empty
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config) {
@@ -146,15 +146,15 @@ function getCurrentStep(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     return stepsReversed.findIndex((step) => step.isFilledOut(configParams));
 }
 
-export function getConfig(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-
+export function getConfig(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>, test = false) {
+  try { // TODO: note reason for this in docs. OR automate it w/ some kind of wrapper function?
     const configParams = request.configParams;
 
     const currentStep = getCurrentStep(request);
 
     const config = cc.getConfig();
     if (currentStep < CONFIG_STEPS.length - 1) {
-        config.setIsSteppedConfig(true);
+      config.setIsSteppedConfig(true);
     }
 
     CONFIG_STEPS.forEach((step, index) => {
@@ -172,5 +172,13 @@ export function getConfig(request: GoogleAppsScript.Data_Studio.Request<Connecto
       config.setDateRangeRequired(true);
     }
 
-    return config.build();
+    const result = config.build();
+    return test ? JSON.stringify(result) : result;
+  } catch (e) {
+    if (test) {
+      return JSON.stringify({ message: e.message, stack: e.stack });
+    } else {
+      throw e;
+    }
+  }
 }

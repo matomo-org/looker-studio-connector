@@ -30,10 +30,7 @@ class Clasp {
   }
 
   async run(functionName: string, ...args: any[]) {
-    let params = '';
-    if (args.length) {
-      params = `-p "${JSON.stringify(args)}"`
-    }
+    const params = `-p "${JSON.stringify([...args, true])}"`
     return this.runExecutable(`run ${params} ${functionName}`);
   }
 
@@ -70,8 +67,30 @@ class Clasp {
           if (code) {
             reject(new Error(`${command} exited with code ${code}`));
           } else {
-            let result = options.passthrough ? code : JSON.parse(output.trim());
-            resolve(result);
+            if (options.passthrough) {
+              resolve(code);
+              return;
+            }
+
+            let cleanOutput = output.replace(/^Running in dev mode\./, '').trim();
+            if (cleanOutput === 'No response.') {
+              resolve(undefined);
+              return;
+            }
+
+            let parsedOutput: any = cleanOutput;
+            try {
+              parsedOutput = JSON.parse(cleanOutput);
+            } catch (e) {
+              // ignore
+            }
+
+            if (parsedOutput.stack) {
+              reject(parsedOutput);
+              return;
+            }
+
+            resolve(parsedOutput);
           }
         });
       } catch (e) {

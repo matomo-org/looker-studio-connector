@@ -12,7 +12,6 @@ import './setup';
 describe('getConfig', () =>{
   it('should run', async () => {
     const result = await Clasp.run('getConfig', {});
-    console.log(result);
     expect(result).toBeTruthy();
   });
 });
