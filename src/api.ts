@@ -18,8 +18,11 @@ export interface StoredSegment {
 export interface ReportMetadata {
   dimension: string;
   module: string;
+  action: string;
   metrics: Record<string, string>;
   processedMetrics: Record<string, string>;
+  category: string;
+  name: string;
 }
 
 type DataTableRow = Record<string, string>;
@@ -83,7 +86,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: Record<string
  * @param params
  * @param options
  */
-export function fetch(method: string, params: Record<string, string> = {}, options: Record<string, string|number|boolean> = {}) {
+export function fetch<T = any>(method: string, params: Record<string, string> = {}, options: Record<string, string|number|boolean> = {}): T {
   const responses = this.fetchAll([{ method, params }], options);
-  return responses[0];
+  return responses[0] as T;
 }

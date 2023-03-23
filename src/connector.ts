@@ -7,7 +7,9 @@
 
 export interface ConnectorParams {
   idsite?: string;
+  reportCategory?: string;
   report?: string;
+  segment?: string;
 }
 
 export default DataStudioApp.createCommunityConnector();
