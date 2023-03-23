@@ -158,7 +158,7 @@ export function getConfig(request: GoogleAppsScript.Data_Studio.Request<Connecto
 
   CONFIG_STEPS.forEach((step, index) => {
     if (currentStep >= index) {
-      if (currentStep === index && step.validate) {
+      if (currentStep === index - 1 && step.validate) {
         step.validate(configParams);
       }
 

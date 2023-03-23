@@ -13,6 +13,6 @@ export function callFunctionInTest(functionName: string, ...params: unknown[]) {
     const result = fn(...params);
     return JSON.stringify(result);
   } catch (e) {
-    return JSON.stringify({ message: e.message, stack: e.stack });
+    return JSON.stringify({ ...e, message: e.message, stack: e.stack });
   }
 }
