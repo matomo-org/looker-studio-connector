@@ -9,4 +9,5 @@ export default {
   rootDir: 'tests/unit',
   preset: 'ts-jest',
   testEnvironment: 'node',
+  testTimeout: 30000,
 };

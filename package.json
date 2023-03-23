@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/matomo-org/google-looker-studio#readme",
   "devDependencies": {
+    "@google/clasp": "^2.4.2",
     "@jest/globals": "^29.5.0",
+    "chalk": "^4.1.0",
     "dotenv": "^16.0.3",
     "jest": "^29.5.0",
     "puppeteer": "^19.7.5",
