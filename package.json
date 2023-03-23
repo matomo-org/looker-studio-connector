@@ -4,6 +4,7 @@
   "description": "Looker Studio Connector for Matomo instances",
   "main": "index.js",
   "scripts": {
+    "clasp": "clasp",
     "create": "clasp create --rootDir src --title='Matomo Looker Studio Connector' --type=standalone && mv ./src/.clasp.json .",
     "test:unit": "jest --config=./jest.config.unit.ts",
     "test:e2e": "jest --config=./jest.config.e2e.ts",

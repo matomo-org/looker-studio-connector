@@ -2,4 +2,7 @@
 .clasp.json
 node_modules/
 .env
+/creds.json
+.clasprc.json
+appsscript.backup.json
 
