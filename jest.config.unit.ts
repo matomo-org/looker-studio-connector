@@ -12,4 +12,5 @@ export default {
   testTimeout: 30000,
   globalSetup: './globalSetup.js',
   globalTeardown: './globalTeardown.js',
+  maxWorkers: 1, // since we run our tests within apps script, we can't run them in parallel
 };

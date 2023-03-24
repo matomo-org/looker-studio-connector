@@ -11,4 +11,5 @@ export default {
   testEnvironment: 'node',
   setupFiles: ['dotenv/config'],
   testTimeout: 3 * 60 * 1000,
+  maxWorkers: 1,
 };

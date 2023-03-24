@@ -12,7 +12,7 @@ import cc from './connector';
 interface ConfigStep {
   isFilledOut(params?: ConnectorParams): boolean;
   validate(params?: ConnectorParams): void;
-  addControls(config: GoogleAppsScript.Data_Studio.Config): void;
+  addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams): void;
 }
 
 const CONFIG_STEPS = <ConfigStep[]>[
@@ -22,7 +22,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
       return !!params?.idsite;
     },
     validate(params?: ConnectorParams) {
-      if (!params?.idsite) {
+      if (!params?.idsite || parseInt(params.idsite, 10) < 0) {
         cc.newUserError()
           .setText('A website in your Matomo must be selected.')
           .throwException();
@@ -51,15 +51,20 @@ const CONFIG_STEPS = <ConfigStep[]>[
       return !!params?.reportCategory;
     },
     validate(params?: ConnectorParams) {
-      if (!params?.reportCategory) {
+      const category = (params?.reportCategory || '').trim();
+      if (!category) {
         cc.newUserError()
           .setText('Please select a report category to continue.')
           .throwException();
       }
     },
-    addControls(config: GoogleAppsScript.Data_Studio.Config) {
+    addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams) {
       // TODO: also add text info boxes where we can
-      const reportMetadata = Api.fetch<Api.ReportMetadata[]>('API.getReportMetadata', { idSites: 'all', period: 'day', date: 'yesterday' });
+      const reportMetadata = Api.fetch<Api.ReportMetadata[]>('API.getReportMetadata', {
+        idSite: params!.idsite,
+        period: 'day',
+        date: 'yesterday',
+      });
 
       const categories = Object.keys(reportMetadata.reduce((cats, r) => {
         cats[r.category] = true;
@@ -84,14 +89,19 @@ const CONFIG_STEPS = <ConfigStep[]>[
       return !!params?.report;
     },
     validate(params?: ConnectorParams) {
-      if (!params?.report) {
+      const report = (params?.report || '').trim();
+      if (!report) {
         cc.newUserError()
           .setText('Please select a Matomo report to connect to.')
           .throwException();
       }
     },
-    addControls(config: GoogleAppsScript.Data_Studio.Config) {
-      const reportMetadata = Api.fetch<Api.ReportMetadata[]>('API.getReportMetadata', { idSites: 'all', period: 'day', date: 'yesterday' });
+    addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams) {
+      const reportMetadata = Api.fetch<Api.ReportMetadata[]>('API.getReportMetadata', {
+        idSite: params!.idsite,
+        period: 'day',
+        date: 'yesterday',
+      });
 
       let reportSelect = config
         .newSelectSingle()
@@ -160,7 +170,7 @@ export function getConfig(request: GoogleAppsScript.Data_Studio.Request<Connecto
         step.validate(configParams);
       }
 
-      step.addControls(config);
+      step.addControls(config, configParams);
     }
   });
 
