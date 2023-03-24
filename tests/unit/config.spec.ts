@@ -12,8 +12,24 @@ import Clasp from '../utilities/clasp';
 
 function getExpectedResponse(suiteName: string, testName: string) {
   const expectedFilePath = path.join(__dirname, 'expected', `${suiteName}_${testName}.json`);
-  const contents = fs.readFileSync(expectedFilePath).toString('utf-8');
+  const contents = fs.readFileSync(expectedFilePath).toString('utf-8').trim();
   return JSON.parse(contents);
+}
+
+function cleanUpSelects(response: any) {
+  (response.configParams || []).forEach((paramEntry) => {
+    // check options has the correct format, then remove it so we're not dependent on data from demo.matomo.cloud
+    // staying constant for our tests
+    if (paramEntry.options) {
+      expect(paramEntry.options).toBeInstanceOf(Array);
+      paramEntry.options.forEach((option) => {
+        expect(typeof option.label).toEqual('string');
+        expect(typeof option.value).toEqual('string');
+      });
+    }
+    paramEntry.options = [];
+  });
+  return response;
 }
 
 // TODO: remove option name/value pairs in responses so we're not dependent on what data demo.matomo.cloud returns
@@ -34,67 +50,74 @@ describe('config', () => {
 
   describe('getConfig', () => {
     it('should return expected response when on the first step', async () => {
-      const result = await Clasp.run('getConfig', {});
+      let result = await Clasp.run('getConfig', {});
+      result = cleanUpSelects(result);
       expect(result).toEqual(getExpectedResponse('config', 'step1'));
     });
 
     it('should return expected response if the first step selection is invalid', async () => {
-      const result = await Clasp.run('getConfig', {
-        configParams: {
-          idsite: 0,
-        },
-      });
-      expect(result).toEqual(getExpectedResponse('config', 'step1_invalid'));
+      await expect(async () => {
+        await Clasp.run('getConfig', {
+          configParams: {
+            idsite: 0,
+          },
+        });
+      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
     });
 
     it('should return expected response when on the second step', async () => {
-      const result = await Clasp.run('getConfig', {
+      let result = await Clasp.run('getConfig', {
         configParams: {
           idsite: 1,
         },
       });
+      result = cleanUpSelects(result);
       expect(result).toEqual(getExpectedResponse('config', 'step2'));
     });
 
     it('should return expected response if the second step selection is invalid', async () => {
-      const result = await Clasp.run('getConfig', {
-        configParams: {
-          idsite: 1,
-          reportCategory: '   ',
-        },
-      });
-      expect(result).toEqual(getExpectedResponse('config', 'step2_invalid'));
+      await expect(async () => {
+        await Clasp.run('getConfig', {
+          configParams: {
+            idsite: 1,
+            reportCategory: '   ',
+          },
+        });
+      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
     });
 
     it('should return expected response when on the third step', async () => {
-      const result = await Clasp.run('getConfig', {
+      let result = await Clasp.run('getConfig', {
         configParams: {
           idsite: 1,
           reportCategory: 'Referrers',
         },
       });
+      result = cleanUpSelects(result);
       expect(result).toEqual(getExpectedResponse('config', 'step3'));
     });
 
     it('should return expected response if the third step selection is invalid', async () => {
-      const result = await Clasp.run('getConfig', {
-        configParams: {
-          idsite: 1,
-          reportCategory: 'Referrers',
-          report: '   ',
-        },
-      });
-      expect(result).toEqual(getExpectedResponse('config', 'step3_invalid'));
+      await expect(async () => {
+        await Clasp.run('getConfig', {
+          configParams: {
+            idsite: 1,
+            reportCategory: 'Referrers',
+            report: '   ',
+          },
+        });
+      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
     });
 
     it('should return expected response when on the fourth and final step', async () => {
-      const result = await Clasp.run('getConfig', {
+      let result = await Clasp.run('getConfig', {
         configParams: {
           idsite: 1,
           reportCategory: 'Referrers',
           report: 'getWebsites',
         },
       });
+      result = cleanUpSelects(result);
       expect(result).toEqual(getExpectedResponse('config', 'step4'));
     });
   });

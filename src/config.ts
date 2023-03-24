@@ -19,7 +19,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
   // first step: select website
   {
     isFilledOut(params: ConnectorParams) {
-      return !!params?.idsite;
+      return typeof params?.idsite !== 'undefined';
     },
     validate(params?: ConnectorParams) {
       if (!params?.idsite || parseInt(params.idsite, 10) < 0) {
@@ -48,7 +48,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
   // second step: pick report category
   {
     isFilledOut(params?: ConnectorParams) {
-      return !!params?.reportCategory;
+      return typeof params?.reportCategory !== 'undefined';
     },
     validate(params?: ConnectorParams) {
       const category = (params?.reportCategory || '').trim();
@@ -86,7 +86,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
   // third step: pick report
   {
     isFilledOut(params?: ConnectorParams) {
-      return !!params?.report;
+      return typeof params?.report !== 'undefined';
     },
     validate(params?: ConnectorParams) {
       const report = (params?.report || '').trim();
@@ -139,6 +139,8 @@ const CONFIG_STEPS = <ConfigStep[]>[
           config.newOptionBuilder().setLabel(segment.name).setValue(segment.definition),
         );
       });
+
+      // TODO: other useful parameter defaults
     },
   },
 ];
@@ -151,7 +153,7 @@ function getCurrentStep(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     }
 
     const stepsReversed = [...CONFIG_STEPS].reverse();
-    return stepsReversed.findIndex((step) => step.isFilledOut(configParams));
+    return stepsReversed.length - stepsReversed.findIndex((step) => step.isFilledOut(configParams));
 }
 
 export function getConfig(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
@@ -166,7 +168,7 @@ export function getConfig(request: GoogleAppsScript.Data_Studio.Request<Connecto
 
   CONFIG_STEPS.forEach((step, index) => {
     if (currentStep >= index) {
-      if (currentStep === index - 1 && step.validate) {
+      if (currentStep - 1 === index && step.validate) { // validate previous step entry
         step.validate(configParams);
       }
 

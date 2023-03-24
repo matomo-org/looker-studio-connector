@@ -1,1 +1,35 @@
-{}
+{
+  "configParams": [
+    {
+      "displayName": "Website/Measurable",
+      "isDynamic": true,
+      "name": "idsite",
+      "options": [],
+      "type": "SELECT_SINGLE"
+    },
+    {
+      "displayName": "Report Category",
+      "isDynamic": true,
+      "name": "reportCategory",
+      "options": [],
+      "type": "SELECT_SINGLE"
+    },
+    {
+      "displayName": "Report",
+      "name": "report",
+      "options": [],
+      "type": "SELECT_SINGLE"
+    },
+    {
+      "displayName": "Segment",
+      "name": "segment",
+      "options": [],
+      "parameterControl": {
+        "allowOverride": true
+      },
+      "type": "SELECT_SINGLE"
+    }
+  ],
+  "dateRangeRequired": true,
+  "isSteppedConfig": false
+}

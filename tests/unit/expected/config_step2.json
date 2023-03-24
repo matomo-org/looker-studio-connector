@@ -1,1 +1,19 @@
-{}
+{
+  "configParams": [
+    {
+      "displayName": "Website/Measurable",
+      "isDynamic": true,
+      "name": "idsite",
+      "options": [],
+      "type": "SELECT_SINGLE"
+    },
+    {
+      "displayName": "Report Category",
+      "isDynamic": true,
+      "name": "reportCategory",
+      "options": [],
+      "type": "SELECT_SINGLE"
+    }
+  ],
+  "isSteppedConfig": true
+}
