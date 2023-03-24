@@ -9,6 +9,7 @@
 
 const path = require('path');
 const fs = require('fs');
+const Clasp = require('../utilities/clasp').default;
 
 const appsScriptPath = path.join(__dirname, '../../src/appsscript.json');
 const backupAppsScriptPath = path.join(__dirname, './appsscript.backup.json');
@@ -17,4 +18,6 @@ module.exports = function () {
     // restore unmodified appsscript.backup.json
     fs.unlinkSync(appsScriptPath);
     fs.linkSync(backupAppsScriptPath, appsScriptPath);
+
+    Clasp.stopWatchingLogs();
 };

@@ -30,4 +30,6 @@ module.exports = async function () {
     execSync('npm run build:unit');
 
     await Clasp.push();
+
+    Clasp.startWatchingLogs();
 };

@@ -16,12 +16,29 @@ interface RunOptions {
 
 class Clasp {
   private claspPath: string;
+  private logWatchProc: ReturnType<typeof spawn>|null = null;
 
   constructor() {
     this.claspPath = path.join(__dirname, '..', '..', 'node_modules', '.bin', 'clasp');
 
     if (!fs.existsSync(this.claspPath)) {
       throw new Error(`Cannot find 'clasp' bin! (Looking in: ${this.claspPath}})`);
+    }
+  }
+
+  startWatchingLogs() {
+    this.logWatchProc = spawn(this.claspPath, ['logs', '--watch']);
+
+    this.logWatchProc.stdout.on('data', (data: Buffer) => {
+      let dataWithoutTimestamp = data.toString('utf-8');
+      dataWithoutTimestamp = dataWithoutTimestamp.replace(/timestamp >= "[^"]+?"\n?/g, '');
+      process.stdout.write(chalk.blueBright(dataWithoutTimestamp));
+    });
+  }
+
+  stopWatchingLogs() {
+    if (this.logWatchProc) {
+      this.logWatchProc.kill();
     }
   }
 
