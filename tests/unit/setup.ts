@@ -8,6 +8,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { beforeAll, afterAll } from '@jest/globals';
+import { execSync } from 'child_process';
 import Clasp from '../utilities/clasp';
 
 const appsScriptPath = path.join(__dirname, '../../src/appsscript.json');
@@ -28,13 +29,9 @@ beforeAll(async () => {
   const appsScriptContent = JSON.parse(fs.readFileSync(appsScriptPath).toString('utf-8'));
   appsScriptContent.executionApi = { access: 'ANYONE' };
 
-  // add callFunctionInTest.ts to project temporarily
-  if (fs.existsSync(callFunctionInTestTarget)) {
-    fs.unlinkSync(callFunctionInTestTarget);
-  }
-  fs.linkSync(callFunctionInTestSource, callFunctionInTestTarget);
-
   fs.writeFileSync(appsScriptPath, JSON.stringify(appsScriptContent, null, 2));
+
+  execSync('npm run build:unit');
 
   await Clasp.push();
 });
@@ -43,9 +40,4 @@ afterAll(() => {
   // restore unmodified appsscript.backup.json
   fs.unlinkSync(appsScriptPath);
   fs.linkSync(backupAppsScriptPath, appsScriptPath);
-
-  // remove callFunctionInTest.ts file from project
-  if (fs.existsSync(callFunctionInTestTarget)) {
-    fs.unlinkSync(callFunctionInTestTarget);
-  }
 });

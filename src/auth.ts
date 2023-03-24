@@ -6,8 +6,8 @@
  */
 
 import * as Api from './api';
+import cc from './connector';
 
-const cc = DataStudioApp.createCommunityConnector();
 const DEBUG = true;
 
 export function getAuthType() {

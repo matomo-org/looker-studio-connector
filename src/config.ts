@@ -7,9 +7,7 @@
 
 import { ConnectorParams } from './connector';
 import * as Api from './api';
-import { config } from 'dotenv';
-
-const cc = DataStudioApp.createCommunityConnector();
+import cc from './connector';
 
 interface ConfigStep {
   isFilledOut(params?: ConnectorParams): boolean;

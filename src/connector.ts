@@ -11,3 +11,5 @@ export interface ConnectorParams {
   report?: string;
   segment?: string;
 }
+
+export default DataStudioApp.createCommunityConnector();

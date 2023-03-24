@@ -7,8 +7,7 @@
 
 import { ConnectorParams } from './connector';
 import * as Api from './api';
-
-const cc = DataStudioApp.createCommunityConnector();
+import cc from './connector';
 
 // TODO: make sure UX is good when exceptions Matomo requests errors
 
