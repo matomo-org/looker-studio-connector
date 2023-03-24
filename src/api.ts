@@ -58,6 +58,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: Record<string
     let url = baseUrl;
 
     const finalParams = {
+      module: 'API',
       method,
       format: 'JSON',
       token_auth: token,

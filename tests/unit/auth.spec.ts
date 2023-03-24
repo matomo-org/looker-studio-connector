@@ -17,7 +17,13 @@ describe('auth', () => {
           token: 'anonymous',
         },
       });
-      expect(result).toBeTruthy();
+
+      expect(result).toEqual({
+        errorCode: 'NONE',
+      });
+
+      const isValid = await Clasp.run('isAuthValid');
+      expect(isValid).toEqual(true);
     });
   });
 });
