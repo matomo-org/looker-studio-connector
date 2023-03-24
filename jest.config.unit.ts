@@ -10,4 +10,6 @@ export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
   testTimeout: 30000,
+  globalSetup: './globalSetup.js',
+  globalTeardown: './globalTeardown.js',
 };

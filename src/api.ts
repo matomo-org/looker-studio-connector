@@ -87,6 +87,6 @@ export function fetchAll(requests: MatomoRequestParams[], options: Record<string
  * @param options
  */
 export function fetch<T = any>(method: string, params: Record<string, string> = {}, options: Record<string, string|number|boolean> = {}): T {
-  const responses = this.fetchAll([{ method, params }], options);
+  const responses = fetchAll([{ method, params }], options);
   return responses[0] as T;
 }

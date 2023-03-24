@@ -7,11 +7,12 @@
 
 import { describe, it, expect } from '@jest/globals';
 import Clasp from '../utilities/clasp';
-import './setup';
 
-describe('getConfig', () =>{
-  it('should run', async () => {
-    const result = await Clasp.run('getConfig', {});
-    expect(result).toBeTruthy();
+describe('config', () => {
+  describe('getConfig', () => {
+    it('should run', async () => {
+      const result = await Clasp.run('getConfig', {});
+      expect(result).toBeTruthy();
+    });
   });
 });

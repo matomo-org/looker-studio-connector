@@ -55,7 +55,9 @@ class Clasp {
         });
 
         proc.stderr.on('data', (data) => {
-          process.stderr.write(data);
+          if (options.passthrough) {
+            process.stderr.write(data);
+          }
         });
 
         proc.on('close', (code) => {
