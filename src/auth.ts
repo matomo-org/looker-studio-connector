@@ -8,7 +8,7 @@
 import * as Api from './api';
 import cc from './connector';
 
-const DEBUG = true;
+const DEBUG = true; // TODO: replace w/ dotenv
 
 export function getAuthType() {
     return cc.newAuthTypeResponse()
