@@ -1,5 +1,7 @@
 # Looker Studio Connector for Matomo
 
+TODO: add docs regarding how tests work in TESTING.md file
+
 ## Setting Up for Development
 
 TODO: move relevant below documentation to here

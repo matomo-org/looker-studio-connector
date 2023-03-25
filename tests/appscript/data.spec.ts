@@ -24,10 +24,46 @@ describe('data', () => {
   });
 
   describe('getSchema', () => {
-    // TODO
+    const methodsTested = {};
+    global.ALL_REPORT_METADATA.forEach((r) => {
+      const method = `${r.module}.${r.action}`;
+      if (methodsTested[method]) {
+        return;
+      }
+
+      methodsTested[method] = true;
+
+      if (process.env.ONLY_TEST_METHOD && process.env.ONLY_TEST_METHOD !== method) { // TODO: document
+        return;
+      }
+
+      it(`should correctly map the schema for ${method}`, async () => {
+        let result = await Clasp.run('getSchema', {
+          configParams: {
+            idsite: 1,
+            report: method,
+          },
+        });
+        expect(result).toEqual(getExpectedResponse('schema', `${method}`));
+      });
+    });
   });
 
   describe('getData', () => {
-    //TODO
+    it('should pass', () => {
+      const methodsTested = {};
+      global.ALL_REPORT_METADATA.forEach((r) => {
+        const method = `${r.module}.${r.action}`;
+        if (methodsTested[method]) {
+          return;
+        }
+
+        methodsTested[method] = true;
+        if (process.env.ONLY_TEST_METHOD && process.env.ONLY_TEST_METHOD !== method) { // TODO: document
+          return;
+        }
+      });
+      // TODO
+    });
   });
 });

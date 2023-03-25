@@ -13,10 +13,11 @@ import cc from './connector';
 // TODO: use pagination to surpass 50mb request limit
 // TODO: detect time limit issue and cut out w/ warning in case users still requests too much data
 // TODO: support old versions of matomo w/o <metricTypes>. display warning.
-// TODO:
+// TODO: duration_ms will require modifying data
 
 // TODO: test that checks every metric type encountered in demo.matomo.cloud is handled (e2e)
 const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
+  'dimension': cc.FieldType.TEXT,
   'binary': cc.FieldType.TEXT,
   'text': cc.FieldType.TEXT,
   'enum': cc.FieldType.TEXT,
@@ -67,13 +68,19 @@ function getReportMetadata(request: GoogleAppsScript.Data_Studio.Request<Connect
 
     const [apiModule, apiAction] = report.split('.');
 
-    return Api.fetch<Api.ReportMetadata>('API.getMetadata', {
+    const response = Api.fetch('API.getMetadata', {
         idSite: `${idSite}`,
         apiModule,
         apiAction,
         period: 'day',
         date: 'today',
     });
+
+    if (Array.isArray(response)) {
+      return response[0] as Api.ReportMetadata;
+    }
+
+    return response as Api.ReportMetadata;
 }
 
 function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
@@ -128,14 +135,14 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCur
     }
 
     [
-      ...Object.entries(reportMetadata.metrics),
-      ...Object.entries(reportMetadata.processedMetrics),
+      ...Object.entries(reportMetadata.metrics || {}),
+      ...Object.entries(reportMetadata.processedMetrics || {}),
       // TODO: not supported in poc
       // Object.entries(reportMetadata.metricsGoal),
       // Object.entries(reportMetadata.processedMetricsGoal),
     ].forEach(([id, name]) => {
       if (!requestedFields || requestedFields.includes(id)) {
-        const matomoType = reportMetadata.metricTypes?.[id] || cc.FieldType.TEXT;
+        const matomoType = reportMetadata.metricTypes?.[id] || 'text';
         addMetric(fields, id, name, matomoType, siteCurrency);
       }
     });
@@ -145,7 +152,7 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCur
 
 // TODO: better logging + better error reporting
 
-function getSchema(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
+export function getSchema(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
     const reportMetadata = getReportMetadata(request);
     const siteCurrency = getSiteCurrency(request);
 
@@ -154,7 +161,7 @@ function getSchema(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams
     return { schema: fields.build() };
 }
 
-function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
+export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
     const processedReport = getProcessedReport(request);
     const siteCurrency = getSiteCurrency(request);
 

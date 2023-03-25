@@ -9,6 +9,7 @@
 
 const path = require('path');
 const fs = require('fs');
+const axios = require("axios");
 const execSync = require('child_process').execSync;
 const Clasp = require('../utilities/clasp').default;
 
@@ -27,9 +28,17 @@ module.exports = async function () {
 
     fs.writeFileSync(appsScriptPath, JSON.stringify(appsScriptContent, null, 2));
 
-    execSync('npm run build:appscript');
+    execSync('npm run build:test');
 
     await Clasp.push();
 
     Clasp.startWatchingLogs();
+
+    // request data used to dynamically generate test cases (which cannot be done within a describe() call)
+    const response = await axios({
+        method: 'GET',
+        url: 'https://demo.matomo.cloud/index.php?idSite=1&period=day&date=today&module=API&method=API.getReportMetadata&token_auth=anonymous&format=JSON',
+    });
+    const allReportMethods = response.data;
+    global.ALL_REPORT_METADATA = allReportMethods;
 };
