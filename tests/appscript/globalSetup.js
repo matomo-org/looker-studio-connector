@@ -27,7 +27,7 @@ module.exports = async function () {
 
     fs.writeFileSync(appsScriptPath, JSON.stringify(appsScriptContent, null, 2));
 
-    execSync('npm run build:unit');
+    execSync('npm run build:appscript');
 
     await Clasp.push();
 

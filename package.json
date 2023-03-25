@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build": "rollup -c",
-    "build:unit": "rollup -c rollup-test.config.js",
+    "build:test": "rollup -c rollup-test.config.js",
     "clasp": "clasp",
     "create": "clasp create --rootDir dist --title='Matomo Looker Studio Connector' --type=standalone && mv ./dist/.clasp.json .",
-    "test:unit": "jest --config=./jest.config.unit.ts",
+    "test:appscript": "jest --config=./jest.config.appscript.ts",
     "test:e2e": "jest --config=./jest.config.e2e.ts",
-    "test": "npm run test:unit && npm run test:e2e"
+    "test": "npm run test:appscript && npm run test:e2e"
   },
   "repository": {
     "type": "git",

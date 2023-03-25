@@ -6,7 +6,7 @@
  */
 
 export default {
-  rootDir: 'tests/unit',
+  rootDir: 'tests/appscript',
   preset: 'ts-jest',
   testEnvironment: 'node',
   testTimeout: 30000,
