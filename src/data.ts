@@ -10,38 +10,81 @@ import * as Api from './api';
 import cc from './connector';
 
 // TODO: make sure UX is good when exceptions Matomo requests errors
+// TODO: use pagination to surpass 50mb request limit
+// TODO: detect time limit issue and cut out w/ warning in case users still requests too much data
+// TODO: support old versions of matomo w/o <metricTypes>. display warning.
 
+// TODO: test that checks every metric type encountered in demo.matomo.cloud is handled (e2e)
+const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
+  'binary': cc.FieldType.TEXT,
+  'text': cc.FieldType.TEXT,
+  'enum': cc.FieldType.TEXT,
+  'money': 'currency',
+  'byte': cc.FieldType,
+  'duration_ms': cc.FieldType,
+  'duration_s': cc.FieldType,
+  'number': cc.FieldType,
+  'float': cc.FieldType,
+  'url': cc.FieldType,
+  'date': cc.FieldType,
+  'time': cc.FieldType,
+  'datetime': cc.FieldType,
+  'timestamp': cc.FieldType,
+  'bool': cc.FieldType,
+  'percent': cc.FieldType,
+};
+
+// exported for tests
+export function getMatomoSemanticTypeToLookerMapping() {
+  return MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING;
+}
+
+function mapMatomoSemanticTypeToLooker(matomoType: string, siteCurrencyCode: string) {
+  let mapped = MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING[matomoType] || cc.FieldType.TEXT;
+  if (mapped === 'currency') {
+    mapped = cc.FieldType[`CURRENCY_${siteCurrencyCode.toUpperCase()}`];
+  }
+  return mapped;
+}
+
+// TODO: this result can be cached as well
+function getSiteCurrency(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
+  const idSite = request.configParams.idsite;
+
+  const response = Api.fetch<Api.Site>('SitesManager.getSiteFromId', {
+    idSite: `${idSite}`,
+  });
+
+  // TODO: make sure all currencies from matomo can be translated to looker studio connector
+  return response.currency;
+}
+
+// TODO: report metadata can be cached
 function getReportMetadata(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-    const idSite = request.configParams.idsite || '1';
-    const report = request.configParams.report || 'VisitsSummary.get';
+    const idSite = request.configParams.idsite;
+    const report = request.configParams.report;
 
     const [apiModule, apiAction] = report.split('.');
 
-    let result = Api.fetch('API.getMetadata', {
+    return Api.fetch<Api.ReportMetadata>('API.getMetadata', {
         idSite: `${idSite}`,
         apiModule,
         apiAction,
         period: 'day',
         date: 'today',
-    })
-
-    if (Array.isArray(result)) {
-        result = result[0];
-    }
-
-    return result as Api.ReportMetadata;
+    });
 }
 
 function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-    const idSite = request.configParams.idsite || 1;
-    const report = request.configParams.report || 'VisitsSummary.get';
+    const idSite = request.configParams.idsite;
+    const report = request.configParams.report;
 
     const [apiModule, apiAction] = report.split('.');
 
     const period = 'range';
     const date = `${request.dateRange.startDate},${request.dateRange.endDate}`;
 
-    let result = Api.fetch('API.getProcessedReport', {
+    return Api.fetch<Api.ProcessedReport>('API.getProcessedReport', {
         idSite: `${idSite}`,
         period,
         date,
@@ -50,40 +93,13 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
         format_metrics: '0',
         flat: '1',
     });
-
-    if (Array.isArray(result)) {
-        result = result[0];
-    }
-
-    return result as Api.ProcessedReport;
 }
 
-function isPercent(name: string) {
-    return /_rate$/.test(name);
-}
-
-function isUniqueCount(name: string) {
-    return /uniq_/.test(name);
-}
-
-function isAverage(name: string) {
-    return /avg_/.test(name);
-}
-
-function addMetric(fields: GoogleAppsScript.Data_Studio.Fields, id: string, name: string) {
-    console.log('addMetric', id, name);
-
-    const types = cc.FieldType;
+function addMetric(fields: GoogleAppsScript.Data_Studio.Fields, id: string, name: string, matomoType: string, siteCurrency: string) {
     const aggregations = cc.AggregationType;
 
-    let type = types.NUMBER;
-    let aggregation = aggregations.SUM;
-
-    if (isPercent(name)) {
-        type = types.PERCENT;
-    } else if (isUniqueCount(name) || isAverage(name)) {
-        aggregation = aggregations.NO_AGGREGATION;
-    }
+    let type = mapMatomoSemanticTypeToLooker(matomoType, siteCurrency);
+    let aggregation = aggregations.NO_AGGREGATION; // TODO: support aggregating all metrics (even processed/computed)
 
     fields
         .newMetric()
@@ -94,55 +110,54 @@ function addMetric(fields: GoogleAppsScript.Data_Studio.Fields, id: string, name
 }
 
 function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, module: string, dimension: string) {
-    console.log('addDimension', module, dimension);
-
-    var types = cc.FieldType;
-
     fields
         .newDimension()
         .setId('label')
         .setName(dimension)
-        .setType(types.TEXT);
+        .setType(cc.FieldType.TEXT); // TODO: support mapping dimension type (might need to put it in the API)
 }
 
-function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, requestedFields?: string[]) {
+// TODO: will all sites have a currency?
+
+function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCurrency: string, requestedFields?: string[]) {
     const fields = cc.getFields();
 
     if (reportMetadata.dimension && (!requestedFields || requestedFields.includes('label'))) {
         addDimension(fields, reportMetadata.module, reportMetadata.dimension);
     }
 
-    [].concat(
-        Object.entries(reportMetadata.metrics),
-        Object.entries(reportMetadata.processedMetrics),
-        // TODO: not supported in poc
-        // Object.entries(reportMetadata.metricsGoal),
-        // Object.entries(reportMetadata.processedMetricsGoal),
-    ).forEach(function (entry) {
-        if (!requestedFields || requestedFields.includes(entry[0])) {
-            addMetric(fields, entry[0], entry[1]);
-        }
+    [
+      ...Object.entries(reportMetadata.metrics),
+      ...Object.entries(reportMetadata.processedMetrics),
+      // TODO: not supported in poc
+      // Object.entries(reportMetadata.metricsGoal),
+      // Object.entries(reportMetadata.processedMetricsGoal),
+    ].forEach(([id, name]) => {
+      if (!requestedFields || requestedFields.includes(id)) {
+        const matomoType = reportMetadata.metricTypes?.[id] || cc.FieldType.TEXT;
+        addMetric(fields, id, name, matomoType, siteCurrency);
+      }
     });
 
     return fields;
 }
 
+// TODO: better logging + better error reporting
+
 function getSchema(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-    console.log('getSchema', request); // TODO: better logging + better error reporting
-
     const reportMetadata = getReportMetadata(request);
+    const siteCurrency = getSiteCurrency(request);
 
-    const fields = getFieldsFromReportMetadata(reportMetadata);
+    const fields = getFieldsFromReportMetadata(reportMetadata, siteCurrency);
 
     return { schema: fields.build() };
 }
 
 function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-    console.log('getData', request);
-
     const processedReport = getProcessedReport(request);
+    const siteCurrency = getSiteCurrency(request);
 
-    const fields = getFieldsFromReportMetadata(processedReport.metadata, request.fields.map(function (r) { return r.name; }));
+    const fields = getFieldsFromReportMetadata(processedReport.metadata, siteCurrency, request.fields.map((r) => r.name));
 
     const data = processedReport.reportData.map((row) => {
         return {

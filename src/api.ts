@@ -8,6 +8,7 @@
 export interface Site {
   idsite: string|number;
   name: string;
+  currency: string;
 }
 
 export interface StoredSegment {
@@ -23,6 +24,7 @@ export interface ReportMetadata {
   processedMetrics: Record<string, string>;
   category: string;
   name: string;
+  metricTypes?: Record<string, string>;
 }
 
 type DataTableRow = Record<string, string>;
