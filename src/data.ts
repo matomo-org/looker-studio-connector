@@ -13,6 +13,7 @@ import cc from './connector';
 // TODO: use pagination to surpass 50mb request limit
 // TODO: detect time limit issue and cut out w/ warning in case users still requests too much data
 // TODO: support old versions of matomo w/o <metricTypes>. display warning.
+// TODO:
 
 // TODO: test that checks every metric type encountered in demo.matomo.cloud is handled (e2e)
 const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
