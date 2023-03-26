@@ -125,6 +125,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
       // empty
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config) {
+      // segment select
       const segments = Api.fetch<Api.StoredSegment[]>('SegmentEditor.getAll');
 
       let segmentSelect = config
@@ -139,6 +140,15 @@ const CONFIG_STEPS = <ConfigStep[]>[
           config.newOptionBuilder().setLabel(segment.name).setValue(segment.definition),
         );
       });
+
+      // TODO: make sure to validate value somehow
+      // filter_limit input
+      config
+        .newTextInput()
+        .setId('filter_limit')
+        .setName('Default Row Limit')
+        .setAllowOverride(true)
+        .setHelpText('TODO');
 
       // TODO: other useful parameter defaults
     },
