@@ -89,6 +89,9 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
 
     const [apiModule, apiAction] = report.split('.');
 
+    // TODO: if no startDate/endDate, throw an error
+    // TODO: test ^ in UI
+
     const period = 'range';
     const date = `${request.dateRange.startDate},${request.dateRange.endDate}`;
 
@@ -165,11 +168,15 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     const processedReport = getProcessedReport(request);
     const siteCurrency = getSiteCurrency(request);
 
-    const fields = getFieldsFromReportMetadata(processedReport.metadata, siteCurrency, request.fields.map((r) => r.name));
+    const fields = getFieldsFromReportMetadata(processedReport.metadata, siteCurrency, request.fields?.map((r) => r.name));
 
-    const data = processedReport.reportData.map((row) => {
+    // API methods that return DataTable\Simple instances are just one row, not an array of rows, so we wrap them
+    // in an array in this case
+    const reportData = Array.isArray(processedReport.reportData) ? processedReport.reportData : [processedReport.reportData];
+
+    const data = reportData.map((row) => {
         return {
-            values: request.fields.map((requestedField) => (row[requestedField.name] || '').toString()),
+            values: request.fields?.map((requestedField) => (row[requestedField.name] || '').toString()) || row,
         };
     });
 
