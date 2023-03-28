@@ -13,7 +13,7 @@ import cc from './connector';
 // TODO: use pagination to surpass 50mb request limit
 // TODO: detect time limit issue and cut out w/ warning in case users still requests too much data
 // TODO: support old versions of matomo w/o <metricTypes>. display warning.
-// TODO: duration_ms will require modifying data
+// TODO: duration_ms will require modifying data. actually, several of these will.
 
 // TODO: test that checks every metric type encountered in demo.matomo.cloud is handled (e2e)
 const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
@@ -22,18 +22,18 @@ const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
   'text': cc.FieldType.TEXT,
   'enum': cc.FieldType.TEXT,
   'money': 'currency',
-  'byte': cc.FieldType,
-  'duration_ms': cc.FieldType,
-  'duration_s': cc.FieldType,
-  'number': cc.FieldType,
-  'float': cc.FieldType,
-  'url': cc.FieldType,
-  'date': cc.FieldType,
-  'time': cc.FieldType,
-  'datetime': cc.FieldType,
-  'timestamp': cc.FieldType,
-  'bool': cc.FieldType,
-  'percent': cc.FieldType,
+  'byte': cc.FieldType.NUMBER,
+  'duration_ms': cc.FieldType.DURATION,
+  'duration_s': cc.FieldType.DURATION,
+  'number': cc.FieldType.NUMBER,
+  'float': cc.FieldType.NUMBER,
+  'url': cc.FieldType.URL,
+  'date': cc.FieldType.YEAR_MONTH_DAY,
+  'time': cc.FieldType.TEXT,
+  'datetime': cc.FieldType.YEAR_MONTH_DAY_SECOND,
+  'timestamp': cc.FieldType.YEAR_MONTH_DAY_SECOND,
+  'bool': cc.FieldType.BOOLEAN,
+  'percent': cc.FieldType.PERCENT,
 };
 
 // exported for tests
@@ -107,17 +107,15 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
 }
 
 function addMetric(fields: GoogleAppsScript.Data_Studio.Fields, id: string, name: string, matomoType: string, siteCurrency: string) {
-    const aggregations = cc.AggregationType;
-
     let type = mapMatomoSemanticTypeToLooker(matomoType, siteCurrency);
-    let aggregation = aggregations.NO_AGGREGATION; // TODO: support aggregating all metrics (even processed/computed)
 
     fields
-        .newMetric()
-        .setId(id)
-        .setName(name)
-        .setType(type)
-        .setAggregation(aggregation);
+      .newMetric()
+      .setId(id)
+      .setName(name)
+      .setType(type)
+      // TODO: support aggregating all metrics (even processed/computed)
+      .setIsReaggregatable(false);
 }
 
 function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, module: string, dimension: string) {
