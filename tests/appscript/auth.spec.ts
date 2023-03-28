@@ -7,6 +7,7 @@
 
 import { describe, it, expect, beforeEach } from '@jest/globals';
 import Clasp from '../utilities/clasp';
+import env from './env';
 
 describe('auth', () => {
   beforeEach(async () => {
@@ -17,8 +18,8 @@ describe('auth', () => {
     it('should store valid credentials', async () => {
       const result = await Clasp.run('setCredentials', {
         userToken: {
-          username: 'https://demo.matomo.cloud/',
-          token: 'anonymous',
+          username: env.APPSCRIPT_TEST_MATOMO,
+          token: env.APPSCRIPT_TEST_TOKEN,
         },
       });
 
@@ -33,7 +34,7 @@ describe('auth', () => {
     it('should not store invalid credentials', async () => {
       const result = await Clasp.run('setCredentials', {
         userToken: {
-          username: 'https://demo.matomo.cloud/',
+          username: env.APPSCRIPT_TEST_MATOMO,
           token: 'invalidauth',
         },
       });
@@ -61,8 +62,8 @@ describe('auth', () => {
     it('should clear the persisted auth', async () => {
       const result = await Clasp.run('setCredentials', {
         userToken: {
-          username: 'https://demo.matomo.cloud/',
-          token: 'anonymous',
+          username: env.APPSCRIPT_TEST_MATOMO,
+          token: env.APPSCRIPT_TEST_TOKEN,
         },
       });
 

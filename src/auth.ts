@@ -19,7 +19,7 @@ export function getAuthType() {
 
 export function checkForValidCreds(instanceUrl?: string, token?: string) {
     try {
-        const responseContent = Api.fetch('SitesManager.getSitesIdWithViewAccess', {}, {
+        const responseContent = Api.fetch('SitesManager.getSitesIdWithAtLeastViewAccess', {}, {
             instanceUrl,
             token,
         });

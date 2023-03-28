@@ -8,6 +8,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import Clasp from '../utilities/clasp';
 import getExpectedResponse from './getExpectedResponse';
+import env from './env';
 
 function cleanUpSelects(response: any) {
   (response.configParams || []).forEach((paramEntry) => {
@@ -31,8 +32,8 @@ describe('config', () => {
   beforeAll(async () => {
     await Clasp.run('setCredentials', {
       userToken: {
-        username: 'https://demo.matomo.cloud/',
-        token: 'anonymous',
+        username: env.APPSCRIPT_TEST_MATOMO,
+        token: env.APPSCRIPT_TEST_TOKEN,
       },
     });
   });

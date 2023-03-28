@@ -8,15 +8,19 @@
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import Clasp from '../utilities/clasp';
 import getExpectedResponse from './getExpectedResponse';
+import env from './env';
 
 const DATE_TO_TEST = '2023-02-15';
 
+// TODO: allow url to have index.php at the end
+
 describe('data', () => {
   beforeAll(async () => {
+    // TODO: assert credentials are valid in all tests
     await Clasp.run('setCredentials', {
       userToken: {
-        username: 'https://demo.matomo.cloud/',
-        token: 'anonymous',
+        username: env.APPSCRIPT_TEST_MATOMO,
+        token: env.APPSCRIPT_TEST_TOKEN,
       },
     });
   });
@@ -28,7 +32,7 @@ describe('data', () => {
   describe('getSchema', () => {
     const methodsTested = {};
     global.ALL_REPORT_METADATA.forEach((r) => {
-      const method = `${r.module}.${r.action}`;
+      const method = `${r.module}.${r.action}`; // TODO: must keep parameters as well
       if (methodsTested[method]) {
         return;
       }
@@ -42,7 +46,7 @@ describe('data', () => {
       it(`should correctly map the schema for ${method}`, async () => {
         let result = await Clasp.run('getSchema', {
           configParams: {
-            idsite: 1,
+            idsite: env.APPSCRIPT_TEST_IDSITE,
             report: method,
           },
         });
@@ -70,7 +74,7 @@ describe('data', () => {
       it(`should correctly map the schema & data for ${method}`, async () => {
         let result = await Clasp.run('getData', {
           configParams: {
-            idsite: 1,
+            idsite: env.APPSCRIPT_TEST_IDSITE,
             report: method,
             filter_limit: 5,
           },
