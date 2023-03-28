@@ -136,8 +136,7 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCur
     }
 
     [
-      ...Object.entries(reportMetadata.metrics || {}),
-      ...Object.entries(reportMetadata.processedMetrics || {}),
+      ...Object.entries({ ...reportMetadata.metrics, ...reportMetadata.processedMetrics }),
       // TODO: not supported in poc
       // Object.entries(reportMetadata.metricsGoal),
       // Object.entries(reportMetadata.processedMetricsGoal),
@@ -163,6 +162,13 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
 }
 
 export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
+    if (!request.dateRange
+      || !request.dateRange.startDate
+      || !request.dateRange.endDate
+    ) {
+      cc.newUserError().setText('A date range must be supplied.').throwException();
+    }
+
     const processedReport = getProcessedReport(request);
     const siteCurrency = getSiteCurrency(request);
 
@@ -173,9 +179,13 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     const reportData = Array.isArray(processedReport.reportData) ? processedReport.reportData : [processedReport.reportData];
 
     const data = reportData.map((row) => {
-        return {
-            values: request.fields?.map((requestedField) => (row[requestedField.name] || '').toString()) || row,
-        };
+      const filteredFields = request.fields
+        ?.filter((requestedField) => typeof row[requestedField.name] !== 'undefined')
+        .map((requestedField) => (row[requestedField.name] || '').toString());
+
+      return {
+          values: filteredFields || row,
+      };
     });
 
     const result = {

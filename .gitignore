@@ -6,3 +6,4 @@ node_modules/
 .clasprc.json
 appsscript.backup.json
 dist/
+tests/appscript/processed/

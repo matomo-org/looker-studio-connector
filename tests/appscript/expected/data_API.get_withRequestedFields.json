@@ -1,0 +1,33 @@
+{
+  "schema": [
+    {
+      "semantics": {
+        "isReaggregatable": false,
+        "conceptType": "METRIC",
+        "semanticType": "NUMBER"
+      },
+      "name": "nb_conversions",
+      "label": "Conversions",
+      "dataType": "NUMBER"
+    },
+    {
+      "label": "Visits",
+      "dataType": "NUMBER",
+      "name": "nb_visits",
+      "semantics": {
+        "semanticType": "NUMBER",
+        "conceptType": "METRIC",
+        "isReaggregatable": false
+      }
+    }
+  ],
+  "rows": [
+    {
+      "values": [
+        "2980",
+        "266"
+      ]
+    }
+  ],
+  "filtersApplied": false
+}

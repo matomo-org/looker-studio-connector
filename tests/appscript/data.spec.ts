@@ -50,12 +50,44 @@ describe('data', () => {
             report: method,
           },
         });
-        expect(result).toEqual(getExpectedResponse('schema', `${method}`));
+        expect(result).toEqual(getExpectedResponse(result, 'schema', `${method}`));
       });
     });
   });
 
   describe('getData', () => {
+    it('should only include requested fields', async () => {
+      let result = await Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: 'API.get',
+          filter_limit: 5,
+        },
+        dateRange: {
+          startDate: DATE_TO_TEST,
+          endDate: DATE_TO_TEST,
+        },
+        fields: [
+          { name: 'nb_visits' },
+          { name: 'nb_conversions' },
+          { name: 'PagePerformance_domprocessing_time' },
+        ],
+      });
+      expect(result).toEqual(getExpectedResponse(result, 'data', 'API.get_withRequestedFields'));
+    });
+
+    it('should fail gracefully when no dateRange is specified', async () => {
+      await expect(async () => {
+        await Clasp.run('getData', {
+          configParams: {
+            idsite: env.APPSCRIPT_TEST_IDSITE,
+            report: 'API.get',
+            filter_limit: 5,
+          },
+        });
+      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
+    });
+
     const methodsTested = {};
     global.ALL_REPORT_METADATA.forEach((r) => {
       const method = `${r.module}.${r.action}`;
@@ -67,9 +99,6 @@ describe('data', () => {
       if (process.env.ONLY_TEST_METHOD && process.env.ONLY_TEST_METHOD !== method) { // TODO: document
         return;
       }
-
-      // TODO: test w/ requested fields
-      // TODO: test failure w/o dateRange
 
       it(`should correctly map the schema & data for ${method}`, async () => {
         let result = await Clasp.run('getData', {
@@ -83,7 +112,7 @@ describe('data', () => {
             endDate: DATE_TO_TEST,
           },
         });
-        expect(result).toEqual(getExpectedResponse('data', `${method}`));
+        expect(result).toEqual(getExpectedResponse(result, 'data', `${method}`));
       });
     });
   });

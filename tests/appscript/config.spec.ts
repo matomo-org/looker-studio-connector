@@ -46,7 +46,7 @@ describe('config', () => {
     it('should return expected response when on the first step', async () => {
       let result = await Clasp.run('getConfig', {});
       result = cleanUpSelects(result);
-      expect(result).toEqual(getExpectedResponse('config', 'step1'));
+      expect(result).toEqual(getExpectedResponse(result, 'config', 'step1'));
     });
 
     it('should return expected response if the first step selection is invalid', async () => {
@@ -66,7 +66,7 @@ describe('config', () => {
         },
       });
       result = cleanUpSelects(result);
-      expect(result).toEqual(getExpectedResponse('config', 'step2'));
+      expect(result).toEqual(getExpectedResponse(result, 'config', 'step2'));
     });
 
     it('should return expected response if the second step selection is invalid', async () => {
@@ -88,7 +88,7 @@ describe('config', () => {
         },
       });
       result = cleanUpSelects(result);
-      expect(result).toEqual(getExpectedResponse('config', 'step3'));
+      expect(result).toEqual(getExpectedResponse(result, 'config', 'step3'));
     });
 
     it('should return expected response if the third step selection is invalid', async () => {
@@ -112,7 +112,7 @@ describe('config', () => {
         },
       });
       result = cleanUpSelects(result);
-      expect(result).toEqual(getExpectedResponse('config', 'step4'));
+      expect(result).toEqual(getExpectedResponse(result, 'config', 'step4'));
     });
   });
 });
