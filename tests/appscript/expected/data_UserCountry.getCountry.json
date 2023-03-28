@@ -8,6 +8,7 @@
         "label": "United States",
         "nb_actions": 1225,
         "nb_actions_per_visit": 2.3,
+        "nb_uniq_visitors": 518,
         "nb_visits": 532,
         "revenue": 2021.6500000000003
       }
@@ -19,6 +20,7 @@
         "label": "United Kingdom",
         "nb_actions": 549,
         "nb_actions_per_visit": 2.2,
+        "nb_uniq_visitors": 245,
         "nb_visits": 252,
         "revenue": 1204.95
       }
@@ -30,6 +32,7 @@
         "label": "Australia",
         "nb_actions": 486,
         "nb_actions_per_visit": 2.1,
+        "nb_uniq_visitors": 224,
         "nb_visits": 230,
         "revenue": 1246.8
       }
@@ -41,6 +44,7 @@
         "label": "Germany",
         "nb_actions": 914,
         "nb_actions_per_visit": 4.6,
+        "nb_uniq_visitors": 184,
         "nb_visits": 198,
         "revenue": 4801.4
       }
@@ -52,6 +56,7 @@
         "label": "Indonesia",
         "nb_actions": 270,
         "nb_actions_per_visit": 1.7,
+        "nb_uniq_visitors": 142,
         "nb_visits": 156,
         "revenue": 64.95
       }
@@ -71,6 +76,16 @@
       "dataType": "NUMBER",
       "label": "Visits",
       "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

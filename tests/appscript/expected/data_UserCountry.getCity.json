@@ -8,6 +8,7 @@
         "label": "Others",
         "nb_actions": 1642,
         "nb_actions_per_visit": 2.4,
+        "nb_uniq_visitors": 682,
         "nb_visits": 682,
         "revenue": 4077.8
       }
@@ -19,6 +20,7 @@
         "label": "Unknown",
         "nb_actions": 1397,
         "nb_actions_per_visit": 2.5,
+        "nb_uniq_visitors": 527,
         "nb_visits": 556,
         "revenue": 2129.5
       }
@@ -30,6 +32,7 @@
         "label": "Sydney, New South Wales, Australia",
         "nb_actions": 140,
         "nb_actions_per_visit": 2.1,
+        "nb_uniq_visitors": 66,
         "nb_visits": 66,
         "revenue": 112.95
       }
@@ -41,6 +44,7 @@
         "label": "London, England, United Kingdom",
         "nb_actions": 111,
         "nb_actions_per_visit": 2.1,
+        "nb_uniq_visitors": 50,
         "nb_visits": 52,
         "revenue": 2
       }
@@ -52,6 +56,7 @@
         "label": "Melbourne, Victoria, Australia",
         "nb_actions": 71,
         "nb_actions_per_visit": 1.9,
+        "nb_uniq_visitors": 36,
         "nb_visits": 37,
         "revenue": 2
       }
@@ -71,6 +76,16 @@
       "dataType": "NUMBER",
       "label": "Visits",
       "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

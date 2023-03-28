@@ -8,12 +8,23 @@
         "max_actions": 42,
         "nb_actions": 7732,
         "nb_actions_per_visit": 2.6,
-        "nb_users": 0,
+        "nb_uniq_visitors": 2841,
+        "nb_users": 3,
         "nb_visits": 2980
       }
     }
   ],
   "schema": [
+    {
+      "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
     {
       "dataType": "NUMBER",
       "label": "Visits",

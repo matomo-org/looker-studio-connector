@@ -9,6 +9,8 @@
         "label": "Monday",
         "nb_actions": 0,
         "nb_actions_per_visit": 0,
+        "nb_uniq_visitors": 0,
+        "nb_users": 0,
         "nb_visits": 0
       }
     },
@@ -20,6 +22,8 @@
         "label": "Tuesday",
         "nb_actions": 0,
         "nb_actions_per_visit": 0,
+        "nb_uniq_visitors": 0,
+        "nb_users": 0,
         "nb_visits": 0
       }
     },
@@ -31,6 +35,8 @@
         "label": "Wednesday",
         "nb_actions": 7732,
         "nb_actions_per_visit": 2.6,
+        "nb_uniq_visitors": 2841,
+        "nb_users": 3,
         "nb_visits": 2980
       }
     },
@@ -42,6 +48,8 @@
         "label": "Thursday",
         "nb_actions": 0,
         "nb_actions_per_visit": 0,
+        "nb_uniq_visitors": 0,
+        "nb_users": 0,
         "nb_visits": 0
       }
     },
@@ -53,6 +61,8 @@
         "label": "Friday",
         "nb_actions": 0,
         "nb_actions_per_visit": 0,
+        "nb_uniq_visitors": 0,
+        "nb_users": 0,
         "nb_visits": 0
       }
     }
@@ -79,8 +89,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Actions",
       "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

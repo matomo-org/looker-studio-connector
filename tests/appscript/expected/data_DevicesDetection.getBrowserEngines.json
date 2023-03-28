@@ -9,6 +9,8 @@
         "label": "Blink (Chrome, Opera)",
         "nb_actions": 4200,
         "nb_actions_per_visit": 2.8,
+        "nb_uniq_visitors": 1443,
+        "nb_users": 3,
         "nb_visits": 1523
       }
     },
@@ -20,6 +22,8 @@
         "label": "WebKit (Safari)",
         "nb_actions": 1889,
         "nb_actions_per_visit": 2,
+        "nb_uniq_visitors": 910,
+        "nb_users": 0,
         "nb_visits": 942
       }
     },
@@ -31,6 +35,8 @@
         "label": "Gecko (Firefox)",
         "nb_actions": 1171,
         "nb_actions_per_visit": 4,
+        "nb_uniq_visitors": 271,
+        "nb_users": 0,
         "nb_visits": 294
       }
     },
@@ -42,6 +48,8 @@
         "label": "Trident (IE)",
         "nb_actions": 264,
         "nb_actions_per_visit": 2.1,
+        "nb_uniq_visitors": 120,
+        "nb_users": 0,
         "nb_visits": 123
       }
     },
@@ -53,6 +61,8 @@
         "label": "Edge",
         "nb_actions": 145,
         "nb_actions_per_visit": 2.6,
+        "nb_uniq_visitors": 55,
+        "nb_users": 0,
         "nb_visits": 55
       }
     }
@@ -79,8 +89,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Actions",
       "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

@@ -8,6 +8,8 @@
         "label": "diveadvisor.com/ - Others",
         "nb_actions": 119,
         "nb_actions_per_visit": 5.4,
+        "nb_uniq_visitors": 22,
+        "nb_users": 0,
         "nb_visits": 22,
         "revenue": 0
       }
@@ -19,6 +21,8 @@
         "label": "diveadvisor.com/index",
         "nb_actions": 101,
         "nb_actions_per_visit": 5.3,
+        "nb_uniq_visitors": 19,
+        "nb_users": 0,
         "nb_visits": 19,
         "revenue": 0
       }
@@ -30,6 +34,8 @@
         "label": "scubadiverlife.com/index",
         "nb_actions": 77,
         "nb_actions_per_visit": 4.3,
+        "nb_uniq_visitors": 18,
+        "nb_users": 0,
         "nb_visits": 18,
         "revenue": 0
       }
@@ -41,6 +47,8 @@
         "label": "www.scubadiving.com/ - Others",
         "nb_actions": 52,
         "nb_actions_per_visit": 4,
+        "nb_uniq_visitors": 13,
+        "nb_users": 0,
         "nb_visits": 13,
         "revenue": 0
       }
@@ -52,6 +60,8 @@
         "label": "www.scubadiving.com/index",
         "nb_actions": 42,
         "nb_actions_per_visit": 6,
+        "nb_uniq_visitors": 7,
+        "nb_users": 0,
         "nb_visits": 7,
         "revenue": 0
       }
@@ -79,8 +89,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Actions",
       "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

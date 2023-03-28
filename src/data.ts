@@ -98,6 +98,8 @@ function getReportMetadata(request: GoogleAppsScript.Data_Studio.Request<Connect
   return result;
 }
 
+// TODO: issue w/ nb_uniq_visitors: it only displays when requesting a single day, but we can't make the getSchema() result differ
+//       based on the date range.
 function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
@@ -105,8 +107,12 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
 
   const reportParams = JSON.parse(report);
 
-  const period = 'range';
-  const date = `${request.dateRange.startDate},${request.dateRange.endDate}`;
+  // TODO: getData test for multiple day range
+  // some API methods (like Actions.getPageUrlsFollowingSiteSearch) have trouble when using a range for a single day,
+  // so we make sure to do a check for this case
+  const isSingleDay = request.dateRange.startDate === request.dateRange.endDate;
+  const period = isSingleDay ? 'day' : 'range';
+  const date = isSingleDay ? request.dateRange.startDate : `${request.dateRange.startDate},${request.dateRange.endDate}`;
 
   const response = Api.fetch<Api.ProcessedReport>('API.getProcessedReport', {
     ...reportParams,

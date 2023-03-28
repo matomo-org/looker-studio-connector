@@ -1,0 +1,71 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "label": "/jobs",
+        "nb_hits": 352,
+        "nb_hits_following_search": "3"
+      }
+    },
+    {
+      "values": {
+        "label": "/",
+        "nb_hits": 258,
+        "nb_hits_following_search": 2
+      }
+    },
+    {
+      "values": {
+        "label": "products/diving-tank/",
+        "nb_hits": 186,
+        "nb_hits_following_search": "3"
+      }
+    },
+    {
+      "values": {
+        "label": "products/basic-wetsuit/",
+        "nb_hits": 134,
+        "nb_hits_following_search": "1"
+      }
+    },
+    {
+      "values": {
+        "label": "best-of-the-best/",
+        "nb_hits": 178,
+        "nb_hits_following_search": "4"
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Destination Page",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Clicked in search results",
+      "name": "nb_hits_following_search",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Pageviews",
+      "name": "nb_hits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

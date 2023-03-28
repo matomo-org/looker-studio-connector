@@ -9,6 +9,8 @@
         "label": "iOS / Mobile Safari / 375x667",
         "nb_actions": 449,
         "nb_actions_per_visit": 1.8,
+        "nb_uniq_visitors": 254,
+        "nb_users": 0,
         "nb_visits": 256
       }
     },
@@ -20,6 +22,8 @@
         "label": "Android / Chrome Mobile / 360x640",
         "nb_actions": 374,
         "nb_actions_per_visit": 1.8,
+        "nb_uniq_visitors": 204,
+        "nb_users": 1,
         "nb_visits": 210
       }
     },
@@ -31,6 +35,8 @@
         "label": "Windows / Chrome / 1920x1080",
         "nb_actions": 648,
         "nb_actions_per_visit": 3.1,
+        "nb_uniq_visitors": 199,
+        "nb_users": 0,
         "nb_visits": 210
       }
     },
@@ -42,6 +48,8 @@
         "label": "Windows / Chrome / 1366x768",
         "nb_actions": 384,
         "nb_actions_per_visit": 2.2,
+        "nb_uniq_visitors": 166,
+        "nb_users": 1,
         "nb_visits": 172
       }
     },
@@ -53,6 +61,8 @@
         "label": "iOS / Mobile Safari / 320x568",
         "nb_actions": 162,
         "nb_actions_per_visit": 1.6,
+        "nb_uniq_visitors": 100,
+        "nb_users": 0,
         "nb_visits": 101
       }
     }
@@ -79,8 +89,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Actions",
       "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

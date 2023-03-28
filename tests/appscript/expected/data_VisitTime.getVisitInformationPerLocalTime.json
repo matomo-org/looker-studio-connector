@@ -9,6 +9,8 @@
         "label": "00",
         "nb_actions": 176,
         "nb_actions_per_visit": 2.4,
+        "nb_uniq_visitors": 74,
+        "nb_users": 0,
         "nb_visits": 74
       }
     },
@@ -20,6 +22,8 @@
         "label": "01",
         "nb_actions": 136,
         "nb_actions_per_visit": 2.7,
+        "nb_uniq_visitors": 49,
+        "nb_users": 0,
         "nb_visits": 50
       }
     },
@@ -31,6 +35,8 @@
         "label": "02",
         "nb_actions": 78,
         "nb_actions_per_visit": 2.7,
+        "nb_uniq_visitors": 29,
+        "nb_users": 0,
         "nb_visits": 29
       }
     },
@@ -42,6 +48,8 @@
         "label": "03",
         "nb_actions": 85,
         "nb_actions_per_visit": 3.1,
+        "nb_uniq_visitors": 27,
+        "nb_users": 0,
         "nb_visits": 27
       }
     },
@@ -53,6 +61,8 @@
         "label": "04",
         "nb_actions": 37,
         "nb_actions_per_visit": 2.8,
+        "nb_uniq_visitors": 13,
+        "nb_users": 0,
         "nb_visits": 13
       }
     }
@@ -79,8 +89,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Actions",
       "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

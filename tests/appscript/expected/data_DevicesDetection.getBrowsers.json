@@ -8,6 +8,8 @@
         "label": "Chrome",
         "nb_actions": 3334,
         "nb_actions_per_visit": 3,
+        "nb_uniq_visitors": 1060,
+        "nb_users": 2,
         "nb_visits": 1127,
         "revenue": 10701.4
       }
@@ -19,6 +21,8 @@
         "label": "Mobile Safari",
         "nb_actions": 973,
         "nb_actions_per_visit": 1.7,
+        "nb_uniq_visitors": 570,
+        "nb_users": 0,
         "nb_visits": 581,
         "revenue": 29
       }
@@ -30,6 +34,8 @@
         "label": "Chrome Mobile",
         "nb_actions": 636,
         "nb_actions_per_visit": 1.9,
+        "nb_uniq_visitors": 332,
+        "nb_users": 1,
         "nb_visits": 342,
         "revenue": 21
       }
@@ -41,6 +47,8 @@
         "label": "Firefox",
         "nb_actions": 1151,
         "nb_actions_per_visit": 4.1,
+        "nb_uniq_visitors": 258,
+        "nb_users": 0,
         "nb_visits": 280,
         "revenue": 4345.45
       }
@@ -52,6 +60,8 @@
         "label": "Safari",
         "nb_actions": 631,
         "nb_actions_per_visit": 2.9,
+        "nb_uniq_visitors": 207,
+        "nb_users": 0,
         "nb_visits": 219,
         "revenue": 674.65
       }
@@ -79,8 +89,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Actions",
       "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

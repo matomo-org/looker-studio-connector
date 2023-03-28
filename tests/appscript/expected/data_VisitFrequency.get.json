@@ -13,10 +13,10 @@
         "nb_actions_per_visit_new": 2.5,
         "nb_actions_per_visit_returning": 3.7,
         "nb_actions_returning": 696,
-        "nb_uniq_visitors_new": 0,
-        "nb_uniq_visitors_returning": 0,
-        "nb_users_new": 0,
-        "nb_users_returning": 0,
+        "nb_uniq_visitors_new": 2790,
+        "nb_uniq_visitors_returning": 171,
+        "nb_users_new": 3,
+        "nb_users_returning": 1,
         "nb_visits_new": 2790,
         "nb_visits_returning": 190
       }

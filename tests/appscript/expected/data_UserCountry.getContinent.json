@@ -8,6 +8,7 @@
         "label": "Europe",
         "nb_actions": 3206,
         "nb_actions_per_visit": 3.3,
+        "nb_uniq_visitors": 932,
         "nb_visits": 986,
         "revenue": 10657.449999999999
       }
@@ -19,6 +20,7 @@
         "label": "Asia",
         "nb_actions": 2044,
         "nb_actions_per_visit": 2.2,
+        "nb_uniq_visitors": 880,
         "nb_visits": 920,
         "revenue": 4301.549999999999
       }
@@ -30,6 +32,7 @@
         "label": "North America",
         "nb_actions": 1572,
         "nb_actions_per_visit": 2.3,
+        "nb_uniq_visitors": 655,
         "nb_visits": 674,
         "revenue": 2106.55
       }
@@ -41,6 +44,7 @@
         "label": "Oceania",
         "nb_actions": 571,
         "nb_actions_per_visit": 2.1,
+        "nb_uniq_visitors": 268,
         "nb_visits": 275,
         "revenue": 1248.8
       }
@@ -52,6 +56,7 @@
         "label": "Africa",
         "nb_actions": 133,
         "nb_actions_per_visit": 2.3,
+        "nb_uniq_visitors": 55,
         "nb_visits": 58,
         "revenue": 4
       }
@@ -71,6 +76,16 @@
       "dataType": "NUMBER",
       "label": "Visits",
       "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

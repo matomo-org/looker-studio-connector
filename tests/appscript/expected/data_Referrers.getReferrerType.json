@@ -8,6 +8,8 @@
         "label": "Search Engines",
         "nb_actions": 3987,
         "nb_actions_per_visit": 2,
+        "nb_uniq_visitors": 2010,
+        "nb_users": 1,
         "nb_visits": 2042,
         "revenue": 2218.7
       }
@@ -19,6 +21,8 @@
         "label": "Social Networks",
         "nb_actions": 1798,
         "nb_actions_per_visit": 4.8,
+        "nb_uniq_visitors": 376,
+        "nb_users": 0,
         "nb_visits": 377,
         "revenue": 4486.65
       }
@@ -30,6 +34,8 @@
         "label": "Websites",
         "nb_actions": 1589,
         "nb_actions_per_visit": 4.8,
+        "nb_uniq_visitors": 333,
+        "nb_users": 1,
         "nb_visits": 333,
         "revenue": 10426.000000000002
       }
@@ -41,6 +47,8 @@
         "label": "Direct Entry",
         "nb_actions": 357,
         "nb_actions_per_visit": 1.6,
+        "nb_uniq_visitors": 221,
+        "nb_users": 1,
         "nb_visits": 227,
         "revenue": 1227.95
       }
@@ -52,6 +60,8 @@
         "label": "Campaigns",
         "nb_actions": 1,
         "nb_actions_per_visit": 1,
+        "nb_uniq_visitors": 1,
+        "nb_users": 0,
         "nb_visits": 1,
         "revenue": 0
       }
@@ -79,8 +89,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Actions",
       "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

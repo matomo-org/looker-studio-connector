@@ -9,6 +9,8 @@
         "label": "1920x1080",
         "nb_actions": 1320,
         "nb_actions_per_visit": 3.4,
+        "nb_uniq_visitors": 367,
+        "nb_users": 0,
         "nb_visits": 387
       }
     },
@@ -20,6 +22,8 @@
         "label": "375x667",
         "nb_actions": 510,
         "nb_actions_per_visit": 1.7,
+        "nb_uniq_visitors": 296,
+        "nb_users": 0,
         "nb_visits": 299
       }
     },
@@ -31,6 +35,8 @@
         "label": "360x640",
         "nb_actions": 514,
         "nb_actions_per_visit": 1.9,
+        "nb_uniq_visitors": 258,
+        "nb_users": 1,
         "nb_visits": 266
       }
     },
@@ -42,6 +48,8 @@
         "label": "1366x768",
         "nb_actions": 543,
         "nb_actions_per_visit": 2.2,
+        "nb_uniq_visitors": 240,
+        "nb_users": 1,
         "nb_visits": 248
       }
     },
@@ -53,6 +61,8 @@
         "label": "1440x900",
         "nb_actions": 587,
         "nb_actions_per_visit": 2.7,
+        "nb_uniq_visitors": 206,
+        "nb_users": 0,
         "nb_visits": 217
       }
     }
@@ -79,8 +89,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Actions",
       "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

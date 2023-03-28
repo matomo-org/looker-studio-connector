@@ -8,6 +8,8 @@
         "label": "Desktop",
         "nb_actions": 5655,
         "nb_actions_per_visit": 3.1,
+        "nb_uniq_visitors": 1695,
+        "nb_users": 2,
         "nb_visits": 1800,
         "revenue": 18118.3
       }
@@ -19,6 +21,8 @@
         "label": "Smartphone",
         "nb_actions": 1711,
         "nb_actions_per_visit": 1.8,
+        "nb_uniq_visitors": 936,
+        "nb_users": 1,
         "nb_visits": 957,
         "revenue": 55
       }
@@ -30,6 +34,8 @@
         "label": "Tablet",
         "nb_actions": 318,
         "nb_actions_per_visit": 1.7,
+        "nb_uniq_visitors": 180,
+        "nb_users": 0,
         "nb_visits": 188,
         "revenue": 185
       }
@@ -41,6 +47,8 @@
         "label": "Phablet",
         "nb_actions": 41,
         "nb_actions_per_visit": 1.4,
+        "nb_uniq_visitors": 28,
+        "nb_users": 0,
         "nb_visits": 30,
         "revenue": 1
       }
@@ -52,6 +60,8 @@
         "label": "Unknown",
         "nb_actions": 6,
         "nb_actions_per_visit": 1.5,
+        "nb_uniq_visitors": 4,
+        "nb_users": 0,
         "nb_visits": 4,
         "revenue": 0
       }
@@ -79,8 +89,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Actions",
       "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

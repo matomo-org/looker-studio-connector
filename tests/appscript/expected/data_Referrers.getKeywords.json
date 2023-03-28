@@ -8,6 +8,8 @@
         "label": " - Google",
         "nb_actions": 3276,
         "nb_actions_per_visit": 1.8,
+        "nb_uniq_visitors": 1816,
+        "nb_users": 0,
         "nb_visits": 1847,
         "revenue": 0
       }
@@ -19,6 +21,8 @@
         "label": " - Bing",
         "nb_actions": 78,
         "nb_actions_per_visit": 2.1,
+        "nb_uniq_visitors": 37,
+        "nb_users": 0,
         "nb_visits": 37,
         "revenue": 0
       }
@@ -30,6 +34,8 @@
         "label": " - Yahoo!",
         "nb_actions": 28,
         "nb_actions_per_visit": 1.5,
+        "nb_uniq_visitors": 19,
+        "nb_users": 0,
         "nb_visits": 19,
         "revenue": 0
       }
@@ -41,6 +47,8 @@
         "label": "scubadiving - DuckDuckGo",
         "nb_actions": 49,
         "nb_actions_per_visit": 4.9,
+        "nb_uniq_visitors": 10,
+        "nb_users": 0,
         "nb_visits": 10,
         "revenue": 0
       }
@@ -52,6 +60,8 @@
         "label": " - DuckDuckGo",
         "nb_actions": 12,
         "nb_actions_per_visit": 1.7,
+        "nb_uniq_visitors": 7,
+        "nb_users": 0,
         "nb_visits": 7,
         "revenue": 0
       }
@@ -79,8 +89,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Actions",
       "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

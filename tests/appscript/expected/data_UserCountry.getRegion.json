@@ -8,6 +8,7 @@
         "label": "Unknown",
         "nb_actions": 1313,
         "nb_actions_per_visit": 2.5,
+        "nb_uniq_visitors": 492,
         "nb_visits": 519,
         "revenue": 2127.5
       }
@@ -19,6 +20,7 @@
         "label": "California, United States",
         "nb_actions": 321,
         "nb_actions_per_visit": 3,
+        "nb_uniq_visitors": 105,
         "nb_visits": 108,
         "revenue": 171.8
       }
@@ -30,6 +32,7 @@
         "label": "New South Wales, Australia",
         "nb_actions": 145,
         "nb_actions_per_visit": 2,
+        "nb_uniq_visitors": 71,
         "nb_visits": 71,
         "revenue": 112.95
       }
@@ -41,6 +44,7 @@
         "label": "Queensland, Australia",
         "nb_actions": 138,
         "nb_actions_per_visit": 2.5,
+        "nb_uniq_visitors": 52,
         "nb_visits": 56,
         "revenue": 48.95
       }
@@ -52,6 +56,7 @@
         "label": "England, United Kingdom",
         "nb_actions": 127,
         "nb_actions_per_visit": 2.4,
+        "nb_uniq_visitors": 51,
         "nb_visits": 53,
         "revenue": 2
       }
@@ -71,6 +76,16 @@
       "dataType": "NUMBER",
       "label": "Visits",
       "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

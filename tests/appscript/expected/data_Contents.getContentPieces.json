@@ -1,0 +1,86 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "interaction_rate": 0,
+        "label": "4 Fun Diving Bali - preview-diving-center",
+        "nb_impressions": 9,
+        "nb_interactions": 0
+      }
+    },
+    {
+      "values": {
+        "interaction_rate": 0,
+        "label": "Absolute Scuba Bali - preview-diving-center",
+        "nb_impressions": 9,
+        "nb_interactions": 0
+      }
+    },
+    {
+      "values": {
+        "interaction_rate": 0,
+        "label": "Adventure Divers Bali - preview-diving-center",
+        "nb_impressions": 6,
+        "nb_interactions": 0
+      }
+    },
+    {
+      "values": {
+        "interaction_rate": 0,
+        "label": "Amed Cafe - preview-diving-center",
+        "nb_impressions": 6,
+        "nb_interactions": 0
+      }
+    },
+    {
+      "values": {
+        "interaction_rate": 0,
+        "label": "Amed Dive Center - preview-diving-center",
+        "nb_impressions": 6,
+        "nb_interactions": 0
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Content Piece",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Impressions",
+      "name": "nb_impressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Content Interactions",
+      "name": "nb_interactions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Interaction Rate",
+      "name": "interaction_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

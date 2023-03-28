@@ -9,6 +9,8 @@
         "label": "Windows",
         "nb_actions": 3375,
         "nb_actions_per_visit": 2.9,
+        "nb_uniq_visitors": 1104,
+        "nb_users": 2,
         "nb_visits": 1165
       }
     },
@@ -20,6 +22,8 @@
         "label": "iOS",
         "nb_actions": 1118,
         "nb_actions_per_visit": 1.6,
+        "nb_uniq_visitors": 665,
+        "nb_users": 0,
         "nb_visits": 680
       }
     },
@@ -31,6 +35,8 @@
         "label": "Mac",
         "nb_actions": 1708,
         "nb_actions_per_visit": 3.2,
+        "nb_uniq_visitors": 515,
+        "nb_users": 0,
         "nb_visits": 542
       }
     },
@@ -42,6 +48,8 @@
         "label": "Android",
         "nb_actions": 926,
         "nb_actions_per_visit": 1.9,
+        "nb_uniq_visitors": 463,
+        "nb_users": 1,
         "nb_visits": 480
       }
     },
@@ -53,6 +61,8 @@
         "label": "GNU/Linux",
         "nb_actions": 592,
         "nb_actions_per_visit": 5.9,
+        "nb_uniq_visitors": 84,
+        "nb_users": 0,
         "nb_visits": 100
       }
     }
@@ -79,8 +89,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Actions",
       "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

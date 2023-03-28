@@ -9,6 +9,8 @@
         "label": "Mobile Safari 11.0",
         "nb_actions": 784,
         "nb_actions_per_visit": 1.7,
+        "nb_uniq_visitors": 457,
+        "nb_users": 0,
         "nb_visits": 462
       }
     },
@@ -20,6 +22,8 @@
         "label": "Chrome 64.0",
         "nb_actions": 426,
         "nb_actions_per_visit": 1.8,
+        "nb_uniq_visitors": 228,
+        "nb_users": 0,
         "nb_visits": 232
       }
     },
@@ -31,6 +35,8 @@
         "label": "Chrome 66.0",
         "nb_actions": 415,
         "nb_actions_per_visit": 2.1,
+        "nb_uniq_visitors": 190,
+        "nb_users": 2,
         "nb_visits": 200
       }
     },
@@ -42,6 +48,8 @@
         "label": "Chrome Mobile 64.0",
         "nb_actions": 214,
         "nb_actions_per_visit": 1.7,
+        "nb_uniq_visitors": 125,
+        "nb_users": 0,
         "nb_visits": 129
       }
     },
@@ -53,6 +61,8 @@
         "label": "Chrome 63.0",
         "nb_actions": 297,
         "nb_actions_per_visit": 2.4,
+        "nb_uniq_visitors": 117,
+        "nb_users": 0,
         "nb_visits": 122
       }
     }
@@ -79,8 +89,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Actions",
       "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
