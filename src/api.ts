@@ -25,6 +25,7 @@ export interface ReportMetadata {
   category: string;
   name: string;
   metricTypes?: Record<string, string>;
+  parameters?: Record<string, string>;
 }
 
 type DataTableRow = Record<string, string>;

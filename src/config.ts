@@ -109,8 +109,14 @@ const CONFIG_STEPS = <ConfigStep[]>[
         .setName('Report');
 
       reportMetadata.forEach((report) => {
+        const value = JSON.stringify({
+          ...report.parameters,
+          apiModule: report.module,
+          apiAction: report.action,
+        });
+
         reportSelect = reportSelect.addOption(
-          config.newOptionBuilder().setLabel(report.name).setValue(`${report.module}.${report.action}`),
+          config.newOptionBuilder().setLabel(report.name).setValue(value),
         );
       });
     },

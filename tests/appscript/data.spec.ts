@@ -32,25 +32,28 @@ describe('data', () => {
   describe('getSchema', () => {
     const methodsTested = {};
     global.ALL_REPORT_METADATA.forEach((r) => {
-      const method = `${r.module}.${r.action}`; // TODO: must keep parameters as well
-      if (methodsTested[method]) {
+      const method = `${r.module}.${r.action}`;
+
+      const reportParams = JSON.stringify({ ...r.parameters, apiModule: r.module, apiAction: r.action });
+      if (methodsTested[reportParams]) {
         return;
       }
 
-      methodsTested[method] = true;
+      methodsTested[reportParams] = true;
 
       if (process.env.ONLY_TEST_METHOD && process.env.ONLY_TEST_METHOD !== method) { // TODO: document
         return;
       }
 
-      it(`should correctly map the schema for ${method}`, async () => {
+      const paramsSuffix = r.parameters ? `(${Object.entries(r.parameters).map(([k, v]) => `${k}_${v}`).join('_')})` : '';
+      it(`should correctly map the schema for ${method}${paramsSuffix}`, async () => {
         let result = await Clasp.run('getSchema', {
           configParams: {
             idsite: env.APPSCRIPT_TEST_IDSITE,
-            report: method,
+            report: reportParams,
           },
         });
-        expect(result).toEqual(getExpectedResponse(result, 'schema', `${method}`));
+        expect(result).toEqual(getExpectedResponse(result, 'schema', `${method}${paramsSuffix}`));
       });
     });
   });
@@ -60,7 +63,7 @@ describe('data', () => {
       let result = await Clasp.run('getData', {
         configParams: {
           idsite: env.APPSCRIPT_TEST_IDSITE,
-          report: 'API.get',
+          report: JSON.stringify({ apiModule: 'API', apiAction: 'get' }),
           filter_limit: 5,
         },
         dateRange: {
@@ -81,7 +84,7 @@ describe('data', () => {
         await Clasp.run('getData', {
           configParams: {
             idsite: env.APPSCRIPT_TEST_IDSITE,
-            report: 'API.get',
+            report: JSON.stringify({ apiModule: 'API', apiAction: 'get' }),
             filter_limit: 5,
           },
         });
@@ -91,20 +94,23 @@ describe('data', () => {
     const methodsTested = {};
     global.ALL_REPORT_METADATA.forEach((r) => {
       const method = `${r.module}.${r.action}`;
-      if (methodsTested[method]) {
+
+      const reportParams = JSON.stringify({ ...r.parameters, apiModule: r.module, apiAction: r.action });
+      if (methodsTested[reportParams]) {
         return;
       }
 
-      methodsTested[method] = true;
+      methodsTested[reportParams] = true;
       if (process.env.ONLY_TEST_METHOD && process.env.ONLY_TEST_METHOD !== method) { // TODO: document
         return;
       }
 
-      it(`should correctly map the schema & data for ${method}`, async () => {
+      const paramsSuffix = r.parameters ? `(${Object.entries(r.parameters).map(([k, v]) => `${k}_${v}`).join('_')})` : '';
+      it(`should correctly map the schema & data for ${method}${paramsSuffix}`, async () => {
         let result = await Clasp.run('getData', {
           configParams: {
             idsite: env.APPSCRIPT_TEST_IDSITE,
-            report: method,
+            report: reportParams,
             filter_limit: 5,
           },
           dateRange: {
@@ -112,7 +118,7 @@ describe('data', () => {
             endDate: DATE_TO_TEST,
           },
         });
-        expect(result).toEqual(getExpectedResponse(result, 'data', `${method}`));
+        expect(result).toEqual(getExpectedResponse(result, 'data', `${method}${paramsSuffix}`));
       });
     });
   });

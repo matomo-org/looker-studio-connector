@@ -1,0 +1,131 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_time_generation": 0,
+        "avg_time_on_dimension": 25,
+        "bounce_rate": 0.44,
+        "exit_rate": 0.65,
+        "label": "page - divezone.net/jobs",
+        "nb_hits": 206,
+        "nb_visits": 147
+      }
+    },
+    {
+      "values": {
+        "avg_time_generation": 0,
+        "avg_time_on_dimension": 28,
+        "bounce_rate": 0.86,
+        "exit_rate": 0.62,
+        "label": "diving - divezone.net/diving/bali",
+        "nb_hits": 153,
+        "nb_visits": 100
+      }
+    },
+    {
+      "values": {
+        "avg_time_generation": 0,
+        "avg_time_on_dimension": 42,
+        "bounce_rate": 0.65,
+        "exit_rate": 0.74,
+        "label": "diving - divezone.net/diving/thailand",
+        "nb_hits": 53,
+        "nb_visits": 46
+      }
+    },
+    {
+      "values": {
+        "avg_time_generation": 0.084,
+        "avg_time_on_dimension": 17,
+        "bounce_rate": 0.8,
+        "exit_rate": 0.7,
+        "label": "diving - divezone.net/diving/indonesia",
+        "nb_hits": 67,
+        "nb_visits": 44
+      }
+    },
+    {
+      "values": {
+        "avg_time_generation": 0,
+        "avg_time_on_dimension": 16,
+        "bounce_rate": 0.47,
+        "exit_rate": 0.69,
+        "label": "diving - divezone.net/diving/australia",
+        "nb_hits": 45,
+        "nb_visits": 36
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Page Type",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions",
+      "name": "nb_hits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Actions",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Time On Dimension",
+      "name": "avg_time_on_dimension",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Bounce Rate",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Exit rate",
+      "name": "exit_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. generation time",
+      "name": "avg_time_generation",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    }
+  ]
+}
