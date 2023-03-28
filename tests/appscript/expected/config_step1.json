@@ -4,7 +4,8 @@
       "displayName": "Website/Measurable",
       "isDynamic": true,
       "name": "idsite",
-      "options": [],
+      "options": [
+      ],
       "type": "SELECT_SINGLE"
     }
   ],

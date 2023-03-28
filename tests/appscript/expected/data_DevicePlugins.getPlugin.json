@@ -1,0 +1,71 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "label": "Cookie",
+        "nb_visits": "2818",
+        "nb_visits_percentage": 0.95
+      }
+    },
+    {
+      "values": {
+        "label": "Pdf",
+        "nb_visits": "1309",
+        "nb_visits_percentage": 0.44
+      }
+    },
+    {
+      "values": {
+        "label": "Flash",
+        "nb_visits": "540",
+        "nb_visits_percentage": 0.18
+      }
+    },
+    {
+      "values": {
+        "label": "Java",
+        "nb_visits": "379",
+        "nb_visits_percentage": 0.13
+      }
+    },
+    {
+      "values": {
+        "label": "Silverlight",
+        "nb_visits": "123",
+        "nb_visits_percentage": 0.04
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Plugin",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "% Visits",
+      "name": "nb_visits_percentage",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

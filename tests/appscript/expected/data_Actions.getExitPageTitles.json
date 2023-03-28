@@ -1,0 +1,96 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "exit_nb_visits": 145,
+        "exit_rate": 0.52,
+        "label": "Others",
+        "nb_visits": 278
+      }
+    },
+    {
+      "values": {
+        "exit_nb_visits": "66",
+        "exit_rate": 0.25,
+        "label": "Cart - Divezone Store",
+        "nb_visits": 269
+      }
+    },
+    {
+      "values": {
+        "exit_nb_visits": "179",
+        "exit_rate": 0.68,
+        "label": "Diving Jobs, latest Divemaster and Scuba Dive Instructor Job offers!",
+        "nb_visits": 264
+      }
+    },
+    {
+      "values": {
+        "exit_nb_visits": "128",
+        "exit_rate": 0.57,
+        "label": "Checkout - Divezone Store",
+        "nb_visits": 223
+      }
+    },
+    {
+      "values": {
+        "exit_nb_visits": "107",
+        "exit_rate": 0.73,
+        "label": "Best Diving sites in Bali – Indonesia Scuba dive reviews by Divezone",
+        "nb_visits": 147
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Exit Page Title",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Exits",
+      "name": "exit_nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Pageviews",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Exit rate",
+      "name": "exit_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. generation time",
+      "name": "avg_time_generation",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    }
+  ]
+}

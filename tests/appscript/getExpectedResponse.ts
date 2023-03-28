@@ -7,6 +7,7 @@
 
 import * as path from 'path';
 import * as fs from 'fs';
+import stringify from 'json-stringify-deterministic';
 
 export default function getExpectedResponse(actualContent: unknown, suiteName: string, testName: string) {
   fs.mkdirSync(path.join(__dirname, 'processed'), { recursive: true });
@@ -15,7 +16,7 @@ export default function getExpectedResponse(actualContent: unknown, suiteName: s
   if (fs.existsSync(processedFilePath)) {
     fs.unlinkSync(processedFilePath);
   }
-  fs.writeFileSync(processedFilePath, JSON.stringify(actualContent, null, '  '));
+  fs.writeFileSync(processedFilePath, (stringify as any)(actualContent, { space: '  ' }));
 
   const expectedFilePath = path.join(__dirname, 'expected', `${suiteName}_${testName}.json`);
   if (!fs.existsSync(expectedFilePath)) {

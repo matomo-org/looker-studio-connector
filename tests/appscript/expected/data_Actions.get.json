@@ -1,0 +1,109 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "nb_downloads": 7,
+        "nb_keywords": 21,
+        "nb_outlinks": 342,
+        "nb_pageviews": 6670,
+        "nb_searches": 59,
+        "nb_uniq_downloads": 6,
+        "nb_uniq_outlinks": 304,
+        "nb_uniq_pageviews": 5261
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "NUMBER",
+      "label": "Pageviews",
+      "name": "nb_pageviews",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Pageviews",
+      "name": "nb_uniq_pageviews",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Downloads",
+      "name": "nb_downloads",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Downloads",
+      "name": "nb_uniq_downloads",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Outlinks",
+      "name": "nb_outlinks",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Outlinks",
+      "name": "nb_uniq_outlinks",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Searches",
+      "name": "nb_searches",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Keywords",
+      "name": "nb_keywords",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. generation time",
+      "name": "avg_time_generation",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    }
+  ]
+}

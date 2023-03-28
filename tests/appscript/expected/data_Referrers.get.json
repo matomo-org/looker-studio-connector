@@ -1,0 +1,176 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "Referrers_distinctCampaigns": 1,
+        "Referrers_distinctKeywords": 53,
+        "Referrers_distinctSearchEngines": 12,
+        "Referrers_distinctSocialNetworks": 5,
+        "Referrers_distinctWebsites": 4,
+        "Referrers_visitorsFromCampaigns": 1,
+        "Referrers_visitorsFromCampaigns_percent": "0%",
+        "Referrers_visitorsFromDirectEntry": 227,
+        "Referrers_visitorsFromDirectEntry_percent": "8%",
+        "Referrers_visitorsFromSearchEngines": 2042,
+        "Referrers_visitorsFromSearchEngines_percent": "69%",
+        "Referrers_visitorsFromSocialNetworks": 377,
+        "Referrers_visitorsFromSocialNetworks_percent": "13%",
+        "Referrers_visitorsFromWebsites": 333,
+        "Referrers_visitorsFromWebsites_percent": "11%"
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "NUMBER",
+      "label": "Visitors from Search Engines",
+      "name": "Referrers_visitorsFromSearchEngines",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Percent of Visitors from Search Engines",
+      "name": "Referrers_visitorsFromSearchEngines_percent",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visitors from Social Networks",
+      "name": "Referrers_visitorsFromSocialNetworks",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Percent of Visitors from Social Networks",
+      "name": "Referrers_visitorsFromSocialNetworks_percent",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visitors from Direct Entry",
+      "name": "Referrers_visitorsFromDirectEntry",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Percent of Visitors from Direct Entry",
+      "name": "Referrers_visitorsFromDirectEntry_percent",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visitors from Websites",
+      "name": "Referrers_visitorsFromWebsites",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Percent of Visitors from Websites",
+      "name": "Referrers_visitorsFromWebsites_percent",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visitors from Campaigns",
+      "name": "Referrers_visitorsFromCampaigns",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Percent of Visitors from Campaigns",
+      "name": "Referrers_visitorsFromCampaigns_percent",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Distinct search engines",
+      "name": "Referrers_distinctSearchEngines",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Distinct social networks",
+      "name": "Referrers_distinctSocialNetworks",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Distinct websites",
+      "name": "Referrers_distinctWebsites",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Distinct keywords",
+      "name": "Referrers_distinctKeywords",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Distinct campaigns",
+      "name": "Referrers_distinctCampaigns",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

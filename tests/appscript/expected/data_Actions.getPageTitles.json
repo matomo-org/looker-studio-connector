@@ -1,0 +1,126 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_time_on_page": 32,
+        "bounce_rate": 0.68,
+        "exit_rate": 0.52,
+        "label": "Others",
+        "nb_hits": 278,
+        "nb_visits": 278
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_page": 27,
+        "bounce_rate": 0.19,
+        "exit_rate": 0.25,
+        "label": "Cart - Divezone Store",
+        "nb_hits": 373,
+        "nb_visits": 269
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_page": 24,
+        "bounce_rate": 0.46,
+        "exit_rate": 0.68,
+        "label": "Diving Jobs, latest Divemaster and Scuba Dive Instructor Job offers!",
+        "nb_hits": 492,
+        "nb_visits": 264
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_page": 38,
+        "bounce_rate": 0.11,
+        "exit_rate": 0.57,
+        "label": "Checkout - Divezone Store",
+        "nb_hits": 317,
+        "nb_visits": 223
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_page": 34,
+        "bounce_rate": 0.6,
+        "exit_rate": 0.73,
+        "label": "Best Diving sites in Bali – Indonesia Scuba dive reviews by Divezone",
+        "nb_hits": 171,
+        "nb_visits": 147
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Page Title",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Pageviews",
+      "name": "nb_hits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Pageviews",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. time on page",
+      "name": "avg_time_on_page",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Bounce Rate",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Exit rate",
+      "name": "exit_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. generation time",
+      "name": "avg_time_generation",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    }
+  ]
+}

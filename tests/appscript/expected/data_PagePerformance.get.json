@@ -1,0 +1,88 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_page_load_time": 0,
+        "avg_time_dom_completion": 0,
+        "avg_time_dom_processing": 0,
+        "avg_time_network": 0,
+        "avg_time_on_load": 0,
+        "avg_time_server": 0,
+        "avg_time_transfer": 0
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Avg. network time",
+      "name": "avg_time_network",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. server time",
+      "name": "avg_time_server",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. transfer time",
+      "name": "avg_time_transfer",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. DOM processing time",
+      "name": "avg_time_dom_processing",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. DOM completion time",
+      "name": "avg_time_dom_completion",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. on load time",
+      "name": "avg_time_on_load",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. page load time",
+      "name": "avg_page_load_time",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    }
+  ]
+}

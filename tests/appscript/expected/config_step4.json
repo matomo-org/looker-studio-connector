@@ -4,30 +4,45 @@
       "displayName": "Website/Measurable",
       "isDynamic": true,
       "name": "idsite",
-      "options": [],
+      "options": [
+      ],
       "type": "SELECT_SINGLE"
     },
     {
       "displayName": "Report Category",
       "isDynamic": true,
       "name": "reportCategory",
-      "options": [],
+      "options": [
+      ],
       "type": "SELECT_SINGLE"
     },
     {
       "displayName": "Report",
       "name": "report",
-      "options": [],
+      "options": [
+      ],
       "type": "SELECT_SINGLE"
     },
     {
       "displayName": "Segment",
       "name": "segment",
-      "options": [],
+      "options": [
+      ],
       "parameterControl": {
         "allowOverride": true
       },
       "type": "SELECT_SINGLE"
+    },
+    {
+      "displayName": "Default Row Limit",
+      "helpText": "TODO",
+      "name": "filter_limit",
+      "options": [
+      ],
+      "parameterControl": {
+        "allowOverride": true
+      },
+      "type": "TEXTINPUT"
     }
   ],
   "dateRangeRequired": true,

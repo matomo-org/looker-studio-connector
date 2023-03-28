@@ -1,0 +1,116 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "exit_rate": 0,
+        "label": "Interaction 1 → dive-shop.net/cart → dive-shop.net/checkout",
+        "nb_exits": 0,
+        "nb_proceeded": 44,
+        "nb_visits": 44,
+        "proceeded_rate": 1
+      }
+    },
+    {
+      "values": {
+        "exit_rate": 0,
+        "label": "Interaction 2 → dive-shop.net/cart → dive-shop.net/checkout",
+        "nb_exits": 0,
+        "nb_proceeded": 40,
+        "nb_visits": 40,
+        "proceeded_rate": 1
+      }
+    },
+    {
+      "values": {
+        "exit_rate": 1,
+        "label": "Interaction 1 → divezone.net/travel/komodo-island",
+        "nb_exits": 37,
+        "nb_proceeded": 0,
+        "nb_visits": 37,
+        "proceeded_rate": 0
+      }
+    },
+    {
+      "values": {
+        "exit_rate": 0,
+        "label": "Interaction 1 → dive-shop.net/products/diving-tank → dive-shop.net/products/diving-tank",
+        "nb_exits": 0,
+        "nb_proceeded": 24,
+        "nb_visits": 24,
+        "proceeded_rate": 1
+      }
+    },
+    {
+      "values": {
+        "exit_rate": 0,
+        "label": "Interaction 1 → dive-shop.net → dive-shop.net",
+        "nb_exits": 0,
+        "nb_proceeded": 24,
+        "nb_visits": 24,
+        "proceeded_rate": 1
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Interaction",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Exits",
+      "name": "nb_exits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Proceeded",
+      "name": "nb_proceeded",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Proceeded Rate",
+      "name": "proceeded_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Exit rate",
+      "name": "exit_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

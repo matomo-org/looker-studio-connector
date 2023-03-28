@@ -1,0 +1,71 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "label": "www.liveaboard.com/diving/search/indonesia?cid=7000",
+        "nb_hits": 28,
+        "nb_visits": 26
+      }
+    },
+    {
+      "values": {
+        "label": "www.facebook.com/Divezone.net",
+        "nb_hits": 25,
+        "nb_visits": 19
+      }
+    },
+    {
+      "values": {
+        "label": "twitter.com/Divezone",
+        "nb_hits": 14,
+        "nb_visits": 14
+      }
+    },
+    {
+      "values": {
+        "label": "www.scubadiving.com/liveabord-diving-san-clemente-island",
+        "nb_hits": 14,
+        "nb_visits": 12
+      }
+    },
+    {
+      "values": {
+        "label": "www.worldnomads.com/Turnstile/AffiliateLink?partnerCode=dz0n3&utm_source=dz0n3&source=weblink&utm_content=weblink&path=https://www.worldnomads.com/travel-insurance/scuba-diving",
+        "nb_hits": 13,
+        "nb_visits": 12
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Clicked Outlink",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Clicks",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Clicks",
+      "name": "nb_hits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

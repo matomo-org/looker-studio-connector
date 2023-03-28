@@ -1,0 +1,126 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_time_on_page": 27,
+        "bounce_rate": 0.04,
+        "exit_rate": 0.24,
+        "label": "/cart/",
+        "nb_hits": 375,
+        "nb_visits": 270
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_page": 25,
+        "bounce_rate": 0.46,
+        "exit_rate": 0.62,
+        "label": "/jobs",
+        "nb_hits": 352,
+        "nb_visits": 234
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_page": 26,
+        "bounce_rate": 0.06,
+        "exit_rate": 0.43,
+        "label": "/checkout/",
+        "nb_hits": 205,
+        "nb_visits": 184
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_page": 20,
+        "bounce_rate": 0.36,
+        "exit_rate": 0.41,
+        "label": "/",
+        "nb_hits": 258,
+        "nb_visits": 176
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_page": 33,
+        "bounce_rate": 0.59,
+        "exit_rate": 0.74,
+        "label": "/diving/bali",
+        "nb_hits": 178,
+        "nb_visits": 151
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Page URL",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Pageviews",
+      "name": "nb_hits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Pageviews",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. time on page",
+      "name": "avg_time_on_page",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Bounce Rate",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Exit rate",
+      "name": "exit_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. generation time",
+      "name": "avg_time_generation",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    }
+  ]
+}

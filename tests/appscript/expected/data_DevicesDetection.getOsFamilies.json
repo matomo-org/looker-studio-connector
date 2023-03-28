@@ -1,0 +1,131 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_time_on_site": 98,
+        "bounce_rate": 0.49,
+        "conversion_rate": 0.1064,
+        "label": "Windows",
+        "nb_actions": 3375,
+        "nb_actions_per_visit": 2.9,
+        "nb_visits": 1165
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 40,
+        "bounce_rate": 0.74,
+        "conversion_rate": 0.05,
+        "label": "iOS",
+        "nb_actions": 1118,
+        "nb_actions_per_visit": 1.6,
+        "nb_visits": 680
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 94,
+        "bounce_rate": 0.5,
+        "conversion_rate": 0.0941,
+        "label": "Mac",
+        "nb_actions": 1708,
+        "nb_actions_per_visit": 3.2,
+        "nb_visits": 542
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 51,
+        "bounce_rate": 0.71,
+        "conversion_rate": 0.0688,
+        "label": "Android",
+        "nb_actions": 926,
+        "nb_actions_per_visit": 1.9,
+        "nb_visits": 480
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 228,
+        "bounce_rate": 0.16,
+        "conversion_rate": 0.1,
+        "label": "GNU/Linux",
+        "nb_actions": 592,
+        "nb_actions_per_visit": 5.9,
+        "nb_visits": 100
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Operating system family",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions",
+      "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions per Visit",
+      "name": "nb_actions_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Time on Website",
+      "name": "avg_time_on_site",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Bounce Rate",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Conversion Rate",
+      "name": "conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

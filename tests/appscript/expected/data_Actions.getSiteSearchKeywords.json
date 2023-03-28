@@ -1,0 +1,86 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "exit_rate": 0.31,
+        "label": "lines",
+        "nb_pages_per_search": 1.1,
+        "nb_visits": 16
+      }
+    },
+    {
+      "values": {
+        "exit_rate": 0.27,
+        "label": "starter",
+        "nb_pages_per_search": 1.1,
+        "nb_visits": 15
+      }
+    },
+    {
+      "values": {
+        "exit_rate": 0,
+        "label": "regulator",
+        "nb_pages_per_search": 1,
+        "nb_visits": 2
+      }
+    },
+    {
+      "values": {
+        "exit_rate": 0,
+        "label": "custom wetsuits",
+        "nb_pages_per_search": 1,
+        "nb_visits": 1
+      }
+    },
+    {
+      "values": {
+        "exit_rate": 1,
+        "label": "dive computer",
+        "nb_pages_per_search": 2,
+        "nb_visits": 1
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Keyword",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Searches",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Search Results pages",
+      "name": "nb_pages_per_search",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "% Search Exits",
+      "name": "exit_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "label": "divezone.net/wp-content/plugins/wpjobboard/environment/resumes/file_3463.pdf",
+        "nb_hits": 1,
+        "nb_visits": 1
+      }
+    },
+    {
+      "values": {
+        "label": "divezone.net/wp-content/plugins/wpjobboard/environment/resumes/file_7600.docx",
+        "nb_hits": 1,
+        "nb_visits": 1
+      }
+    },
+    {
+      "values": {
+        "label": "divezone.net/wp-content/plugins/wpjobboard/environment/resumes/file_7646.pdf",
+        "nb_hits": 1,
+        "nb_visits": 1
+      }
+    },
+    {
+      "values": {
+        "label": "divezone.net/wp-content/plugins/wpjobboard/environment/resumes/file_7773.pdf",
+        "nb_hits": 2,
+        "nb_visits": 1
+      }
+    },
+    {
+      "values": {
+        "label": "divezone.net/wp-content/uploads/2012/03/tahiti-wallpaper.jpg",
+        "nb_hits": 1,
+        "nb_visits": 1
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Download URL",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Downloads",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Downloads",
+      "name": "nb_hits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

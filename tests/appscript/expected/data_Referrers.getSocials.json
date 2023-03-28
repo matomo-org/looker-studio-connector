@@ -1,0 +1,131 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_time_on_site": 123,
+        "bounce_rate": 0.38,
+        "conversion_rate": 0.1077,
+        "label": "reddit - Others",
+        "nb_actions": 230,
+        "nb_actions_per_visit": 3.5,
+        "nb_visits": 65
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 237,
+        "bounce_rate": 0.16,
+        "conversion_rate": 0.25,
+        "label": "Twitter - https://twitter.com/Divezone",
+        "nb_actions": 173,
+        "nb_actions_per_visit": 3.9,
+        "nb_visits": 44
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 139,
+        "bounce_rate": 0.28,
+        "conversion_rate": 0.1667,
+        "label": "Facebook - https://www.facebook.com/Divezone.net",
+        "nb_actions": 160,
+        "nb_actions_per_visit": 4.4,
+        "nb_visits": 36
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 205,
+        "bounce_rate": 0.23,
+        "conversion_rate": 0.2286,
+        "label": "Instagram - https://www.instagram.com/Divezone.net/",
+        "nb_actions": 206,
+        "nb_actions_per_visit": 5.9,
+        "nb_visits": 35
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 147,
+        "bounce_rate": 0.31,
+        "conversion_rate": 0.1724,
+        "label": "Pinterest - https://www.pinterest.com/Divezone.net",
+        "nb_actions": 145,
+        "nb_actions_per_visit": 5,
+        "nb_visits": 29
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Social network",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions",
+      "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions per Visit",
+      "name": "nb_actions_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Time on Website",
+      "name": "avg_time_on_site",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Bounce Rate",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Conversion Rate",
+      "name": "conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

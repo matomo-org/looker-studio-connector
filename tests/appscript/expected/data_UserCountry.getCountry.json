@@ -1,0 +1,121 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_time_on_site": 65,
+        "bounce_rate": 0.63,
+        "label": "United States",
+        "nb_actions": 1225,
+        "nb_actions_per_visit": 2.3,
+        "nb_visits": 532,
+        "revenue": 2021.6500000000003
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 66,
+        "bounce_rate": 0.62,
+        "label": "United Kingdom",
+        "nb_actions": 549,
+        "nb_actions_per_visit": 2.2,
+        "nb_visits": 252,
+        "revenue": 1204.95
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 71,
+        "bounce_rate": 0.64,
+        "label": "Australia",
+        "nb_actions": 486,
+        "nb_actions_per_visit": 2.1,
+        "nb_visits": 230,
+        "revenue": 1246.8
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 168,
+        "bounce_rate": 0.29,
+        "label": "Germany",
+        "nb_actions": 914,
+        "nb_actions_per_visit": 4.6,
+        "nb_visits": 198,
+        "revenue": 4801.4
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 58,
+        "bounce_rate": 0.65,
+        "label": "Indonesia",
+        "nb_actions": 270,
+        "nb_actions_per_visit": 1.7,
+        "nb_visits": 156,
+        "revenue": 64.95
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Country",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions",
+      "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions per Visit",
+      "name": "nb_actions_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Time on Website",
+      "name": "avg_time_on_site",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Bounce Rate",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

@@ -76,34 +76,44 @@ function getReportMetadata(request: GoogleAppsScript.Data_Studio.Request<Connect
         date: 'today',
     });
 
+    let result = response as Api.ReportMetadata;
     if (Array.isArray(response)) {
-      return response[0] as Api.ReportMetadata;
+      result = response[0] as Api.ReportMetadata;
     }
 
-    return response as Api.ReportMetadata;
+    if ((result as any).value === false) {
+      return null;
+    }
+
+    return result;
 }
 
 function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
     const idSite = request.configParams.idsite;
     const report = request.configParams.report;
+    const filter_limit = request.configParams.filter_limit || '-1';
 
     const [apiModule, apiAction] = report.split('.');
-
-    // TODO: if no startDate/endDate, throw an error
-    // TODO: test ^ in UI
 
     const period = 'range';
     const date = `${request.dateRange.startDate},${request.dateRange.endDate}`;
 
-    return Api.fetch<Api.ProcessedReport>('API.getProcessedReport', {
-        idSite: `${idSite}`,
-        period,
-        date,
-        apiModule,
-        apiAction,
-        format_metrics: '0',
-        flat: '1',
+    const response = Api.fetch<Api.ProcessedReport>('API.getProcessedReport', {
+      idSite: `${idSite}`,
+      period,
+      date,
+      apiModule,
+      apiAction,
+      format_metrics: '0',
+      flat: '1',
+      filter_limit,
     });
+
+    if ((response as any).value === false) {
+      return null;
+    }
+
+    return response;
 }
 
 function addMetric(fields: GoogleAppsScript.Data_Studio.Fields, id: string, name: string, matomoType: string, siteCurrency: string) {
@@ -130,17 +140,25 @@ function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, module: strin
 
 function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCurrency: string, requestedFields?: string[]) {
     const fields = cc.getFields();
+    console.log(reportMetadata);
 
     if (reportMetadata.dimension && (!requestedFields || requestedFields.includes('label'))) {
         addDimension(fields, reportMetadata.module, reportMetadata.dimension);
     }
 
     [
-      ...Object.entries({ ...reportMetadata.metrics, ...reportMetadata.processedMetrics }),
+      ...Object.entries({
+        ...reportMetadata.metrics,
+        ...reportMetadata.processedMetrics,
+      }),
       // TODO: not supported in poc
       // Object.entries(reportMetadata.metricsGoal),
       // Object.entries(reportMetadata.processedMetricsGoal),
     ].forEach(([id, name]) => {
+      if (id === 'label') { // metrics array can sometimes contain a 'label' entry, but we reserve that for the dimension
+        return;
+      }
+
       if (!requestedFields || requestedFields.includes(id)) {
         const matomoType = reportMetadata.metricTypes?.[id] || 'text';
         addMetric(fields, id, name, matomoType, siteCurrency);
@@ -154,6 +172,10 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCur
 
 export function getSchema(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
     const reportMetadata = getReportMetadata(request);
+    if (!reportMetadata) {
+      cc.newUserError().setText(`The "${request.configParams.report}" report cannot be found.`).throwException();
+    }
+
     const siteCurrency = getSiteCurrency(request);
 
     const fields = getFieldsFromReportMetadata(reportMetadata, siteCurrency);
@@ -170,6 +192,10 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     }
 
     const processedReport = getProcessedReport(request);
+    if (!processedReport) {
+      cc.newUserError().setText(`The "${request.configParams.report}" report cannot be found.`).throwException();
+    }
+
     const siteCurrency = getSiteCurrency(request);
 
     const fields = getFieldsFromReportMetadata(processedReport.metadata, siteCurrency, request.fields?.map((r) => r.name));

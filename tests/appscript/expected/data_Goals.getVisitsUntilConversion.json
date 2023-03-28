@@ -1,0 +1,61 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "label": "1 visit",
+        "nb_conversions": 151,
+        "revenue": 0
+      }
+    },
+    {
+      "values": {
+        "label": "2 visits",
+        "nb_conversions": 8,
+        "revenue": 0
+      }
+    },
+    {
+      "values": {
+        "label": "3 visits",
+        "nb_conversions": 0,
+        "revenue": 0
+      }
+    },
+    {
+      "values": {
+        "label": "4 visits",
+        "nb_conversions": 0,
+        "revenue": 0
+      }
+    },
+    {
+      "values": {
+        "label": "5 visits",
+        "nb_conversions": 0,
+        "revenue": 0
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Visits to Conversion",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Conversions",
+      "name": "nb_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

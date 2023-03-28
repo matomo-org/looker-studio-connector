@@ -1,0 +1,71 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "label": "Diving Jobs, latest Divemaster and Scuba Dive Instructor Job offers!",
+        "nb_hits": 492,
+        "nb_hits_following_search": "3"
+      }
+    },
+    {
+      "values": {
+        "label": "Divezone Brand Diving Tank - Divezone Store",
+        "nb_hits": 182,
+        "nb_hits_following_search": "3"
+      }
+    },
+    {
+      "values": {
+        "label": "Divezone Store",
+        "nb_hits": 152,
+        "nb_hits_following_search": "4"
+      }
+    },
+    {
+      "values": {
+        "label": "Divezone Brand Basic Wetsuit - Divezone Store",
+        "nb_hits": 131,
+        "nb_hits_following_search": "1"
+      }
+    },
+    {
+      "values": {
+        "label": "Best Diving sites in Thailand – Scuba dive reviews by Divezone",
+        "nb_hits": 88,
+        "nb_hits_following_search": "1"
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Destination Page",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Clicked in search results",
+      "name": "nb_hits_following_search",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Pageviews",
+      "name": "nb_hits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

@@ -4,14 +4,16 @@
       "displayName": "Website/Measurable",
       "isDynamic": true,
       "name": "idsite",
-      "options": [],
+      "options": [
+      ],
       "type": "SELECT_SINGLE"
     },
     {
       "displayName": "Report Category",
       "isDynamic": true,
       "name": "reportCategory",
-      "options": [],
+      "options": [
+      ],
       "type": "SELECT_SINGLE"
     }
   ],

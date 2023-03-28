@@ -7,11 +7,13 @@
 
 // NOTE: this file must be in JS not TypeScript, otherwise jest will not be able to run it successfully
 
+require('dotenv/config');
 const path = require('path');
 const fs = require('fs');
 const axios = require("axios");
 const execSync = require('child_process').execSync;
 const Clasp = require('../utilities/clasp').default;
+const env = require('./env').default;
 
 const appsScriptPath = path.join(__dirname, '../../src/appsscript.json');
 const backupAppsScriptPath = path.join(__dirname, './appsscript.backup.json');
@@ -35,9 +37,10 @@ module.exports = async function () {
     Clasp.startWatchingLogs();
 
     // request data used to dynamically generate test cases (which cannot be done within a describe() call)
+    const url = `${env.APPSCRIPT_TEST_MATOMO.replace(/[/]+$/g, '')}/index.php?idSite=${env.APPSCRIPT_TEST_IDSITE}&period=day&date=today&module=API&method=API.getReportMetadata&token_auth=${env.APPSCRIPT_TEST_TOKEN}&format=JSON`;
     const response = await axios({
         method: 'GET',
-        url: 'https://demo.matomo.cloud/index.php?idSite=1&period=day&date=today&module=API&method=API.getReportMetadata&token_auth=anonymous&format=JSON',
+        url,
     });
     const allReportMethods = response.data;
     global.ALL_REPORT_METADATA = allReportMethods;

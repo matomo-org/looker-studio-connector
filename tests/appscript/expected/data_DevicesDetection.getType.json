@@ -1,0 +1,121 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_time_on_site": 104,
+        "bounce_rate": 0.47,
+        "label": "Desktop",
+        "nb_actions": 5655,
+        "nb_actions_per_visit": 3.1,
+        "nb_visits": 1800,
+        "revenue": 18118.3
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 43,
+        "bounce_rate": 0.73,
+        "label": "Smartphone",
+        "nb_actions": 1711,
+        "nb_actions_per_visit": 1.8,
+        "nb_visits": 957,
+        "revenue": 55
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 54,
+        "bounce_rate": 0.68,
+        "label": "Tablet",
+        "nb_actions": 318,
+        "nb_actions_per_visit": 1.7,
+        "nb_visits": 188,
+        "revenue": 185
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 30,
+        "bounce_rate": 0.73,
+        "label": "Phablet",
+        "nb_actions": 41,
+        "nb_actions_per_visit": 1.4,
+        "nb_visits": 30,
+        "revenue": 1
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 177,
+        "bounce_rate": 0.5,
+        "label": "Unknown",
+        "nb_actions": 6,
+        "nb_actions_per_visit": 1.5,
+        "nb_visits": 4,
+        "revenue": 0
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Device type",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions",
+      "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions per Visit",
+      "name": "nb_actions_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Time on Website",
+      "name": "avg_time_on_site",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Bounce Rate",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

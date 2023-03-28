@@ -1,0 +1,146 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_price": 500,
+        "avg_quantity": 1,
+        "conversion_rate": 0,
+        "label": "3882",
+        "nb_visits": 0,
+        "orders": 21,
+        "quantity": 22,
+        "revenue": 11000
+      }
+    },
+    {
+      "values": {
+        "avg_price": 1055.95,
+        "avg_quantity": 1,
+        "conversion_rate": 0,
+        "label": "6859",
+        "nb_visits": 0,
+        "orders": 2,
+        "quantity": 2,
+        "revenue": 2111.9
+      }
+    },
+    {
+      "values": {
+        "avg_price": 89,
+        "avg_quantity": 1,
+        "conversion_rate": 0,
+        "label": "3222",
+        "nb_visits": 0,
+        "orders": 17,
+        "quantity": 17,
+        "revenue": 1513
+      }
+    },
+    {
+      "values": {
+        "avg_price": 500,
+        "avg_quantity": 1,
+        "conversion_rate": 0,
+        "label": "3197",
+        "nb_visits": 0,
+        "orders": 3,
+        "quantity": 3,
+        "revenue": 1500
+      }
+    },
+    {
+      "values": {
+        "avg_price": 147.95,
+        "avg_quantity": 1,
+        "conversion_rate": 0,
+        "label": "4333",
+        "nb_visits": 0,
+        "orders": 10,
+        "quantity": 10,
+        "revenue": 1479.5
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Product SKU",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Product Revenue",
+      "name": "revenue",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Quantity",
+      "name": "quantity",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Purchases",
+      "name": "orders",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Average Price",
+      "name": "avg_price",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Average Quantity",
+      "name": "avg_quantity",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Product Conversion Rate",
+      "name": "conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

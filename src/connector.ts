@@ -10,6 +10,7 @@ export interface ConnectorParams {
   reportCategory?: string;
   report?: string;
   segment?: string;
+  filter_limit?: string;
 }
 
 export default DataStudioApp.createCommunityConnector();

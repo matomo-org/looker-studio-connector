@@ -1,0 +1,131 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_time_on_site": 90,
+        "bounce_rate": 0.54,
+        "conversion_rate": 0.0893,
+        "label": "Blink (Chrome, Opera)",
+        "nb_actions": 4200,
+        "nb_actions_per_visit": 2.8,
+        "nb_visits": 1523
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 52,
+        "bounce_rate": 0.68,
+        "conversion_rate": 0.0637,
+        "label": "WebKit (Safari)",
+        "nb_actions": 1889,
+        "nb_actions_per_visit": 2,
+        "nb_visits": 942
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 135,
+        "bounce_rate": 0.35,
+        "conversion_rate": 0.1361,
+        "label": "Gecko (Firefox)",
+        "nb_actions": 1171,
+        "nb_actions_per_visit": 4,
+        "nb_visits": 294
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 67,
+        "bounce_rate": 0.62,
+        "conversion_rate": 0.0813,
+        "label": "Trident (IE)",
+        "nb_actions": 264,
+        "nb_actions_per_visit": 2.1,
+        "nb_visits": 123
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 82,
+        "bounce_rate": 0.55,
+        "conversion_rate": 0.0545,
+        "label": "Edge",
+        "nb_actions": 145,
+        "nb_actions_per_visit": 2.6,
+        "nb_visits": 55
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Browser engine",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions",
+      "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions per Visit",
+      "name": "nb_actions_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Time on Website",
+      "name": "avg_time_on_site",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Bounce Rate",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Conversion Rate",
+      "name": "conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

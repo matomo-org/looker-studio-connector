@@ -1,0 +1,131 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_event_value": 1.15,
+        "label": "added - Diving Tank - Cart change",
+        "max_event_value": 4,
+        "min_event_value": 1,
+        "nb_events": 108,
+        "nb_events_with_value": 108,
+        "sum_event_value": 124
+      }
+    },
+    {
+      "values": {
+        "avg_event_value": 1.01,
+        "label": "added - Basic Wetsuit - Cart change",
+        "max_event_value": 2,
+        "min_event_value": 1,
+        "nb_events": 92,
+        "nb_events_with_value": 92,
+        "sum_event_value": 93
+      }
+    },
+    {
+      "values": {
+        "avg_event_value": 1.19,
+        "label": "added - Scuba Fins - Cart change",
+        "max_event_value": 4,
+        "min_event_value": 1,
+        "nb_events": 54,
+        "nb_events_with_value": 54,
+        "sum_event_value": 64
+      }
+    },
+    {
+      "values": {
+        "avg_event_value": 1.08,
+        "label": "added - Diving Knife - Cart change",
+        "max_event_value": 2,
+        "min_event_value": 1,
+        "nb_events": 38,
+        "nb_events_with_value": 38,
+        "sum_event_value": 41
+      }
+    },
+    {
+      "values": {
+        "avg_event_value": 1.24,
+        "label": "added - Silicone Grease - Cart change",
+        "max_event_value": 2,
+        "min_event_value": 1,
+        "nb_events": 33,
+        "nb_events_with_value": 33,
+        "sum_event_value": 41
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Event Name",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Events",
+      "name": "nb_events",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Event value",
+      "name": "sum_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Minimum Event value",
+      "name": "min_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Maximum Event value",
+      "name": "max_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Events with a value",
+      "name": "nb_events_with_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "The average of all values for this event",
+      "name": "avg_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

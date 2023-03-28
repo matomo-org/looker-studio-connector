@@ -8,7 +8,7 @@
 import * as path from 'path';
 import { spawn } from 'child_process';
 import * as fs from 'fs';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
 interface RunOptions {
   passthrough?: boolean;

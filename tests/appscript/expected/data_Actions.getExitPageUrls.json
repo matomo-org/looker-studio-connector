@@ -1,0 +1,96 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "exit_nb_visits": "66",
+        "exit_rate": 0.24,
+        "label": "/cart/",
+        "nb_visits": 270
+      }
+    },
+    {
+      "values": {
+        "exit_nb_visits": "144",
+        "exit_rate": 0.62,
+        "label": "/jobs",
+        "nb_visits": 234
+      }
+    },
+    {
+      "values": {
+        "exit_nb_visits": "80",
+        "exit_rate": 0.43,
+        "label": "/checkout/",
+        "nb_visits": 184
+      }
+    },
+    {
+      "values": {
+        "exit_nb_visits": 73,
+        "exit_rate": 0.41,
+        "label": "/",
+        "nb_visits": 176
+      }
+    },
+    {
+      "values": {
+        "exit_nb_visits": "111",
+        "exit_rate": 0.74,
+        "label": "/diving/bali",
+        "nb_visits": 151
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Exit Page URL",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Exits",
+      "name": "exit_nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Pageviews",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Exit rate",
+      "name": "exit_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. generation time",
+      "name": "avg_time_generation",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    }
+  ]
+}

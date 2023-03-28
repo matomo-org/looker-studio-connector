@@ -1,0 +1,50 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "exit_rate": 1,
+        "label": "divemaster greece",
+        "nb_visits": 1
+      }
+    },
+    {
+      "values": {
+        "exit_rate": 0,
+        "label": "Poblacion2malvarcoronpalawan 5316",
+        "nb_visits": 1
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Keyword with No Search Result",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Searches",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "% Search Exits",
+      "name": "exit_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

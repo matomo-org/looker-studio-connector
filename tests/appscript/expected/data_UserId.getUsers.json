@@ -1,0 +1,122 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_time_on_site": 13,
+        "bounce_rate": 0.5,
+        "conversion_rate": 0.5,
+        "label": "momofdivers",
+        "nb_actions": 4,
+        "nb_actions_per_visit": 2,
+        "nb_visits": 2,
+        "nb_visits_converted": 1
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 0,
+        "bounce_rate": 1,
+        "conversion_rate": 0,
+        "label": "mezzdving",
+        "nb_actions": 1,
+        "nb_actions_per_visit": 1,
+        "nb_visits": 1,
+        "nb_visits_converted": 0
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 569,
+        "bounce_rate": 0,
+        "conversion_rate": 1,
+        "label": "newmermaidontheblock",
+        "nb_actions": 6,
+        "nb_actions_per_visit": 6,
+        "nb_visits": 1,
+        "nb_visits_converted": 1
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "UserId",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions",
+      "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits with Conversions",
+      "name": "nb_visits_converted",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions per Visit",
+      "name": "nb_actions_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Time on Website",
+      "name": "avg_time_on_site",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Bounce Rate",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Conversion Rate",
+      "name": "conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

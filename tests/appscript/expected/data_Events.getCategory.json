@@ -1,0 +1,131 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_event_value": 0.84,
+        "label": "Ecommerce - Cart change",
+        "max_event_value": 4,
+        "min_event_value": -4,
+        "nb_events": 553,
+        "nb_events_with_value": 553,
+        "sum_event_value": 465
+      }
+    },
+    {
+      "values": {
+        "avg_event_value": 0,
+        "label": "MediaVideo - play",
+        "max_event_value": 0,
+        "min_event_value": 0,
+        "nb_events": 32,
+        "nb_events_with_value": 11,
+        "sum_event_value": 0
+      }
+    },
+    {
+      "values": {
+        "avg_event_value": 130,
+        "label": "MediaVideo - pause",
+        "max_event_value": 258,
+        "min_event_value": 64,
+        "nb_events": 15,
+        "nb_events_with_value": 5,
+        "sum_event_value": 650
+      }
+    },
+    {
+      "values": {
+        "avg_event_value": 138.5,
+        "label": "MediaVideo - seek",
+        "max_event_value": 285,
+        "min_event_value": 0,
+        "nb_events": 22,
+        "nb_events_with_value": 22,
+        "sum_event_value": 3047
+      }
+    },
+    {
+      "values": {
+        "avg_event_value": 0,
+        "label": "Add review - click",
+        "max_event_value": 0,
+        "min_event_value": false,
+        "nb_events": 6,
+        "nb_events_with_value": 0,
+        "sum_event_value": 0
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Event Category",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Events",
+      "name": "nb_events",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Event value",
+      "name": "sum_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Minimum Event value",
+      "name": "min_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Maximum Event value",
+      "name": "max_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Events with a value",
+      "name": "nb_events_with_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "The average of all values for this event",
+      "name": "avg_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

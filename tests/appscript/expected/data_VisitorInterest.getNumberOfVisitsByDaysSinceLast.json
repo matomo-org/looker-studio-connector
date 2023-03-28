@@ -1,0 +1,56 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "label": "New visits",
+        "nb_visits": "2790"
+      }
+    },
+    {
+      "values": {
+        "label": "0 days",
+        "nb_visits": "161"
+      }
+    },
+    {
+      "values": {
+        "label": "1 day",
+        "nb_visits": "9"
+      }
+    },
+    {
+      "values": {
+        "label": "2 days",
+        "nb_visits": "0"
+      }
+    },
+    {
+      "values": {
+        "label": "3 days",
+        "nb_visits": "0"
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Days since last visit",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

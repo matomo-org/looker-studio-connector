@@ -1,0 +1,121 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": {
+        "avg_time_on_site": 52,
+        "bounce_rate": 0.68,
+        "label": "Search Engines",
+        "nb_actions": 3987,
+        "nb_actions_per_visit": 2,
+        "nb_visits": 2042,
+        "revenue": 2218.7
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 182,
+        "bounce_rate": 0.21,
+        "label": "Social Networks",
+        "nb_actions": 1798,
+        "nb_actions_per_visit": 4.8,
+        "nb_visits": 377,
+        "revenue": 4486.65
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 164,
+        "bounce_rate": 0.17,
+        "label": "Websites",
+        "nb_actions": 1589,
+        "nb_actions_per_visit": 4.8,
+        "nb_visits": 333,
+        "revenue": 10426.000000000002
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 46,
+        "bounce_rate": 0.79,
+        "label": "Direct Entry",
+        "nb_actions": 357,
+        "nb_actions_per_visit": 1.6,
+        "nb_visits": 227,
+        "revenue": 1227.95
+      }
+    },
+    {
+      "values": {
+        "avg_time_on_site": 0,
+        "bounce_rate": 1,
+        "label": "Campaigns",
+        "nb_actions": 1,
+        "nb_actions_per_visit": 1,
+        "nb_visits": 1,
+        "revenue": 0
+      }
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Channel Type",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions",
+      "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions per Visit",
+      "name": "nb_actions_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Time on Website",
+      "name": "avg_time_on_site",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Bounce Rate",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}
