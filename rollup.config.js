@@ -7,6 +7,7 @@
 
 const typescript = require('@rollup/plugin-typescript');
 const copy = require('rollup-plugin-copy');
+const dotenv = require('rollup-plugin-dotenv').default;
 
 // removes export statements since they are not recognized by apps script, but rollup always puts them in for esm output
 const removeExports = () => {
@@ -27,6 +28,7 @@ module.exports = {
   },
   plugins: [
     typescript(),
+    dotenv(),
     copy({
       targets: [
         { src: 'src/appsscript.json', dest: 'dist' },

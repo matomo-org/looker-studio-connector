@@ -230,11 +230,9 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     };
   });
 
-  const result = {
+  return {
     schema: fields.build(),
     rows: data,
-    filtersApplied: false
+    filtersApplied: false,
   };
-
-  return result;
 }

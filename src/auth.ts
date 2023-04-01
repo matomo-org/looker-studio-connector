@@ -8,8 +8,6 @@
 import * as Api from './api';
 import cc from './connector';
 
-const DEBUG = true; // TODO: replace w/ dotenv
-
 export function getAuthType() {
     return cc.newAuthTypeResponse()
         .setAuthType(cc.AuthType.USER_TOKEN)
@@ -61,5 +59,5 @@ export function resetAuth() {
 }
 
 export function isAdminUser() {
-    return DEBUG;
+    return !!process.env.DEBUG;
 }
