@@ -6,7 +6,6 @@
  */
 
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
-import axios from 'axios';
 import Clasp from '../utilities/clasp';
 import getExpectedResponse from './getExpectedResponse';
 import env from './env';

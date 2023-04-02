@@ -186,13 +186,20 @@ const CONFIG_STEPS = <ConfigStep[]>[
         );
       });
 
-      // TODO: make sure to validate value somehow
+      // TODO: make sure to validate values somehow
       // filter_limit input
       config
         .newTextInput()
         .setId('filter_limit')
         .setName('Default Row Limit')
         .setAllowOverride(true)
+        .setHelpText('TODO');
+
+      config
+        .newCheckbox()
+        .setId('flat')
+        .setName('Flatten')
+        .setAllowOverride(false)
         .setHelpText('TODO');
 
       // TODO: other useful parameter defaults

@@ -62,6 +62,7 @@ class Clasp {
         const proc = spawn(this.claspPath, subcommand);
 
         let output = '';
+        let stderr = '';
 
         proc.stdout.on('data', (data: Buffer) => {
           if (options.passthrough) {
@@ -74,6 +75,8 @@ class Clasp {
         proc.stderr.on('data', (data) => {
           if (options.passthrough) {
             process.stderr.write(data);
+          } else {
+            stderr += data.toString('utf-8');
           }
         });
 
@@ -83,7 +86,7 @@ class Clasp {
           }
 
           if (code) {
-            reject(new Error(`'${commandStr}' exited with code ${code}`));
+            reject(new Error(`'${commandStr}' exited with code ${code} (output: ${output}, stderr: ${stderr})`));
           } else {
             if (options.passthrough) {
               resolve(code);

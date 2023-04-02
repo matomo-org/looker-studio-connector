@@ -9,9 +9,10 @@ import { ConnectorParams } from './connector';
 import * as Api from './api';
 import cc from './connector';
 
-// TODO: make sure UX is good when exceptions Matomo requests errors
-// TODO: use pagination to surpass 50mb request limit
+// TODO: make sure UX is good when Matomo requests error
+
 // TODO: detect time limit issue and cut out w/ warning in case users still requests too much data
+
 // TODO: support old versions of matomo w/o <metricTypes>. display warning.
 // TODO: duration_ms will require modifying data. actually, several of these will.
 
@@ -99,7 +100,9 @@ function getReportMetadata(request: GoogleAppsScript.Data_Studio.Request<Connect
 function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
-  const filter_limit = request.configParams.filter_limit || '-1';
+  const filter_limit = parseInt(request.configParams.filter_limit || '-1', 10);
+
+  const rowsToFetchAtATime = parseInt(process.env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
 
   const reportParams = JSON.parse(report);
 
@@ -109,18 +112,34 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
   const period = isSingleDay ? 'day' : 'range';
   const date = isSingleDay ? request.dateRange.startDate : `${request.dateRange.startDate},${request.dateRange.endDate}`;
 
-  const response = Api.fetch<Api.ProcessedReport>('API.getProcessedReport', {
-    ...reportParams,
-    idSite: `${idSite}`,
-    period,
-    date,
-    format_metrics: '0',
-    flat: '1',
-    filter_limit,
-  });
+  // request report data one large chunk at a time to make sure we don't hit the 50mb HTTP response size limit
+  // for apps scripts
+  let response: Api.ProcessedReport|null = null;
+  while (!response || response.reportData.length < filter_limit) {
+    const limitToUse = filter_limit < 0 || filter_limit >= rowsToFetchAtATime ? rowsToFetchAtATime : filter_limit;
+    const partialResponse = Api.fetch<Api.ProcessedReport>('API.getProcessedReport', {
+      ...reportParams,
+      idSite: `${idSite}`,
+      period,
+      date,
+      format_metrics: '0',
+      flat: '1',
+      filter_limit: `${limitToUse}`,
+    });
 
-  if ((response as any).value === false) {
-    return null;
+    if ((partialResponse as any).value === false) {
+      break; // nothing returned by request
+    }
+
+    if (!response) {
+      response = partialResponse;
+    } else {
+      response.reportData.push(...partialResponse.reportData);
+    }
+
+    if (partialResponse.reportData.length < limitToUse) {
+      break; // less rows than limit returned, so no more data
+    }
   }
 
   return response;

@@ -7,8 +7,8 @@
 
 // NOTE: this file must be in JS not TypeScript, otherwise jest will not be able to run it successfully
 
-require('dotenv/config');
 const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 const fs = require('fs');
 const axios = require('axios');
 const execSync = require('child_process').execSync;

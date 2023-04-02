@@ -1,7 +1,7 @@
 .idea/
 .clasp.json
 node_modules/
-.env
+tests/.env
 /creds.json
 .clasprc.json
 appsscript.backup.json
