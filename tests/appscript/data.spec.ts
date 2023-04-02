@@ -6,6 +6,7 @@
  */
 
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
+import axios from 'axios';
 import Clasp from '../utilities/clasp';
 import getExpectedResponse from './getExpectedResponse';
 import env from './env';
@@ -14,11 +15,8 @@ const DATE_TO_TEST = '2023-02-15';
 const RANGE_START_DATE_TO_TEST = '2023-02-15';
 const RANGE_END_DATE_TO_TEST = '2023-02-19';
 
-// TODO: allow url to have index.php at the end
-
 describe('data', () => {
   beforeAll(async () => {
-    // TODO: assert credentials are valid in all tests
     await Clasp.run('setCredentials', {
       userToken: {
         username: env.APPSCRIPT_TEST_MATOMO,

@@ -10,7 +10,7 @@
 require('dotenv/config');
 const path = require('path');
 const fs = require('fs');
-const axios = require("axios");
+const axios = require('axios');
 const execSync = require('child_process').execSync;
 const Clasp = require('../utilities/clasp').default;
 const env = require('./env').default;

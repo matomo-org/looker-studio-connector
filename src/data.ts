@@ -44,7 +44,8 @@ export function getMatomoSemanticTypeToLookerMapping() {
 function mapMatomoSemanticTypeToLooker(matomoType: string, siteCurrencyCode: string) {
   let mapped = MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING[matomoType] || cc.FieldType.TEXT;
   if (mapped === 'currency') {
-    mapped = cc.FieldType[`CURRENCY_${siteCurrencyCode.toUpperCase()}`];
+    // NOTE: not all currencies supported in Matomo are supported by looker studio
+    mapped = cc.FieldType[`CURRENCY_${siteCurrencyCode.toUpperCase()}`] || cc.FieldType.NUMBER;
   }
   return mapped;
 }
@@ -54,7 +55,6 @@ function getSiteCurrency(request: GoogleAppsScript.Data_Studio.Request<Connector
 
   const response = Api.fetch<Api.Site>('SitesManager.getSiteFromId', { idSite: `${idSite}` });
 
-  // TODO: make sure all currencies from matomo can be translated to looker studio connector
   return response.currency;
 }
 
