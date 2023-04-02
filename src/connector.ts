@@ -14,3 +14,10 @@ export interface ConnectorParams {
 }
 
 export default DataStudioApp.createCommunityConnector();
+
+// used to detect script elapsed time and whether it is close to the apps script time limit
+export const scriptStartTime = Date.now();
+
+export function getScriptElapsedTime() {
+  return Date.now() - scriptStartTime;
+}

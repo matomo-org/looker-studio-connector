@@ -7,11 +7,12 @@
 
 import { ConnectorParams } from './connector';
 import * as Api from './api';
-import cc from './connector';
+import cc, { getScriptElapsedTime } from './connector';
 
+const SCRIPT_RUNTIME_LIMIT = parseInt(process.env.SCRIPT_RUNTIME_LIMIT) || 0;
+
+// TODO: retry requests under certain conditions (500 errors? 420?)
 // TODO: make sure UX is good when Matomo requests error
-
-// TODO: detect time limit issue and cut out w/ warning in case users still requests too much data
 
 // TODO: support old versions of matomo w/o <metricTypes>. display warning.
 // TODO: duration_ms will require modifying data. actually, several of these will.
@@ -139,6 +140,14 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
 
     if (partialResponse.reportData.length < limitToUse) {
       break; // less rows than limit returned, so no more data
+    }
+
+    // stop requesting if we are close to the apps script time limit and display a warning to the user
+    if (SCRIPT_RUNTIME_LIMIT > 0 && getScriptElapsedTime() > SCRIPT_RUNTIME_LIMIT) {
+      cc.newUserError().setText('It\'s taking too long to get the requested data. This may be a momentary issue with '
+        + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
+        + 'case, limit the data you are requesting to see it in Looker Studio.');
+      break;
     }
   }
 
