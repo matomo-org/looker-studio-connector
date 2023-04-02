@@ -40,13 +40,33 @@ interface MatomoRequestParams {
   params?: Record<string, string>,
 }
 
+interface ApiFetchOptions {
+  instanceUrl?: string;
+  token?: string;
+  cacheKey?: string;
+  cacheTtl?: number;
+}
+
 /**
  * TODO
  *
  * @param requests
  * @param options
  */
-export function fetchAll(requests: MatomoRequestParams[], options: Record<string, string|number|boolean> = {}) {
+export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptions = {}) {
+  const cache = CacheService.getUserCache();
+  if (options.cacheKey && options.cacheTtl > 0) {
+    const cacheEntry = cache.get(options.cacheKey);
+    if (typeof cacheEntry !== 'undefined' && cacheEntry !== null) {
+      try {
+        return JSON.parse(cacheEntry);
+      } catch (e) {
+        // ignore
+        // TODO: debug log or rethrow during development
+      }
+    }
+  }
+
   const userProperties = PropertiesService.getUserProperties();
   const instanceUrl = options.instanceUrl as string || userProperties.getProperty('dscc.username');
   const token = options.token as string || userProperties.getProperty('dscc.token');
@@ -80,6 +100,15 @@ export function fetchAll(requests: MatomoRequestParams[], options: Record<string
 
   const responses = UrlFetchApp.fetchAll(allUrls);
   const responseContents = responses.map((r) => JSON.parse(r.getContentText("UTF-8")));
+
+  if (options.cacheKey && options.cacheTtl > 0) {
+    try {
+      cache.put(options.cacheKey, JSON.stringify(responseContents), options.cacheTtl);
+    } catch (e) {
+      // TODO rethrow during development
+    }
+  }
+
   return responseContents;
 }
 
@@ -90,7 +119,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: Record<string
  * @param params
  * @param options
  */
-export function fetch<T = any>(method: string, params: Record<string, string> = {}, options: Record<string, string|number|boolean> = {}): T {
+export function fetch<T = any>(method: string, params: Record<string, string> = {}, options: ApiFetchOptions = {}): T {
   const responses = fetchAll([{ method, params }], options);
   if (responses[0].result === 'error') {
     throw new Error(`API method ${method} failed with: ${responses[0].message}`);

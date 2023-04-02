@@ -49,19 +49,15 @@ function mapMatomoSemanticTypeToLooker(matomoType: string, siteCurrencyCode: str
   return mapped;
 }
 
-// TODO: this result can be cached as well
 function getSiteCurrency(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   const idSite = request.configParams.idsite;
 
-  const response = Api.fetch<Api.Site>('SitesManager.getSiteFromId', {
-    idSite: `${idSite}`,
-  });
+  const response = Api.fetch<Api.Site>('SitesManager.getSiteFromId', { idSite: `${idSite}` });
 
   // TODO: make sure all currencies from matomo can be translated to looker studio connector
   return response.currency;
 }
 
-// TODO: report metadata can be cached
 function getReportMetadata(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;

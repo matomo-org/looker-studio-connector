@@ -15,6 +15,48 @@ interface ConfigStep {
   addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams): void;
 }
 
+const CONFIG_REQUEST_CACHE_TTL_SECS = parseInt(process.env.CONFIG_REQUEST_CACHE_TTL_SECS, 10) || 0;
+
+function getReportMetadata(idSite: string) {
+  const cache = CacheService.getUserCache();
+  const cacheKey = `getConfig.API.getReportMetadata.${idSite}`;
+
+  const cachedValue = cache.get(cacheKey);
+  if (typeof cachedValue !== 'undefined' && cachedValue !== null) {
+    try {
+      return JSON.parse(cachedValue);
+    } catch (e) {
+      // TODO: debug log
+    }
+  }
+
+  let response = Api.fetch<Api.ReportMetadata[]>(
+    'API.getReportMetadata',
+    {
+      idSite: idSite,
+      period: 'day',
+      date: 'yesterday',
+    },
+  );
+
+  // remove unused properties from response so the result can fit in the cache
+  response = response.map((r) => ({
+    module: r.module,
+    action: r.action,
+    category: r.category,
+    name: r.name,
+    parameters: r.parameters,
+  } as unknown as Api.ReportMetadata));
+
+  try {
+    cache.put(cacheKey, JSON.stringify(response));
+  } catch (e) {
+    // TODO: debug log or rethrow during development
+  }
+
+  return response;
+}
+
 const CONFIG_STEPS = <ConfigStep[]>[
   // first step: select website
   {
@@ -29,8 +71,10 @@ const CONFIG_STEPS = <ConfigStep[]>[
       }
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config) {
-      // TODO: these requests could be cached
-      const sitesWithViewAccess = Api.fetch<Api.Site[]>('SitesManager.getSitesWithAtLeastViewAccess');
+      const sitesWithViewAccess = Api.fetch<Api.Site[]>('SitesManager.getSitesWithAtLeastViewAccess', {}, {
+        cacheKey: 'getConfig.SitesManager.getSitesWithAtLeastViewAccess',
+        cacheTtl: CONFIG_REQUEST_CACHE_TTL_SECS,
+      });
 
       // idsite select
       let idSiteSelect = config
@@ -60,11 +104,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams) {
       // TODO: also add text info boxes where we can
-      const reportMetadata = Api.fetch<Api.ReportMetadata[]>('API.getReportMetadata', {
-        idSite: params!.idsite,
-        period: 'day',
-        date: 'yesterday',
-      });
+      const reportMetadata = getReportMetadata(params.idsite!);
 
       const categories = Object.keys(reportMetadata.reduce((cats, r) => {
         cats[r.category] = true;
@@ -97,11 +137,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
       }
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams) {
-      const reportMetadata = Api.fetch<Api.ReportMetadata[]>('API.getReportMetadata', {
-        idSite: params!.idsite,
-        period: 'day',
-        date: 'yesterday',
-      });
+      const reportMetadata = getReportMetadata(params.idsite!);
 
       let reportSelect = config
         .newSelectSingle()
@@ -130,9 +166,12 @@ const CONFIG_STEPS = <ConfigStep[]>[
     validate(params?: ConnectorParams) {
       // empty
     },
-    addControls(config: GoogleAppsScript.Data_Studio.Config) {
+    addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams) {
       // segment select
-      const segments = Api.fetch<Api.StoredSegment[]>('SegmentEditor.getAll');
+      const segments = Api.fetch<Api.StoredSegment[]>('SegmentEditor.getAll', { idSite: params.idsite! }, {
+        cacheKey: `getConfig.SegmentEditor.getAll.${params.idsite!}`,
+        cacheTtl: CONFIG_REQUEST_CACHE_TTL_SECS,
+      });
 
       let segmentSelect = config
         .newSelectSingle()
