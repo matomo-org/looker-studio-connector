@@ -11,6 +11,8 @@ import getExpectedResponse from './getExpectedResponse';
 import env from './env';
 
 const DATE_TO_TEST = '2023-02-15';
+const RANGE_START_DATE_TO_TEST = '2023-02-15';
+const RANGE_END_DATE_TO_TEST = '2023-02-19';
 
 // TODO: allow url to have index.php at the end
 
@@ -89,6 +91,21 @@ describe('data', () => {
           },
         });
       }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
+    });
+
+    it('should correctly fetch data for a date range spanning multiple days', async () => {
+      let result = await Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'API', apiAction: 'get' }),
+          filter_limit: 5,
+        },
+        dateRange: {
+          startDate: RANGE_START_DATE_TO_TEST,
+          endDate: RANGE_END_DATE_TO_TEST,
+        },
+      });
+      expect(result).toEqual(getExpectedResponse(result, 'data', 'API.get_withMultiDayDateRange'));
     });
 
     const methodsTested = {};

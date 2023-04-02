@@ -2,10 +2,10 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": [
-        "2980",
-        "266"
-      ]
+      "values": {
+        "nb_conversions": "123",
+        "nb_visits": "2179"
+      }
     }
   ],
   "schema": [

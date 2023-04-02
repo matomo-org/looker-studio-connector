@@ -103,7 +103,6 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
 
   const reportParams = JSON.parse(report);
 
-  // TODO: getData test for multiple day range
   // some API methods (like Actions.getPageUrlsFollowingSiteSearch) have trouble when using a range for a single day,
   // so we make sure to do a check for this case
   const isSingleDay = request.dateRange.startDate === request.dateRange.endDate;
@@ -219,10 +218,10 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
   const data = reportData.map((row) => {
     const filteredFields = request.fields
       ?.filter((requestedField) => typeof row[requestedField.name] !== 'undefined')
-      .map((requestedField) => (row[requestedField.name] || '').toString());
+      .map((requestedField) => ([requestedField.name, (row[requestedField.name] || '').toString()]));
 
     return {
-      values: filteredFields || row,
+      values: filteredFields ? Object.fromEntries(filteredFields) : row,
     };
   });
 
