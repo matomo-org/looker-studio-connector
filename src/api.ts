@@ -72,10 +72,8 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
   const token = options.token as string || userProperties.getProperty('dscc.token');
 
   let baseUrl = instanceUrl;
-  if (!/\/$/.test(baseUrl)) {
-    baseUrl += '/';
-  }
-  baseUrl += 'index.php?';
+  baseUrl = baseUrl.replace(/[/]+(index\.php\??)?$/, '');
+  baseUrl += '/index.php?';
 
   const allUrls = requests.map(({ method, params }) => {
     let url = baseUrl;
