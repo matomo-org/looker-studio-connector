@@ -116,6 +116,14 @@ $ npm run clasp -- deploy # marks the current HEAD as a new version
 $ npm run clasp -- deployments # prints out existing deployments
 ```
 
+**Push the current code for manual testing**
+
+```
+$ npm run push
+```
+
+This command will build and push the code, then print out a link you can use to test the pushed code in Looker Studio.
+
 ## Tests
 
 ### Unit tests
