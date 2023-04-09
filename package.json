@@ -8,6 +8,7 @@
     "build:test": "rollup -c rollup-test.config.js",
     "clasp": "clasp",
     "create": "clasp create --rootDir dist --title='Matomo Looker Studio Connector' --type=standalone && mv ./dist/.clasp.json .",
+    "push": "ts-node ./scripts/push.ts",
     "test:appscript": "jest --config=./jest.config.appscript.ts",
     "test:e2e": "jest --config=./jest.config.e2e.ts",
     "test": "npm run test:appscript && npm run test:e2e"

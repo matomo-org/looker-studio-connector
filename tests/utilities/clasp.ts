@@ -12,6 +12,7 @@ import chalk from 'chalk';
 
 interface RunOptions {
   passthrough?: boolean;
+  textOutput?: boolean;
 }
 
 class Clasp {
@@ -42,6 +43,31 @@ class Clasp {
     }
   }
 
+  async deploy() {
+    await this.push();
+
+    return this.runExecutable(['deploy']);
+  }
+
+  async deployments() {
+    const output = await this.runExecutable<string>(['deployments'], { textOutput: true });
+    const lines = (output as string).split("\n");
+
+    const deployments: Record<string, string> = {};
+    lines.forEach((line) => {
+      const m = line.match(/-\s+(\S+)\s+@(\S+)/);
+      if (!m) {
+        return;
+      }
+
+      const deploymentId = m[1];
+      const version = m[2];
+      deployments[version] = deploymentId;
+    });
+
+    return deployments;
+  }
+
   async push() {
     return this.runExecutable(['push', '-f'], { passthrough: true });
   }
@@ -50,7 +76,7 @@ class Clasp {
     return this.runExecutable(['run', '-p', JSON.stringify([functionName, ...args]), 'callFunctionInTest']);
   }
 
-  async runExecutable(subcommand: string[], options: RunOptions = {}) {
+  async runExecutable<T = unknown>(subcommand: string[], options: RunOptions = {}): Promise<T|number> {
     const commandStr = `${this.claspPath} ${subcommand.join(' ')}`;
 
     if (options.passthrough) {
@@ -100,10 +126,12 @@ class Clasp {
             }
 
             let parsedOutput: any = cleanOutput;
-            try {
-              parsedOutput = JSON.parse(cleanOutput);
-            } catch (e) {
-              // ignore
+            if (!options.textOutput) {
+              try {
+                parsedOutput = JSON.parse(cleanOutput);
+              } catch (e) {
+                // ignore
+              }
             }
 
             if (parsedOutput.stack) {
