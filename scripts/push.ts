@@ -7,8 +7,12 @@
 
 import chalk from 'chalk';
 import Clasp from '../tests/utilities/clasp';
+import { execSync } from 'child_process';
 
 async function main() {
+  console.log('Building...');
+  execSync('npm run build');
+
   // push via clasp
   console.log('Push...');
   await Clasp.push();
