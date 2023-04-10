@@ -179,27 +179,23 @@ function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, module: strin
 function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCurrency: string, requestedFields?: string[]) {
   const fields = cc.getFields();
 
-  if (reportMetadata.dimension && (!requestedFields || requestedFields.includes('label'))) {
-    addDimension(fields, reportMetadata.module, reportMetadata.dimension);
-  }
-
-  [
-    ...Object.entries({
-      ...reportMetadata.metrics,
-      ...reportMetadata.processedMetrics,
-    }),
+  const allMetrics = {
+    ...reportMetadata.metrics,
+    ...reportMetadata.processedMetrics,
     // TODO: not supported in poc
     // Object.entries(reportMetadata.metricsGoal),
     // Object.entries(reportMetadata.processedMetricsGoal),
-  ].forEach(([id, name]) => {
-    if (id === 'label') { // metrics array can sometimes contain a 'label' entry, but we reserve that for the dimension
+  };
+
+  (requestedFields || Object.keys(allMetrics)).forEach((metricId) => {
+    // TODO test for when label is not first in requested field
+    if (metricId === 'label') {
+      addDimension(fields, reportMetadata.module, reportMetadata.dimension);
       return;
     }
 
-    if (!requestedFields || requestedFields.includes(id)) {
-      const matomoType = reportMetadata.metricTypes?.[id] || 'text';
-      addMetric(fields, id, name, matomoType, siteCurrency);
-    }
+    const matomoType = reportMetadata.metricTypes?.[metricId] || 'text';
+    addMetric(fields, metricId, allMetrics[metricId], matomoType, siteCurrency);
   });
 
   return fields;
@@ -244,18 +240,18 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
   const reportData = Array.isArray(processedReport.reportData) ? processedReport.reportData : [processedReport.reportData];
 
   const data = reportData.map((row) => {
-    const filteredFields = request.fields
-      ?.filter((requestedField) => typeof row[requestedField.name] !== 'undefined')
-      .map((requestedField) => ([requestedField.name, (row[requestedField.name] || '').toString()]));
+    const fieldValues = request.fields
+      ?.map((requestedField) => (row[requestedField.name] || '').toString());
 
     return {
-      values: filteredFields ? Object.fromEntries(filteredFields) : row,
+      values: fieldValues ? fieldValues : Object.values(row),
     };
   });
 
-  return {
+  const result = {
     schema: fields.build(),
     rows: data,
     filtersApplied: false,
   };
+  return result;
 }
