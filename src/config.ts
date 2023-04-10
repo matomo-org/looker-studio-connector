@@ -89,44 +89,11 @@ const CONFIG_STEPS = <ConfigStep[]>[
     },
   },
 
-  // second step: pick report category
+  // second step: pick report and set request defaults
   {
     isFilledOut(params?: ConnectorParams) {
-      return typeof params?.reportCategory !== 'undefined';
-    },
-    validate(params?: ConnectorParams) {
-      const category = (params?.reportCategory || '').trim();
-      if (!category) {
-        cc.newUserError()
-          .setText('Please select a report category to continue.')
-          .throwException();
-      }
-    },
-    addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams) {
-      // TODO: also add text info boxes where we can
-      const reportMetadata = getReportMetadata(params.idsite!);
-
-      const categories = Object.keys(reportMetadata.reduce((cats, r) => {
-        cats[r.category] = true;
-        return cats;
-      }, {}));
-
-      let reportCategorySelect = config
-        .newSelectSingle()
-        .setId('reportCategory')
-        .setName('Report Category')
-        .setIsDynamic(true);
-
-      categories.forEach((cat) => {
-        reportCategorySelect = reportCategorySelect.addOption(config.newOptionBuilder().setLabel(cat).setValue(cat));
-      });
-    },
-  },
-
-  // third step: pick report
-  {
-    isFilledOut(params?: ConnectorParams) {
-      return typeof params?.report !== 'undefined';
+      return typeof params?.report !== 'undefined'
+        && typeof params.segment !== 'undefined';
     },
     validate(params?: ConnectorParams) {
       const report = (params?.report || '').trim();
@@ -137,6 +104,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
       }
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams) {
+      // TODO: also add text info boxes where we can
       const reportMetadata = getReportMetadata(params.idsite!);
 
       let reportSelect = config
@@ -152,21 +120,10 @@ const CONFIG_STEPS = <ConfigStep[]>[
         });
 
         reportSelect = reportSelect.addOption(
-          config.newOptionBuilder().setLabel(report.name).setValue(value),
+          config.newOptionBuilder().setLabel(`${report.category} > ${report.name}`).setValue(value),
         );
       });
-    },
-  },
 
-  // fourth step: set report parameter defaults
-  {
-    isFilledOut(params?: ConnectorParams) {
-      return typeof params.segment !== 'undefined';
-    },
-    validate(params?: ConnectorParams) {
-      // empty
-    },
-    addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams) {
       // segment select
       const segments = Api.fetch<Api.StoredSegment[]>('SegmentEditor.getAll', { idSite: params.idsite! }, {
         cacheKey: `getConfig.SegmentEditor.getAll.${params.idsite!}`,

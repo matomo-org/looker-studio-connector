@@ -174,7 +174,7 @@ function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, module: strin
     .setType(cc.FieldType.TEXT); // TODO: support mapping dimension type (might need to put it in the API)
 }
 
-// TODO: will all sites have a currency?
+// TODO: will all sites have a currency? (they won't, we should check and provide a warning when configuring)
 
 function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCurrency: string, requestedFields?: string[]) {
   const fields = cc.getFields();
