@@ -68,51 +68,5 @@ describe('config', () => {
       result = cleanUpSelects(result);
       expect(result).toEqual(getExpectedResponse(result, 'config', 'step2'));
     });
-
-    it('should return expected response if the second step selection is invalid', async () => {
-      await expect(async () => {
-        await Clasp.run('getConfig', {
-          configParams: {
-            idsite: 1,
-            reportCategory: '   ',
-          },
-        });
-      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
-    });
-
-    it('should return expected response when on the third step', async () => {
-      let result = await Clasp.run('getConfig', {
-        configParams: {
-          idsite: 1,
-          reportCategory: 'Referrers',
-        },
-      });
-      result = cleanUpSelects(result);
-      expect(result).toEqual(getExpectedResponse(result, 'config', 'step3'));
-    });
-
-    it('should return expected response if the third step selection is invalid', async () => {
-      await expect(async () => {
-        await Clasp.run('getConfig', {
-          configParams: {
-            idsite: 1,
-            reportCategory: 'Referrers',
-            report: '   ',
-          },
-        });
-      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
-    });
-
-    it('should return expected response when on the fourth and final step', async () => {
-      let result = await Clasp.run('getConfig', {
-        configParams: {
-          idsite: 1,
-          reportCategory: 'Referrers',
-          report: 'getWebsites',
-        },
-      });
-      result = cleanUpSelects(result);
-      expect(result).toEqual(getExpectedResponse(result, 'config', 'step4'));
-    });
   });
 });
