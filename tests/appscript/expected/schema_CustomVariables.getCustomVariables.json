@@ -3,7 +3,16 @@
     {
       "dataType": "STRING",
       "label": "Custom Variable name",
-      "name": "label",
+      "name": "CustomVariables_CustomVariableName",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Custom Variable value",
+      "name": "CustomVariables_CustomVariableValue",
       "semantics": {
         "conceptType": "DIMENSION",
         "semanticType": "TEXT"

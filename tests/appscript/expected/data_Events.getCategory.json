@@ -3,55 +3,60 @@
   "rows": [
     {
       "values": [
-        "Ecommerce - Cart change",
-        228,
+        "Ecommerce",
+        "Cart change",
         228,
         143,
         -3,
         3,
+        228,
         0.63
       ]
     },
     {
       "values": [
-        "MediaVideo - play",
+        "MediaVideo",
+        "play",
         18,
+        0,
+        0,
+        0,
         9,
-        0,
-        0,
-        0,
         0
       ]
     },
     {
       "values": [
-        "MediaVideo - pause",
+        "MediaVideo",
+        "pause",
         9,
-        6,
         1058,
         46,
         281,
+        6,
         176.33
       ]
     },
     {
       "values": [
-        "MediaVideo - seek",
-        34,
+        "MediaVideo",
+        "seek",
         34,
         4841,
         10,
         356,
+        34,
         142.38
       ]
     },
     {
       "values": [
-        "Add review - click",
+        "Add review",
+        "click",
         5,
         0,
-        0,
         false,
+        0,
         0,
         0
       ]
@@ -61,7 +66,16 @@
     {
       "dataType": "STRING",
       "label": "Event Category",
-      "name": "label",
+      "name": "Events_EventCategory",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Event Action",
+      "name": "Events_EventAction",
       "semantics": {
         "conceptType": "DIMENSION",
         "semanticType": "TEXT"

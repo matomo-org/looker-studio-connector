@@ -3,67 +3,67 @@
   "rows": [
     {
       "values": [
-        "DuckDuckGo - diving protection",
+        "DuckDuckGo",
+        "diving protection",
         9,
+        0,
         15,
         0,
         1.7,
         203,
-        0.44,
-        0,
-        0
+        0.44
       ]
     },
     {
       "values": [
-        "Qwant - personal yellow submarine for dive",
+        "Qwant",
+        "personal yellow submarine for dive",
         7,
+        0,
         12,
         0,
         1.7,
         225,
-        0.57,
-        0,
-        0
+        0.57
       ]
     },
     {
       "values": [
-        "Google - ningaloo reef",
+        "Google",
+        "ningaloo reef",
         6,
         0,
         0,
         0,
         0,
         0,
-        0,
         0
       ]
     },
     {
       "values": [
-        "DuckDuckGo - diving jobs",
+        "DuckDuckGo",
+        "diving jobs",
         6,
+        0,
         23,
         0,
         3.8,
         561,
-        0.33,
-        0,
-        0
+        0.33
       ]
     },
     {
       "values": [
-        "DuckDuckGo - diving lessons",
+        "DuckDuckGo",
+        "diving lessons",
         6,
+        0,
         8,
         0,
         1.3,
         204,
-        0.83,
-        0,
-        0
+        0.83
       ]
     }
   ],
@@ -71,7 +71,16 @@
     {
       "dataType": "STRING",
       "label": "Search Engine",
-      "name": "label",
+      "name": "Referrers_SearchEngine",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Keyword",
+      "name": "Referrers_Keyword",
       "semantics": {
         "conceptType": "DIMENSION",
         "semanticType": "TEXT"

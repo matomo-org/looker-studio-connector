@@ -4,36 +4,36 @@
     {
       "values": [
         "cart/",
-        147,
-        "2"
+        "2",
+        147
       ]
     },
     {
       "values": [
         "checkout/",
-        85,
-        "1"
+        "1",
+        85
       ]
     },
     {
       "values": [
         "products/basic-wetsuit/",
-        61,
-        "1"
+        "1",
+        61
       ]
     },
     {
       "values": [
         "products/scuba-fins/",
-        42,
-        "2"
+        "2",
+        42
       ]
     },
     {
       "values": [
         "products/diving-knife/",
-        23,
-        "2"
+        "2",
+        23
       ]
     }
   ],

@@ -3,7 +3,16 @@
     {
       "dataType": "STRING",
       "label": "Event Category",
-      "name": "label",
+      "name": "Events_EventCategory",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Event Action",
+      "name": "Events_EventAction",
       "semantics": {
         "conceptType": "DIMENSION",
         "semanticType": "TEXT"

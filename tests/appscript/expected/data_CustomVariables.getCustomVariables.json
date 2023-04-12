@@ -3,67 +3,67 @@
   "rows": [
     {
       "values": [
-        "type - diving",
+        "type",
+        "diving",
         716,
+        0,
         870,
         0,
-        24,
         1.2,
         27,
-        0.88,
-        0
+        0.88
       ]
     },
     {
       "values": [
-        "page-author - Julien",
+        "page-author",
+        "Julien",
         443,
+        0,
         617,
+        0,
         1.4,
         0,
-        0,
-        0,
-        0,
         0
       ]
     },
     {
       "values": [
-        "type - page",
+        "type",
+        "page",
         435,
+        0,
         597,
         0,
-        26,
         1.4,
         44,
-        0.77,
-        0
+        0.77
       ]
     },
     {
       "values": [
-        "page-author - admindz",
+        "page-author",
+        "admindz",
         235,
+        0,
         318,
+        0,
         1.4,
         0,
-        0,
-        0,
-        0,
         0
       ]
     },
     {
       "values": [
-        "type - liveaboard",
+        "type",
+        "liveaboard",
         183,
+        0,
         255,
         1,
-        12,
         1.4,
         32,
-        0.74,
-        0
+        0.74
       ]
     }
   ],
@@ -71,7 +71,16 @@
     {
       "dataType": "STRING",
       "label": "Custom Variable name",
-      "name": "label",
+      "name": "CustomVariables_CustomVariableName",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Custom Variable value",
+      "name": "CustomVariables_CustomVariableValue",
       "semantics": {
         "conceptType": "DIMENSION",
         "semanticType": "TEXT"

@@ -4,51 +4,56 @@
     {
       "values": [
         "Diving Jobs, latest Divemaster and Scuba Dive Instructor Job offers!",
-        167,
         201,
-        0.69,
+        167,
         44,
-        0.81
+        0.69,
+        0.81,
+        ""
       ]
     },
     {
       "values": [
         "Cart - Divezone Store",
-        132,
         147,
-        0.24,
+        132,
         31,
-        0.56
+        0.24,
+        0.56,
+        ""
       ]
     },
     {
       "values": [
         "Checkout - Divezone Store",
-        122,
         134,
-        0.78,
+        122,
         175,
-        0.71
+        0.78,
+        0.71,
+        ""
       ]
     },
     {
       "values": [
         "My Account - Divezone Store",
-        98,
         182,
-        0.33,
+        98,
         96,
-        0.68
+        0.33,
+        0.68,
+        ""
       ]
     },
     {
       "values": [
         "Best Diving sites in Bali – Indonesia Scuba dive reviews by Divezone",
-        70,
         71,
-        0.92,
+        70,
         14,
-        0.91
+        0.92,
+        0.91,
+        ""
       ]
     }
   ],

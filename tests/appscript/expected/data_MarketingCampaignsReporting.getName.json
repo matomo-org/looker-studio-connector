@@ -6,7 +6,16 @@
     {
       "dataType": "STRING",
       "label": "Campaign Name",
-      "name": "label",
+      "name": "MarketingCampaignsReporting_CampaignName",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Keyword - Content",
+      "name": "MarketingCampaignsReporting_CombinedKeywordContent",
       "semantics": {
         "conceptType": "DIMENSION",
         "semanticType": "TEXT"

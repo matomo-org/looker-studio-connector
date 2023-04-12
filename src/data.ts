@@ -172,10 +172,10 @@ function addMetric(fields: GoogleAppsScript.Data_Studio.Fields, id: string, name
     .setIsReaggregatable(false);
 }
 
-function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, module: string, dimension: string) {
+function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, id: string, dimension: string) {
   fields
     .newDimension()
-    .setId('label')
+    .setId(id)
     .setName(dimension)
     .setType(cc.FieldType.TEXT); // TODO: support mapping dimension type (might need to put it in the API)
 }
@@ -193,22 +193,27 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCur
     // Object.entries(reportMetadata.processedMetricsGoal),
   };
 
-  let labelAdded = false;
-  if (!requestedFields?.length && reportMetadata.dimension) {
-    addDimension(fields, reportMetadata.module, reportMetadata.dimension);
-    labelAdded = true;
+  if (!requestedFields?.length) {
+    if (reportMetadata.dimensions) {
+      Object.entries(reportMetadata.dimensions).forEach(([id, name]) => {
+        addDimension(fields, id, name);
+      });
+    } else if (reportMetadata.dimension) {
+      addDimension(fields, 'label', reportMetadata.dimension);
+    }
   }
 
   (requestedFields || Object.keys(allMetrics)).forEach((metricId) => {
-    if (!allMetrics[metricId]) {
+    if (!allMetrics[metricId]
+      || fields.getFieldById(metricId)
+    ) {
       return;
     }
 
     // TODO test for when label is not first in requested field
     if (metricId === 'label') {
-      if (reportMetadata.dimension && !labelAdded) {
-        addDimension(fields, reportMetadata.module, reportMetadata.dimension);
-        labelAdded = true;
+      if (reportMetadata.dimension) {
+        addDimension(fields, 'label', reportMetadata.dimension);
       }
       return;
     }
@@ -269,13 +274,30 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
   // in an array in this case
   const reportData = Array.isArray(processedReport.reportData) ? processedReport.reportData : [processedReport.reportData];
 
-  const data = reportData.map((row) => {
-    const fieldValues = request.fields
-      ?.filter((f) => !!fields.getFieldById(f.name))
-      .map((requestedField) => (row[requestedField.name] || '').toString());
+  const data = reportData.map((row, i) => {
+    const metadataRow = processedReport?.reportMetadata[i];
+
+    let requestedFields = request.fields?.filter(({ name }) => !!fields.getFieldById(name));
+    if (!requestedFields) {
+      requestedFields = fields.asArray().map((f) => ({ name: f.getId() }));
+    }
+
+    // TODO: test requested fields when there are multiple dimensions in flattened report
+    const fieldValues = requestedFields
+      .map(({ name }) => {
+        if (typeof row[name] !== 'undefined') {
+          return row[name];
+        }
+
+        if (typeof metadataRow?.[name] !== 'undefined') {
+          return metadataRow[name];
+        }
+
+        return '';
+      });
 
     return {
-      values: fieldValues ? fieldValues : Object.values(row),
+      values: fieldValues,
     };
   });
 

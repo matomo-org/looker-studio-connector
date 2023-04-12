@@ -3,67 +3,67 @@
   "rows": [
     {
       "values": [
-        " - Google",
-        951,
+        "",
+        "Google",
         961,
+        951,
         1182,
         0,
         1.2,
         32,
-        0.85,
-        0
+        0.85
       ]
     },
     {
       "values": [
-        " - Bing",
+        "",
+        "Bing",
         14,
         14,
         16,
         0,
         1.1,
         3,
-        0.93,
-        0
+        0.93
       ]
     },
     {
       "values": [
-        " - Yahoo!",
+        "",
+        "Yahoo!",
         12,
         12,
         14,
         0,
         1.2,
         2,
-        0.83,
-        0
+        0.83
       ]
     },
     {
       "values": [
-        "scuba diving videos - DuckDuckGo",
+        "scuba diving videos",
+        "DuckDuckGo",
         9,
         9,
         15,
         0,
         1.7,
         203,
-        0.44,
-        0
+        0.44
       ]
     },
     {
       "values": [
-        "diving diving - Qwant",
+        "diving diving",
+        "Qwant",
         7,
         7,
         12,
         0,
         1.7,
         225,
-        0.57,
-        0
+        0.57
       ]
     }
   ],
@@ -71,7 +71,16 @@
     {
       "dataType": "STRING",
       "label": "Keyword",
-      "name": "label",
+      "name": "Referrers_Keyword",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Search Engine",
+      "name": "Referrers_SearchEngine",
       "semantics": {
         "conceptType": "DIMENSION",
         "semanticType": "TEXT"

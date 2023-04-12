@@ -4,51 +4,56 @@
     {
       "values": [
         "Bali - divezone.net/diving/bali",
-        53,
         77,
-        1.32,
+        53,
         5,
-        0.87
+        1.32,
+        0.87,
+        ""
       ]
     },
     {
       "values": [
         "Thailand - divezone.net/diving/thailand",
-        27,
         28,
-        0.7,
+        27,
         41,
-        0.85
+        0.7,
+        0.85,
+        ""
       ]
     },
     {
       "values": [
         "Indonesia - divezone.net/diving/indonesia",
-        22,
         55,
-        2,
+        22,
         1,
-        0.86
+        2,
+        0.86,
+        ""
       ]
     },
     {
       "values": [
         "Bali, Komodo Island, Tulamben, Wakatobi - divezone.net/divesite/uss-liberty-wreck",
-        19,
         33,
-        1.47,
         19,
-        0.74
+        19,
+        1.47,
+        0.74,
+        ""
       ]
     },
     {
       "values": [
         "Malaysia - divezone.net/diving/malaysia",
-        19,
         22,
-        0.74,
+        19,
         3,
-        0.95
+        0.74,
+        0.95,
+        ""
       ]
     }
   ],

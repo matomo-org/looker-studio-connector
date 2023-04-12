@@ -4,51 +4,56 @@
     {
       "values": [
         "admindz - divezone.net/jobs",
-        84,
         90,
-        0.65,
+        84,
         16,
-        0.76
+        0.65,
+        0.76,
+        ""
       ]
     },
     {
       "values": [
         "Julien - divezone.net/diving/bali",
-        53,
         77,
-        1.32,
+        53,
         5,
-        0.87
+        1.32,
+        0.87,
+        ""
       ]
     },
     {
       "values": [
         "Julien - divezone.net/diving/thailand",
-        27,
         28,
-        0.7,
+        27,
         41,
-        0.85
+        0.7,
+        0.85,
+        ""
       ]
     },
     {
       "values": [
         "Julien - divezone.net/diving/indonesia",
-        22,
         55,
-        2,
+        22,
         1,
-        0.86
+        2,
+        0.86,
+        ""
       ]
     },
     {
       "values": [
         "Julien - divezone.net/diving/malaysia",
-        19,
         22,
-        0.74,
+        19,
         3,
-        0.95
+        0.74,
+        0.95,
+        ""
       ]
     }
   ],

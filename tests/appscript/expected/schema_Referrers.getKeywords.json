@@ -3,7 +3,16 @@
     {
       "dataType": "STRING",
       "label": "Keyword",
-      "name": "label",
+      "name": "Referrers_Keyword",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Search Engine",
+      "name": "Referrers_SearchEngine",
       "semantics": {
         "conceptType": "DIMENSION",
         "semanticType": "TEXT"

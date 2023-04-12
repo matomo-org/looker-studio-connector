@@ -3,7 +3,16 @@
     {
       "dataType": "STRING",
       "label": "Website",
-      "name": "label",
+      "name": "Referrers_Website",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Website Page",
+      "name": "Referrers_WebsitePage",
       "semantics": {
         "conceptType": "DIMENSION",
         "semanticType": "TEXT"

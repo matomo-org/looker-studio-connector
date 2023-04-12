@@ -20,6 +20,7 @@ export interface StoredSegment {
 
 export interface ReportMetadata {
   dimension: string;
+  dimensions?: string[];
   module: string;
   action: string;
   metrics: Record<string, string>;
@@ -35,6 +36,7 @@ type DataTableRow = Record<string, string>;
 export interface ProcessedReport {
   metadata: ReportMetadata;
   reportData: DataTableRow[];
+  reportMetadata?: DataTableRow[];
 }
 
 interface MatomoRequestParams {

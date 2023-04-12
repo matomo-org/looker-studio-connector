@@ -12,12 +12,13 @@ const fs = require('fs');
 const Clasp = require('./utilities/clasp').default;
 
 const appsScriptPath = path.join(__dirname, '../src/appsscript.json');
-const backupAppsScriptPath = path.join(__dirname, './appsscript.backup.json');
 
 module.exports = function () {
-    // restore unmodified appsscript.backup.json
-    fs.unlinkSync(appsScriptPath);
-    fs.copyFileSync(backupAppsScriptPath, appsScriptPath);
+    // restore unmodified appsscript.json
+    const appsScriptContent = JSON.parse(fs.readFileSync(appsScriptPath).toString('utf-8'));
+    delete appsScriptContent.executionApi;
+
+    fs.writeFileSync(appsScriptPath, JSON.stringify(appsScriptContent, null, 2));
 
     Clasp.stopWatchingLogs();
 };

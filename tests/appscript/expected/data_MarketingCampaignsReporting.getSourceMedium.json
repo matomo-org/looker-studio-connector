@@ -6,7 +6,16 @@
     {
       "dataType": "STRING",
       "label": "Source - Medium",
-      "name": "label",
+      "name": "MarketingCampaignsReporting_CampaignSourceMedium",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Campaign Name",
+      "name": "MarketingCampaignsReporting_CampaignName",
       "semantics": {
         "conceptType": "DIMENSION",
         "semanticType": "TEXT"
