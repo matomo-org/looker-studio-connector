@@ -2,64 +2,64 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 65,
-        "bounce_rate": 0.63,
-        "label": "United States",
-        "nb_actions": 1225,
-        "nb_actions_per_visit": 2.3,
-        "nb_uniq_visitors": 518,
-        "nb_visits": 532,
-        "revenue": 2021.6500000000003
-      }
+      "values": [
+        "United States",
+        408,
+        419,
+        685,
+        2043.8000000000002,
+        1.6,
+        154,
+        0.74
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 66,
-        "bounce_rate": 0.62,
-        "label": "United Kingdom",
-        "nb_actions": 549,
-        "nb_actions_per_visit": 2.2,
-        "nb_uniq_visitors": 245,
-        "nb_visits": 252,
-        "revenue": 1204.95
-      }
+      "values": [
+        "Germany",
+        163,
+        170,
+        306,
+        1123.75,
+        1.8,
+        159,
+        0.6
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 71,
-        "bounce_rate": 0.64,
-        "label": "Australia",
-        "nb_actions": 486,
-        "nb_actions_per_visit": 2.1,
-        "nb_uniq_visitors": 224,
-        "nb_visits": 230,
-        "revenue": 1246.8
-      }
+      "values": [
+        "United Kingdom",
+        156,
+        158,
+        213,
+        1004,
+        1.3,
+        66,
+        0.79
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 168,
-        "bounce_rate": 0.29,
-        "label": "Germany",
-        "nb_actions": 914,
-        "nb_actions_per_visit": 4.6,
-        "nb_uniq_visitors": 184,
-        "nb_visits": 198,
-        "revenue": 4801.4
-      }
+      "values": [
+        "Australia",
+        150,
+        154,
+        217,
+        1004,
+        1.4,
+        86,
+        0.79
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 58,
-        "bounce_rate": 0.65,
-        "label": "Indonesia",
-        "nb_actions": 270,
-        "nb_actions_per_visit": 1.7,
-        "nb_uniq_visitors": 142,
-        "nb_visits": 156,
-        "revenue": 64.95
-      }
+      "values": [
+        "Indonesia",
+        100,
+        106,
+        133,
+        6,
+        1.3,
+        31,
+        0.84
+      ]
     }
   ],
   "schema": [

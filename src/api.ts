@@ -5,6 +5,8 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
+// TODO: requests should be marked somehow so it's possible to see what kind of load use of looker adds to a matomo instance
+
 export interface Site {
   idsite: string|number;
   name: string;

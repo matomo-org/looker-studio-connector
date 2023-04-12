@@ -2,34 +2,34 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "label": "New visits",
-        "nb_visits": "2790"
-      }
+      "values": [
+        "New visits",
+        "1"
+      ]
     },
     {
-      "values": {
-        "label": "0 days",
-        "nb_visits": "161"
-      }
+      "values": [
+        "0 days",
+        "3"
+      ]
     },
     {
-      "values": {
-        "label": "1 day",
-        "nb_visits": "9"
-      }
+      "values": [
+        "1 day",
+        "0"
+      ]
     },
     {
-      "values": {
-        "label": "2 days",
-        "nb_visits": "0"
-      }
+      "values": [
+        "2 days",
+        "0"
+      ]
     },
     {
-      "values": {
-        "label": "3 days",
-        "nb_visits": "0"
-      }
+      "values": [
+        "3 days",
+        "0"
+      ]
     }
   ],
   "schema": [

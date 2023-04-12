@@ -2,44 +2,44 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "bounce_rate": 0.68,
-        "entry_bounce_count": 89,
-        "entry_nb_visits": 130,
-        "label": "Others"
-      }
+      "values": [
+        "Diving Jobs, latest Divemaster and Scuba Dive Instructor Job offers!",
+        "146",
+        "101",
+        0.69
+      ]
     },
     {
-      "values": {
-        "bounce_rate": 0.19,
-        "entry_bounce_count": "4",
-        "entry_nb_visits": "21",
-        "label": "Cart - Divezone Store"
-      }
+      "values": [
+        "Cart - Divezone Store",
+        "34",
+        "8",
+        0.24
+      ]
     },
     {
-      "values": {
-        "bounce_rate": 0.46,
-        "entry_bounce_count": "108",
-        "entry_nb_visits": "235",
-        "label": "Diving Jobs, latest Divemaster and Scuba Dive Instructor Job offers!"
-      }
+      "values": [
+        "Checkout - Divezone Store",
+        "37",
+        "29",
+        0.78
+      ]
     },
     {
-      "values": {
-        "bounce_rate": 0.11,
-        "entry_bounce_count": "2",
-        "entry_nb_visits": "18",
-        "label": "Checkout - Divezone Store"
-      }
+      "values": [
+        "My Account - Divezone Store",
+        "48",
+        "16",
+        0.33
+      ]
     },
     {
-      "values": {
-        "bounce_rate": 0.6,
-        "entry_bounce_count": "78",
-        "entry_nb_visits": "130",
-        "label": "Best Diving sites in Bali – Indonesia Scuba dive reviews by Divezone"
-      }
+      "values": [
+        "Best Diving sites in Bali – Indonesia Scuba dive reviews by Divezone",
+        "66",
+        "61",
+        0.92
+      ]
     }
   ],
   "schema": [

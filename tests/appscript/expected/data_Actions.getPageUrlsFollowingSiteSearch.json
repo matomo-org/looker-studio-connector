@@ -2,39 +2,39 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "label": "/jobs",
-        "nb_hits": 352,
-        "nb_hits_following_search": "3"
-      }
+      "values": [
+        "cart/",
+        147,
+        "2"
+      ]
     },
     {
-      "values": {
-        "label": "/",
-        "nb_hits": 258,
-        "nb_hits_following_search": 2
-      }
+      "values": [
+        "checkout/",
+        85,
+        "1"
+      ]
     },
     {
-      "values": {
-        "label": "products/diving-tank/",
-        "nb_hits": 186,
-        "nb_hits_following_search": "3"
-      }
+      "values": [
+        "products/basic-wetsuit/",
+        61,
+        "1"
+      ]
     },
     {
-      "values": {
-        "label": "products/basic-wetsuit/",
-        "nb_hits": 134,
-        "nb_hits_following_search": "1"
-      }
+      "values": [
+        "products/scuba-fins/",
+        42,
+        "2"
+      ]
     },
     {
-      "values": {
-        "label": "best-of-the-best/",
-        "nb_hits": 178,
-        "nb_hits_following_search": "4"
-      }
+      "values": [
+        "products/diving-knife/",
+        23,
+        "2"
+      ]
     }
   ],
   "schema": [

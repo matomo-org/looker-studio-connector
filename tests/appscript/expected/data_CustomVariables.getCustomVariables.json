@@ -1,0 +1,151 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "type - diving",
+        716,
+        870,
+        0,
+        24,
+        1.2,
+        27,
+        0.88,
+        0
+      ]
+    },
+    {
+      "values": [
+        "page-author - Julien",
+        443,
+        617,
+        1.4,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "values": [
+        "type - page",
+        435,
+        597,
+        0,
+        26,
+        1.4,
+        44,
+        0.77,
+        0
+      ]
+    },
+    {
+      "values": [
+        "page-author - admindz",
+        235,
+        318,
+        1.4,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "values": [
+        "type - liveaboard",
+        183,
+        255,
+        1,
+        12,
+        1.4,
+        32,
+        0.74,
+        0
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Custom Variable name",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions",
+      "name": "nb_actions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Actions per Visit",
+      "name": "nb_actions_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Time on Website",
+      "name": "avg_time_on_site",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Bounce Rate",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

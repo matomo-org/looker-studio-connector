@@ -2,69 +2,69 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 98,
-        "bounce_rate": 0.49,
-        "conversion_rate": 0.1064,
-        "label": "Windows",
-        "nb_actions": 3375,
-        "nb_actions_per_visit": 2.9,
-        "nb_uniq_visitors": 1104,
-        "nb_users": 2,
-        "nb_visits": 1165
-      }
+      "values": [
+        "Windows",
+        833,
+        891,
+        1466,
+        1,
+        0.0662,
+        1.6,
+        146,
+        0.68
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 40,
-        "bounce_rate": 0.74,
-        "conversion_rate": 0.05,
-        "label": "iOS",
-        "nb_actions": 1118,
-        "nb_actions_per_visit": 1.6,
-        "nb_uniq_visitors": 665,
-        "nb_users": 0,
-        "nb_visits": 680
-      }
+      "values": [
+        "Mac",
+        405,
+        430,
+        750,
+        0,
+        0.0512,
+        1.7,
+        174,
+        0.67
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 94,
-        "bounce_rate": 0.5,
-        "conversion_rate": 0.0941,
-        "label": "Mac",
-        "nb_actions": 1708,
-        "nb_actions_per_visit": 3.2,
-        "nb_uniq_visitors": 515,
-        "nb_users": 0,
-        "nb_visits": 542
-      }
+      "values": [
+        "iOS",
+        396,
+        406,
+        523,
+        0,
+        0.0443,
+        1.3,
+        34,
+        0.84
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 51,
-        "bounce_rate": 0.71,
-        "conversion_rate": 0.0688,
-        "label": "Android",
-        "nb_actions": 926,
-        "nb_actions_per_visit": 1.9,
-        "nb_uniq_visitors": 463,
-        "nb_users": 1,
-        "nb_visits": 480
-      }
+      "values": [
+        "Android",
+        330,
+        338,
+        438,
+        0,
+        0.0473,
+        1.3,
+        42,
+        0.83
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 228,
-        "bounce_rate": 0.16,
-        "conversion_rate": 0.1,
-        "label": "GNU/Linux",
-        "nb_actions": 592,
-        "nb_actions_per_visit": 5.9,
-        "nb_uniq_visitors": 84,
-        "nb_users": 0,
-        "nb_visits": 100
-      }
+      "values": [
+        "GNU/Linux",
+        94,
+        105,
+        182,
+        0,
+        0.0286,
+        1.7,
+        193,
+        0.62
+      ]
     }
   ],
   "schema": [

@@ -8,14 +8,14 @@
 // NOTE: this file must be in JS not TypeScript, otherwise jest will not be able to run it successfully
 
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const fs = require('fs');
 const axios = require('axios');
 const execSync = require('child_process').execSync;
-const Clasp = require('../utilities/clasp').default;
+const Clasp = require('./utilities/clasp').default;
 const env = require('./env').default;
 
-const appsScriptPath = path.join(__dirname, '../../src/appsscript.json');
+const appsScriptPath = path.join(__dirname, '../src/appsscript.json');
 const backupAppsScriptPath = path.join(__dirname, './appsscript.backup.json');
 
 module.exports = async function () {

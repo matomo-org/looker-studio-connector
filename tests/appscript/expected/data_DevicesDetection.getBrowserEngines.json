@@ -2,69 +2,69 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 90,
-        "bounce_rate": 0.54,
-        "conversion_rate": 0.0893,
-        "label": "Blink (Chrome, Opera)",
-        "nb_actions": 4200,
-        "nb_actions_per_visit": 2.8,
-        "nb_uniq_visitors": 1443,
-        "nb_users": 3,
-        "nb_visits": 1523
-      }
+      "values": [
+        "Blink (Chrome, Opera)",
+        1110,
+        1187,
+        1928,
+        1,
+        0.0531,
+        1.6,
+        131,
+        0.7
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 52,
-        "bounce_rate": 0.68,
-        "conversion_rate": 0.0637,
-        "label": "WebKit (Safari)",
-        "nb_actions": 1889,
-        "nb_actions_per_visit": 2,
-        "nb_uniq_visitors": 910,
-        "nb_users": 0,
-        "nb_visits": 942
-      }
+      "values": [
+        "WebKit (Safari)",
+        567,
+        589,
+        818,
+        0,
+        0.0543,
+        1.4,
+        83,
+        0.8
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 135,
-        "bounce_rate": 0.35,
-        "conversion_rate": 0.1361,
-        "label": "Gecko (Firefox)",
-        "nb_actions": 1171,
-        "nb_actions_per_visit": 4,
-        "nb_uniq_visitors": 271,
-        "nb_users": 0,
-        "nb_visits": 294
-      }
+      "values": [
+        "Gecko (Firefox)",
+        241,
+        250,
+        432,
+        0,
+        0.068,
+        1.7,
+        154,
+        0.63
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 67,
-        "bounce_rate": 0.62,
-        "conversion_rate": 0.0813,
-        "label": "Trident (IE)",
-        "nb_actions": 264,
-        "nb_actions_per_visit": 2.1,
-        "nb_uniq_visitors": 120,
-        "nb_users": 0,
-        "nb_visits": 123
-      }
+      "values": [
+        "Trident (IE)",
+        76,
+        79,
+        97,
+        0,
+        0.0506,
+        1.2,
+        89,
+        0.84
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 82,
-        "bounce_rate": 0.55,
-        "conversion_rate": 0.0545,
-        "label": "Edge",
-        "nb_actions": 145,
-        "nb_actions_per_visit": 2.6,
-        "nb_uniq_visitors": 55,
-        "nb_users": 0,
-        "nb_visits": 55
-      }
+      "values": [
+        "Edge",
+        34,
+        37,
+        52,
+        0,
+        0.027,
+        1.4,
+        31,
+        0.78
+      ]
     }
   ],
   "schema": [

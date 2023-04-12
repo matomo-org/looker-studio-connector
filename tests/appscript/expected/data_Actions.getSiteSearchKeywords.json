@@ -2,44 +2,44 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "exit_rate": 0.31,
-        "label": "lines",
-        "nb_pages_per_search": 1.1,
-        "nb_visits": 16
-      }
+      "values": [
+        "starter",
+        8,
+        1,
+        0.5
+      ]
     },
     {
-      "values": {
-        "exit_rate": 0.27,
-        "label": "starter",
-        "nb_pages_per_search": 1.1,
-        "nb_visits": 15
-      }
+      "values": [
+        "lines",
+        3,
+        1,
+        0.33
+      ]
     },
     {
-      "values": {
-        "exit_rate": 0,
-        "label": "regulator",
-        "nb_pages_per_search": 1,
-        "nb_visits": 2
-      }
+      "values": [
+        "bahamas",
+        1,
+        1,
+        1
+      ]
     },
     {
-      "values": {
-        "exit_rate": 0,
-        "label": "custom wetsuits",
-        "nb_pages_per_search": 1,
-        "nb_visits": 1
-      }
+      "values": [
+        "bira",
+        1,
+        1,
+        0
+      ]
     },
     {
-      "values": {
-        "exit_rate": 1,
-        "label": "dive computer",
-        "nb_pages_per_search": 2,
-        "nb_visits": 1
-      }
+      "values": [
+        "brother islands",
+        1,
+        1,
+        0
+      ]
     }
   ],
   "schema": [

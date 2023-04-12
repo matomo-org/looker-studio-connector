@@ -2,69 +2,69 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 69,
-        "bounce_rate": 0.58,
-        "conversion_rate": 0.0811,
-        "label": "00",
-        "nb_actions": 176,
-        "nb_actions_per_visit": 2.4,
-        "nb_uniq_visitors": 74,
-        "nb_users": 0,
-        "nb_visits": 74
-      }
+      "values": [
+        "00",
+        57,
+        57,
+        114,
+        0,
+        0.0702,
+        2,
+        138,
+        0.54
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 82,
-        "bounce_rate": 0.56,
-        "conversion_rate": 0.1,
-        "label": "01",
-        "nb_actions": 136,
-        "nb_actions_per_visit": 2.7,
-        "nb_uniq_visitors": 49,
-        "nb_users": 0,
-        "nb_visits": 50
-      }
+      "values": [
+        "01",
+        43,
+        44,
+        85,
+        0,
+        0.0682,
+        1.9,
+        257,
+        0.68
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 98,
-        "bounce_rate": 0.48,
-        "conversion_rate": 0.1034,
-        "label": "02",
-        "nb_actions": 78,
-        "nb_actions_per_visit": 2.7,
-        "nb_uniq_visitors": 29,
-        "nb_users": 0,
-        "nb_visits": 29
-      }
+      "values": [
+        "02",
+        22,
+        22,
+        28,
+        0,
+        0.0909,
+        1.3,
+        234,
+        0.86
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 99,
-        "bounce_rate": 0.41,
-        "conversion_rate": 0.1852,
-        "label": "03",
-        "nb_actions": 85,
-        "nb_actions_per_visit": 3.1,
-        "nb_uniq_visitors": 27,
-        "nb_users": 0,
-        "nb_visits": 27
-      }
+      "values": [
+        "03",
+        20,
+        20,
+        40,
+        0,
+        0,
+        2,
+        116,
+        0.55
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 99,
-        "bounce_rate": 0.38,
-        "conversion_rate": 0.0769,
-        "label": "04",
-        "nb_actions": 37,
-        "nb_actions_per_visit": 2.8,
-        "nb_uniq_visitors": 13,
-        "nb_users": 0,
-        "nb_visits": 13
-      }
+      "values": [
+        "04",
+        13,
+        14,
+        23,
+        0,
+        0,
+        1.6,
+        115,
+        0.64
+      ]
     }
   ],
   "schema": [

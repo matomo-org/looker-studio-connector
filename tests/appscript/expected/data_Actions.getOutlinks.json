@@ -2,39 +2,39 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "label": "www.liveaboard.com/diving/search/indonesia?cid=7000",
-        "nb_hits": 28,
-        "nb_visits": 26
-      }
+      "values": [
+        "www.liveaboard.com/diving/search/indonesia?cid=7000",
+        13,
+        14
+      ]
     },
     {
-      "values": {
-        "label": "www.facebook.com/Divezone.net",
-        "nb_hits": 25,
-        "nb_visits": 19
-      }
+      "values": [
+        "www.pinterest.com/Divezone.net",
+        8,
+        9
+      ]
     },
     {
-      "values": {
-        "label": "twitter.com/Divezone",
-        "nb_hits": 14,
-        "nb_visits": 14
-      }
+      "values": [
+        "www.facebook.com/Divezone.net",
+        7,
+        7
+      ]
     },
     {
-      "values": {
-        "label": "www.scubadiving.com/liveabord-diving-san-clemente-island",
-        "nb_hits": 14,
-        "nb_visits": 12
-      }
+      "values": [
+        "www.scubadiving.com/liveabord-diving-san-clemente-island",
+        6,
+        6
+      ]
     },
     {
-      "values": {
-        "label": "www.worldnomads.com/Turnstile/AffiliateLink?partnerCode=dz0n3&utm_source=dz0n3&source=weblink&utm_content=weblink&path=https://www.worldnomads.com/travel-insurance/scuba-diving",
-        "nb_hits": 13,
-        "nb_visits": 12
-      }
+      "values": [
+        "www.liveaboard.com/diving/search/egypt?cid=7000",
+        5,
+        5
+      ]
     }
   ],
   "schema": [

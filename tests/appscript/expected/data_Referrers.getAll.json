@@ -2,69 +2,69 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 46,
-        "bounce_rate": 0.7,
-        "conversion_rate": 0.0636,
-        "label": "Keyword not defined",
-        "nb_actions": 3410,
-        "nb_actions_per_visit": 1.8,
-        "nb_uniq_visitors": 1888,
-        "nb_users": 1,
-        "nb_visits": 1919
-      }
+      "values": [
+        "reddit",
+        212,
+        212,
+        424,
+        0,
+        0.0849,
+        2,
+        277,
+        0.52
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 174,
-        "bounce_rate": 0.24,
-        "conversion_rate": 0.1329,
-        "label": "reddit",
-        "nb_actions": 761,
-        "nb_actions_per_visit": 4.4,
-        "nb_uniq_visitors": 172,
-        "nb_users": 0,
-        "nb_visits": 173
-      }
+      "values": [
+        "diveadvisor.com",
+        101,
+        101,
+        206,
+        0,
+        0.0495,
+        2,
+        164,
+        0.45
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 193,
-        "bounce_rate": 0.14,
-        "conversion_rate": 0.1544,
-        "label": "diveadvisor.com",
-        "nb_actions": 714,
-        "nb_actions_per_visit": 5.3,
-        "nb_uniq_visitors": 136,
-        "nb_users": 1,
-        "nb_visits": 136
-      }
+      "values": [
+        "www.scubadiving.com",
+        90,
+        90,
+        202,
+        0,
+        0.0778,
+        2.2,
+        209,
+        0.43
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 128,
-        "bounce_rate": 0.19,
-        "conversion_rate": 0.1667,
-        "label": "scubadiverlife.com",
-        "nb_actions": 349,
-        "nb_actions_per_visit": 4.2,
-        "nb_uniq_visitors": 84,
-        "nb_users": 0,
-        "nb_visits": 84
-      }
+      "values": [
+        "scubadiverlife.com",
+        75,
+        75,
+        152,
+        0,
+        0.04,
+        2,
+        266,
+        0.56
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 176,
-        "bounce_rate": 0.22,
-        "conversion_rate": 0.1235,
-        "label": "www.scubadiving.com",
-        "nb_actions": 362,
-        "nb_actions_per_visit": 4.5,
-        "nb_uniq_visitors": 81,
-        "nb_users": 0,
-        "nb_visits": 81
-      }
+      "values": [
+        "Twitter",
+        61,
+        62,
+        143,
+        0,
+        0.0806,
+        2.3,
+        342,
+        0.48
+      ]
     }
   ],
   "schema": [

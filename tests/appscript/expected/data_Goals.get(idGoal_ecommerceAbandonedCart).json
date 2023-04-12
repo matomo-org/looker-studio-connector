@@ -2,13 +2,13 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_order_revenue": 190.79,
-        "conversion_rate": 0.0983,
-        "items": 417,
-        "nb_conversions": 293,
-        "revenue": 55901.3
-      }
+      "values": [
+        187,
+        44677.9,
+        303,
+        238.92,
+        0.0858
+      ]
     }
   ],
   "schema": [

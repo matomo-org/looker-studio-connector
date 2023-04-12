@@ -2,44 +2,44 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "bounce_rate": 0.04,
-        "entry_bounce_count": "4",
-        "entry_nb_visits": "100",
-        "label": "/cart/"
-      }
+      "values": [
+        "/jobs",
+        "129",
+        "90",
+        0.7
+      ]
     },
     {
-      "values": {
-        "bounce_rate": 0.46,
-        "entry_bounce_count": "96",
-        "entry_nb_visits": "208",
-        "label": "/jobs"
-      }
+      "values": [
+        "/cart/",
+        "86",
+        "8",
+        0.09
+      ]
     },
     {
-      "values": {
-        "bounce_rate": 0.06,
-        "entry_bounce_count": "1",
-        "entry_nb_visits": "17",
-        "label": "/checkout/"
-      }
+      "values": [
+        "/",
+        73,
+        37,
+        0.51
+      ]
     },
     {
-      "values": {
-        "bounce_rate": 0.36,
-        "entry_bounce_count": 36,
-        "entry_nb_visits": 101,
-        "label": "/"
-      }
+      "values": [
+        "/checkout/",
+        "37",
+        "29",
+        0.78
+      ]
     },
     {
-      "values": {
-        "bounce_rate": 0.59,
-        "entry_bounce_count": "81",
-        "entry_nb_visits": "138",
-        "label": "/diving/bali"
-      }
+      "values": [
+        "/diving/bali",
+        "72",
+        "64",
+        0.89
+      ]
     }
   ],
   "schema": [

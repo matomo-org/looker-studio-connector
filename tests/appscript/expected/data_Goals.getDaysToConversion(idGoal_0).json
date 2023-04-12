@@ -2,39 +2,39 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "label": "0 days",
-        "nb_conversions": 158,
-        "revenue": 0
-      }
+      "values": [
+        "0 days",
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "label": "1 day",
-        "nb_conversions": 1,
-        "revenue": 0
-      }
+      "values": [
+        "1 day",
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "label": "2 days",
-        "nb_conversions": 0,
-        "revenue": 0
-      }
+      "values": [
+        "2 days",
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "label": "3 days",
-        "nb_conversions": 0,
-        "revenue": 0
-      }
+      "values": [
+        "3 days",
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "label": "4 days",
-        "nb_conversions": 0,
-        "revenue": 0
-      }
+      "values": [
+        "4 days",
+        0,
+        0
+      ]
     }
   ],
   "schema": [

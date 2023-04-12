@@ -2,34 +2,34 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "label": "0–10s",
-        "nb_visits": "1762"
-      }
+      "values": [
+        "0–10s",
+        "1648"
+      ]
     },
     {
-      "values": {
-        "label": "11–30s",
-        "nb_visits": "169"
-      }
+      "values": [
+        "11–30s",
+        "193"
+      ]
     },
     {
-      "values": {
-        "label": "31–60s",
-        "nb_visits": "161"
-      }
+      "values": [
+        "31–60s",
+        "49"
+      ]
     },
     {
-      "values": {
-        "label": "1-2 min",
-        "nb_visits": "237"
-      }
+      "values": [
+        "1-2 min",
+        "1"
+      ]
     },
     {
-      "values": {
-        "label": "2-4 min",
-        "nb_visits": "251"
-      }
+      "values": [
+        "2-4 min",
+        "0"
+      ]
     }
   ],
   "schema": [

@@ -2,42 +2,23 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "actions_evolution": -0.032,
-        "ecommerce_revenue": 0,
-        "ecommerce_revenue_evolution": 0,
-        "label": "Kovacek-Purdy [DO NOT DELETE]",
-        "nb_actions": 32269,
-        "nb_conversions": 0,
-        "nb_conversions_evolution": 0,
-        "nb_pageviews": 19199,
-        "nb_visits": 10321,
-        "orders": 0,
-        "orders_evolution": 0,
-        "pageviews_evolution": -0.044,
-        "revenue": 0,
-        "revenue_evolution": 0,
-        "visits_evolution": -0.112
-      }
-    },
-    {
-      "values": {
-        "actions_evolution": 0.165,
-        "ecommerce_revenue": 0,
-        "ecommerce_revenue_evolution": 0,
-        "label": "Divezone [DO NOT DELETE]",
-        "nb_actions": 7732,
-        "nb_conversions": 0,
-        "nb_conversions_evolution": 0,
-        "nb_pageviews": 6670,
-        "nb_visits": 2980,
-        "orders": 0,
-        "orders_evolution": 0,
-        "pageviews_evolution": 0.18,
-        "revenue": 18359.3,
-        "revenue_evolution": -0.186,
-        "visits_evolution": 0.196
-      }
+      "values": [
+        "Demo Site",
+        2179,
+        3368,
+        2882,
+        7648.05,
+        -0.204,
+        -0.238,
+        -0.233,
+        0.021,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
     }
   ],
   "schema": [

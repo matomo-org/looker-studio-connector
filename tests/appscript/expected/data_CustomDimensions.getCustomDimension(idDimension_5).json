@@ -2,59 +2,54 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_generation": 0,
-        "avg_time_on_dimension": 25,
-        "bounce_rate": 0.44,
-        "exit_rate": 0.65,
-        "label": "page - divezone.net/jobs",
-        "nb_hits": 206,
-        "nb_visits": 147
-      }
+      "values": [
+        "page - divezone.net/jobs",
+        84,
+        90,
+        0.65,
+        16,
+        0.76
+      ]
     },
     {
-      "values": {
-        "avg_time_generation": 0,
-        "avg_time_on_dimension": 28,
-        "bounce_rate": 0.86,
-        "exit_rate": 0.62,
-        "label": "diving - divezone.net/diving/bali",
-        "nb_hits": 153,
-        "nb_visits": 100
-      }
+      "values": [
+        "diving - divezone.net/diving/bali",
+        53,
+        77,
+        1.32,
+        5,
+        0.87
+      ]
     },
     {
-      "values": {
-        "avg_time_generation": 0,
-        "avg_time_on_dimension": 42,
-        "bounce_rate": 0.65,
-        "exit_rate": 0.74,
-        "label": "diving - divezone.net/diving/thailand",
-        "nb_hits": 53,
-        "nb_visits": 46
-      }
+      "values": [
+        "diving - divezone.net/diving/thailand",
+        27,
+        28,
+        0.7,
+        41,
+        0.85
+      ]
     },
     {
-      "values": {
-        "avg_time_generation": 0.084,
-        "avg_time_on_dimension": 17,
-        "bounce_rate": 0.8,
-        "exit_rate": 0.7,
-        "label": "diving - divezone.net/diving/indonesia",
-        "nb_hits": 67,
-        "nb_visits": 44
-      }
+      "values": [
+        "diving - divezone.net/diving/indonesia",
+        22,
+        55,
+        2,
+        1,
+        0.86
+      ]
     },
     {
-      "values": {
-        "avg_time_generation": 0,
-        "avg_time_on_dimension": 16,
-        "bounce_rate": 0.47,
-        "exit_rate": 0.69,
-        "label": "diving - divezone.net/diving/australia",
-        "nb_hits": 45,
-        "nb_visits": 36
-      }
+      "values": [
+        "diving - divezone.net/diving/malaysia",
+        19,
+        22,
+        0.74,
+        3,
+        0.95
+      ]
     }
   ],
   "schema": [

@@ -2,69 +2,69 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 97,
-        "bounce_rate": 0.48,
-        "conversion_rate": 0.1124,
-        "label": "Windows 10",
-        "nb_actions": 1954,
-        "nb_actions_per_visit": 2.9,
-        "nb_uniq_visitors": 652,
-        "nb_users": 2,
-        "nb_visits": 685
-      }
+      "values": [
+        "Windows 10",
+        491,
+        519,
+        851,
+        1,
+        0.0906,
+        1.6,
+        146,
+        0.7
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 95,
-        "bounce_rate": 0.5,
-        "conversion_rate": 0.0949,
-        "label": "Windows 7",
-        "nb_actions": 1162,
-        "nb_actions_per_visit": 3,
-        "nb_uniq_visitors": 364,
-        "nb_users": 0,
-        "nb_visits": 390
-      }
+      "values": [
+        "Windows 7",
+        272,
+        296,
+        482,
+        0,
+        0.0338,
+        1.6,
+        130,
+        0.67
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 45,
-        "bounce_rate": 0.71,
-        "conversion_rate": 0.0559,
-        "label": "iOS 11.2",
-        "nb_actions": 598,
-        "nb_actions_per_visit": 1.8,
-        "nb_uniq_visitors": 336,
-        "nb_users": 0,
-        "nb_visits": 340
-      }
+      "values": [
+        "iOS 11.2",
+        181,
+        184,
+        225,
+        0,
+        0.0598,
+        1.2,
+        40,
+        0.83
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 54,
-        "bounce_rate": 0.69,
-        "conversion_rate": 0.0761,
-        "label": "Android 7.0",
-        "nb_actions": 397,
-        "nb_actions_per_visit": 2,
-        "nb_uniq_visitors": 191,
-        "nb_users": 0,
-        "nb_visits": 197
-      }
+      "values": [
+        "Mac 10.12",
+        164,
+        178,
+        322,
+        0,
+        0.0674,
+        1.8,
+        201,
+        0.63
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 119,
-        "bounce_rate": 0.36,
-        "conversion_rate": 0.1192,
-        "label": "Mac 10.12",
-        "nb_actions": 714,
-        "nb_actions_per_visit": 3.7,
-        "nb_uniq_visitors": 183,
-        "nb_users": 0,
-        "nb_visits": 193
-      }
+      "values": [
+        "Mac 10.13",
+        129,
+        135,
+        203,
+        0,
+        0.0148,
+        1.5,
+        171,
+        0.75
+      ]
     }
   ],
   "schema": [

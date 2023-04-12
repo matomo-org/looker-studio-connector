@@ -1,0 +1,101 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "diving facts",
+        3,
+        247,
+        0.012145748987854251,
+        10.935222672064777
+      ]
+    },
+    {
+      "values": [
+        "scuba diving gear",
+        3,
+        197,
+        0.015228426395939087,
+        6.243654822335025
+      ]
+    },
+    {
+      "values": [
+        "diving lessons",
+        3,
+        121,
+        0.024793388429752067,
+        4.1735537190082646
+      ]
+    },
+    {
+      "values": [
+        "diving certification",
+        3,
+        8,
+        0.375,
+        4
+      ]
+    },
+    {
+      "values": [
+        "scuba diving dangers",
+        3,
+        5,
+        0.6,
+        4
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Keyword",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Clicks",
+      "name": "nb_clicks",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Impressions",
+      "name": "nb_impressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "CTR",
+      "name": "ctr",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. position",
+      "name": "position",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    }
+  ]
+}

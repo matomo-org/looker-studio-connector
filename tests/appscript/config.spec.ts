@@ -8,7 +8,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import Clasp from '../utilities/clasp';
 import getExpectedResponse from './getExpectedResponse';
-import env from './env';
+import env from '../env';
 
 function cleanUpSelects(response: any) {
   (response.configParams || []).forEach((paramEntry) => {

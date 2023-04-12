@@ -2,18 +2,18 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_order_revenue": 170.24,
-        "conversion_rate": 0.0342,
-        "items": 137,
-        "nb_conversions": 107,
-        "nb_visits_converted": 102,
-        "revenue": 18215.3,
-        "revenue_discount": 1711,
-        "revenue_shipping": 0,
-        "revenue_subtotal": 23700.48,
-        "revenue_tax": 704.02
-      }
+      "values": [
+        41,
+        41,
+        7583.05,
+        9443.48,
+        445.57,
+        0,
+        22.45,
+        51,
+        184.95,
+        0.0188
+      ]
     }
   ],
   "schema": [

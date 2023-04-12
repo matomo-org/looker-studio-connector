@@ -2,69 +2,69 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 43,
-        "bounce_rate": 0.73,
-        "conversion_rate": 0.0469,
-        "label": "iOS / Mobile Safari / 375x667",
-        "nb_actions": 449,
-        "nb_actions_per_visit": 1.8,
-        "nb_uniq_visitors": 254,
-        "nb_users": 0,
-        "nb_visits": 256
-      }
+      "values": [
+        "Windows / Chrome / 1920x1080",
+        152,
+        166,
+        324,
+        0,
+        0.0422,
+        2,
+        232,
+        0.6
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 40,
-        "bounce_rate": 0.75,
-        "conversion_rate": 0.0524,
-        "label": "Android / Chrome Mobile / 360x640",
-        "nb_actions": 374,
-        "nb_actions_per_visit": 1.8,
-        "nb_uniq_visitors": 204,
-        "nb_users": 1,
-        "nb_visits": 210
-      }
+      "values": [
+        "iOS / Mobile Safari / 375x667",
+        160,
+        163,
+        199,
+        0,
+        0.0429,
+        1.2,
+        31,
+        0.83
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 117,
-        "bounce_rate": 0.45,
-        "conversion_rate": 0.1143,
-        "label": "Windows / Chrome / 1920x1080",
-        "nb_actions": 648,
-        "nb_actions_per_visit": 3.1,
-        "nb_uniq_visitors": 199,
-        "nb_users": 0,
-        "nb_visits": 210
-      }
+      "values": [
+        "Windows / Chrome / 1366x768",
+        132,
+        136,
+        195,
+        1,
+        0.0515,
+        1.4,
+        59,
+        0.74
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 58,
-        "bounce_rate": 0.6,
-        "conversion_rate": 0.0523,
-        "label": "Windows / Chrome / 1366x768",
-        "nb_actions": 384,
-        "nb_actions_per_visit": 2.2,
-        "nb_uniq_visitors": 166,
-        "nb_users": 1,
-        "nb_visits": 172
-      }
+      "values": [
+        "Android / Chrome Mobile / 360x640",
+        132,
+        135,
+        184,
+        0,
+        0.0667,
+        1.4,
+        53,
+        0.81
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 42,
-        "bounce_rate": 0.73,
-        "conversion_rate": 0.0495,
-        "label": "iOS / Mobile Safari / 320x568",
-        "nb_actions": 162,
-        "nb_actions_per_visit": 1.6,
-        "nb_uniq_visitors": 100,
-        "nb_users": 0,
-        "nb_visits": 101
-      }
+      "values": [
+        "Mac / Chrome / 1440x900",
+        73,
+        76,
+        97,
+        0,
+        0.0263,
+        1.3,
+        83,
+        0.83
+      ]
     }
   ],
   "schema": [

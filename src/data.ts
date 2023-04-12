@@ -123,8 +123,8 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
       idSite: `${idSite}`,
       period,
       date,
-      format_metrics: '0',
-      flat: '1',
+      format_metrics: '0', // TODO: doesn't appear to work in every case (eg, API.get still returns % formatted values)
+      flat: request.configParams.hierarchical ? '0' : '1', // TODO: flatten table dimensions should have metrics of subtables in schema too
       filter_limit: `${limitToUse}`,
     });
 
@@ -186,6 +186,10 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCur
     // Object.entries(reportMetadata.metricsGoal),
     // Object.entries(reportMetadata.processedMetricsGoal),
   };
+
+  if (!requestedFields?.length) {
+    addDimension(fields, reportMetadata.module, reportMetadata.dimension);
+  }
 
   (requestedFields || Object.keys(allMetrics)).forEach((metricId) => {
     // TODO test for when label is not first in requested field

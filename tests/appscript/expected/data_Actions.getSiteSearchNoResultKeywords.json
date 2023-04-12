@@ -2,18 +2,25 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "exit_rate": 1,
-        "label": "divemaster greece",
-        "nb_visits": 1
-      }
+      "values": [
+        "kei molucca",
+        1,
+        0
+      ]
     },
     {
-      "values": {
-        "exit_rate": 0,
-        "label": "Poblacion2malvarcoronpalawan 5316",
-        "nb_visits": 1
-      }
+      "values": [
+        "moluka",
+        1,
+        1
+      ]
+    },
+    {
+      "values": [
+        "pantai bira",
+        1,
+        0
+      ]
     }
   ],
   "schema": [

@@ -2,54 +2,54 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_page": 27,
-        "bounce_rate": 0.04,
-        "exit_rate": 0.24,
-        "label": "/cart/",
-        "nb_hits": 375,
-        "nb_visits": 270
-      }
+      "values": [
+        "/jobs",
+        143,
+        158,
+        0.7,
+        45,
+        0.78
+      ]
     },
     {
-      "values": {
-        "avg_time_on_page": 25,
-        "bounce_rate": 0.46,
-        "exit_rate": 0.62,
-        "label": "/jobs",
-        "nb_hits": 352,
-        "nb_visits": 234
-      }
+      "values": [
+        "/cart/",
+        132,
+        147,
+        0.09,
+        31,
+        0.56
+      ]
     },
     {
-      "values": {
-        "avg_time_on_page": 26,
-        "bounce_rate": 0.06,
-        "exit_rate": 0.43,
-        "label": "/checkout/",
-        "nb_hits": 205,
-        "nb_visits": 184
-      }
+      "values": [
+        "/",
+        95,
+        105,
+        0.51,
+        93,
+        0.59
+      ]
     },
     {
-      "values": {
-        "avg_time_on_page": 20,
-        "bounce_rate": 0.36,
-        "exit_rate": 0.41,
-        "label": "/",
-        "nb_hits": 258,
-        "nb_visits": 176
-      }
+      "values": [
+        "/checkout/",
+        78,
+        85,
+        0.78,
+        185,
+        0.74
+      ]
     },
     {
-      "values": {
-        "avg_time_on_page": 33,
-        "bounce_rate": 0.59,
-        "exit_rate": 0.74,
-        "label": "/diving/bali",
-        "nb_hits": 178,
-        "nb_visits": 151
-      }
+      "values": [
+        "/diving/bali",
+        75,
+        76,
+        0.89,
+        13,
+        0.91
+      ]
     }
   ],
   "schema": [

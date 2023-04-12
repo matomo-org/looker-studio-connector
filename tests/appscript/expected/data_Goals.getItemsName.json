@@ -2,64 +2,64 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_price": 500,
-        "avg_quantity": 1,
-        "conversion_rate": 0,
-        "label": "Basic Wetsuit",
-        "nb_visits": 0,
-        "orders": 25,
-        "quantity": 26,
-        "revenue": 13000
-      }
+      "values": [
+        "Basic Wetsuit",
+        6000,
+        12,
+        11,
+        500,
+        1.1,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_price": 89,
-        "avg_quantity": 1,
-        "conversion_rate": 0,
-        "label": "Diving Tank",
-        "nb_visits": 0,
-        "orders": 34,
-        "quantity": 34,
-        "revenue": 3026
-      }
+      "values": [
+        "Diving Accessory Starter Kit",
+        1500,
+        3,
+        3,
+        500,
+        1,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_price": 500,
-        "avg_quantity": 1,
-        "conversion_rate": 0,
-        "label": "Diving Accessory Starter Kit",
-        "nb_visits": 0,
-        "orders": 6,
-        "quantity": 6,
-        "revenue": 3000
-      }
+      "values": [
+        "Diving Tank",
+        1157,
+        13,
+        13,
+        89,
+        1,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_price": 1055.95,
-        "avg_quantity": 1,
-        "conversion_rate": 0,
-        "label": "Deluxe Regulator & BCD Combo Pack",
-        "nb_visits": 0,
-        "orders": 2,
-        "quantity": 2,
-        "revenue": 2111.9
-      }
+      "values": [
+        "Octopus",
+        659.7,
+        6,
+        6,
+        109.95,
+        1,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_price": 147.95,
-        "avg_quantity": 1,
-        "conversion_rate": 0,
-        "label": "Regulator",
-        "nb_visits": 0,
-        "orders": 10,
-        "quantity": 10,
-        "revenue": 1479.5
-      }
+      "values": [
+        "Scuba Fins",
+        269.7,
+        6,
+        6,
+        44.95,
+        1,
+        0,
+        0
+      ]
     }
   ],
   "schema": [

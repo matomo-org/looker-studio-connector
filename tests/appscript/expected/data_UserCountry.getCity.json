@@ -2,64 +2,64 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 72,
-        "bounce_rate": 0.59,
-        "label": "Others",
-        "nb_actions": 1642,
-        "nb_actions_per_visit": 2.4,
-        "nb_uniq_visitors": 682,
-        "nb_visits": 682,
-        "revenue": 4077.8
-      }
+      "values": [
+        "Others",
+        435,
+        435,
+        622,
+        1398.8000000000002,
+        1.4,
+        84,
+        0.76
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 74,
-        "bounce_rate": 0.58,
-        "label": "Unknown",
-        "nb_actions": 1397,
-        "nb_actions_per_visit": 2.5,
-        "nb_uniq_visitors": 527,
-        "nb_visits": 556,
-        "revenue": 2129.5
-      }
+      "values": [
+        "Unknown",
+        375,
+        395,
+        598,
+        714.7,
+        1.5,
+        104,
+        0.74
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 74,
-        "bounce_rate": 0.59,
-        "label": "Sydney, New South Wales, Australia",
-        "nb_actions": 140,
-        "nb_actions_per_visit": 2.1,
-        "nb_uniq_visitors": 66,
-        "nb_visits": 66,
-        "revenue": 112.95
-      }
+      "values": [
+        "Sydney, New South Wales, Australia",
+        39,
+        39,
+        57,
+        2,
+        1.5,
+        65,
+        0.82
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 59,
-        "bounce_rate": 0.63,
-        "label": "London, England, United Kingdom",
-        "nb_actions": 111,
-        "nb_actions_per_visit": 2.1,
-        "nb_uniq_visitors": 50,
-        "nb_visits": 52,
-        "revenue": 2
-      }
+      "values": [
+        "London, England, United Kingdom",
+        32,
+        34,
+        41,
+        0,
+        1.2,
+        79,
+        0.82
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 45,
-        "bounce_rate": 0.65,
-        "label": "Melbourne, Victoria, Australia",
-        "nb_actions": 71,
-        "nb_actions_per_visit": 1.9,
-        "nb_uniq_visitors": 36,
-        "nb_visits": 37,
-        "revenue": 2
-      }
+      "values": [
+        "Thornhill, Ontario, Canada",
+        33,
+        33,
+        39,
+        1.2,
+        0,
+        0.82,
+        0
+      ]
     }
   ],
   "schema": [

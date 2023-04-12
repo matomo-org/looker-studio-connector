@@ -2,69 +2,69 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 123,
-        "bounce_rate": 0.38,
-        "conversion_rate": 0.1077,
-        "label": "reddit - Others",
-        "nb_actions": 230,
-        "nb_actions_per_visit": 3.5,
-        "nb_uniq_visitors": 65,
-        "nb_users": 0,
-        "nb_visits": 65
-      }
+      "values": [
+        "reddit - Others",
+        110,
+        110,
+        234,
+        0,
+        0.0818,
+        2.1,
+        281,
+        0.48
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 237,
-        "bounce_rate": 0.16,
-        "conversion_rate": 0.25,
-        "label": "Twitter - https://twitter.com/Divezone",
-        "nb_actions": 173,
-        "nb_actions_per_visit": 3.9,
-        "nb_uniq_visitors": 44,
-        "nb_users": 0,
-        "nb_visits": 44
-      }
+      "values": [
+        "Twitter - https://twitter.com/Divezone",
+        49,
+        50,
+        97,
+        0,
+        0.1,
+        1.9,
+        255,
+        0.58
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 139,
-        "bounce_rate": 0.28,
-        "conversion_rate": 0.1667,
-        "label": "Facebook - https://www.facebook.com/Divezone.net",
-        "nb_actions": 160,
-        "nb_actions_per_visit": 4.4,
-        "nb_uniq_visitors": 36,
-        "nb_users": 0,
-        "nb_visits": 36
-      }
+      "values": [
+        "Facebook - https://www.facebook.com/Divezone.net",
+        47,
+        47,
+        73,
+        0,
+        0.0851,
+        1.6,
+        117,
+        0.68
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 205,
-        "bounce_rate": 0.23,
-        "conversion_rate": 0.2286,
-        "label": "Instagram - https://www.instagram.com/Divezone.net/",
-        "nb_actions": 206,
-        "nb_actions_per_visit": 5.9,
-        "nb_uniq_visitors": 35,
-        "nb_users": 0,
-        "nb_visits": 35
-      }
+      "values": [
+        "Instagram - https://www.instagram.com/Divezone.net/",
+        47,
+        47,
+        96,
+        0,
+        0.0638,
+        2,
+        225,
+        0.53
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 147,
-        "bounce_rate": 0.31,
-        "conversion_rate": 0.1724,
-        "label": "Pinterest - https://www.pinterest.com/Divezone.net",
-        "nb_actions": 145,
-        "nb_actions_per_visit": 5,
-        "nb_uniq_visitors": 29,
-        "nb_users": 0,
-        "nb_visits": 29
-      }
+      "values": [
+        "Pinterest - https://www.pinterest.com/Divezone.net",
+        40,
+        40,
+        79,
+        0,
+        0.025,
+        2,
+        148,
+        0.55
+      ]
     }
   ],
   "schema": [

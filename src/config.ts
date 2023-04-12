@@ -143,7 +143,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
         );
       });
 
-      // TODO: make sure to validate values somehow
+      // TODO: make sure to validate values somehow (in getSchema()?)
       // filter_limit input
       config
         .newTextInput()
@@ -152,10 +152,11 @@ const CONFIG_STEPS = <ConfigStep[]>[
         .setAllowOverride(true)
         .setHelpText('TODO');
 
+      // TODO: getData report test for flatten (one Actions, one non-Actions)
       config
         .newCheckbox()
-        .setId('flat')
-        .setName('Flatten')
+        .setId('hierarchical')
+        .setName('Do not flatten')
         .setAllowOverride(false)
         .setHelpText('TODO');
 

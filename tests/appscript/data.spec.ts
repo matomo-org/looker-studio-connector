@@ -8,7 +8,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import Clasp from '../utilities/clasp';
 import getExpectedResponse from './getExpectedResponse';
-import env from './env';
+import env from '../env';
 
 const DATE_TO_TEST = '2023-02-15';
 const RANGE_START_DATE_TO_TEST = '2023-02-15';

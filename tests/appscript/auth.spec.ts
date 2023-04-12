@@ -7,7 +7,7 @@
 
 import { describe, it, expect, beforeEach } from '@jest/globals';
 import Clasp from '../utilities/clasp';
-import env from './env';
+import env from '../env';
 
 describe('auth', () => {
   beforeEach(async () => {

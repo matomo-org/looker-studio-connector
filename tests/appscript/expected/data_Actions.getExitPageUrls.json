@@ -2,44 +2,44 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "exit_nb_visits": "66",
-        "exit_rate": 0.24,
-        "label": "/cart/",
-        "nb_visits": 270
-      }
+      "values": [
+        "/jobs",
+        143,
+        "111",
+        0.78
+      ]
     },
     {
-      "values": {
-        "exit_nb_visits": "144",
-        "exit_rate": 0.62,
-        "label": "/jobs",
-        "nb_visits": 234
-      }
+      "values": [
+        "/cart/",
+        132,
+        "74",
+        0.56
+      ]
     },
     {
-      "values": {
-        "exit_nb_visits": "80",
-        "exit_rate": 0.43,
-        "label": "/checkout/",
-        "nb_visits": 184
-      }
+      "values": [
+        "/",
+        95,
+        56,
+        0.59
+      ]
     },
     {
-      "values": {
-        "exit_nb_visits": 73,
-        "exit_rate": 0.41,
-        "label": "/",
-        "nb_visits": 176
-      }
+      "values": [
+        "/checkout/",
+        78,
+        "58",
+        0.74
+      ]
     },
     {
-      "values": {
-        "exit_nb_visits": "111",
-        "exit_rate": 0.74,
-        "label": "/diving/bali",
-        "nb_visits": 151
-      }
+      "values": [
+        "/diving/bali",
+        75,
+        "68",
+        0.91
+      ]
     }
   ],
   "schema": [

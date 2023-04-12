@@ -2,40 +2,28 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_price": 534.48,
-        "avg_quantity": 1.1,
-        "conversion_rate": 0,
-        "label": "Starting Out",
-        "nb_visits": 0,
-        "orders": 29,
-        "quantity": 32,
-        "revenue": 16000
-      }
+      "values": [
+        "Starting Out",
+        7500,
+        15,
+        13,
+        538.46,
+        1.2,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_price": 79.38,
-        "avg_quantity": 1.2,
-        "conversion_rate": 0,
-        "label": "Accessories",
-        "nb_visits": 0,
-        "orders": 88,
-        "quantity": 103,
-        "revenue": 6985.55
-      }
-    },
-    {
-      "values": {
-        "avg_price": 1055.95,
-        "avg_quantity": 1,
-        "conversion_rate": 0,
-        "label": "High End",
-        "nb_visits": 0,
-        "orders": 2,
-        "quantity": 2,
-        "revenue": 2111.9
-      }
+      "values": [
+        "Accessories",
+        2463.85,
+        36,
+        31,
+        79.48,
+        1.2,
+        0,
+        0
+      ]
     }
   ],
   "schema": [

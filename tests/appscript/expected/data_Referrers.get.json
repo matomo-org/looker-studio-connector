@@ -2,23 +2,23 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "Referrers_distinctCampaigns": 1,
-        "Referrers_distinctKeywords": 53,
-        "Referrers_distinctSearchEngines": 12,
-        "Referrers_distinctSocialNetworks": 5,
-        "Referrers_distinctWebsites": 4,
-        "Referrers_visitorsFromCampaigns": 1,
-        "Referrers_visitorsFromCampaigns_percent": "0%",
-        "Referrers_visitorsFromDirectEntry": 227,
-        "Referrers_visitorsFromDirectEntry_percent": "8%",
-        "Referrers_visitorsFromSearchEngines": 2042,
-        "Referrers_visitorsFromSearchEngines_percent": "69%",
-        "Referrers_visitorsFromSocialNetworks": 377,
-        "Referrers_visitorsFromSocialNetworks_percent": "13%",
-        "Referrers_visitorsFromWebsites": 333,
-        "Referrers_visitorsFromWebsites_percent": "11%"
-      }
+      "values": [
+        1118,
+        432,
+        329,
+        300,
+        0,
+        10,
+        5,
+        45,
+        4,
+        0,
+        "15%",
+        "51%",
+        "0%",
+        "20%",
+        "14%"
+      ]
     }
   ],
   "schema": [

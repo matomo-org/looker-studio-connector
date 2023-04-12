@@ -2,64 +2,64 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_price": 500,
-        "avg_quantity": 1,
-        "conversion_rate": 0,
-        "label": "3882",
-        "nb_visits": 0,
-        "orders": 21,
-        "quantity": 22,
-        "revenue": 11000
-      }
+      "values": [
+        "3882",
+        5000,
+        10,
+        9,
+        500,
+        1.1,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_price": 1055.95,
-        "avg_quantity": 1,
-        "conversion_rate": 0,
-        "label": "6859",
-        "nb_visits": 0,
-        "orders": 2,
-        "quantity": 2,
-        "revenue": 2111.9
-      }
+      "values": [
+        "3196",
+        1000,
+        2,
+        2,
+        500,
+        1,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_price": 89,
-        "avg_quantity": 1,
-        "conversion_rate": 0,
-        "label": "3222",
-        "nb_visits": 0,
-        "orders": 17,
-        "quantity": 17,
-        "revenue": 1513
-      }
+      "values": [
+        "3883",
+        1000,
+        2,
+        2,
+        500,
+        1,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_price": 500,
-        "avg_quantity": 1,
-        "conversion_rate": 0,
-        "label": "3197",
-        "nb_visits": 0,
-        "orders": 3,
-        "quantity": 3,
-        "revenue": 1500
-      }
+      "values": [
+        "3222",
+        979,
+        11,
+        11,
+        89,
+        1,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_price": 147.95,
-        "avg_quantity": 1,
-        "conversion_rate": 0,
-        "label": "4333",
-        "nb_visits": 0,
-        "orders": 10,
-        "quantity": 10,
-        "revenue": 1479.5
-      }
+      "values": [
+        "3197",
+        500,
+        1,
+        1,
+        500,
+        1,
+        0,
+        0
+      ]
     }
   ],
   "schema": [

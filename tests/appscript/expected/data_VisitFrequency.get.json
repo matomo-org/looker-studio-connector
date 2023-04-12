@@ -2,24 +2,24 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site_new": 76,
-        "avg_time_on_site_returning": 151,
-        "bounce_rate_new": 0.59,
-        "bounce_rate_returning": 0.37,
-        "max_actions_new": 42,
-        "max_actions_returning": 22,
-        "nb_actions_new": 7036,
-        "nb_actions_per_visit_new": 2.5,
-        "nb_actions_per_visit_returning": 3.7,
-        "nb_actions_returning": 696,
-        "nb_uniq_visitors_new": 2790,
-        "nb_uniq_visitors_returning": 171,
-        "nb_users_new": 3,
-        "nb_users_returning": 1,
-        "nb_visits_new": 2790,
-        "nb_visits_returning": 190
-      }
+      "values": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        2063,
+        1,
+        2178,
+        3367,
+        14,
+        0.73,
+        1.5,
+        116
+      ]
     }
   ],
   "schema": [

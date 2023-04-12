@@ -2,44 +2,44 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "interaction_rate": 0,
-        "label": "4 Fun Diving Bali - preview-diving-center",
-        "nb_impressions": 9,
-        "nb_interactions": 0
-      }
+      "values": [
+        "Alam Asmara Dive Resort Bali - preview-diving-center",
+        8,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "interaction_rate": 0,
-        "label": "Absolute Scuba Bali - preview-diving-center",
-        "nb_impressions": 9,
-        "nb_interactions": 0
-      }
+      "values": [
+        "4 Fun Diving Bali - preview-diving-center",
+        7,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "interaction_rate": 0,
-        "label": "Adventure Divers Bali - preview-diving-center",
-        "nb_impressions": 6,
-        "nb_interactions": 0
-      }
+      "values": [
+        "Absolute Scuba Bali - preview-diving-center",
+        7,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "interaction_rate": 0,
-        "label": "Amed Cafe - preview-diving-center",
-        "nb_impressions": 6,
-        "nb_interactions": 0
-      }
+      "values": [
+        "Aqua Dive Paradise - preview-diving-center",
+        7,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "interaction_rate": 0,
-        "label": "Amed Dive Center - preview-diving-center",
-        "nb_impressions": 6,
-        "nb_interactions": 0
-      }
+      "values": [
+        "Adventure Divers Bali - preview-diving-center",
+        6,
+        0,
+        0
+      ]
     }
   ],
   "schema": [

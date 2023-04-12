@@ -1,0 +1,101 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "diving asmr",
+        1,
+        3,
+        0.3333333333333333,
+        1
+      ]
+    },
+    {
+      "values": [
+        "diving and finding treasure",
+        1,
+        2,
+        0.5,
+        2
+      ]
+    },
+    {
+      "values": [
+        "diving basics",
+        1,
+        2,
+        0.5,
+        3
+      ]
+    },
+    {
+      "values": [
+        "diving in river",
+        1,
+        2,
+        0.5,
+        9
+      ]
+    },
+    {
+      "values": [
+        "diving aruba",
+        1,
+        1,
+        1,
+        2
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Keyword",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Clicks",
+      "name": "nb_clicks",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Impressions",
+      "name": "nb_impressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "CTR",
+      "name": "ctr",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. position",
+      "name": "position",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    }
+  ]
+}

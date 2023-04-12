@@ -2,40 +2,16 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 13,
-        "bounce_rate": 0.5,
-        "conversion_rate": 0.5,
-        "label": "momofdivers",
-        "nb_actions": 4,
-        "nb_actions_per_visit": 2,
-        "nb_visits": 2,
-        "nb_visits_converted": 1
-      }
-    },
-    {
-      "values": {
-        "avg_time_on_site": 0,
-        "bounce_rate": 1,
-        "conversion_rate": 0,
-        "label": "mezzdving",
-        "nb_actions": 1,
-        "nb_actions_per_visit": 1,
-        "nb_visits": 1,
-        "nb_visits_converted": 0
-      }
-    },
-    {
-      "values": {
-        "avg_time_on_site": 569,
-        "bounce_rate": 0,
-        "conversion_rate": 1,
-        "label": "newmermaidontheblock",
-        "nb_actions": 6,
-        "nb_actions_per_visit": 6,
-        "nb_visits": 1,
-        "nb_visits_converted": 1
-      }
+      "values": [
+        "momofdivers",
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1
+      ]
     }
   ],
   "schema": [

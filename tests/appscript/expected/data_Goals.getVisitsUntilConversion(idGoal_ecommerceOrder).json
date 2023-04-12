@@ -2,34 +2,34 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "label": "1 visit",
-        "nb_conversions": 96
-      }
+      "values": [
+        "1 visit",
+        0
+      ]
     },
     {
-      "values": {
-        "label": "2 visits",
-        "nb_conversions": 10
-      }
+      "values": [
+        "2 visits",
+        0
+      ]
     },
     {
-      "values": {
-        "label": "3 visits",
-        "nb_conversions": 1
-      }
+      "values": [
+        "3 visits",
+        0
+      ]
     },
     {
-      "values": {
-        "label": "4 visits",
-        "nb_conversions": 0
-      }
+      "values": [
+        "4 visits",
+        0
+      ]
     },
     {
-      "values": {
-        "label": "5 visits",
-        "nb_conversions": 0
-      }
+      "values": [
+        "5 visits",
+        0
+      ]
     }
   ],
   "schema": [

@@ -2,17 +2,17 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 80,
-        "bounce_rate": 0.57,
-        "conversion_rate": 0.0846,
-        "label": "Unknown",
-        "nb_actions": 7732,
-        "nb_actions_per_visit": 2.6,
-        "nb_uniq_visitors": 2841,
-        "nb_users": 3,
-        "nb_visits": 2980
-      }
+      "values": [
+        "Unknown",
+        2064,
+        2179,
+        3368,
+        1,
+        0.0546,
+        1.5,
+        116,
+        0.73
+      ]
     }
   ],
   "schema": [

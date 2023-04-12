@@ -2,34 +2,24 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 50,
-        "bounce_rate": 0.69,
-        "label": "guest",
-        "nb_actions": 2474,
-        "nb_actions_per_visit": 1.9,
-        "nb_visits": 1330
-      }
+      "values": [
+        "guest",
+        867,
+        1147,
+        1.3,
+        28,
+        0.83
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 270,
-        "bounce_rate": 0.29,
-        "label": "candidate",
-        "nb_actions": 21,
-        "nb_actions_per_visit": 3,
-        "nb_visits": 7
-      }
-    },
-    {
-      "values": {
-        "avg_time_on_site": 115,
-        "bounce_rate": 0,
-        "label": "employer",
-        "nb_actions": 4,
-        "nb_actions_per_visit": 4,
-        "nb_visits": 1
-      }
+      "values": [
+        "candidate",
+        2,
+        2,
+        1,
+        1,
+        1
+      ]
     }
   ],
   "schema": [

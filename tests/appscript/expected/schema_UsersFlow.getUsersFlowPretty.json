@@ -1,1 +1,63 @@
-{}
+{
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Interaction",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Exits",
+      "name": "nb_exits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Proceeded",
+      "name": "nb_proceeded",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Proceeded Rate",
+      "name": "proceeded_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Exit rate",
+      "name": "exit_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

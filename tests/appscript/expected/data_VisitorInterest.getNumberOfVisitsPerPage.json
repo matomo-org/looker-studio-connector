@@ -2,34 +2,34 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "label": "1 page",
-        "nb_visits": "1705"
-      }
+      "values": [
+        "1 page",
+        "1588"
+      ]
     },
     {
-      "values": {
-        "label": "2 pages",
-        "nb_visits": "451"
-      }
+      "values": [
+        "2 pages",
+        "327"
+      ]
     },
     {
-      "values": {
-        "label": "3 pages",
-        "nb_visits": "228"
-      }
+      "values": [
+        "3 pages",
+        "138"
+      ]
     },
     {
-      "values": {
-        "label": "4 pages",
-        "nb_visits": "154"
-      }
+      "values": [
+        "4 pages",
+        "58"
+      ]
     },
     {
-      "values": {
-        "label": "5 pages",
-        "nb_visits": "106"
-      }
+      "values": [
+        "5 pages",
+        "20"
+      ]
     }
   ],
   "schema": [

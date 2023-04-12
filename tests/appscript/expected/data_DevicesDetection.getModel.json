@@ -2,69 +2,69 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 108,
-        "bounce_rate": 0.46,
-        "label": "Generic Desktop",
-        "nb_actions": 3941,
-        "nb_actions_per_visit": 3.1,
-        "nb_uniq_visitors": 1178,
-        "nb_users": 2,
-        "nb_visits": 1256,
-        "revenue": 15699.1
-      }
+      "values": [
+        "Generic Desktop",
+        926,
+        995,
+        1646,
+        1,
+        6018.45,
+        1.7,
+        150,
+        0.67
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 37,
-        "bounce_rate": 0.75,
-        "label": "Apple - iPhone",
-        "nb_actions": 898,
-        "nb_actions_per_visit": 1.6,
-        "nb_uniq_visitors": 538,
-        "nb_users": 0,
-        "nb_visits": 547,
-        "revenue": 26
-      }
+      "values": [
+        "Apple - Generic Desktop",
+        405,
+        430,
+        750,
+        0,
+        1424.6,
+        1.7,
+        174,
+        0.67
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 94,
-        "bounce_rate": 0.5,
-        "label": "Apple - Generic Desktop",
-        "nb_actions": 1708,
-        "nb_actions_per_visit": 3.2,
-        "nb_uniq_visitors": 515,
-        "nb_users": 0,
-        "nb_visits": 542,
-        "revenue": 2419.2
-      }
+      "values": [
+        "Apple - iPhone",
+        307,
+        312,
+        378,
+        0,
+        8,
+        1.2,
+        26,
+        0.86
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 52,
-        "bounce_rate": 0.69,
-        "label": "Apple - iPad",
-        "nb_actions": 219,
-        "nb_actions_per_visit": 1.7,
-        "nb_uniq_visitors": 126,
-        "nb_users": 0,
-        "nb_visits": 132,
-        "revenue": 4
-      }
+      "values": [
+        "Apple - iPad",
+        89,
+        94,
+        145,
+        0,
+        5,
+        1.5,
+        58,
+        0.76
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 49,
-        "bounce_rate": 0.69,
-        "label": "Samsung - Galaxy S8",
-        "nb_actions": 91,
-        "nb_actions_per_visit": 2.3,
-        "nb_uniq_visitors": 39,
-        "nb_users": 0,
-        "nb_visits": 39,
-        "revenue": 4
-      }
+      "values": [
+        "Samsung - Galaxy S7",
+        25,
+        26,
+        40,
+        0,
+        1,
+        1.5,
+        94,
+        0.73
+      ]
     }
   ],
   "schema": [

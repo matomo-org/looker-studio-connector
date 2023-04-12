@@ -2,69 +2,69 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 46,
-        "bounce_rate": 0.7,
-        "label": "Google - Keyword not defined",
-        "nb_actions": 3276,
-        "nb_actions_per_visit": 1.8,
-        "nb_uniq_visitors": 1816,
-        "nb_users": 0,
-        "nb_visits": 1847,
-        "revenue": 0
-      }
+      "values": [
+        "DuckDuckGo - diving protection",
+        9,
+        15,
+        0,
+        1.7,
+        203,
+        0.44,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 67,
-        "bounce_rate": 0.62,
-        "label": "Bing - Keyword not defined",
-        "nb_actions": 78,
-        "nb_actions_per_visit": 2.1,
-        "nb_uniq_visitors": 37,
-        "nb_users": 0,
-        "nb_visits": 37,
-        "revenue": 0
-      }
+      "values": [
+        "Qwant - personal yellow submarine for dive",
+        7,
+        12,
+        0,
+        1.7,
+        225,
+        0.57,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 22,
-        "bounce_rate": 0.68,
-        "label": "Yahoo! - Keyword not defined",
-        "nb_actions": 28,
-        "nb_actions_per_visit": 1.5,
-        "nb_uniq_visitors": 19,
-        "nb_users": 0,
-        "nb_visits": 19,
-        "revenue": 0
-      }
+      "values": [
+        "Google - ningaloo reef",
+        6,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 141,
-        "bounce_rate": 0.3,
-        "label": "DuckDuckGo - diving lessons",
-        "nb_actions": 49,
-        "nb_actions_per_visit": 4.9,
-        "nb_uniq_visitors": 10,
-        "nb_users": 0,
-        "nb_visits": 10,
-        "revenue": 0
-      }
+      "values": [
+        "DuckDuckGo - diving jobs",
+        6,
+        23,
+        0,
+        3.8,
+        561,
+        0.33,
+        0,
+        0
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 98,
-        "bounce_rate": 0.14,
-        "label": "DuckDuckGo - diving masks",
-        "nb_actions": 29,
-        "nb_actions_per_visit": 4.1,
-        "nb_uniq_visitors": 7,
-        "nb_users": 0,
-        "nb_visits": 7,
-        "revenue": 0
-      }
+      "values": [
+        "DuckDuckGo - diving lessons",
+        6,
+        8,
+        0,
+        1.3,
+        204,
+        0.83,
+        0,
+        0
+      ]
     }
   ],
   "schema": [

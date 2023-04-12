@@ -2,12 +2,12 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "conversion_rate": 0.0846,
-        "nb_conversions": 266,
-        "nb_visits_converted": 252,
-        "revenue": 18359.3
-      }
+      "values": [
+        123,
+        119,
+        7648.05,
+        0.0546
+      ]
     }
   ],
   "schema": [

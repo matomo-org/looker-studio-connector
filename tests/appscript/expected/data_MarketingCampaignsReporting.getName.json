@@ -1,19 +1,6 @@
 {
   "filtersApplied": false,
   "rows": [
-    {
-      "values": {
-        "avg_time_on_site": 0,
-        "bounce_rate": 1,
-        "label": "org_newsletter_2018_06_08",
-        "nb_actions": 1,
-        "nb_actions_per_visit": 1,
-        "nb_uniq_visitors": 1,
-        "nb_users": 0,
-        "nb_visits": 1,
-        "revenue": 0
-      }
-    }
   ],
   "schema": [
     {

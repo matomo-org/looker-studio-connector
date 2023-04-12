@@ -2,69 +2,69 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 131,
-        "bounce_rate": 0.42,
-        "conversion_rate": 0.0827,
-        "label": "1920x1080",
-        "nb_actions": 1320,
-        "nb_actions_per_visit": 3.4,
-        "nb_uniq_visitors": 367,
-        "nb_users": 0,
-        "nb_visits": 387
-      }
+      "values": [
+        "1920x1080",
+        331,
+        350,
+        611,
+        0,
+        0.0371,
+        1.7,
+        185,
+        0.64
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 40,
-        "bounce_rate": 0.74,
-        "conversion_rate": 0.0468,
-        "label": "375x667",
-        "nb_actions": 510,
-        "nb_actions_per_visit": 1.7,
-        "nb_uniq_visitors": 296,
-        "nb_users": 0,
-        "nb_visits": 299
-      }
+      "values": [
+        "1366x768",
+        186,
+        191,
+        260,
+        1,
+        0.0471,
+        1.4,
+        54,
+        0.78
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 43,
-        "bounce_rate": 0.74,
-        "conversion_rate": 0.0489,
-        "label": "360x640",
-        "nb_actions": 514,
-        "nb_actions_per_visit": 1.9,
-        "nb_uniq_visitors": 258,
-        "nb_users": 1,
-        "nb_visits": 266
-      }
+      "values": [
+        "375x667",
+        184,
+        187,
+        227,
+        0,
+        0.0428,
+        1.2,
+        34,
+        0.84
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 60,
-        "bounce_rate": 0.58,
-        "conversion_rate": 0.0565,
-        "label": "1366x768",
-        "nb_actions": 543,
-        "nb_actions_per_visit": 2.2,
-        "nb_uniq_visitors": 240,
-        "nb_users": 1,
-        "nb_visits": 248
-      }
+      "values": [
+        "360x640",
+        171,
+        175,
+        238,
+        0,
+        0.0514,
+        1.4,
+        52,
+        0.82
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 68,
-        "bounce_rate": 0.53,
-        "conversion_rate": 0.0829,
-        "label": "1440x900",
-        "nb_actions": 587,
-        "nb_actions_per_visit": 2.7,
-        "nb_uniq_visitors": 206,
-        "nb_users": 0,
-        "nb_visits": 217
-      }
+      "values": [
+        "1440x900",
+        157,
+        167,
+        242,
+        0,
+        0.024,
+        1.4,
+        145,
+        0.75
+      ]
     }
   ],
   "schema": [

@@ -2,64 +2,64 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 107,
-        "bounce_rate": 0.47,
-        "label": "Europe",
-        "nb_actions": 3206,
-        "nb_actions_per_visit": 3.3,
-        "nb_uniq_visitors": 932,
-        "nb_visits": 986,
-        "revenue": 10657.449999999999
-      }
+      "values": [
+        "Europe",
+        709,
+        739,
+        1216,
+        3837.4500000000003,
+        1.6,
+        133,
+        0.68
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 64,
-        "bounce_rate": 0.62,
-        "label": "Asia",
-        "nb_actions": 2044,
-        "nb_actions_per_visit": 2.2,
-        "nb_uniq_visitors": 880,
-        "nb_visits": 920,
-        "revenue": 4301.549999999999
-      }
+      "values": [
+        "Asia",
+        574,
+        620,
+        873,
+        173.9,
+        1.4,
+        83,
+        0.77
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 75,
-        "bounce_rate": 0.62,
-        "label": "North America",
-        "nb_actions": 1572,
-        "nb_actions_per_visit": 2.3,
-        "nb_uniq_visitors": 655,
-        "nb_visits": 674,
-        "revenue": 2106.55
-      }
+      "values": [
+        "North America",
+        518,
+        532,
+        851,
+        2625.7000000000003,
+        1.6,
+        151,
+        0.73
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 64,
-        "bounce_rate": 0.62,
-        "label": "Oceania",
-        "nb_actions": 571,
-        "nb_actions_per_visit": 2.1,
-        "nb_uniq_visitors": 268,
-        "nb_visits": 275,
-        "revenue": 1248.8
-      }
+      "values": [
+        "Oceania",
+        184,
+        189,
+        280,
+        1005,
+        1.5,
+        83,
+        0.76
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 45,
-        "bounce_rate": 0.59,
-        "label": "Africa",
-        "nb_actions": 133,
-        "nb_actions_per_visit": 2.3,
-        "nb_uniq_visitors": 55,
-        "nb_visits": 58,
-        "revenue": 4
-      }
+      "values": [
+        "Africa",
+        50,
+        53,
+        73,
+        2,
+        1.4,
+        21,
+        0.74
+      ]
     }
   ],
   "schema": [

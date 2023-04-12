@@ -1,6 +1,5 @@
 # Looker Studio Connector for Matomo
 
-TODO: add docs regarding how tests work in TESTING.md file (remove below test sections when done)
 TODO: follow all steps in blank install to test (on private google account to avoid using a new GCP project)
 
 ## Setting Up for Deployment
@@ -27,7 +26,7 @@ $ npm run push
 ## Setting Up for Development
 
 To develop this connector you need to follow a couple more steps. They are specifically required to run the
-app script and e2e tests.
+automated tests.
 
 First, follow all steps in **Setting Up for Deployment**. Then:
 
@@ -105,7 +104,7 @@ Run:
 $ clasp login --creds creds.json
 ```
 
-Now you'll be able to run the app script and e2e tests via `npm run test:appscript` and `npm run test:e2e`.
+Now you'll be able to run the automated tests via `npm run test:appscript`.
 
 ## Useful commands
 
@@ -123,17 +122,3 @@ $ npm run push
 ```
 
 This command will build and push the code, then print out a link you can use to test the pushed code in Looker Studio.
-
-## Tests
-
-### Unit tests
-
-**Using an existing project**
-
-TODO
-
-### Integration tests
-
-## Manual Testing
-
-TODO: 

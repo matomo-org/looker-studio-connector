@@ -37,9 +37,9 @@
       "type": "TEXTINPUT"
     },
     {
-      "displayName": "Flatten",
+      "displayName": "Do not flatten",
       "helpText": "TODO",
-      "name": "flat",
+      "name": "hierarchical",
       "options": [
       ],
       "parameterControl": {

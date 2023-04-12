@@ -2,16 +2,16 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 80,
-        "bounce_rate": 0.57,
-        "max_actions": 42,
-        "nb_actions": 7732,
-        "nb_actions_per_visit": 2.6,
-        "nb_uniq_visitors": 2841,
-        "nb_users": 3,
-        "nb_visits": 2980
-      }
+      "values": [
+        2064,
+        1,
+        2179,
+        3368,
+        14,
+        1.5,
+        116,
+        0.73
+      ]
     }
   ],
   "schema": [

@@ -2,39 +2,39 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "label": "Cookie",
-        "nb_visits": "2818",
-        "nb_visits_percentage": 0.95
-      }
+      "values": [
+        "Cookie",
+        "2035",
+        0.93
+      ]
     },
     {
-      "values": {
-        "label": "Pdf",
-        "nb_visits": "1309",
-        "nb_visits_percentage": 0.44
-      }
+      "values": [
+        "Pdf",
+        "980",
+        0.45
+      ]
     },
     {
-      "values": {
-        "label": "Flash",
-        "nb_visits": "540",
-        "nb_visits_percentage": 0.18
-      }
+      "values": [
+        "Flash",
+        "401",
+        0.18
+      ]
     },
     {
-      "values": {
-        "label": "Java",
-        "nb_visits": "379",
-        "nb_visits_percentage": 0.13
-      }
+      "values": [
+        "Java",
+        "257",
+        0.12
+      ]
     },
     {
-      "values": {
-        "label": "Silverlight",
-        "nb_visits": "123",
-        "nb_visits_percentage": 0.04
-      }
+      "values": [
+        "Silverlight",
+        "75",
+        0.03
+      ]
     }
   ],
   "schema": [

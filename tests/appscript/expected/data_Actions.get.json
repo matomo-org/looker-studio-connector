@@ -2,16 +2,16 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "nb_downloads": 7,
-        "nb_keywords": 21,
-        "nb_outlinks": 342,
-        "nb_pageviews": 6670,
-        "nb_searches": 59,
-        "nb_uniq_downloads": 6,
-        "nb_uniq_outlinks": 304,
-        "nb_uniq_pageviews": 5261
-      }
+      "values": [
+        2882,
+        2711,
+        2,
+        2,
+        152,
+        148,
+        29,
+        19
+      ]
     }
   ],
   "schema": [

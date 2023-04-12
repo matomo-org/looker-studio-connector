@@ -2,44 +2,44 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "exit_nb_visits": 145,
-        "exit_rate": 0.52,
-        "label": "Others",
-        "nb_visits": 278
-      }
+      "values": [
+        "Diving Jobs, latest Divemaster and Scuba Dive Instructor Job offers!",
+        167,
+        "136",
+        0.81
+      ]
     },
     {
-      "values": {
-        "exit_nb_visits": "66",
-        "exit_rate": 0.25,
-        "label": "Cart - Divezone Store",
-        "nb_visits": 269
-      }
+      "values": [
+        "Cart - Divezone Store",
+        132,
+        "74",
+        0.56
+      ]
     },
     {
-      "values": {
-        "exit_nb_visits": "179",
-        "exit_rate": 0.68,
-        "label": "Diving Jobs, latest Divemaster and Scuba Dive Instructor Job offers!",
-        "nb_visits": 264
-      }
+      "values": [
+        "Checkout - Divezone Store",
+        122,
+        "87",
+        0.71
+      ]
     },
     {
-      "values": {
-        "exit_nb_visits": "128",
-        "exit_rate": 0.57,
-        "label": "Checkout - Divezone Store",
-        "nb_visits": 223
-      }
+      "values": [
+        "My Account - Divezone Store",
+        98,
+        "67",
+        0.68
+      ]
     },
     {
-      "values": {
-        "exit_nb_visits": "107",
-        "exit_rate": 0.73,
-        "label": "Best Diving sites in Bali – Indonesia Scuba dive reviews by Divezone",
-        "nb_visits": 147
-      }
+      "values": [
+        "Best Diving sites in Bali – Indonesia Scuba dive reviews by Divezone",
+        70,
+        "64",
+        0.91
+      ]
     }
   ],
   "schema": [

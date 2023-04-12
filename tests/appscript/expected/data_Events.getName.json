@@ -2,59 +2,59 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_event_value": 1.15,
-        "label": "added - Diving Tank - Cart change",
-        "max_event_value": 4,
-        "min_event_value": 1,
-        "nb_events": 108,
-        "nb_events_with_value": 108,
-        "sum_event_value": 124
-      }
+      "values": [
+        "added - Diving Tank - Cart change",
+        32,
+        32,
+        33,
+        1,
+        2,
+        1.03
+      ]
     },
     {
-      "values": {
-        "avg_event_value": 1.01,
-        "label": "added - Basic Wetsuit - Cart change",
-        "max_event_value": 2,
-        "min_event_value": 1,
-        "nb_events": 92,
-        "nb_events_with_value": 92,
-        "sum_event_value": 93
-      }
+      "values": [
+        "added - Basic Wetsuit - Cart change",
+        32,
+        32,
+        32,
+        1,
+        1,
+        1
+      ]
     },
     {
-      "values": {
-        "avg_event_value": 1.19,
-        "label": "added - Scuba Fins - Cart change",
-        "max_event_value": 4,
-        "min_event_value": 1,
-        "nb_events": 54,
-        "nb_events_with_value": 54,
-        "sum_event_value": 64
-      }
+      "values": [
+        "added - Scuba Fins - Cart change",
+        21,
+        21,
+        23,
+        1,
+        2,
+        1.1
+      ]
     },
     {
-      "values": {
-        "avg_event_value": 1.08,
-        "label": "added - Diving Knife - Cart change",
-        "max_event_value": 2,
-        "min_event_value": 1,
-        "nb_events": 38,
-        "nb_events_with_value": 38,
-        "sum_event_value": 41
-      }
+      "values": [
+        "removed - Basic Wetsuit - Cart change",
+        14,
+        14,
+        -20,
+        -3,
+        0,
+        -1.43
+      ]
     },
     {
-      "values": {
-        "avg_event_value": 1.24,
-        "label": "added - Silicone Grease - Cart change",
-        "max_event_value": 2,
-        "min_event_value": 1,
-        "nb_events": 33,
-        "nb_events_with_value": 33,
-        "sum_event_value": 41
-      }
+      "values": [
+        "added - Distance Line & Reel - Cart change",
+        13,
+        13,
+        21,
+        1,
+        3,
+        1.62
+      ]
     }
   ],
   "schema": [

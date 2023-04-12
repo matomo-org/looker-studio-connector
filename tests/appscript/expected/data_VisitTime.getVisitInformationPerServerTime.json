@@ -2,69 +2,69 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "avg_time_on_site": 71,
-        "bounce_rate": 0.56,
-        "label": "00",
-        "nb_actions": 107,
-        "nb_actions_per_visit": 2.5,
-        "nb_uniq_visitors": 43,
-        "nb_users": 0,
-        "nb_visits": 43,
-        "revenue": 0
-      }
+      "values": [
+        "00",
+        67,
+        67,
+        125,
+        0,
+        109.95,
+        1.9,
+        175,
+        0.63
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 53,
-        "bounce_rate": 0.69,
-        "label": "01",
-        "nb_actions": 263,
-        "nb_actions_per_visit": 1.9,
-        "nb_uniq_visitors": 137,
-        "nb_users": 0,
-        "nb_visits": 137,
-        "revenue": 77.9
-      }
+      "values": [
+        "01",
+        166,
+        167,
+        292,
+        0,
+        6,
+        1.7,
+        175,
+        0.68
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 69,
-        "bounce_rate": 0.63,
-        "label": "02",
-        "nb_actions": 279,
-        "nb_actions_per_visit": 2.5,
-        "nb_uniq_visitors": 111,
-        "nb_users": 0,
-        "nb_visits": 111,
-        "revenue": 141.95
-      }
+      "values": [
+        "02",
+        125,
+        126,
+        199,
+        0,
+        5,
+        1.6,
+        199,
+        0.74
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 91,
-        "bounce_rate": 0.59,
-        "label": "03",
-        "nb_actions": 313,
-        "nb_actions_per_visit": 2.4,
-        "nb_uniq_visitors": 128,
-        "nb_users": 0,
-        "nb_visits": 128,
-        "revenue": 94.9
-      }
+      "values": [
+        "03",
+        123,
+        123,
+        177,
+        0,
+        1004,
+        1.4,
+        93,
+        0.82
+      ]
     },
     {
-      "values": {
-        "avg_time_on_site": 50,
-        "bounce_rate": 0.62,
-        "label": "04",
-        "nb_actions": 271,
-        "nb_actions_per_visit": 2,
-        "nb_uniq_visitors": 133,
-        "nb_users": 1,
-        "nb_visits": 133,
-        "revenue": 264.75
-      }
+      "values": [
+        "04",
+        27,
+        27,
+        40,
+        0,
+        1,
+        1.5,
+        67,
+        0.78
+      ]
     }
   ],
   "schema": [
