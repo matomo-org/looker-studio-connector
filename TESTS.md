@@ -5,7 +5,87 @@ details how the automated tests work.
 
 ## Manual Testing
 
-TODO:
+### Before testing
+
+**Push latest code**
+
+Before doing any manual tests you should ensure the code you are testing is up-to-date.
+
+To push your code locally to Apps Script, run:
+
+```
+$ npm run push
+```
+
+This will print out a link at the end that will load the deployed connector in Looker Studio.
+
+Record that link. It will be referred to in the steps below as `<LINK_TO_CONNECTOR>`.
+
+**Revoke access to any existing instances of the connector**
+
+1. Open [https://lookerstudio.google.com/u/0/datasources/create](https://lookerstudio.google.com/u/0/datasources/create) in a browser.
+2. Search for `matomo`, and look for entries that have the Matomo logo and say `By InnoCraft Ltd`.
+3. For each one of those, click the kebab menu icon in the upper right corner and select "Revoke access".
+
+You may need to do this multiple times when testing connector authentication.
+
+### Connector Authentication
+
+_Note: automated tests for this functionality also exist._
+
+**Check authentication fails with invalid credentials**
+
+1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account.
+3. Enter invalid pairs of instance URL/credentials in the "Matomo Connector" box that displays and click `Submit`.
+
+Expected: a toast saying the credentials are invalid displays.
+
+**Check authentication succeeds with valid instance URL, but invalid token**
+
+1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account.
+3. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and an invalid token and click `Submit`.
+
+Expected: a toast saying the credentials are invalid displays.
+
+**Check authentication succeeds with a valid instance URL and a valid token**
+
+1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account.
+3. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and a valid token (eg, `anonymous`) and click `Submit`.
+
+   Note: for the instance URL, it is expected that any URL variation that ends w/ a `/` or `/index.php` will also work.
+
+Expected: the connector configuration screen displays.
+
+### Basic Connector Configuration
+
+TODO
+
+### Report Creation w/ Matomo as a Data Source
+
+TODO
+
+### Requesting data with different date ranges
+
+TODO
+
+### Looker Studio feature: report filtering
+
+TODO
+
+### Looker Studio feature: re-aggregation
+
+TODO
+
+### Looker Studio feature: adding calculated fields
+
+TODO
+
+### Looker Studio feature: data blending
+
+TODO
 
 ### Automated tests
 

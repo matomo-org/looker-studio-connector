@@ -55,7 +55,7 @@ export function isAuthValid() {
 export function resetAuth() {
     const userTokenProperties = PropertiesService.getUserProperties();
     userTokenProperties.deleteProperty('dscc.username');
-    userTokenProperties.deleteProperty('dscc.password');
+    userTokenProperties.deleteProperty('dscc.token');
 }
 
 export function isAdminUser() {
