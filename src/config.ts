@@ -36,6 +36,7 @@ function getReportMetadata(idSite: string) {
       idSite: idSite,
       period: 'day',
       date: 'yesterday',
+      filter_limit: '-1',
     },
   );
 
@@ -71,7 +72,9 @@ const CONFIG_STEPS = <ConfigStep[]>[
       }
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config) {
-      const sitesWithViewAccess = Api.fetch<Api.Site[]>('SitesManager.getSitesWithAtLeastViewAccess', {}, {
+      const sitesWithViewAccess = Api.fetch<Api.Site[]>('SitesManager.getSitesWithAtLeastViewAccess', {
+        filter_limit: '-1',
+      }, {
         cacheKey: 'getConfig.SitesManager.getSitesWithAtLeastViewAccess',
         cacheTtl: CONFIG_REQUEST_CACHE_TTL_SECS,
       });
@@ -125,7 +128,10 @@ const CONFIG_STEPS = <ConfigStep[]>[
       });
 
       // segment select
-      const segments = Api.fetch<Api.StoredSegment[]>('SegmentEditor.getAll', { idSite: params.idsite! }, {
+      const segments = Api.fetch<Api.StoredSegment[]>('SegmentEditor.getAll', {
+        idSite: params.idsite!,
+        filter_limit: '-1',
+      }, {
         cacheKey: `getConfig.SegmentEditor.getAll.${params.idsite!}`,
         cacheTtl: CONFIG_REQUEST_CACHE_TTL_SECS,
       });
@@ -150,14 +156,6 @@ const CONFIG_STEPS = <ConfigStep[]>[
         .setId('filter_limit')
         .setName('Default Row Limit')
         .setAllowOverride(true)
-        .setHelpText('TODO');
-
-      // TODO: getData report test for flatten (one Actions, one non-Actions)
-      config
-        .newCheckbox()
-        .setId('hierarchical')
-        .setName('Do not flatten')
-        .setAllowOverride(false)
         .setHelpText('TODO');
 
       // TODO: other useful parameter defaults

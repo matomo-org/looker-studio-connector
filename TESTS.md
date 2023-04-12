@@ -36,7 +36,7 @@ _Note: automated tests for this functionality also exist._
 **Check authentication fails with invalid credentials**
 
 1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
-2. Click the `Authorize` button and authorize Looker Studio to use your Google account.
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account if needed.
 3. Enter invalid pairs of instance URL/credentials in the "Matomo Connector" box that displays and click `Submit`.
 
 Expected: a toast saying the credentials are invalid displays.
@@ -44,7 +44,7 @@ Expected: a toast saying the credentials are invalid displays.
 **Check authentication succeeds with valid instance URL, but invalid token**
 
 1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
-2. Click the `Authorize` button and authorize Looker Studio to use your Google account.
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account if needed.
 3. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and an invalid token and click `Submit`.
 
 Expected: a toast saying the credentials are invalid displays.
@@ -52,7 +52,7 @@ Expected: a toast saying the credentials are invalid displays.
 **Check authentication succeeds with a valid instance URL and a valid token**
 
 1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
-2. Click the `Authorize` button and authorize Looker Studio to use your Google account.
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account if needed.
 3. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and a valid token (eg, `anonymous`) and click `Submit`.
 
    Note: for the instance URL, it is expected that any URL variation that ends w/ a `/` or `/index.php` will also work.
@@ -61,11 +61,74 @@ Expected: the connector configuration screen displays.
 
 ### Basic Connector Configuration
 
-TODO
+**Check it is not possible to set an empty Website**
+
+1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account if needed.
+3. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and a valid token (eg, `anonymous`) and click `Submit`.
+4. Do not enter anything in the `Website/Measurable` field and click `Next`.
+
+Expected: it should not save and the `Website/Measurable` prompt should re-appear.
+
+**Only websites the user has at least view access to are shown in the Website drop down**
+
+1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account if needed.
+3. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and a valid token (eg, `anonymous`) and click `Submit`.
+4. Open the `Website/Measurable` select.
+
+Expected: it should only show sites the user associated with the token has at least view access to.
+
+**Selecting a website shows the rest of the connector configuration**
+
+1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account if needed.
+3. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and a valid token (eg, `anonymous`) and click `Submit`.
+4. Open the `Website/Measurable` select and select a website. Click `Next`.
+
+Expected:
+* the `Report` dropdown should have every report available for the selected site. This should include Goals reports for the site's goals
+  and any CustomDimension reports + premium reports, etc. Each report should be prepended with the report category.
+* the `Segment` dropdown should have the list of stored segments that are available for the site and user. It should be the same
+  list of segments the user sees when logged in to Matomo and when the site used is selected. By default "All Visits" should be selected.
+* the `Default Row Limit` input should be empty. Hovering over the `?` icon next to it should display help text. By default it should be empty.
+
+**Connecting without selecting a report fails**
+
+1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account if needed.
+3. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and a valid token (eg, `anonymous`) and click `Submit`.
+4. Open the `Website/Measurable` select and select a website. Click `Next`.
+5. Click `Connect` without selecting a report.
+
+Expected: an error is displayed to the user telling the user to select a report.
+
+**Connecting with an invalid Default Row Limit fails**
+
+1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account if needed.
+3. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and a valid token (eg, `anonymous`) and click `Submit`.
+4. Open the `Website/Measurable` select and select a website. Click `Next`.
+5. Select a report. Enter a non-integer in the `Default Row Limit` field.
+6. Click `Connect`.
+
+Expected: an error is displayed to the user telling the user to input a valid limit or leave it empty.
+
+**Connecting with valid configuration succeeds**
+
+1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account if needed.
+3. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and a valid token (eg, `anonymous`) and click `Submit`.
+4. Open the `Website/Measurable` select and select a website. Click `Next`.
+5. Select a report and enter a valid integer for the row limit or leave it empty.
+6. Click `Connect`.
+
+Expected: the add data source workflow proceeds to the schema display. Information about dimensions, metrics and
+parameters should be shown.
 
 ### Report Creation w/ Matomo as a Data Source
 
-TODO
+TODO+-
 
 ### Requesting data with different date ranges
 

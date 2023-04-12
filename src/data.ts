@@ -124,7 +124,7 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
       period,
       date,
       format_metrics: '0', // TODO: doesn't appear to work in every case (eg, API.get still returns % formatted values)
-      flat: request.configParams.hierarchical ? '0' : '1', // TODO: flatten table dimensions should have metrics of subtables in schema too
+      flat: '1', // TODO: flatten table dimensions should have metrics of subtables in schema too
       filter_limit: `${limitToUse}`,
     });
 
@@ -208,6 +208,17 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCur
 // TODO: better logging + better error reporting
 
 export function getSchema(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
+  // TODO: automated tests for these
+  if (!request.configParams.report) {
+    cc.newUserError().setText('No report was selected when configuring the connector. Please go back and select one.').throwException();
+  }
+
+  if (request.configParams.filter_limit
+    && Number.isNaN(parseInt(request.configParams.filter_limit, 10))
+  ) {
+    cc.newUserError().setText(`The "Default Row Limit" entered (${request.configParams.filter_limit}) is not valid. Please enter a valid integer or leave it empty.`).throwException();
+  }
+
   const reportMetadata = getReportMetadata(request);
   if (!reportMetadata) {
     const reportParams = JSON.parse(request.configParams.report);
