@@ -11,6 +11,12 @@ import cc, { getScriptElapsedTime } from './connector';
 
 const SCRIPT_RUNTIME_LIMIT = parseInt(process.env.SCRIPT_RUNTIME_LIMIT) || 0;
 
+/*
+TODO
+Post MVP issues:
+- allow accessing multiple matomo instances
+*/
+
 // TODO: retry requests under certain conditions (500 errors? 420?)
 // TODO: make sure UX is good when Matomo requests error
 
@@ -187,14 +193,23 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCur
     // Object.entries(reportMetadata.processedMetricsGoal),
   };
 
-  if (!requestedFields?.length) {
+  let labelAdded = false;
+  if (!requestedFields?.length && reportMetadata.dimension) {
     addDimension(fields, reportMetadata.module, reportMetadata.dimension);
+    labelAdded = true;
   }
 
   (requestedFields || Object.keys(allMetrics)).forEach((metricId) => {
+    if (!allMetrics[metricId]) {
+      return;
+    }
+
     // TODO test for when label is not first in requested field
     if (metricId === 'label') {
-      addDimension(fields, reportMetadata.module, reportMetadata.dimension);
+      if (reportMetadata.dimension && !labelAdded) {
+        addDimension(fields, reportMetadata.module, reportMetadata.dimension);
+        labelAdded = true;
+      }
       return;
     }
 
@@ -256,7 +271,8 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
 
   const data = reportData.map((row) => {
     const fieldValues = request.fields
-      ?.map((requestedField) => (row[requestedField.name] || '').toString());
+      ?.filter((f) => !!fields.getFieldById(f.name))
+      .map((requestedField) => (row[requestedField.name] || '').toString());
 
     return {
       values: fieldValues ? fieldValues : Object.values(row),

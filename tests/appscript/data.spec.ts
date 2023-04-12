@@ -14,6 +14,13 @@ const DATE_TO_TEST = '2023-02-15';
 const RANGE_START_DATE_TO_TEST = '2023-02-15';
 const RANGE_END_DATE_TO_TEST = '2023-02-19';
 
+function hasNoMetrics(r) {
+  return !r.metrics
+    && !r.processedMetrics
+    && !r.metricsGoal
+    && !r.processedMetricsGoal;
+}
+
 describe('data', () => {
   beforeAll(async () => {
     await Clasp.run('setCredentials', {
@@ -31,6 +38,10 @@ describe('data', () => {
   describe('getSchema', () => {
     const methodsTested = {};
     global.ALL_REPORT_METADATA.forEach((r) => {
+      if (hasNoMetrics(r)) {
+        return;
+      }
+
       const method = `${r.module}.${r.action}`;
 
       const reportParams = JSON.stringify({ ...r.parameters, apiModule: r.module, apiAction: r.action });
@@ -107,6 +118,10 @@ describe('data', () => {
 
     const methodsTested = {};
     global.ALL_REPORT_METADATA.forEach((r) => {
+      if (hasNoMetrics(r)) {
+        return;
+      }
+
       const method = `${r.module}.${r.action}`;
 
       const reportParams = JSON.stringify({ ...r.parameters, apiModule: r.module, apiAction: r.action });

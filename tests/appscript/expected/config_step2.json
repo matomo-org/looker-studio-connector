@@ -35,17 +35,6 @@
         "allowOverride": true
       },
       "type": "TEXTINPUT"
-    },
-    {
-      "displayName": "Do not flatten",
-      "helpText": "TODO",
-      "name": "hierarchical",
-      "options": [
-      ],
-      "parameterControl": {
-        "allowOverride": false
-      },
-      "type": "CHECKBOX"
     }
   ],
   "dateRangeRequired": true,

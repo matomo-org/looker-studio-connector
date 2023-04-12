@@ -2,17 +2,17 @@
   "filtersApplied": false,
   "rows": [
     {
-      "values": {
-        "nb_conversions": "266",
-        "nb_visits": "2980"
-      }
+      "values": [
+        "2179",
+        "123"
+      ]
     }
   ],
   "schema": [
     {
       "dataType": "NUMBER",
-      "label": "Conversions",
-      "name": "nb_conversions",
+      "label": "Visits",
+      "name": "nb_visits",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
@@ -21,8 +21,8 @@
     },
     {
       "dataType": "NUMBER",
-      "label": "Visits",
-      "name": "nb_visits",
+      "label": "Conversions",
+      "name": "nb_conversions",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

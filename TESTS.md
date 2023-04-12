@@ -128,7 +128,44 @@ parameters should be shown.
 
 ### Report Creation w/ Matomo as a Data Source
 
-TODO+-
+**Creating a report after configuring a connector succeeds**
+
+1. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
+2. Click the `Authorize` button and authorize Looker Studio to use your Google account if needed.
+3. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and a valid token (eg, `anonymous`) and click `Submit`.
+4. Open the `Website/Measurable` select and select a website. Click `Next`.
+5. Select a report and enter a valid integer for the row limit or leave it empty.
+6. Click `Connect`.
+7. Click `Create Report`.
+8. In the next page that loads, confirm by clicking the `Add to report` button, if it shows up.
+
+Expected: after a small wait, the Matomo report will be displayed in a table.
+
+**Adding another report as a new data source from within a Looker Studio report succeeds**
+
+1. Open a Looker Studio report that already contains a connected Matomo report.
+2. Open the `Data` tab on the right if it is not already open.
+3. In the lower right there is a `Add Data` button/option. Click it.
+4. In the bottom sheet that opens, search for `matomo`.
+5. Find the connector that says `Matomo Connector` and `By InnoCraft Ltd` and select it.
+6. Select a website and click `Next`.
+7. Select a report, preferably a different one than what's in the existing Looker Studio report.
+8. Click `Add` at the bottom right of the bottom sheet. (If a modal asking to confirm the choice pops up, confirm.)
+
+Expected: in the `Data` pane there should be a new `Matomo Connector` instance for the new report. The dimension and metrics
+of the new report should be visible when the connector row is expanded.
+
+**Reports with multiple dimensions when flattened display correctly in Looker Studio**
+
+TODO
+
+**Reports with no dimensions display correctly in Looker Studio**
+
+TODO
+
+**Metrics can be added and removed from visualizations in Looker Studio**
+
+TODO
 
 ### Requesting data with different date ranges
 

@@ -116,6 +116,15 @@ const CONFIG_STEPS = <ConfigStep[]>[
         .setName('Report');
 
       reportMetadata.forEach((report) => {
+        // reports that do not define metrics in their metadata cannot be displayed in looker studio
+        if (!reportMetadata.metrics
+          && !reportMetadata.processedMetrics
+          && !reportMetadata.metricsGoal
+          && !reportMetadata.processedMetricsGoal
+        ) {
+          return;
+        }
+
         const value = JSON.stringify({
           ...report.parameters,
           apiModule: report.module,

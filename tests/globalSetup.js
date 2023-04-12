@@ -23,7 +23,7 @@ module.exports = async function () {
     if (fs.existsSync(backupAppsScriptPath)) {
         fs.unlinkSync(backupAppsScriptPath);
     }
-    fs.linkSync(appsScriptPath, backupAppsScriptPath);
+    fs.copyFileSync(appsScriptPath, backupAppsScriptPath);
 
     const appsScriptContent = JSON.parse(fs.readFileSync(appsScriptPath).toString('utf-8'));
     appsScriptContent.executionApi = { access: 'ANYONE' };

@@ -112,6 +112,10 @@ class Clasp {
           }
 
           if (code) {
+            if (stderr.indexOf('Error: invalid_grant') !== -1) {
+              reject(new Error('clasp could not login, run "npm run clasp -- login --creds creds.json" again'));
+              return;
+            }
             reject(new Error(`'${commandStr}' exited with code ${code} (output: ${output}, stderr: ${stderr})`));
           } else {
             if (options.passthrough) {
