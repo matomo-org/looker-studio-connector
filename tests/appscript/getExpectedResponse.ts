@@ -10,9 +10,9 @@ import * as fs from 'fs';
 import stringify from 'json-stringify-deterministic';
 
 export default function getExpectedResponse(actualContent: unknown, suiteName: string, testName: string) {
-  fs.mkdirSync(path.join(__dirname, 'processed'), { recursive: true });
+  fs.mkdirSync(path.join(__dirname, 'actual'), { recursive: true });
 
-  const processedFilePath = path.join(__dirname, 'processed', `${suiteName}_${testName}.json`);
+  const processedFilePath = path.join(__dirname, 'actual', `${suiteName}_${testName}.json`);
   if (fs.existsSync(processedFilePath)) {
     fs.unlinkSync(processedFilePath);
   }

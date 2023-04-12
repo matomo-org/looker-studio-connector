@@ -104,7 +104,7 @@ Run:
 $ clasp login --creds creds.json
 ```
 
-Now you'll be able to run the automated tests via `npm run test:appscript`.
+Now you'll be able to run the automated tests via `npm test`.
 
 ## Useful commands
 

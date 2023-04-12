@@ -6,4 +6,4 @@ tests/.env
 .clasprc.json
 appsscript.backup.json
 dist/
-tests/appscript/processed/
+tests/appscript/actual/
