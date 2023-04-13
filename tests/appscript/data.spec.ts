@@ -72,7 +72,7 @@ describe('data', () => {
     it('should detect if the script run time is past a certain point and abort with a clear message', async () => {
       await Clasp.setScriptProperties({
         SCRIPT_RUNTIME_LIMIT: '0.01',
-        MAX_ROWS_TO_FETCH_PER_REQUEST: '1',
+        MAX_ROWS_TO_FETCH_PER_REQUEST: '1', // TODO: add test for this specifically
       });
 
       await expect(async () => {
@@ -87,6 +87,8 @@ describe('data', () => {
     });
 
     it('should only include requested fields', async () => {
+      await Clasp.run('setScriptProperties', {}, true);
+
       let result = await Clasp.run('getData', {
         configParams: {
           idsite: env.APPSCRIPT_TEST_IDSITE,

@@ -19,7 +19,6 @@ Post MVP issues:
 - allow accessing multiple matomo instances
 */
 
-// TODO: retry requests under certain conditions (500 errors? 420?) (w/ exponential backoff)
 // TODO: make sure UX is good when Matomo requests error
 // TODO: helpful error message texts (see slack message; forum is https://forum.matomo.org/c/looker-studio/25)
 
@@ -135,6 +134,7 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
       format_metrics: '0', // TODO: doesn't appear to work in every case (eg, API.get still returns % formatted values)
       flat: '1', // TODO: flatten table dimensions should have metrics of subtables in schema too
       filter_limit: `${limitToUse}`,
+      filter_offset: `${response?.reportData.length || 0}`,
     }, {
       checkRuntimeLimit: true,
       runtimeLimitAbortMessage: pastScriptRuntimeLimitErrorMessage,
@@ -146,6 +146,9 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
 
     if (!response) {
       response = partialResponse;
+      if (!response.reportData) { // sanity check
+        response.reportData = [];
+      }
     } else {
       response.reportData.push(...partialResponse.reportData);
     }

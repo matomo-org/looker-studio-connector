@@ -9,6 +9,8 @@ import env from './env';
 import cc, { getScriptElapsedTime } from './connector';
 
 const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
+const API_REQUEST_RETRY_LIMIT_IN_SECS = parseInt(env.API_REQUEST_RETRY_LIMIT_IN_SECS) || 0;
+const MAX_WAIT_BEFORE_RETRY = 32;
 
 export interface Site {
   idsite: string|number;
@@ -79,14 +81,6 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     }
   }
 
-  if (options.checkRuntimeLimit) {
-    // stop requesting if we are close to the apps script time limit and display a warning to the user
-    if (SCRIPT_RUNTIME_LIMIT > 0 && getScriptElapsedTime() > SCRIPT_RUNTIME_LIMIT) {
-      cc.newUserError().setText(options.runtimeLimitAbortMessage || 'This request is taking too long, aborting.').throwException();
-      return;
-    }
-  }
-
   const userProperties = PropertiesService.getUserProperties();
   const instanceUrl = options.instanceUrl as string || userProperties.getProperty('dscc.username');
   const token = options.token as string || userProperties.getProperty('dscc.token');
@@ -95,7 +89,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
   baseUrl = baseUrl.replace(/[/]+(index\.php\??)?$/, '');
   baseUrl += '/index.php?';
 
-  const allUrls = requests.map(({ method, params }) => {
+  const allUrls = requests.map(({method, params}) => {
     let url = baseUrl;
 
     const finalParams = {
@@ -117,8 +111,48 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     return url;
   });
 
-  const responses = UrlFetchApp.fetchAll(allUrls);
-  const responseContents = responses.map((r) => JSON.parse(r.getContentText("UTF-8")));
+  const allUrlsMappedToIndex = Object.fromEntries(allUrls.map((url, i) => [url, i]));
+
+  let responseContents: unknown[] = [];
+  let currentWaitBeforeRetryTime = 1000;
+
+  const startTime = Date.now();
+  while (Date.now() < startTime + API_REQUEST_RETRY_LIMIT_IN_SECS) {
+    if (options.checkRuntimeLimit) {
+      // stop requesting if we are close to the apps script time limit and display a warning to the user
+      if (SCRIPT_RUNTIME_LIMIT > 0 && getScriptElapsedTime() > SCRIPT_RUNTIME_LIMIT) {
+        cc.newUserError().setText(options.runtimeLimitAbortMessage || 'This request is taking too long, aborting.').throwException();
+        return;
+      }
+    }
+
+    const urlsToFetch = Object.keys(allUrlsMappedToIndex);
+    const responses = UrlFetchApp.fetchAll(urlsToFetch);
+    responses.forEach((r, i) => {
+      const code = r.getResponseCode();
+      if (code >= 500
+        || code === 420
+      ) {
+        return; // retry
+      }
+
+      const urlFetched = urlsToFetch[i];
+      const responseIndex = allUrlsMappedToIndex[urlFetched];
+
+      responseContents[responseIndex] = JSON.parse(r.getContentText('UTF-8'));
+
+      delete allUrlsMappedToIndex[urlFetched]; // this request succeeded, so don't make it again
+    });
+
+    responseContents = responses.map((r) => JSON.parse(r.getContentText("UTF-8")));
+
+    // if there are still requests to try (because they failed), wait before trying again
+    const requestsFailed = !!Object.keys(allUrlsMappedToIndex).length;
+    if (requestsFailed) {
+      Utilities.sleep(currentWaitBeforeRetryTime);
+      currentWaitBeforeRetryTime = Math.min(currentWaitBeforeRetryTime * 2, MAX_WAIT_BEFORE_RETRY);
+    }
+  }
 
   if (options.cacheKey && options.cacheTtl > 0) {
     try {
