@@ -5,60 +5,60 @@
       "values": [
         "Cart change",
         "added - Diving Tank",
-        32,
-        33,
-        1,
-        2,
-        32,
-        1.03
+        "32",
+        "33",
+        "1",
+        "2",
+        "32",
+        "1.03"
       ]
     },
     {
       "values": [
         "Cart change",
         "added - Basic Wetsuit",
-        32,
-        32,
-        1,
-        1,
-        32,
-        1
+        "32",
+        "32",
+        "1",
+        "1",
+        "32",
+        "1"
       ]
     },
     {
       "values": [
         "Cart change",
         "added - Scuba Fins",
-        21,
-        23,
-        1,
-        2,
-        21,
-        1.1
+        "21",
+        "23",
+        "1",
+        "2",
+        "21",
+        "1.1"
       ]
     },
     {
       "values": [
         "Cart change",
         "removed - Basic Wetsuit",
-        14,
-        -20,
-        -3,
-        0,
-        14,
-        -1.43
+        "14",
+        "-20",
+        "-3",
+        "0",
+        "14",
+        "-1.43"
       ]
     },
     {
       "values": [
         "Cart change",
         "added - Distance Line & Reel",
-        13,
-        21,
-        1,
-        3,
-        13,
-        1.62
+        "13",
+        "21",
+        "1",
+        "3",
+        "13",
+        "1.62"
       ]
     }
   ],

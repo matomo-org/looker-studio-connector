@@ -4,51 +4,51 @@
     {
       "values": [
         "Interaction 1 → dive-shop.net/cart → dive-shop.net/checkout",
-        20,
-        0,
-        20,
-        1,
-        0
+        "20",
+        "0",
+        "20",
+        "1",
+        "0"
       ]
     },
     {
       "values": [
         "Interaction 1 → divezone.net/travel/komodo-island",
-        15,
-        15,
-        0,
-        0,
-        1
+        "15",
+        "15",
+        "0",
+        "0",
+        "1"
       ]
     },
     {
       "values": [
         "Interaction 1 → divezone.net/diving/bohol-island",
-        12,
-        12,
-        0,
-        0,
-        1
+        "12",
+        "12",
+        "0",
+        "0",
+        "1"
       ]
     },
     {
       "values": [
         "Interaction 1 → divezone.net/diving/fiji",
-        11,
-        11,
-        0,
-        0,
-        1
+        "11",
+        "11",
+        "0",
+        "0",
+        "1"
       ]
     },
     {
       "values": [
         "Interaction 1 → divezone.net/diving/malapascua-island",
-        10,
-        10,
-        0,
-        0,
-        1
+        "10",
+        "10",
+        "0",
+        "0",
+        "1"
       ]
     }
   ],

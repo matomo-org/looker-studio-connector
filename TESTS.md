@@ -176,7 +176,25 @@ Expected: the dimensions and metrics display in the chart without error.
 
 **Reports with no dimensions display correctly in Looker Studio**
 
-TODO
+1. Open a Looker Studio report that already contains a connected Matomo report.
+2. Open the `Data` tab on the right if it is not already open.
+3. In the lower right there is a `Add Data` button/option. Click it.
+4. In the bottom sheet that opens, search for `matomo`.
+5. Find the connector that says `Matomo Connector` and `By InnoCraft Ltd` and select it.
+6. Select a website and click `Next`.
+7. Select a report with no dimensions like `API > Main metrics`.
+8. Click `Add` at the bottom right of the bottom sheet. (If a modal asking to confirm the choice pops up, confirm.)
+9. Check in the `Data` pane for the new `Matomo Connector` row and expand it.
+
+Expected: there are no dimensions and many metrics.
+
+10. Drag a metric from the new connector to the report to create a chart for a single metric.
+
+Expected: the metric value displays without error.
+
+11. In the chart properties field, change the displayed metric to some other ones.
+
+Expected: every metric displays without error.
 
 **Metrics can be added and removed from visualizations in Looker Studio**
 

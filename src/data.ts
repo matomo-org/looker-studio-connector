@@ -298,14 +298,17 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
               return '';
             }
 
-            return 0;
+            return '0';
           }
 
-          return value;
+          // NOTE: the value MUST be a string, even if it's declared a number or something else. Looker studio will
+          // fumble sometimes when it's not a string (for example, when the metric is marked as a duration) and
+          // fail to display the data.
+          return `${value}`;
         }
 
         if (typeof metadataRow?.[name] !== 'undefined') {
-          return metadataRow[name];
+          return `${metadataRow[name]}`;
         }
 
         return '';
