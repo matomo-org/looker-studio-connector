@@ -8,6 +8,7 @@
 import { ConnectorParams } from './connector';
 import * as Api from './api';
 import cc from './connector';
+import env from './env';
 
 interface ConfigStep {
   isFilledOut(params?: ConnectorParams): boolean;
@@ -15,7 +16,7 @@ interface ConfigStep {
   addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams): void;
 }
 
-const CONFIG_REQUEST_CACHE_TTL_SECS = parseInt(process.env.CONFIG_REQUEST_CACHE_TTL_SECS, 10) || 0;
+const CONFIG_REQUEST_CACHE_TTL_SECS = parseInt(env.CONFIG_REQUEST_CACHE_TTL_SECS, 10) || 0;
 
 function getReportMetadata(idSite: string) {
   const cache = CacheService.getUserCache();
@@ -26,7 +27,7 @@ function getReportMetadata(idSite: string) {
     try {
       return JSON.parse(cachedValue);
     } catch (e) {
-      // TODO: debug log
+      console.log(`unable to parse cache value for ${cacheKey}, making actual request`);
     }
   }
 
@@ -60,7 +61,7 @@ function getReportMetadata(idSite: string) {
   try {
     cache.put(cacheKey, JSON.stringify(response));
   } catch (e) {
-    // TODO: debug log or rethrow during development
+    console.log(`unable to save cache value for ${cacheKey}`);
   }
 
   return response;
@@ -157,7 +158,6 @@ const CONFIG_STEPS = <ConfigStep[]>[
         );
       });
 
-      // TODO: make sure to validate values somehow (in getSchema()?)
       // filter_limit input
       config
         .newTextInput()

@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
-// TODO: requests should be marked somehow so it's possible to see what kind of load use of looker adds to a matomo instance
+import env from './env';
 
 export interface Site {
   idsite: string|number;
@@ -54,10 +54,11 @@ interface ApiFetchOptions {
 }
 
 /**
- * TODO
+ * Sends multiple API requests simultaneously to the target Matomo.
  *
- * @param requests
+ * @param requests objects like `{ method: 'API.getSitesWithAtLeastViewAccess', params: {...} }`
  * @param options
+ * @return the parsed responses for each request
  */
 export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptions = {}) {
   const cache = CacheService.getUserCache();
@@ -90,6 +91,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       format: 'JSON',
       token_auth: token,
       ...params,
+      [env.API_REQUEST_SOURCE_IDENTIFIER]: '1',
     };
 
     const query = Object.entries(finalParams)
@@ -100,7 +102,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     url += query;
 
     return url;
-  })
+  });
 
   const responses = UrlFetchApp.fetchAll(allUrls);
   const responseContents = responses.map((r) => JSON.parse(r.getContentText("UTF-8")));
@@ -117,11 +119,12 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 }
 
 /**
- * TODO
+ * Sends a single API request to the target Matomo and returns the result.
  *
- * @param method
- * @param params
+ * @param method ie, 'SitesManager.getSitesWithAtLeastViewAccess'
+ * @param params extra API request parameters to send
  * @param options
+ * @return the parsed response
  */
 export function fetch<T = any>(method: string, params: Record<string, string> = {}, options: ApiFetchOptions = {}): T {
   const responses = fetchAll([{ method, params }], options);

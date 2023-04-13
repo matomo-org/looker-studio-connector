@@ -7,8 +7,9 @@
 
 import cc, { ConnectorParams, getScriptElapsedTime } from './connector';
 import * as Api from './api';
+import env from './env';
 
-const SCRIPT_RUNTIME_LIMIT = parseInt(process.env.SCRIPT_RUNTIME_LIMIT) || 0;
+const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
 
 /*
 TODO
@@ -16,8 +17,9 @@ Post MVP issues:
 - allow accessing multiple matomo instances
 */
 
-// TODO: retry requests under certain conditions (500 errors? 420?)
+// TODO: retry requests under certain conditions (500 errors? 420?) (w/ exponential backoff)
 // TODO: make sure UX is good when Matomo requests error
+// TODO: helpful error message texts (see slack message; forum is https://forum.matomo.org/c/looker-studio/25)
 
 // TODO: support old versions of matomo w/o <metricTypes>. display warning.
 // TODO: duration_ms will require modifying data. actually, several of these will.
@@ -108,7 +110,7 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
   const report = request.configParams.report;
   const filter_limit = parseInt(request.configParams.filter_limit || '-1', 10);
 
-  const rowsToFetchAtATime = parseInt(process.env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
+  const rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
 
   const reportParams = JSON.parse(report);
 

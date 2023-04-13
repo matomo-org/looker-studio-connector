@@ -29,8 +29,6 @@
       "displayName": "Default Row Limit",
       "helpText": "TODO",
       "name": "filter_limit",
-      "options": [
-      ],
       "parameterControl": {
         "allowOverride": true
       },

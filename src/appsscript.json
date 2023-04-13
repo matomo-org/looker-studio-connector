@@ -5,8 +5,8 @@
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",
   "dataStudio": {
-    "name": "Matomo Connector",
-    "description": "Connect to your Matomo instances",
+    "name": "Matomo Analytics",
+    "description": "The officially supported Matomo connector: explore your Matomo reports in Looker Studio",
     "logoUrl": "https://m-img.org/spai/w_170+q_lossless+ret_img+to_webp/https://static.matomo.org/wp-content/uploads/2018/10/matomo-logo-final-1-340x50.png",
     "company": "InnoCraft Ltd",
     "companyUrl": "https://matomo.org",

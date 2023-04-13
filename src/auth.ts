@@ -7,6 +7,7 @@
 
 import * as Api from './api';
 import cc from './connector';
+import env from './env';
 
 export function getAuthType() {
     return cc.newAuthTypeResponse()
@@ -59,5 +60,6 @@ export function resetAuth() {
 }
 
 export function isAdminUser() {
-    return !!process.env.DEBUG;
+    // TODO: should we somehow allow innocraft users to see debug info?
+    return !!parseInt(env.DEBUG, 10);
 }
