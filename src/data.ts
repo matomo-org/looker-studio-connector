@@ -5,9 +5,8 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
-import { ConnectorParams } from './connector';
+import cc, { ConnectorParams, getScriptElapsedTime } from './connector';
 import * as Api from './api';
-import cc, { getScriptElapsedTime } from './connector';
 
 const SCRIPT_RUNTIME_LIMIT = parseInt(process.env.SCRIPT_RUNTIME_LIMIT) || 0;
 
@@ -204,9 +203,7 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCur
   }
 
   (requestedFields || Object.keys(allMetrics)).forEach((metricId) => {
-    if (!allMetrics[metricId]
-      || fields.getFieldById(metricId)
-    ) {
+    if (fields.getFieldById(metricId)) {
       return;
     }
 
@@ -218,8 +215,15 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCur
       return;
     }
 
-    const matomoType = reportMetadata.metricTypes?.[metricId] || 'text';
-    addMetric(fields, metricId, allMetrics[metricId], matomoType, siteCurrency);
+    if (reportMetadata.dimensions?.[metricId]) {
+      addDimension(fields, metricId, reportMetadata.dimensions[metricId]);
+      return;
+    }
+
+    if (allMetrics[metricId]) {
+      const matomoType = reportMetadata.metricTypes?.[metricId] || 'text';
+      addMetric(fields, metricId, allMetrics[metricId], matomoType, siteCurrency);
+    }
   });
 
   return fields;
@@ -274,19 +278,30 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
   // in an array in this case
   const reportData = Array.isArray(processedReport.reportData) ? processedReport.reportData : [processedReport.reportData];
 
+  let requestedFields = request.fields?.filter(({ name }) => !!fields.getFieldById(name));
+  if (!requestedFields) {
+    requestedFields = fields.asArray().map((f) => ({ name: f.getId() }));
+  }
+
   const data = reportData.map((row, i) => {
     const metadataRow = processedReport?.reportMetadata[i];
-
-    let requestedFields = request.fields?.filter(({ name }) => !!fields.getFieldById(name));
-    if (!requestedFields) {
-      requestedFields = fields.asArray().map((f) => ({ name: f.getId() }));
-    }
 
     // TODO: test requested fields when there are multiple dimensions in flattened report
     const fieldValues = requestedFields
       .map(({ name }) => {
         if (typeof row[name] !== 'undefined') {
-          return row[name];
+          const value = row[name];
+
+          if (value === false) { // edge case that can happen in some report output
+            const type = fields.getFieldById(name).getType();
+            if (type === cc.FieldType.TEXT) {
+              return '';
+            }
+
+            return 0;
+          }
+
+          return value;
         }
 
         if (typeof metadataRow?.[name] !== 'undefined') {

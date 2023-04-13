@@ -25,13 +25,15 @@ export interface ReportMetadata {
   action: string;
   metrics: Record<string, string>;
   processedMetrics: Record<string, string>;
+  metricsGoal?: Record<string, string>;
+  processedMetricsGoal?: Record<string, string>;
   category: string;
   name: string;
   metricTypes?: Record<string, string>;
   parameters?: Record<string, string>;
 }
 
-type DataTableRow = Record<string, string>;
+type DataTableRow = Record<string, string|false>;
 
 export interface ProcessedReport {
   metadata: ReportMetadata;

@@ -20,8 +20,9 @@ function cleanUpSelects(response: any) {
         expect(typeof option.label).toEqual('string');
         expect(typeof option.value).toEqual('string');
       });
+
+      paramEntry.options = [];
     }
-    paramEntry.options = [];
   });
   return response;
 }

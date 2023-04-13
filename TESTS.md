@@ -157,7 +157,22 @@ of the new report should be visible when the connector row is expanded.
 
 **Reports with multiple dimensions when flattened display correctly in Looker Studio**
 
-TODO
+1. Open a Looker Studio report that already contains a connected Matomo report.
+2. Open the `Data` tab on the right if it is not already open.
+3. In the lower right there is a `Add Data` button/option. Click it.
+4. In the bottom sheet that opens, search for `matomo`.
+5. Find the connector that says `Matomo Connector` and `By InnoCraft Ltd` and select it.
+6. Select a website and click `Next`.
+7. Select a report with multiple dimensions like `Event Names`.
+8. Click `Add` at the bottom right of the bottom sheet. (If a modal asking to confirm the choice pops up, confirm.)
+9. Check in the `Data` pane for the new `Matomo Connector` row and expand it.
+
+Expected: there are multiple dimensions, one for each table/subtable of the selected report (For Events.getNames
+this would be `Event Name` and `Event Action`).
+
+10. Drag a dimension from the new connector to the report to create a new chart. Add the other dimension to it and some metrics.
+
+Expected: the dimensions and metrics display in the chart without error.
 
 **Reports with no dimensions display correctly in Looker Studio**
 

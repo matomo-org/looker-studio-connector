@@ -40,6 +40,14 @@ function getReportMetadata(idSite: string) {
     },
   );
 
+  // reports that do not define metrics in their metadata cannot be displayed in looker studio
+  response = response.filter((report) => {
+    return report.metrics
+      || report.processedMetrics
+      || report.metricsGoal
+      || report.processedMetricsGoal;
+  });
+
   // remove unused properties from response so the result can fit in the cache
   response = response.map((r) => ({
     module: r.module,
@@ -116,15 +124,6 @@ const CONFIG_STEPS = <ConfigStep[]>[
         .setName('Report');
 
       reportMetadata.forEach((report) => {
-        // reports that do not define metrics in their metadata cannot be displayed in looker studio
-        if (!reportMetadata.metrics
-          && !reportMetadata.processedMetrics
-          && !reportMetadata.metricsGoal
-          && !reportMetadata.processedMetricsGoal
-        ) {
-          return;
-        }
-
         const value = JSON.stringify({
           ...report.parameters,
           apiModule: report.module,
