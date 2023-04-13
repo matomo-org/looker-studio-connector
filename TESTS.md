@@ -257,21 +257,15 @@ Expected: the chart displays the metrics without error and the data in the chart
 
 Expected: the chart displays the metrics without error and the data in the chart matches the data in the target Matomo instance for that same date range.
 
-### Looker Studio feature: report filtering
-
-TODO
-
 ### Looker Studio feature: re-aggregation
 
-TODO
+**Summary row support**
 
-### Looker Studio feature: adding calculated fields
+_Not yet supported.**
 
-TODO
+**Default aggregation of Matomo metrics.**
 
-### Looker Studio feature: data blending
-
-TODO
+_Not yet supported.**
 
 ### Automated tests
 
