@@ -69,6 +69,23 @@ describe('data', () => {
   });
 
   describe('getData', () => {
+    it('should detect if the script run time is past a certain point and abort with a clear message', async () => {
+      await Clasp.setScriptProperties({
+        SCRIPT_RUNTIME_LIMIT: '0.01',
+        MAX_ROWS_TO_FETCH_PER_REQUEST: '1',
+      });
+
+      await expect(async () => {
+        await Clasp.run('getData', {
+          configParams: {
+            idsite: env.APPSCRIPT_TEST_IDSITE,
+            report: JSON.stringify({ apiModule: 'API', apiAction: 'get' }),
+            filter_limit: 5,
+          },
+        });
+      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
+    });
+
     it('should only include requested fields', async () => {
       let result = await Clasp.run('getData', {
         configParams: {

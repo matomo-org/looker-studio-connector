@@ -153,7 +153,7 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
     if (SCRIPT_RUNTIME_LIMIT > 0 && getScriptElapsedTime() > SCRIPT_RUNTIME_LIMIT) {
       cc.newUserError().setText('It\'s taking too long to get the requested data. This may be a momentary issue with '
         + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
-        + 'case, limit the data you are requesting to see it in Looker Studio.');
+        + 'case, limit the data you are requesting to see it in Looker Studio.').throwException();
       break;
     }
   }

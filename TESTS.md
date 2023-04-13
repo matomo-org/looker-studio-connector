@@ -303,6 +303,9 @@ consists of:
   and handed back to the test. If a string is not returned from a function, `clasp` will pretty print the JSON object which
   is harder to parse. Exceptions are just not printed out as JSON so they would also be harder to parse.
 
+* **setScriptProperties**: contains the function `setScriptProperties` which is used to test environment variables used
+  by the connector (since script properties can override values in the .env file).
+
 **Global test setup**
 
 The global setup code for the automated tests is defined in the `./tests/globalSetup.js` file which performs the

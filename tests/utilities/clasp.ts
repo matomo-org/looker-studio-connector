@@ -76,6 +76,10 @@ class Clasp {
     return this.runExecutable(['run', '-p', JSON.stringify([functionName, ...args]), 'callFunctionInTest']);
   }
 
+  async setScriptProperties(properties: Record<string, string>) {
+    return this.run('setScriptProperties', properties);
+  }
+
   async runExecutable<T = unknown>(subcommand: string[], options: RunOptions = {}): Promise<T|number> {
     const commandStr = `${this.claspPath} ${subcommand.join(' ')}`;
 

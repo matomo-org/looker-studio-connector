@@ -6,6 +6,6 @@
  */
 
 export function clearEnvInTest() {
-  const userProperties = PropertiesService.getUserProperties();
-  userProperties.deleteAllProperties();
+  PropertiesService.getUserProperties().deleteAllProperties();
+  PropertiesService.getScriptProperties().deleteAllProperties();
 }
