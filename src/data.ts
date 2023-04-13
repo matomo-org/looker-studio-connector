@@ -5,11 +5,13 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
-import cc, { ConnectorParams, getScriptElapsedTime } from './connector';
+import cc, { ConnectorParams } from './connector';
 import * as Api from './api';
 import env from './env';
 
-const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
+const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the requested data. This may be a momentary issue with '
+  + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
+  + 'case, limit the data you are requesting to see it in Looker Studio.';
 
 /*
 TODO
@@ -133,6 +135,9 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
       format_metrics: '0', // TODO: doesn't appear to work in every case (eg, API.get still returns % formatted values)
       flat: '1', // TODO: flatten table dimensions should have metrics of subtables in schema too
       filter_limit: `${limitToUse}`,
+    }, {
+      checkRuntimeLimit: true,
+      runtimeLimitAbortMessage: pastScriptRuntimeLimitErrorMessage,
     });
 
     if ((partialResponse as any).value === false) {
@@ -147,14 +152,6 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
 
     if (partialResponse.reportData.length < limitToUse) {
       break; // less rows than limit returned, so no more data
-    }
-
-    // stop requesting if we are close to the apps script time limit and display a warning to the user
-    if (SCRIPT_RUNTIME_LIMIT > 0 && getScriptElapsedTime() > SCRIPT_RUNTIME_LIMIT) {
-      cc.newUserError().setText('It\'s taking too long to get the requested data. This may be a momentary issue with '
-        + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
-        + 'case, limit the data you are requesting to see it in Looker Studio.').throwException();
-      break;
     }
   }
 

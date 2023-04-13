@@ -6,6 +6,9 @@
  */
 
 import env from './env';
+import cc, { getScriptElapsedTime } from './connector';
+
+const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
 
 export interface Site {
   idsite: string|number;
@@ -51,6 +54,8 @@ interface ApiFetchOptions {
   token?: string;
   cacheKey?: string;
   cacheTtl?: number;
+  checkRuntimeLimit?: boolean;
+  runtimeLimitAbortMessage?: string;
 }
 
 /**
@@ -71,6 +76,14 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
         // ignore
         // TODO: debug log or rethrow during development
       }
+    }
+  }
+
+  if (options.checkRuntimeLimit) {
+    // stop requesting if we are close to the apps script time limit and display a warning to the user
+    if (SCRIPT_RUNTIME_LIMIT > 0 && getScriptElapsedTime() > SCRIPT_RUNTIME_LIMIT) {
+      cc.newUserError().setText(options.runtimeLimitAbortMessage || 'This request is taking too long, aborting.').throwException();
+      return;
     }
   }
 
