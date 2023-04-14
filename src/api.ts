@@ -8,6 +8,7 @@
 import env from './env';
 import { getScriptElapsedTime } from './connector';
 import { throwUnexpectedError } from './error';
+import URLFetchRequest = GoogleAppsScript.URL_Fetch.URLFetchRequest;
 
 const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
 const API_REQUEST_RETRY_LIMIT_IN_SECS = parseInt(env.API_REQUEST_RETRY_LIMIT_IN_SECS) || 0;
@@ -104,7 +105,6 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       module: 'API',
       method,
       format: 'JSON',
-      token_auth: token,
       ...params,
       [env.API_REQUEST_SOURCE_IDENTIFIER]: '1',
     };
@@ -129,14 +129,23 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     if (options.checkRuntimeLimit) {
       // stop requesting if we are close to the apps script time limit and display a warning to the user
       if (SCRIPT_RUNTIME_LIMIT > 0 && getScriptElapsedTime() > SCRIPT_RUNTIME_LIMIT) {
-        throwUnexpectedError(options.runtimeLimitAbortMessage || 'This request is taking too long, aborting.');
+        const allRequests = Object.keys(allUrlsMappedToIndex).join(', ');
+        let message = options.runtimeLimitAbortMessage || 'This request is taking too long, aborting.';
+        message = `${message} (Requests being sent: ${allRequests}).`;
+        throwUnexpectedError(message);
         return;
       }
     }
 
     let countOfFailedRequests = 0;
 
-    const urlsToFetch = Object.keys(allUrlsMappedToIndex).map((u) => ({ url: u, headers: API_REQUEST_EXTRA_HEADERS }));
+    const urlsToFetch = Object.keys(allUrlsMappedToIndex).map((u) => (<URLFetchRequest>{
+      url: u,
+      headers: API_REQUEST_EXTRA_HEADERS,
+      method: 'post',
+      payload: { token_auth: token },
+    }));
+
     const responses = UrlFetchApp.fetchAll(urlsToFetch);
 
     responses.forEach((r, i) => {
@@ -196,7 +205,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 export function fetch<T = any>(method: string, params: Record<string, string> = {}, options: ApiFetchOptions = {}): T {
   const responses = fetchAll([{ method, params }], options);
   if (responses[0].result === 'error') {
-    throwUnexpectedError(`API method ${method} failed with: ${responses[0].message}`);
+    throwUnexpectedError(`API method ${method} failed with: ${responses[0].message}. (params = ${JSON.stringify(params)})`);
   }
   return responses[0] as T;
 }

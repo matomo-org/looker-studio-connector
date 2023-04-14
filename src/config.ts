@@ -212,6 +212,6 @@ export function getConfig(request: GoogleAppsScript.Data_Studio.Request<Connecto
     }
 
     console.log(`Unexpected error: ${e.stack || e.message}`);
-    throwUnexpectedError(e.message);
+    throwUnexpectedError(`getConfig(): ${e.message}`);
   }
 }

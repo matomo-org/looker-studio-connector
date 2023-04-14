@@ -267,6 +267,35 @@ _Not yet supported.**
 
 _Not yet supported.**
 
+### Other
+
+**Pre-requisites**
+
+These tests involve using a localhost tunneling service, specifically ngrok. You will need to have Matomo
+installed locally and have ngrok setup.
+
+Sign up for a free account at ngrok.com and go through the setup. Start forwarding your local Matomo.
+
+Then in the `.env` file in this repo, set `API_REQUEST_EXTRA_HEADERS` to `{"ngrok-skip-browser-warning":"1"}`
+and run `npm run push`.
+
+**API requests to Matomo are retried w/ exponential backoff**
+
+1. Force an error in Matomo by adding `throw new \Exception('test exception message');` in `plugins/API/API.php`
+   in the `getReportMetadata()` method.
+2. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
+3. Click the `Authorize` button and authorize Looker Studio to use your Google account if needed.
+4. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and a valid token (eg, `anonymous`) and click `Submit`.
+5. Open the `Website/Measurable` select and select a website. Click `Next`.
+
+Expected: the loading gif will show continuously for about two minutes, after which an error message is shown to the user.
+The error message includes the `'test exception message'` string and has links to forum support and an email to get support.
+
+6. Open the app script logs and find the execution for `getConfig()` with the request that failed.
+
+Expected: there are console log messages of the format `1 request(s) failed, retrying after N seconds.` where the number
+of seconds multiplies by two for each attempt, to some upper limit.
+
 ### Automated tests
 
 The automated tests exist within the `./tests/appscript` directory and can be run via the `npm test` command.
@@ -276,6 +305,12 @@ These tests use Jest, but unlike normal unit tests, execute functions within app
 are used within the connector code, this would result in some very weak tests.)
 
 The result of the executed function calls are inspected or compared with a predefined expected result.
+
+**Test-only environment variables**
+
+* **ONLY_TEST_METHOD**: if set to an API method like `DevicesDetection.getType`, the tests in data.spec.ts that are
+  dynamically generated based on the available API methods in `https://demo.matomo.cloud` will only run for the value
+  in `ONLY_TEST_METHOD`.
 
 **Automating Apps Script function calls via clasp**
 

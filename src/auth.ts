@@ -12,7 +12,7 @@ import env from './env';
 export function getAuthType() {
     return cc.newAuthTypeResponse()
         .setAuthType(cc.AuthType.USER_TOKEN)
-        .setHelpUrl('https://matomo.org/TODO') // TODO
+        .setHelpUrl('https://matomo.org/looker-studio')
         .build();
 }
 
@@ -60,6 +60,5 @@ export function resetAuth() {
 }
 
 export function isAdminUser() {
-    // TODO: should we somehow allow innocraft users to see debug info?
     return !!parseInt(env.DEBUG, 10);
 }

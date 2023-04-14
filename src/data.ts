@@ -247,7 +247,7 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
     const reportMetadata = getReportMetadata(request);
     if (!reportMetadata) {
       const reportParams = JSON.parse(request.configParams.report);
-      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found.`);
+      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report  cannot be found in the Matomo's report metadata.`);
     }
 
     const siteCurrency = getSiteCurrency(request);
@@ -261,7 +261,7 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
     }
 
     console.log(`Unexpected error: ${e.stack || e.message}`);
-    throwUnexpectedError(e.message);
+    throwUnexpectedError(`getSchema(): ${e.message}`);
   }
 }
 
@@ -277,7 +277,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     const processedReport = getProcessedReport(request);
     if (!processedReport) {
       const reportParams = JSON.parse(request.configParams.report);
-      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found.`);
+      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata.`);
     }
 
     const siteCurrency = getSiteCurrency(request);
@@ -341,6 +341,6 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     }
 
     console.log(`Unexpected error: ${e.stack || e.message}`);
-    throwUnexpectedError(e.message);
+    throwUnexpectedError(`getData(): ${e.message}`);
   }
 }
