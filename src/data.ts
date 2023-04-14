@@ -20,8 +20,6 @@ Post MVP issues:
 - allow accessing multiple matomo instances
 */
 
-// TODO: duration_ms will require modifying data. actually, several of these will.
-
 // TODO: test that checks every metric type encountered in demo.matomo.cloud is handled (e2e)
 const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
   'dimension': cc.FieldType.TEXT,
@@ -299,7 +297,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
       const fieldValues = requestedFields
         .map(({ name }) => {
           if (typeof row[name] !== 'undefined') {
-            const value = row[name];
+            let value = row[name];
 
             if (value === false) { // edge case that can happen in some report output
               const type = fields.getFieldById(name).getType();
@@ -308,6 +306,22 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
               }
 
               return '0';
+            }
+
+            // perform any transformations on the value required by the Matomo type
+            const matomoType = processedReport.metadata?.metricTypes?.[name];
+            if (matomoType === 'duration_ms') {
+              value = parseInt(value as string, 10) / 1000;
+            } else if (matomoType === 'date') {
+              // value is in YYYY-MM-DD format, but must be converted to YYYYMMDD
+              value = value.toString().replace(/-/g, '');
+            } else if (matomoType === 'datetime') {
+              // value is in YYYY-MM-DD HH:MM:SS format, but must be converted to YYYYMMDDHHMMSS
+              value = value.toString().replace(/[-:\s]/g, '');
+            } else if (matomoType === 'timestamp') {
+              // value is a timestamp, but must be converted to YYYYMMDDHHMMSS
+              const d = new Date(parseInt(value as string, 10));
+              value = `${d.getUTCFullYear()}${d.getUTCMonth() + 1}${d.getUTCDate()}${d.getUTCHours()}${d.getUTCMinutes()}${d.getUTCSeconds()}`;
             }
 
             // NOTE: the value MUST be a string, even if it's declared a number or something else. Looker studio will
@@ -340,6 +354,6 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     }
 
     console.log(`Unexpected error: ${e.stack || e.message}`);
-    throwUnexpectedError(`getData(): ${e.message}`);
+    throwUnexpectedError(`getData(${request.configParams?.report}): ${e.message}`);
   }
 }

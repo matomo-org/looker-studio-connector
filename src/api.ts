@@ -47,7 +47,7 @@ export interface ReportMetadata {
   parameters?: Record<string, string>;
 }
 
-type DataTableRow = Record<string, string|false>;
+type DataTableRow = Record<string, string|number|false>;
 
 export interface ProcessedReport {
   metadata: ReportMetadata;
