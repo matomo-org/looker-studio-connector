@@ -42,6 +42,8 @@ function getReportMetadata(idSite: string) {
     },
   );
 
+  const hasMetricTypes = !!response.find((r) => typeof r.metricTypes === 'object');
+
   // reports that do not define metrics in their metadata cannot be displayed in looker studio
   response = response.filter((report) => {
     return report.metrics
@@ -59,13 +61,15 @@ function getReportMetadata(idSite: string) {
     parameters: r.parameters,
   } as unknown as Api.ReportMetadata));
 
+  const result = { reportMetadata: response, hasMetricTypes };
+
   try {
-    cache.put(cacheKey, JSON.stringify(response));
+    cache.put(cacheKey, JSON.stringify(result));
   } catch (e) {
     console.log(`unable to save cache value for ${cacheKey}`);
   }
 
-  return response;
+  return result;
 }
 
 const CONFIG_STEPS = <ConfigStep[]>[
@@ -114,7 +118,13 @@ const CONFIG_STEPS = <ConfigStep[]>[
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams) {
       // TODO: also add text info boxes where we can
-      const reportMetadata = getReportMetadata(params.idsite!);
+      const { reportMetadata, hasMetricTypes } = getReportMetadata(params.idsite!);
+
+      if (!hasMetricTypes) {
+        config.newInfo().setId('no-metric-types').setText('Warning: It looks like your using an older version of Matomo with some report metadata missing. '
+          + 'Without that metadata this connector won\'t be able to reliably tell Looker Studio how to format Matomo metrics. They will still display, but they may '
+          + 'look strange. Please consider updating your Matomo to version 4.14 or later.');
+      }
 
       let reportSelect = config
         .newSelectSingle()

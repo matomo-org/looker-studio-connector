@@ -20,7 +20,6 @@ Post MVP issues:
 - allow accessing multiple matomo instances
 */
 
-// TODO: support old versions of matomo w/o <metricTypes>. display warning.
 // TODO: duration_ms will require modifying data. actually, several of these will.
 
 // TODO: test that checks every metric type encountered in demo.matomo.cloud is handled (e2e)

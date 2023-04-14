@@ -274,6 +274,8 @@ _Not yet supported.**
 These tests involve using a localhost tunneling service, specifically ngrok. You will need to have Matomo
 installed locally and have ngrok setup.
 
+First, ensure you have a token auth you can use for your local Matomo and get it ready.
+
 Sign up for a free account at ngrok.com and go through the setup. Start forwarding your local Matomo.
 
 Then in the `.env` file in this repo, set `API_REQUEST_EXTRA_HEADERS` to `{"ngrok-skip-browser-warning":"1"}`
@@ -285,7 +287,7 @@ and run `npm run push`.
    in the `getReportMetadata()` method.
 2. Open `https://lookerstudio.google.com/datasources/create?connectorId=<LINK_TO_CONNECTOR>`
 3. Click the `Authorize` button and authorize Looker Studio to use your Google account if needed.
-4. Enter a valid Matomo instance URL (eg, `https://demo.matomo.cloud`) and a valid token (eg, `anonymous`) and click `Submit`.
+4. Enter the ngrok public URL for the instance URL and a token for a user in your local Matomo.
 5. Open the `Website/Measurable` select and select a website. Click `Next`.
 
 Expected: the loading gif will show continuously for about two minutes, after which an error message is shown to the user.
