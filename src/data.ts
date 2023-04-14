@@ -20,7 +20,6 @@ Post MVP issues:
 - allow accessing multiple matomo instances
 */
 
-// TODO: test that checks every metric type encountered in demo.matomo.cloud is handled (e2e)
 const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
   'dimension': cc.FieldType.TEXT,
   'binary': cc.FieldType.TEXT,
@@ -39,6 +38,7 @@ const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
   'timestamp': cc.FieldType.YEAR_MONTH_DAY_SECOND,
   'bool': cc.FieldType.BOOLEAN,
   'percent': cc.FieldType.PERCENT,
+  'unspecified': cc.FieldType.TEXT,
 };
 
 // exported for tests

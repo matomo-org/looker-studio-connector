@@ -35,6 +35,29 @@ describe('data', () => {
     await Clasp.run('clearEnvInTest');
   });
 
+  describe('getMatomoSemanticTypeToLookerMapping', () => {
+    it('should have a mapping for every metric type encountered in Matomo', async () => {
+      const mapping = await Clasp.run('getMatomoSemanticTypeToLookerMapping');
+
+      let unrecognizedMetricTypes: string[] = [];
+      global.ALL_REPORT_METADATA.forEach((r) => {
+        if (!r.metricTypes) {
+          return;
+        }
+
+        Object.values(r.metricTypes as Record<string, string>).forEach((type) => {
+          if (!mapping[type]
+            && !unrecognizedMetricTypes.includes(type)
+          ) {
+            unrecognizedMetricTypes.push(type);
+          }
+        });
+      });
+
+      expect(unrecognizedMetricTypes).toEqual([]);
+    });
+  });
+
   describe('getSchema', () => {
     const methodsTested = {};
     global.ALL_REPORT_METADATA.forEach((r) => {
