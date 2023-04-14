@@ -9,6 +9,7 @@ import { ConnectorParams } from './connector';
 import * as Api from './api';
 import cc from './connector';
 import env from './env';
+import { isLookerStudioError, throwUserError, throwUnexpectedError } from './error';
 
 interface ConfigStep {
   isFilledOut(params?: ConnectorParams): boolean;
@@ -75,9 +76,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
     },
     validate(params?: ConnectorParams) {
       if (!params?.idsite || parseInt(params.idsite, 10) < 0) {
-        cc.newUserError()
-          .setText('A website in your Matomo must be selected.')
-          .throwException();
+        throwUserError('A website in your Matomo must be selected.');
       }
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config) {
@@ -110,9 +109,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
     validate(params?: ConnectorParams) {
       const report = (params?.report || '').trim();
       if (!report) {
-        cc.newUserError()
-          .setText('Please select a Matomo report to connect to.')
-          .throwException();
+        throwUserError('Please select a Matomo report to connect to.');
       }
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams) {
@@ -183,29 +180,38 @@ function getCurrentStep(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
 }
 
 export function getConfig(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-  const configParams = request.configParams;
+  try {
+    const configParams = request.configParams;
 
-  const currentStep = getCurrentStep(request);
+    const currentStep = getCurrentStep(request);
 
-  const config = cc.getConfig();
-  if (currentStep < CONFIG_STEPS.length - 1) {
-    config.setIsSteppedConfig(true);
-  }
-
-  CONFIG_STEPS.forEach((step, index) => {
-    if (currentStep >= index) {
-      if (currentStep - 1 === index && step.validate) { // validate previous step entry
-        step.validate(configParams);
-      }
-
-      step.addControls(config, configParams);
+    const config = cc.getConfig();
+    if (currentStep < CONFIG_STEPS.length - 1) {
+      config.setIsSteppedConfig(true);
     }
-  });
 
-  if (currentStep >= CONFIG_STEPS.length - 1) {
-    config.setIsSteppedConfig(false);
-    config.setDateRangeRequired(true);
+    CONFIG_STEPS.forEach((step, index) => {
+      if (currentStep >= index) {
+        if (currentStep - 1 === index && step.validate) { // validate previous step entry
+          step.validate(configParams);
+        }
+
+        step.addControls(config, configParams);
+      }
+    });
+
+    if (currentStep >= CONFIG_STEPS.length - 1) {
+      config.setIsSteppedConfig(false);
+      config.setDateRangeRequired(true);
+    }
+
+    return config.build();
+  } catch (e) {
+    if (isLookerStudioError(e)) {
+      throw e;
+    }
+
+    console.log(`Unexpected error: ${e.stack || e.message}`);
+    throwUnexpectedError(e.message);
   }
-
-  return config.build();
 }

@@ -6,11 +6,19 @@
  */
 
 import env from './env';
-import cc, { getScriptElapsedTime } from './connector';
+import { getScriptElapsedTime } from './connector';
+import { throwUnexpectedError } from './error';
 
 const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
 const API_REQUEST_RETRY_LIMIT_IN_SECS = parseInt(env.API_REQUEST_RETRY_LIMIT_IN_SECS) || 0;
 const MAX_WAIT_BEFORE_RETRY = 32;
+
+let API_REQUEST_EXTRA_HEADERS = {};
+try {
+  API_REQUEST_EXTRA_HEADERS = JSON.parse(env.API_REQUEST_EXTRA_HEADERS);
+} catch (e) {
+  // ignore
+}
 
 export interface Site {
   idsite: string|number;
@@ -113,44 +121,56 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
   const allUrlsMappedToIndex = Object.fromEntries(allUrls.map((url, i) => [url, i]));
 
-  let responseContents: unknown[] = [];
+  let responseContents: any[] = [];
   let currentWaitBeforeRetryTime = 1000;
 
   const startTime = Date.now();
-  while (Date.now() < startTime + API_REQUEST_RETRY_LIMIT_IN_SECS) {
+  while (Object.keys(allUrlsMappedToIndex).length && Date.now() < startTime + API_REQUEST_RETRY_LIMIT_IN_SECS * 1000) {
     if (options.checkRuntimeLimit) {
       // stop requesting if we are close to the apps script time limit and display a warning to the user
       if (SCRIPT_RUNTIME_LIMIT > 0 && getScriptElapsedTime() > SCRIPT_RUNTIME_LIMIT) {
-        cc.newUserError().setText(options.runtimeLimitAbortMessage || 'This request is taking too long, aborting.').throwException();
+        throwUnexpectedError(options.runtimeLimitAbortMessage || 'This request is taking too long, aborting.');
         return;
       }
     }
 
-    const urlsToFetch = Object.keys(allUrlsMappedToIndex);
+    let countOfFailedRequests = 0;
+
+    const urlsToFetch = Object.keys(allUrlsMappedToIndex).map((u) => ({ url: u, headers: API_REQUEST_EXTRA_HEADERS }));
     const responses = UrlFetchApp.fetchAll(urlsToFetch);
+
     responses.forEach((r, i) => {
+      const urlFetched = urlsToFetch[i].url;
+      const responseIndex = allUrlsMappedToIndex[urlFetched];
+
+      // save the response even if it's an error so we can get the server-side error message if needed
+      responseContents[responseIndex] = r.getContentText('UTF-8');
+      try {
+        responseContents[responseIndex] = JSON.parse(responseContents[responseIndex] as string);
+      } catch (e) {
+        // ignore
+      }
+
       const code = r.getResponseCode();
       if (code >= 500
         || code === 420
+        || responseContents[responseIndex].result === 'error'
       ) {
+        countOfFailedRequests += 1;
         return; // retry
       }
-
-      const urlFetched = urlsToFetch[i];
-      const responseIndex = allUrlsMappedToIndex[urlFetched];
-
-      responseContents[responseIndex] = JSON.parse(r.getContentText('UTF-8'));
 
       delete allUrlsMappedToIndex[urlFetched]; // this request succeeded, so don't make it again
     });
 
-    responseContents = responses.map((r) => JSON.parse(r.getContentText("UTF-8")));
-
     // if there are still requests to try (because they failed), wait before trying again
-    const requestsFailed = !!Object.keys(allUrlsMappedToIndex).length;
+    const remainingRequestCount = Object.keys(allUrlsMappedToIndex).length;
+    const requestsFailed = !!remainingRequestCount;
     if (requestsFailed) {
+      console.log(`${countOfFailedRequests} request(s) failed, retrying after ${currentWaitBeforeRetryTime / 1000} seconds.`);
+
       Utilities.sleep(currentWaitBeforeRetryTime);
-      currentWaitBeforeRetryTime = Math.min(currentWaitBeforeRetryTime * 2, MAX_WAIT_BEFORE_RETRY);
+      currentWaitBeforeRetryTime = Math.min(currentWaitBeforeRetryTime * 2, MAX_WAIT_BEFORE_RETRY * 1000);
     }
   }
 
@@ -176,7 +196,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 export function fetch<T = any>(method: string, params: Record<string, string> = {}, options: ApiFetchOptions = {}): T {
   const responses = fetchAll([{ method, params }], options);
   if (responses[0].result === 'error') {
-    throw new Error(`API method ${method} failed with: ${responses[0].message}`);
+    throwUnexpectedError(`API method ${method} failed with: ${responses[0].message}`);
   }
   return responses[0] as T;
 }

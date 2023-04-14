@@ -14,4 +14,5 @@ export default <Record<string, string>>{
   SCRIPT_RUNTIME_LIMIT: properties.getProperty('SCRIPT_RUNTIME_LIMIT') || process.env.SCRIPT_RUNTIME_LIMIT || '350',
   API_REQUEST_SOURCE_IDENTIFIER: properties.getProperty('API_REQUEST_SOURCE_IDENTIFIER') || process.env.API_REQUEST_SOURCE_IDENTIFIER || 'fromLooker',
   API_REQUEST_RETRY_LIMIT_IN_SECS: properties.getProperty('API_REQUEST_RETRY_LIMIT_IN_SECS') || process.env.API_REQUEST_RETRY_LIMIT_IN_SECS || '120',
+  API_REQUEST_EXTRA_HEADERS: properties.getProperty('API_REQUEST_EXTRA_HEADERS') || process.env.API_REQUEST_EXTRA_HEADERS || '{}',
 };

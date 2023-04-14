@@ -8,6 +8,7 @@
 import cc, { ConnectorParams } from './connector';
 import * as Api from './api';
 import env from './env';
+import { throwUserError, throwUnexpectedError, isLookerStudioError } from './error';
 
 const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the requested data. This may be a momentary issue with '
   + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
@@ -18,9 +19,6 @@ TODO
 Post MVP issues:
 - allow accessing multiple matomo instances
 */
-
-// TODO: make sure UX is good when Matomo requests error
-// TODO: helpful error message texts (see slack message; forum is https://forum.matomo.org/c/looker-studio/25)
 
 // TODO: support old versions of matomo w/o <metricTypes>. display warning.
 // TODO: duration_ms will require modifying data. actually, several of these will.
@@ -132,7 +130,7 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
       period,
       date,
       format_metrics: '0', // TODO: doesn't appear to work in every case (eg, API.get still returns % formatted values)
-      flat: '1', // TODO: flatten table dimensions should have metrics of subtables in schema too
+      flat: '1',
       filter_limit: `${limitToUse}`,
       filter_offset: `${response?.reportData.length || 0}`,
     }, {
@@ -231,100 +229,118 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCur
   return fields;
 }
 
-// TODO: better logging + better error reporting
+// TODO: better logging
 
 export function getSchema(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-  // TODO: automated tests for these
-  if (!request.configParams.report) {
-    cc.newUserError().setText('No report was selected when configuring the connector. Please go back and select one.').throwException();
+  try {
+    // TODO: automated tests for these
+    if (!request.configParams.report) {
+      throwUserError('No report was selected when configuring the connector. Please go back and select one.');
+    }
+
+    if (request.configParams.filter_limit
+      && Number.isNaN(parseInt(request.configParams.filter_limit, 10))
+    ) {
+      throwUserError(`The "Default Row Limit" entered (${request.configParams.filter_limit}) is not valid. Please enter a valid integer or leave it empty.`);
+    }
+
+    const reportMetadata = getReportMetadata(request);
+    if (!reportMetadata) {
+      const reportParams = JSON.parse(request.configParams.report);
+      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found.`);
+    }
+
+    const siteCurrency = getSiteCurrency(request);
+
+    const fields = getFieldsFromReportMetadata(reportMetadata, siteCurrency);
+
+    return { schema: fields.build() };
+  } catch (e) {
+    if (isLookerStudioError(e)) {
+      throw e;
+    }
+
+    console.log(`Unexpected error: ${e.stack || e.message}`);
+    throwUnexpectedError(e.message);
   }
-
-  if (request.configParams.filter_limit
-    && Number.isNaN(parseInt(request.configParams.filter_limit, 10))
-  ) {
-    cc.newUserError().setText(`The "Default Row Limit" entered (${request.configParams.filter_limit}) is not valid. Please enter a valid integer or leave it empty.`).throwException();
-  }
-
-  const reportMetadata = getReportMetadata(request);
-  if (!reportMetadata) {
-    const reportParams = JSON.parse(request.configParams.report);
-    cc.newUserError().setText(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found.`).throwException();
-  }
-
-  const siteCurrency = getSiteCurrency(request);
-
-  const fields = getFieldsFromReportMetadata(reportMetadata, siteCurrency);
-
-  return { schema: fields.build() };
 }
 
 export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-  if (!request.dateRange
-    || !request.dateRange.startDate
-    || !request.dateRange.endDate
-  ) {
-    cc.newUserError().setText('A date range must be supplied.').throwException();
-  }
+  try {
+    if (!request.dateRange
+      || !request.dateRange.startDate
+      || !request.dateRange.endDate
+    ) {
+      throwUserError('A date range must be supplied.');
+    }
 
-  const processedReport = getProcessedReport(request);
-  if (!processedReport) {
-    const reportParams = JSON.parse(request.configParams.report);
-    cc.newUserError().setText(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found.`).throwException();
-  }
+    const processedReport = getProcessedReport(request);
+    if (!processedReport) {
+      const reportParams = JSON.parse(request.configParams.report);
+      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found.`);
+    }
 
-  const siteCurrency = getSiteCurrency(request);
+    const siteCurrency = getSiteCurrency(request);
 
-  const fields = getFieldsFromReportMetadata(processedReport.metadata, siteCurrency, request.fields?.map((r) => r.name));
+    const fields = getFieldsFromReportMetadata(processedReport.metadata, siteCurrency, request.fields?.map((r) => r.name));
 
-  // API methods that return DataTable\Simple instances are just one row, not an array of rows, so we wrap them
-  // in an array in this case
-  const reportData = Array.isArray(processedReport.reportData) ? processedReport.reportData : [processedReport.reportData];
+    // API methods that return DataTable\Simple instances are just one row, not an array of rows, so we wrap them
+    // in an array in this case
+    const reportData = Array.isArray(processedReport.reportData) ? processedReport.reportData : [processedReport.reportData];
 
-  let requestedFields = request.fields?.filter(({ name }) => !!fields.getFieldById(name));
-  if (!requestedFields) {
-    requestedFields = fields.asArray().map((f) => ({ name: f.getId() }));
-  }
+    let requestedFields = request.fields?.filter(({ name }) => !!fields.getFieldById(name));
+    if (!requestedFields) {
+      requestedFields = fields.asArray().map((f) => ({ name: f.getId() }));
+    }
 
-  const data = reportData.map((row, i) => {
-    const metadataRow = processedReport?.reportMetadata[i];
+    const data = reportData.map((row, i) => {
+      const metadataRow = processedReport?.reportMetadata[i];
 
-    // TODO: test requested fields when there are multiple dimensions in flattened report
-    const fieldValues = requestedFields
-      .map(({ name }) => {
-        if (typeof row[name] !== 'undefined') {
-          const value = row[name];
+      // TODO: test requested fields when there are multiple dimensions in flattened report
+      const fieldValues = requestedFields
+        .map(({ name }) => {
+          if (typeof row[name] !== 'undefined') {
+            const value = row[name];
 
-          if (value === false) { // edge case that can happen in some report output
-            const type = fields.getFieldById(name).getType();
-            if (type === cc.FieldType.TEXT) {
-              return '';
+            if (value === false) { // edge case that can happen in some report output
+              const type = fields.getFieldById(name).getType();
+              if (type === cc.FieldType.TEXT) {
+                return '';
+              }
+
+              return '0';
             }
 
-            return '0';
+            // NOTE: the value MUST be a string, even if it's declared a number or something else. Looker studio will
+            // fumble sometimes when it's not a string (for example, when the metric is marked as a duration) and
+            // fail to display the data.
+            return `${value}`;
           }
 
-          // NOTE: the value MUST be a string, even if it's declared a number or something else. Looker studio will
-          // fumble sometimes when it's not a string (for example, when the metric is marked as a duration) and
-          // fail to display the data.
-          return `${value}`;
-        }
+          if (typeof metadataRow?.[name] !== 'undefined') {
+            return `${metadataRow[name]}`;
+          }
 
-        if (typeof metadataRow?.[name] !== 'undefined') {
-          return `${metadataRow[name]}`;
-        }
+          return '';
+        });
 
-        return '';
-      });
+      return {
+        values: fieldValues,
+      };
+    });
 
-    return {
-      values: fieldValues,
+    const result = {
+      schema: fields.build(),
+      rows: data,
+      filtersApplied: false,
     };
-  });
+    return result;
+  } catch (e) {
+    if (isLookerStudioError(e)) {
+      throw e;
+    }
 
-  const result = {
-    schema: fields.build(),
-    rows: data,
-    filtersApplied: false,
-  };
-  return result;
+    console.log(`Unexpected error: ${e.stack || e.message}`);
+    throwUnexpectedError(e.message);
+  }
 }
