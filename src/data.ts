@@ -18,6 +18,9 @@ const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the req
 TODO
 Post MVP issues:
 - allow accessing multiple matomo instances
+- support aggregating all metrics (even processed/computed)
+- support mapping dimension type (might need to put it in the API)?
+- allow goal metrics for Actions plugin (requires archiving goal overview metrics in matomo core)
 */
 
 const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
@@ -63,7 +66,7 @@ function getSiteCurrency(request: GoogleAppsScript.Data_Studio.Request<Connector
   return response.currency;
 }
 
-function getReportMetadata(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
+function getReportMetadataAndGoals(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
 
@@ -78,25 +81,40 @@ function getReportMetadata(request: GoogleAppsScript.Data_Studio.Request<Connect
     apiParameters[`apiParameters[${k}]`] = v;
   });
 
-  const response = Api.fetch('API.getMetadata', {
-    apiModule: reportParams.apiModule,
-    apiAction: reportParams.apiAction,
-    ...apiParameters,
-    idSite: `${idSite}`,
-    period: 'day',
-    date: 'today',
-  });
+  const response = Api.fetchAll([
+    {
+      method: 'API.getMetadata',
+      params: {
+        apiModule: reportParams.apiModule,
+        apiAction: reportParams.apiAction,
+        ...apiParameters,
+        idSite: `${idSite}`,
+        period: 'day',
+        date: 'today',
+      },
+    },
+    {
+      method: 'Goals.getGoals',
+      params: {
+        idSite: `${idSite}`,
+        period: 'day',
+        date: 'today',
+      },
+    },
+  ]);
 
-  let result = response as Api.ReportMetadata;
-  if (Array.isArray(response)) {
-    result = response[0] as Api.ReportMetadata;
+  let result = response[0] as Api.ReportMetadata;
+  if (Array.isArray(result)) {
+    result = result[0] as Api.ReportMetadata;
   }
 
   if ((result as any).value === false) {
-    return null;
+    result = null;
   }
 
-  return result;
+  const goals = response[1] as Record<string, Api.Goal>;
+
+  return { reportMetadata: result, goals };
 }
 
 // TODO: issue w/ nb_uniq_visitors: it only displays when requesting a single day, but we can't make the getSchema() result differ
@@ -130,6 +148,8 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
       flat: '1',
       filter_limit: `${limitToUse}`,
       filter_offset: `${response?.reportData.length || 0}`,
+      filter_show_goal_columns_process_goals: '1',
+      filter_update_columns_when_show_all_goals: '1',
     }, {
       checkRuntimeLimit: true,
       runtimeLimitAbortMessage: pastScriptRuntimeLimitErrorMessage,
@@ -153,7 +173,9 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
     }
   }
 
-  return response;
+  const goals = Api.fetch<Record<string, Api.Goal>>('Goals.getGoals', { idSite, period, date });
+
+  return { processedReport: response, goals };
 }
 
 function addMetric(fields: GoogleAppsScript.Data_Studio.Fields, id: string, name: string, matomoType: string, siteCurrency: string) {
@@ -164,7 +186,6 @@ function addMetric(fields: GoogleAppsScript.Data_Studio.Fields, id: string, name
     .setId(id)
     .setName(name)
     .setType(type)
-    // TODO: support aggregating all metrics (even processed/computed)
     .setIsReaggregatable(false);
 }
 
@@ -173,21 +194,40 @@ function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, id: string, d
     .newDimension()
     .setId(id)
     .setName(dimension)
-    .setType(cc.FieldType.TEXT); // TODO: support mapping dimension type (might need to put it in the API)
+    .setType(cc.FieldType.TEXT);
 }
 
 // TODO: will all sites have a currency? (they won't, we should check and provide a warning when configuring)
 
-function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCurrency: string, requestedFields?: string[]) {
+function metricsForEachGoal(metrics: Record<string, string>, goals: Record<string, Api.Goal>) {
+  const perGoalMetrics = {};
+  Object.values(goals).forEach((goal) => {
+    Object.entries(metrics).forEach(([id, name]) => {
+      const goalMetricId = `goal_${goal.idgoal}_${id}`;
+      const goalMetricName = `"${goal.name}" ${name}`;
+      perGoalMetrics[goalMetricId] = goalMetricName;
+    });
+  });
+  return perGoalMetrics;
+}
+
+function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: Record<string, Api.Goal>, siteCurrency: string, requestedFields?: string[]) {
   const fields = cc.getFields();
 
-  const allMetrics = {
+  let allMetrics = {
     ...reportMetadata.metrics,
     ...reportMetadata.processedMetrics,
-    // TODO: not supported in poc
-    // Object.entries(reportMetadata.metricsGoal),
-    // Object.entries(reportMetadata.processedMetricsGoal),
   };
+
+  if (reportMetadata.metricsGoal) {
+    allMetrics = { ...allMetrics, ...metricsForEachGoal(reportMetadata.metricsGoal, goals) };
+  }
+
+  if (reportMetadata.processedMetricsGoal) {
+    allMetrics = { ...allMetrics, ...metricsForEachGoal(reportMetadata.processedMetricsGoal, goals) };
+  }
+
+  // TODO: need to be able to detect if an error is a user error thrown by this plugin or an internal looker studio error
 
   if (!requestedFields?.length) {
     if (reportMetadata.dimensions) {
@@ -218,7 +258,16 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, siteCur
     }
 
     if (allMetrics[metricId]) {
-      const matomoType = reportMetadata.metricTypes?.[metricId] || 'text';
+      let matomoType: string;
+
+      const m = metricId.match(/^goal_\d+_(.*)/)
+      if (m) {
+        matomoType = reportMetadata.metricTypesGoal?.[m[1]];
+      } else {
+        matomoType = reportMetadata.metricTypes?.[metricId];
+      }
+      matomoType = matomoType || 'text';
+
       addMetric(fields, metricId, allMetrics[metricId], matomoType, siteCurrency);
     }
   });
@@ -241,15 +290,15 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
       throwUserError(`The "Default Row Limit" entered (${request.configParams.filter_limit}) is not valid. Please enter a valid integer or leave it empty.`);
     }
 
-    const reportMetadata = getReportMetadata(request);
+    const { reportMetadata, goals } = getReportMetadataAndGoals(request);
     if (!reportMetadata) {
       const reportParams = JSON.parse(request.configParams.report);
-      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report  cannot be found in the Matomo's report metadata.`);
+      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report  cannot be found in the Matomo's report metadata. (All params = ${request.configParams.report})`);
     }
 
     const siteCurrency = getSiteCurrency(request);
 
-    const fields = getFieldsFromReportMetadata(reportMetadata, siteCurrency);
+    const fields = getFieldsFromReportMetadata(reportMetadata, goals, siteCurrency);
 
     return { schema: fields.build() };
   } catch (e) {
@@ -271,7 +320,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
       throwUserError('A date range must be supplied.');
     }
 
-    const processedReport = getProcessedReport(request);
+    const { processedReport, goals } = getProcessedReport(request);
     if (!processedReport) {
       const reportParams = JSON.parse(request.configParams.report);
       throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata.`);
@@ -279,7 +328,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
 
     const siteCurrency = getSiteCurrency(request);
 
-    const fields = getFieldsFromReportMetadata(processedReport.metadata, siteCurrency, request.fields?.map((r) => r.name));
+    const fields = getFieldsFromReportMetadata(processedReport.metadata, goals, siteCurrency, request.fields?.map((r) => r.name));
 
     // API methods that return DataTable\Simple instances are just one row, not an array of rows, so we wrap them
     // in an array in this case

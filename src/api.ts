@@ -44,7 +44,14 @@ export interface ReportMetadata {
   category: string;
   name: string;
   metricTypes?: Record<string, string>;
+  metricTypesGoal?: Record<string, string>;
   parameters?: Record<string, string>;
+}
+
+export interface Goal {
+  idsite: string|number;
+  idgoal: string|number;
+  name: string;
 }
 
 type DataTableRow = Record<string, string|number|false>;
