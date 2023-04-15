@@ -117,8 +117,6 @@ function getReportMetadataAndGoals(request: GoogleAppsScript.Data_Studio.Request
   return { reportMetadata: result, goals };
 }
 
-// TODO: issue w/ nb_uniq_visitors: it only displays when requesting a single day, but we can't make the getSchema() result differ
-//       based on the date range.
 function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
@@ -269,6 +267,11 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
       matomoType = matomoType || 'text';
 
       addMetric(fields, metricId, allMetrics[metricId], matomoType, siteCurrency);
+    } else if (metricId === 'nb_uniq_visitors') {
+      // to support showing nb_uniq_visitors for day periods, but not others, we need to make sure
+      // the metric appears in the schema no matter what date range is required. which means adding
+      // it, even if Matomo doesn't mention it in API.getProcessedReport output.
+      addMetric(fields, 'nb_uniq_visitors', 'Unique Visitors', 'number', siteCurrency);
     }
   });
 
@@ -334,7 +337,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     // in an array in this case
     const reportData = Array.isArray(processedReport.reportData) ? processedReport.reportData : [processedReport.reportData];
 
-    let requestedFields = request.fields?.filter(({ name }) => !!fields.getFieldById(name));
+    let requestedFields = request.fields;
     if (!requestedFields) {
       requestedFields = fields.asArray().map((f) => ({ name: f.getId() }));
     }
