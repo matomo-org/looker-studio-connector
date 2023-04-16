@@ -9,7 +9,7 @@ import { ConnectorParams } from './connector';
 import * as Api from './api';
 import cc from './connector';
 import env from './env';
-import { isLookerStudioError, throwUserError, throwUnexpectedError } from './error';
+import { throwUserError, throwUnexpectedError, isConnectorThrownError } from './error';
 
 interface ConfigStep {
   isFilledOut(params?: ConnectorParams): boolean;
@@ -18,6 +18,15 @@ interface ConfigStep {
 }
 
 const CONFIG_REQUEST_CACHE_TTL_SECS = parseInt(env.CONFIG_REQUEST_CACHE_TTL_SECS, 10) || 0;
+
+function getSitesWithAtLeastViewAccess() {
+  return Api.fetch<Api.Site[]>('SitesManager.getSitesWithAtLeastViewAccess', {
+    filter_limit: '-1',
+  }, {
+    cacheKey: 'getConfig.SitesManager.getSitesWithAtLeastViewAccess',
+    cacheTtl: CONFIG_REQUEST_CACHE_TTL_SECS,
+  });
+}
 
 function getReportMetadata(idSite: string) {
   const cache = CacheService.getUserCache();
@@ -84,12 +93,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
       }
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config) {
-      const sitesWithViewAccess = Api.fetch<Api.Site[]>('SitesManager.getSitesWithAtLeastViewAccess', {
-        filter_limit: '-1',
-      }, {
-        cacheKey: 'getConfig.SitesManager.getSitesWithAtLeastViewAccess',
-        cacheTtl: CONFIG_REQUEST_CACHE_TTL_SECS,
-      });
+      const sitesWithViewAccess = getSitesWithAtLeastViewAccess();
 
       // idsite select
       let idSiteSelect = config
@@ -117,9 +121,19 @@ const CONFIG_STEPS = <ConfigStep[]>[
       }
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config, params?: ConnectorParams) {
-      // TODO: also add text info boxes where we can
+      // check if site currency is supported
+      const sites = getSitesWithAtLeastViewAccess();
+      const site = sites.find((s) => `${s.idsite}` === `${params.idsite}`);
+      if (site?.currency
+        && !cc.FieldType[`CURRENCY_${site.currency.toUpperCase()}`]
+      ) {
+        config.newInfo().setId('cannot-map-matomo-currency').setText(`Warning: The currency your website uses in Matomo (${site.currency}) is not supported `
+          + 'in Looker Studio. Revenue metrics still be imported, but they will be displayed as a number without a currency symbol.');
+      }
+
       const { reportMetadata, hasMetricTypes } = getReportMetadata(params.idsite!);
 
+      // check if Matomo is old and does not have <metricTypes>
       if (!hasMetricTypes) {
         config.newInfo().setId('no-metric-types').setText('Warning: It looks like your using an older version of Matomo with some report metadata missing. '
           + 'Without that metadata this connector won\'t be able to reliably tell Looker Studio how to format Matomo metrics. They will still display, but they may '
@@ -217,7 +231,7 @@ export function getConfig(request: GoogleAppsScript.Data_Studio.Request<Connecto
 
     return config.build();
   } catch (e) {
-    if (isLookerStudioError(e)) {
+    if (isConnectorThrownError(e)) {
       throw e;
     }
 

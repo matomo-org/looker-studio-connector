@@ -8,7 +8,7 @@
 import cc, { ConnectorParams } from './connector';
 import * as Api from './api';
 import env from './env';
-import { throwUserError, throwUnexpectedError, isLookerStudioError } from './error';
+import { throwUserError, throwUnexpectedError, isConnectorThrownError } from './error';
 
 const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the requested data. This may be a momentary issue with '
   + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
@@ -142,7 +142,7 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
       idSite: `${idSite}`,
       period,
       date,
-      format_metrics: '0', // TODO: doesn't appear to work in every case (eg, API.get still returns % formatted values)
+      format_metrics: '0',
       flat: '1',
       filter_limit: `${limitToUse}`,
       filter_offset: `${response?.reportData.length || 0}`,
@@ -194,8 +194,6 @@ function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, id: string, d
     .setName(dimension)
     .setType(cc.FieldType.TEXT);
 }
-
-// TODO: will all sites have a currency? (they won't, we should check and provide a warning when configuring)
 
 function metricsForEachGoal(metrics: Record<string, string>, goals: Record<string, Api.Goal>) {
   const perGoalMetrics = {};
@@ -305,7 +303,7 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
 
     return { schema: fields.build() };
   } catch (e) {
-    if (isLookerStudioError(e)) {
+    if (isConnectorThrownError(e)) {
       throw e;
     }
 
@@ -401,7 +399,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     };
     return result;
   } catch (e) {
-    if (isLookerStudioError(e)) {
+    if (isConnectorThrownError(e)) {
       throw e;
     }
 

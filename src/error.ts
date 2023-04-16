@@ -9,6 +9,8 @@ import cc from './connector';
 
 const FORUM_URL = 'https://forum.matomo.org/c/looker-studio/25';
 
+export class UserFacingError extends Error {}
+
 /**
  * Throws an error that will be visible to the Looker Studio user. This should be called for
  * errors that are due to simple user errors, eg, not selecting a report or entering the wrong input.
@@ -17,7 +19,12 @@ const FORUM_URL = 'https://forum.matomo.org/c/looker-studio/25';
  * @throws Error
  */
 export function throwUserError(message: string) {
-  cc.newUserError().setText(message).throwException();
+  try {
+    cc.newUserError().setText(message).throwException();
+  } catch (e) {
+    e.isConnectorThrownError = true;
+    throw e;
+  }
 }
 
 /**
@@ -29,16 +36,21 @@ export function throwUserError(message: string) {
  * @throws Error
  */
 export function throwUnexpectedError(message: string) {
-  const time = (new Date()).toString();
-  const wholeMessage = `An error has occurred - if you need help, please reach out in the Forums here: ${FORUM_URL} or `
-    + `contact us by email at hello@matomo.org  (in your message, please use Looker Studio in the subject, and copy paste the error message). `
-    + `Here is the full error message: ${message} (error occurred at ${time})`;
-  cc.newUserError().setText(wholeMessage).throwException();
+  try {
+    const time = (new Date()).toString();
+    const wholeMessage = `An error has occurred - if you need help, please reach out in the Forums here: ${FORUM_URL} or `
+      + `contact us by email at hello@matomo.org  (in your message, please use Looker Studio in the subject, and copy paste the error message). `
+      + `Here is the full error message: ${message} (error occurred at ${time})`;
+    cc.newUserError().setText(wholeMessage).throwException();
+  } catch (e) {
+    e.isConnectorThrownError = true;
+    throw e;
+  }
 }
 
 /**
- * Determines if an error was thrown via `cc.newUserError()` or a similar method.
+ * Determines if an error was thrown via the above methods.
  */
-export function isLookerStudioError(e: any) {
-  return e?.name === 'Exception';
+export function isConnectorThrownError(e: any) {
+  return !!e.isConnectorThrownError;
 }
