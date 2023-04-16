@@ -185,9 +185,9 @@ const CONFIG_STEPS = <ConfigStep[]>[
         .setId('filter_limit')
         .setName('Default Row Limit')
         .setAllowOverride(true)
-        .setHelpText('TODO');
-
-      // TODO: other useful parameter defaults
+        .setHelpText('A number that sets the maximum number of rows fetched from Matomo. By default the connector will try '
+          + 'and fetch every row of the report you selected, but in some cases this can be too much data, and Looker Studio '
+          + 'will time out trying to get it all. In this case you may want to set a hard limit here.');
     },
   },
 ];
@@ -230,7 +230,7 @@ export function getConfig(request: GoogleAppsScript.Data_Studio.Request<Connecto
     }
 
     return config.build();
-  } catch (e) {
+  } catch (e) { // TODO: need tests for this kind of block
     if (isConnectorThrownError(e)) {
       throw e;
     }
