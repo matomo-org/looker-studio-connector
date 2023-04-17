@@ -223,8 +223,6 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
     allMetrics = { ...allMetrics, ...metricsForEachGoal(reportMetadata.processedMetricsGoal, goals) };
   }
 
-  // TODO: need to be able to detect if an error is a user error thrown by this plugin or an internal looker studio error
-
   if (!requestedFields?.length) {
     if (reportMetadata.dimensions) {
       Object.entries(reportMetadata.dimensions).forEach(([id, name]) => {
@@ -240,7 +238,6 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
       return;
     }
 
-    // TODO test for when label is not first in requested field
     if (metricId === 'label') {
       if (reportMetadata.dimension) {
         addDimension(fields, 'label', reportMetadata.dimension);

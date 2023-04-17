@@ -91,8 +91,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       try {
         return JSON.parse(cacheEntry);
       } catch (e) {
-        // ignore
-        // TODO: debug log or rethrow during development
+        console.log(`unexpected: failed to parse cache data for ${options.cacheKey}`);
       }
     }
   }
@@ -194,7 +193,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     try {
       cache.put(options.cacheKey, JSON.stringify(responseContents), options.cacheTtl);
     } catch (e) {
-      // TODO rethrow during development
+      console.log(`unexpected: failed to save cache data for ${options.cacheKey}`);
     }
   }
 

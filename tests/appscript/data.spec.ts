@@ -131,6 +131,28 @@ describe('data', () => {
       expect(result).toEqual(getExpectedResponse(result, 'data', 'API.get_withRequestedFields'));
     });
 
+    it('should correctly include dimension when requested fields contains label', async () => {
+      await Clasp.run('setScriptProperties', {}, true);
+
+      let result = await Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'Actions', apiAction: 'getPageTitles' }),
+          filter_limit: 5,
+        },
+        dateRange: {
+          startDate: DATE_TO_TEST,
+          endDate: DATE_TO_TEST,
+        },
+        fields: [
+          { name: 'nb_visits' },
+          { name: 'label' }, // check it works when label is not first
+          { name: 'nb_hits' },
+        ],
+      });
+      expect(result).toEqual(getExpectedResponse(result, 'data', 'Actions.getPageTitles_withRequestedFields'));
+    });
+
     it('should fail gracefully when no dateRange is specified', async () => {
       await expect(async () => {
         await Clasp.run('getData', {
