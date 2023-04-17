@@ -59,6 +59,39 @@ describe('data', () => {
   });
 
   describe('getSchema', () => {
+    it('should report an error if the user does not specify a report', async () => {
+      await expect(async () => {
+        await Clasp.run('getSchema', {
+          configParams: {
+            idsite: env.APPSCRIPT_TEST_IDSITE,
+          },
+        });
+      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
+    });
+
+    it('should report an error if the user specifies a filter_limit that is not an integer', async () => {
+      await expect(async () => {
+        await Clasp.run('getSchema', {
+          configParams: {
+            idsite: env.APPSCRIPT_TEST_IDSITE,
+            report: JSON.stringify({ apiModule: 'API', apiAction: 'get' }),
+            filter_limit: 'skldfjasdf',
+          },
+        });
+      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
+    });
+
+    it('should report an error if the (somehow) a non-existant report is specified', async () => {
+      await expect(async () => {
+        await Clasp.run('getSchema', {
+          configParams: {
+            idsite: env.APPSCRIPT_TEST_IDSITE,
+            report: JSON.stringify({ apiModule: 'Referrers', apiAction: 'getNonexistentReport' }),
+          },
+        });
+      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
+    });
+
     const methodsTested = {};
     global.ALL_REPORT_METADATA.forEach((r) => {
       if (hasNoMetrics(r)) {
@@ -74,7 +107,7 @@ describe('data', () => {
 
       methodsTested[reportParams] = true;
 
-      if (process.env.ONLY_TEST_METHOD && process.env.ONLY_TEST_METHOD !== method) { // TODO: document
+      if (process.env.ONLY_TEST_METHOD && process.env.ONLY_TEST_METHOD !== method) {
         return;
       }
 
@@ -165,6 +198,22 @@ describe('data', () => {
       }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
     });
 
+    it('should report an error if a report can no longer be found in the report metadata', async () => {
+      await expect(async () => {
+        await Clasp.run('getData', {
+          configParams: {
+            idsite: env.APPSCRIPT_TEST_IDSITE,
+            report: JSON.stringify({ apiModule: 'NonexistentPlugin', apiAction: 'get' }),
+            filter_limit: 5,
+          },
+          dateRange: {
+            startDate: RANGE_START_DATE_TO_TEST,
+            endDate: RANGE_END_DATE_TO_TEST,
+          },
+        });
+      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
+    });
+
     it('should correctly fetch data for a date range spanning multiple days', async () => {
       let result = await Clasp.run('getData', {
         configParams: {
@@ -194,7 +243,7 @@ describe('data', () => {
       }
 
       methodsTested[reportParams] = true;
-      if (process.env.ONLY_TEST_METHOD && process.env.ONLY_TEST_METHOD !== method) { // TODO: document
+      if (process.env.ONLY_TEST_METHOD && process.env.ONLY_TEST_METHOD !== method) {
         return;
       }
 

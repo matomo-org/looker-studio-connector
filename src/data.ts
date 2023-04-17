@@ -277,7 +277,6 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
 
 export function getSchema(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   try {
-    // TODO: automated tests for these
     if (!request.configParams.report) {
       throwUserError('No report was selected when configuring the connector. Please go back and select one.');
     }
@@ -291,7 +290,7 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
     const { reportMetadata, goals } = getReportMetadataAndGoals(request);
     if (!reportMetadata) {
       const reportParams = JSON.parse(request.configParams.report);
-      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report  cannot be found in the Matomo's report metadata. (All params = ${request.configParams.report})`);
+      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata. (All params = ${request.configParams.report})`);
     }
 
     const siteCurrency = getSiteCurrency(request);
