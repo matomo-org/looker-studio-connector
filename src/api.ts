@@ -133,8 +133,9 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
   const startTime = Date.now();
   while (Object.keys(allUrlsMappedToIndex).length && Date.now() < startTime + API_REQUEST_RETRY_LIMIT_IN_SECS * 1000) {
     if (options.checkRuntimeLimit) {
+      // TODO: SCRIPT_RUNTIME_LIMIT test
       // stop requesting if we are close to the apps script time limit and display a warning to the user
-      if (SCRIPT_RUNTIME_LIMIT > 0 && getScriptElapsedTime() > SCRIPT_RUNTIME_LIMIT) {
+      if (SCRIPT_RUNTIME_LIMIT > 0 && getScriptElapsedTime() > SCRIPT_RUNTIME_LIMIT * 1000) {
         const allRequests = Object.keys(allUrlsMappedToIndex).join(', ');
         let message = options.runtimeLimitAbortMessage || 'This request is taking too long, aborting.';
         message = `${message} (Requests being sent: ${allRequests}).`;
@@ -169,7 +170,8 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       const code = r.getResponseCode();
       if (code >= 500
         || code === 420
-        || responseContents[responseIndex].result === 'error'
+        || (responseContents[responseIndex].result === 'error'
+          && !/Requested report.*not found in the list of available reports/.test(responseContents[responseIndex].message))
       ) {
         countOfFailedRequests += 1;
         return; // retry
@@ -211,7 +213,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 export function fetch<T = any>(method: string, params: Record<string, string> = {}, options: ApiFetchOptions = {}): T {
   const responses = fetchAll([{ method, params }], options);
   if (responses[0].result === 'error') {
-    throwUnexpectedError(`API method ${method} failed with: ${responses[0].message}. (params = ${JSON.stringify(params)})`);
+    throwUnexpectedError(`API method ${method} failed with: "${responses[0].message}". (params = ${JSON.stringify(params)})`);
   }
   return responses[0] as T;
 }

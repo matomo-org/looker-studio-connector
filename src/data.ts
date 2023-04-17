@@ -339,7 +339,6 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     const data = reportData.map((row, i) => {
       const metadataRow = processedReport?.reportMetadata[i];
 
-      // TODO: test requested fields when there are multiple dimensions in flattened report
       const fieldValues = requestedFields
         .map(({ name }) => {
           if (typeof row[name] !== 'undefined') {

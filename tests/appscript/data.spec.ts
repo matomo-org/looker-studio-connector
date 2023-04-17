@@ -186,6 +186,29 @@ describe('data', () => {
       expect(result).toEqual(getExpectedResponse(result, 'data', 'Actions.getPageTitles_withRequestedFields'));
     });
 
+    it('should correctly include dimensions when in requested fields for report w/ multiple dimensions', async () => {
+      await Clasp.run('setScriptProperties', {}, true);
+
+      let result = await Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'Events', apiAction: 'getName' }),
+          filter_limit: 5,
+        },
+        dateRange: {
+          startDate: DATE_TO_TEST,
+          endDate: DATE_TO_TEST,
+        },
+        fields: [
+          { name: 'nb_events' },
+          { name: 'Events_EventAction' },
+          { name: 'Events_EventName' },
+          { name: 'max_event_value' },
+        ],
+      });
+      expect(result).toEqual(getExpectedResponse(result, 'data', 'Events.getName_withRequestedFields'));
+    });
+
     it('should fail gracefully when no dateRange is specified', async () => {
       await expect(async () => {
         await Clasp.run('getData', {

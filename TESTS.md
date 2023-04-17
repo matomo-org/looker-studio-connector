@@ -298,6 +298,30 @@ The error message includes the `'test exception message'` string and has links t
 Expected: there are console log messages of the format `1 request(s) failed, retrying after N seconds.` where the number
 of seconds multiplies by two for each attempt, to some upper limit.
 
+### Graceful failure if plugin being used is deactivated/uninstalled
+
+1. Open a Looker Studio report that already contains a connected Matomo report.
+2. Open the `Data` tab on the right if it is not already open.
+3. In the lower right there is a `Add Data` button/option. Click it.
+4. In the bottom sheet that opens, search for `matomo`.
+5. Find the connector that says `Matomo Connector` and `By InnoCraft Ltd` and select it.
+6. Select a website and click `Next`.
+7. Select a report for a plugin that can be deactivated (like a premium plugin) and click `Add` at the bottom right of the bottom sheet. (If a modal asking to confirm the choice pops up, confirm.)
+8. Check in the `Data` pane for the new `Matomo Connector` row and expand it.
+9. Drag a **dimension** from the new connector to the report to create a chart for it.
+10. Select the new chart and in the properties pane, add **one** metric.
+
+Expected: the chart displays with data.
+
+11. In your local Matomo, deactivate the plugin that's being used.
+12. In Looker Studio, add one more metric (to make Looker Studio refresh).
+
+Expected: the chart should display an error.
+
+13. Click 'See Details'.
+
+Expected: the modal that displays has a detailed error message and lists how to get help.
+
 ### Automated tests
 
 The automated tests exist within the `./tests/appscript` directory and can be run via the `npm test` command.

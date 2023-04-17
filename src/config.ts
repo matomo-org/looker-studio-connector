@@ -134,7 +134,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
       const { reportMetadata, hasMetricTypes } = getReportMetadata(params.idsite!);
 
       // check if Matomo is old and does not have <metricTypes>
-      if (hasMetricTypes) {
+      if (!hasMetricTypes) {
         config.newInfo().setId('no-metric-types').setText('Warning: It looks like your using an older version of Matomo with some report metadata missing. '
           + 'Without that metadata this connector won\'t be able to reliably tell Looker Studio how to format Matomo metrics. They will still display, but they may '
           + 'look strange. Please consider updating your Matomo to version 4.14 or later.');
