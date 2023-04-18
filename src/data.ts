@@ -8,7 +8,11 @@
 import cc, { ConnectorParams } from './connector';
 import * as Api from './api';
 import env from './env';
-import { throwUserError, throwUnexpectedError, isConnectorThrownError } from './error';
+import {
+  throwUserError,
+  throwUnexpectedError,
+  callWithUserFriendlyErrorHandling,
+} from './error';
 
 const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the requested data. This may be a momentary issue with '
   + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
@@ -276,7 +280,7 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
 // TODO: better logging
 
 export function getSchema(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-  try {
+  return callWithUserFriendlyErrorHandling(`getSchema(${request.configParams?.report})`, () => {
     if (!request.configParams.report) {
       throwUserError('No report was selected when configuring the connector. Please go back and select one.');
     }
@@ -298,18 +302,11 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
     const fields = getFieldsFromReportMetadata(reportMetadata, goals, siteCurrency);
 
     return { schema: fields.build() };
-  } catch (e) {
-    if (isConnectorThrownError(e)) {
-      throw e;
-    }
-
-    console.log(`Unexpected error: ${e.stack || e.message}`);
-    throwUnexpectedError(`getSchema(): ${e.message}`);
-  }
+  });
 }
 
 export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-  try {
+  return callWithUserFriendlyErrorHandling(`getData(${request.configParams?.report})`, () => {
     if (!request.dateRange
       || !request.dateRange.startDate
       || !request.dateRange.endDate
@@ -393,12 +390,5 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
       filtersApplied: false,
     };
     return result;
-  } catch (e) {
-    if (isConnectorThrownError(e)) {
-      throw e;
-    }
-
-    console.log(`Unexpected error: ${e.stack || e.message}`);
-    throwUnexpectedError(`getData(${request.configParams?.report}): ${e.message}`);
-  }
+  });
 }

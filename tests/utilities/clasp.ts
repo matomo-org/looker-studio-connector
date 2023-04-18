@@ -76,8 +76,8 @@ class Clasp {
     return this.runExecutable(['run', '-p', JSON.stringify([functionName, ...args]), 'callFunctionInTest']);
   }
 
-  async setScriptProperties(properties: Record<string, string>) {
-    return this.run('setScriptProperties', properties);
+  async setScriptProperties(properties: Record<string, string>, deleteExisting = false) {
+    return this.run('setScriptProperties', properties, deleteExisting);
   }
 
   async runExecutable<T = unknown>(subcommand: string[], options: RunOptions = {}): Promise<T|number> {

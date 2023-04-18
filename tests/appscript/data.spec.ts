@@ -128,7 +128,7 @@ describe('data', () => {
     it('should detect if the script run time is past a certain point and abort with a clear message', async () => {
       await Clasp.setScriptProperties({
         SCRIPT_RUNTIME_LIMIT: '0.01',
-        MAX_ROWS_TO_FETCH_PER_REQUEST: '1', // TODO: add test for this specifically
+        MAX_ROWS_TO_FETCH_PER_REQUEST: '1',
       });
 
       await expect(async () => {
@@ -140,6 +140,25 @@ describe('data', () => {
           },
         });
       }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
+    });
+
+    it('should paginate through results correctly when row count is > MAX_ROWS_TO_FETCH_PER_REQUEST', async () => {
+      await Clasp.setScriptProperties({
+        MAX_ROWS_TO_FETCH_PER_REQUEST: '1',
+      }, true);
+
+      let result = await Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'Actions', apiAction: 'getPageUrls' }),
+          filter_limit: 5,
+        },
+        dateRange: {
+          startDate: DATE_TO_TEST,
+          endDate: DATE_TO_TEST,
+        },
+      });
+      expect(result).toEqual(getExpectedResponse(result, 'data', 'Actions.getPageUrls_withLowMaxRowsToFetchPerRequest'));
     });
 
     it('should only include requested fields', async () => {

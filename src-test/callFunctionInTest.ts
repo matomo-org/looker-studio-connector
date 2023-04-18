@@ -5,10 +5,9 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
-// TODO: document this (here and in README.md)
-
 export function callFunctionInTest(functionName: string, ...params: unknown[]) {
-  try { // TODO: note reason for this in docs. OR automate it w/ some kind of wrapper function?
+  try {
+    // there is no global object (like window) in apps script, so this is how we get a global function by name
     const fn = eval(functionName);
     const result = fn(...params);
     return JSON.stringify(result);

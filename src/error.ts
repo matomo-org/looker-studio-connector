@@ -54,3 +54,29 @@ export function throwUnexpectedError(message: string) {
 export function isConnectorThrownError(e: any) {
   return !!e.isConnectorThrownError;
 }
+
+/**
+ * Wraps a function in a try-catch that detects errors, and if they are not explicit errors
+ * thrown by the connector, throws a user-friendly error message instead.
+ *
+ * Stops users from seeing something like "The connector had a problem" and instead
+ * "An error occurred - if you need help, ... Here is the full error message: ...".
+ *
+ * This function should be used in most of the methods Looker Studio calls directly,
+ * like getData(), getConfig() and getSchema().
+ *
+ * @param callerId
+ * @param fn
+ */
+export function callWithUserFriendlyErrorHandling<T>(callerId: string, fn: () => T): T {
+  try {
+    return fn();
+  } catch (e) {
+    if (isConnectorThrownError(e)) {
+      throw e;
+    }
+
+    console.log(`Unexpected error: ${e.stack || e.message}`);
+    throwUnexpectedError(`${callerId}: ${e.message}`);
+  }
+}

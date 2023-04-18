@@ -9,7 +9,10 @@ import { ConnectorParams } from './connector';
 import * as Api from './api';
 import cc from './connector';
 import env from './env';
-import { throwUserError, throwUnexpectedError, isConnectorThrownError } from './error';
+import {
+  throwUserError,
+  callWithUserFriendlyErrorHandling
+} from './error';
 
 interface ConfigStep {
   isFilledOut(params?: ConnectorParams): boolean;
@@ -204,7 +207,7 @@ function getCurrentStep(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
 }
 
 export function getConfig(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-  try {
+  return callWithUserFriendlyErrorHandling('getConfig()', () => {
     const configParams = request.configParams;
 
     const currentStep = getCurrentStep(request);
@@ -230,12 +233,5 @@ export function getConfig(request: GoogleAppsScript.Data_Studio.Request<Connecto
     }
 
     return config.build();
-  } catch (e) { // TODO: need tests for this kind of block
-    if (isConnectorThrownError(e)) {
-      throw e;
-    }
-
-    console.log(`Unexpected error: ${e.stack || e.message}`);
-    throwUnexpectedError(`getConfig(): ${e.message}`);
-  }
+  });
 }
