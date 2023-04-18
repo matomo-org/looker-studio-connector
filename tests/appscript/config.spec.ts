@@ -27,8 +27,6 @@ function cleanUpSelects(response: any) {
   return response;
 }
 
-// TODO: remove option name/value pairs in responses so we're not dependent on what data demo.matomo.cloud returns
-
 describe('config', () => {
   beforeAll(async () => {
     await Clasp.run('setCredentials', {
