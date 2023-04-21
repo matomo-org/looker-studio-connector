@@ -8,7 +8,7 @@
     "name": "Matomo Analytics",
     "description": "The officially supported Matomo connector: explore your Matomo reports in Looker Studio",
     "logoUrl": "https://m-img.org/spai/w_170+q_lossless+ret_img+to_webp/https://static.matomo.org/wp-content/uploads/2018/10/matomo-logo-final-1-340x50.png",
-    "company": "InnoCraft Ltd",
+    "company": "Matomo",
     "companyUrl": "https://matomo.org",
     "addonUrl": "https://matomo.org/looker-studio",
     "supportUrl": "https://matomo.org/looker-studio"
