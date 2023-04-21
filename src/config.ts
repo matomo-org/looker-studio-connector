@@ -131,7 +131,7 @@ const CONFIG_STEPS = <ConfigStep[]>[
         && !cc.FieldType[`CURRENCY_${site.currency.toUpperCase()}`]
       ) {
         config.newInfo().setId('cannot-map-matomo-currency').setText(`Warning: The currency your website uses in Matomo (${site.currency}) is not supported `
-          + 'in Looker Studio. Revenue metrics still be imported, but they will be displayed as a number without a currency symbol.');
+          + 'in Looker Studio. Revenue metrics will still be imported, but they will be displayed as a number without a currency symbol.');
       }
 
       const { reportMetadata, hasMetricTypes } = getReportMetadata(params.idsite!);
