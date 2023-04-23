@@ -7,7 +7,7 @@
 
 import * as Api from './api';
 import cc from './connector';
-import env from './env';
+import { debugLog } from './log';
 
 export function getAuthType() {
     return cc.newAuthTypeResponse()
@@ -17,48 +17,49 @@ export function getAuthType() {
 }
 
 export function checkForValidCreds(instanceUrl?: string, token?: string) {
-    try {
-        const responseContent = Api.fetch('SitesManager.getSitesIdWithAtLeastViewAccess', {}, {
-            instanceUrl,
-            token,
-        });
-        return Array.isArray(responseContent) && !!responseContent.length;
-    } catch (error) {
-        return false;
-    }
+  try {
+    const responseContent = Api.fetch('SitesManager.getSitesIdWithAtLeastViewAccess', {}, {
+        instanceUrl,
+        token,
+    });
+    return Array.isArray(responseContent) && !!responseContent.length;
+  } catch (error) {
+    debugLog('checkForValidCreds:', 'failed to get sites ID with parameters', error.stack || error.message);
+    return false;
+  }
 }
 
 export function setCredentials(request) {
-    const { username, token } = request.userToken;
+  const { username, token } = request.userToken;
 
-    const instanceUrl = username;
+  const instanceUrl = username;
 
-    const isValidCreds = checkForValidCreds(instanceUrl, token);
-    if (!isValidCreds) {
-        return {
-            errorCode: 'INVALID_CREDENTIALS',
-        };
-    }
-
-    const userProperties = PropertiesService.getUserProperties();
-    userProperties.setProperty('dscc.username', instanceUrl);
-    userProperties.setProperty('dscc.token', token);
-
+  const isValidCreds = checkForValidCreds(instanceUrl, token);
+  if (!isValidCreds) {
     return {
-        errorCode: 'NONE',
+      errorCode: 'INVALID_CREDENTIALS',
     };
+  }
+
+  const userProperties = PropertiesService.getUserProperties();
+  userProperties.setProperty('dscc.username', instanceUrl);
+  userProperties.setProperty('dscc.token', token);
+
+  return {
+    errorCode: 'NONE',
+  };
 }
 
 export function isAuthValid() {
-    return checkForValidCreds();
+  return checkForValidCreds();
 }
 
 export function resetAuth() {
-    const userTokenProperties = PropertiesService.getUserProperties();
-    userTokenProperties.deleteProperty('dscc.username');
-    userTokenProperties.deleteProperty('dscc.token');
+  const userTokenProperties = PropertiesService.getUserProperties();
+  userTokenProperties.deleteProperty('dscc.username');
+  userTokenProperties.deleteProperty('dscc.token');
 }
 
 export function isAdminUser() {
-    return !!parseInt(env.DEBUG, 10);
+  return false;
 }

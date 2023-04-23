@@ -9,6 +9,7 @@ import env from './env';
 import { getScriptElapsedTime } from './connector';
 import { throwUnexpectedError } from './error';
 import URLFetchRequest = GoogleAppsScript.URL_Fetch.URLFetchRequest;
+import { log } from './log';
 
 const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
 const API_REQUEST_RETRY_LIMIT_IN_SECS = parseInt(env.API_REQUEST_RETRY_LIMIT_IN_SECS) || 0;
@@ -91,7 +92,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       try {
         return JSON.parse(cacheEntry);
       } catch (e) {
-        console.log(`unexpected: failed to parse cache data for ${options.cacheKey}`);
+        log(`unexpected: failed to parse cache data for ${options.cacheKey}`);
       }
     }
   }
@@ -183,7 +184,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     const remainingRequestCount = Object.keys(allUrlsMappedToIndex).length;
     const requestsFailed = !!remainingRequestCount;
     if (requestsFailed) {
-      console.log(`${countOfFailedRequests} request(s) failed, retrying after ${currentWaitBeforeRetryTime / 1000} seconds.`);
+      log(`${countOfFailedRequests} request(s) failed, retrying after ${currentWaitBeforeRetryTime / 1000} seconds.`);
 
       Utilities.sleep(currentWaitBeforeRetryTime);
       currentWaitBeforeRetryTime = Math.min(currentWaitBeforeRetryTime * 2, MAX_WAIT_BEFORE_RETRY * 1000);
@@ -194,7 +195,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     try {
       cache.put(options.cacheKey, JSON.stringify(responseContents), options.cacheTtl);
     } catch (e) {
-      console.log(`unexpected: failed to save cache data for ${options.cacheKey}`);
+      log(`unexpected: failed to save cache data for ${options.cacheKey}`);
     }
   }
 

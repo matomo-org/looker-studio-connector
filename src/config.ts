@@ -13,6 +13,7 @@ import {
   throwUserError,
   callWithUserFriendlyErrorHandling
 } from './error';
+import { debugLog, log } from './log';
 
 interface ConfigStep {
   isFilledOut(params?: ConnectorParams): boolean;
@@ -40,7 +41,7 @@ function getReportMetadata(idSite: string) {
     try {
       return JSON.parse(cachedValue);
     } catch (e) {
-      console.log(`unable to parse cache value for ${cacheKey}, making actual request`);
+      log(`unable to parse cache value for ${cacheKey}, making actual request`);
     }
   }
 
@@ -78,7 +79,7 @@ function getReportMetadata(idSite: string) {
   try {
     cache.put(cacheKey, JSON.stringify(result));
   } catch (e) {
-    console.log(`unable to save cache value for ${cacheKey}`);
+    log(`unable to save cache value for ${cacheKey}`);
   }
 
   return result;
@@ -208,9 +209,13 @@ function getCurrentStep(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
 
 export function getConfig(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   return callWithUserFriendlyErrorHandling('getConfig()', () => {
+    debugLog('getConfig(): request is', request);
+
     const configParams = request.configParams;
 
     const currentStep = getCurrentStep(request);
+
+    debugLog('getConfig(): current step is', currentStep);
 
     const config = cc.getConfig();
     if (currentStep < CONFIG_STEPS.length - 1) {
@@ -232,6 +237,10 @@ export function getConfig(request: GoogleAppsScript.Data_Studio.Request<Connecto
       config.setDateRangeRequired(true);
     }
 
-    return config.build();
+    const result = config.build();
+
+    debugLog('getConfig(): result is', result);
+
+    return result;
   });
 }

@@ -14,6 +14,7 @@ import {
   callWithUserFriendlyErrorHandling,
 } from './error';
 import { DataTableRow } from './api';
+import { debugLog } from './log';
 
 const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the requested data. This may be a momentary issue with '
   + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
@@ -316,10 +317,10 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
   return fields;
 }
 
-// TODO: better logging
-
 export function getSchema(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   return callWithUserFriendlyErrorHandling(`getSchema(${request.configParams?.report})`, () => {
+    debugLog('getSchema(): request is', request);
+
     if (!request.configParams.report) {
       throwUserError('No report was selected when configuring the connector. Please go back and select one.');
     }
@@ -341,12 +342,18 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
     // add Date field to support time series'
     addDateDimension(fields);
 
-    return { schema: fields.build() };
+    const result = { schema: fields.build() };
+
+    debugLog('getSchema(): result is', result);
+
+    return result;
   });
 }
 
 export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   return callWithUserFriendlyErrorHandling(`getData(${request.configParams?.report})`, () => {
+    debugLog('getData(): request is', request);
+
     if (!request.dateRange
       || !request.dateRange.startDate
       || !request.dateRange.endDate
@@ -427,6 +434,9 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
       rows: data,
       filtersApplied: false,
     };
+
+    debugLog('getData(): result is', { ...result, rows: data.slice(0, 5) });
+
     return result;
   });
 }
