@@ -7,7 +7,7 @@
   "dataStudio": {
     "name": "Matomo Analytics",
     "description": "The officially supported Matomo connector: explore your Matomo reports in Looker Studio",
-    "logoUrl": "https://m-img.org/spai/w_170+q_lossless+ret_img+to_webp/https://static.matomo.org/wp-content/uploads/2018/10/matomo-logo-final-1-340x50.png",
+    "logoUrl": "https://static.matomo.org/wp-content/uploads/2022/04/matomo-icon-1.png",
     "company": "Matomo",
     "companyUrl": "https://matomo.org",
     "addonUrl": "https://matomo.org/looker-studio",
