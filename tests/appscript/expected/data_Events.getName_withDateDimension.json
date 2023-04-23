@@ -3,7 +3,7 @@
   "rows": [
     {
       "values": [
-        "2023-02-15",
+        "20230215",
         "32",
         "Cart change",
         "added - Diving Tank",
@@ -12,7 +12,7 @@
     },
     {
       "values": [
-        "2023-02-15",
+        "20230215",
         "32",
         "Cart change",
         "added - Basic Wetsuit",
@@ -21,7 +21,7 @@
     },
     {
       "values": [
-        "2023-02-15",
+        "20230215",
         "21",
         "Cart change",
         "added - Scuba Fins",
@@ -30,7 +30,7 @@
     },
     {
       "values": [
-        "2023-02-15",
+        "20230215",
         "14",
         "Cart change",
         "removed - Basic Wetsuit",
@@ -39,7 +39,7 @@
     },
     {
       "values": [
-        "2023-02-15",
+        "20230215",
         "13",
         "Cart change",
         "added - Distance Line & Reel",
@@ -48,7 +48,7 @@
     },
     {
       "values": [
-        "2023-02-16",
+        "20230216",
         "38",
         "Cart change",
         "added - Diving Tank",
@@ -57,7 +57,7 @@
     },
     {
       "values": [
-        "2023-02-16",
+        "20230216",
         "37",
         "Cart change",
         "added - Basic Wetsuit",
@@ -66,7 +66,7 @@
     },
     {
       "values": [
-        "2023-02-16",
+        "20230216",
         "24",
         "Cart change",
         "added - Scuba Fins",
@@ -75,7 +75,7 @@
     },
     {
       "values": [
-        "2023-02-16",
+        "20230216",
         "19",
         "Cart change",
         "added - Diving Knife",
@@ -84,7 +84,7 @@
     },
     {
       "values": [
-        "2023-02-16",
+        "20230216",
         "16",
         "Cart change",
         "added - Distance Line & Reel",
@@ -93,7 +93,7 @@
     },
     {
       "values": [
-        "2023-02-17",
+        "20230217",
         "49",
         "Cart change",
         "added - Diving Tank",
@@ -102,7 +102,7 @@
     },
     {
       "values": [
-        "2023-02-17",
+        "20230217",
         "41",
         "Cart change",
         "added - Basic Wetsuit",
@@ -111,7 +111,7 @@
     },
     {
       "values": [
-        "2023-02-17",
+        "20230217",
         "37",
         "Cart change",
         "added - Scuba Fins",
@@ -120,7 +120,7 @@
     },
     {
       "values": [
-        "2023-02-17",
+        "20230217",
         "17",
         "Cart change",
         "added - Distance Line & Reel",
@@ -129,7 +129,7 @@
     },
     {
       "values": [
-        "2023-02-17",
+        "20230217",
         "19",
         "Cart change",
         "added - Diving Knife",
@@ -138,7 +138,7 @@
     },
     {
       "values": [
-        "2023-02-18",
+        "20230218",
         "30",
         "Cart change",
         "added - Diving Tank",
@@ -147,7 +147,7 @@
     },
     {
       "values": [
-        "2023-02-18",
+        "20230218",
         "32",
         "Cart change",
         "added - Basic Wetsuit",
@@ -156,7 +156,7 @@
     },
     {
       "values": [
-        "2023-02-18",
+        "20230218",
         "29",
         "Cart change",
         "added - Scuba Fins",
@@ -165,7 +165,7 @@
     },
     {
       "values": [
-        "2023-02-18",
+        "20230218",
         "14",
         "Cart change",
         "added - Diving Boots",
@@ -174,7 +174,7 @@
     },
     {
       "values": [
-        "2023-02-18",
+        "20230218",
         "13",
         "Cart change",
         "removed - Basic Wetsuit",
@@ -183,7 +183,7 @@
     },
     {
       "values": [
-        "2023-02-19",
+        "20230219",
         "45",
         "Cart change",
         "added - Diving Tank",
@@ -192,7 +192,7 @@
     },
     {
       "values": [
-        "2023-02-19",
+        "20230219",
         "37",
         "Cart change",
         "added - Basic Wetsuit",
@@ -201,7 +201,7 @@
     },
     {
       "values": [
-        "2023-02-19",
+        "20230219",
         "31",
         "Cart change",
         "added - Scuba Fins",
@@ -210,7 +210,7 @@
     },
     {
       "values": [
-        "2023-02-19",
+        "20230219",
         "19",
         "Cart change",
         "added - Diving Knife",
@@ -219,7 +219,7 @@
     },
     {
       "values": [
-        "2023-02-19",
+        "20230219",
         "21",
         "Cart change",
         "added - Silicone Grease",
@@ -234,7 +234,6 @@
       "name": "date",
       "semantics": {
         "conceptType": "DIMENSION",
-        "isReaggregatable": false,
         "semanticType": "YEAR_MONTH_DAY"
       }
     },

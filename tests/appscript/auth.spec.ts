@@ -52,7 +52,7 @@ describe('auth', () => {
     it('should return the correct response', async () => {
       const response = await Clasp.run('getAuthType');
       expect(response).toEqual({
-        "helpUrl": "https://matomo.org/TODO",
+        "helpUrl": "https://matomo.org/looker-studio",
         "type": "USER_TOKEN",
       });
     });

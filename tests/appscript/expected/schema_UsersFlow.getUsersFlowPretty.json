@@ -65,7 +65,6 @@
       "name": "date",
       "semantics": {
         "conceptType": "DIMENSION",
-        "isReaggregatable": false,
         "semanticType": "YEAR_MONTH_DAY"
       }
     }

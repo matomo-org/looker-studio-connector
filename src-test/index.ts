@@ -9,3 +9,4 @@ export * from '../src/index';
 export * from './callFunctionInTest';
 export * from './clearEnvInTest';
 export * from './setScriptProperties';
+export * from './callWithUserFriendlyErrorHandlingTests';

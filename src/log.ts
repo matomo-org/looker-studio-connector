@@ -11,8 +11,16 @@ const isDebug = !!parseInt(env.DEBUG, 10);
 
 export const requestId = Utilities.getUuid();
 
+export const currentHost = PropertiesService.getUserProperties().getProperty('dscc.username');
+
 export function log(...args: unknown[]): void {
-  console.log(`[${requestId}]`, ...args);
+  let prefix = `[${requestId}]`;
+
+  if (currentHost) {
+    prefix = `${prefix} [${currentHost}]`;
+  }
+
+  console.log(prefix, ...args);
 }
 
 export function debugLog(...args: unknown[]): void {

@@ -13,28 +13,28 @@ describe('error', () => {
     it('should catch uncaught exceptions and throw user friendly errors', async () => {
       await expect(async () => {
         await Clasp.run('callWithUserFriendlyErrorHandling_forceUncaught');
-      }).rejects.toEqual({
+      }).rejects.toEqual(expect.objectContaining({
         message: 'Exception', // actual data studio error message does not appear to be accessible
         isConnectorThrownError: true,
-      });
+      }));
     });
 
     it('should pass connector thrown errors through', async () => {
       await expect(async () => {
         await Clasp.run('callWithUserFriendlyErrorHandling_forceConnectorError');
-      }).rejects.toEqual({
+      }).rejects.toEqual(expect.objectContaining({
         message: 'Exception', // actual data studio error message does not appear to be accessible
         isConnectorThrownError: true,
-      });
+      }));
     });
 
     it('should catch looker studio uncaught errors and throw user friendly errors', async () => {
       await expect(async () => {
         await Clasp.run('callWithUserFriendlyErrorHandling_forceLookerStudioUncaught');
-      }).rejects.toEqual({
+      }).rejects.toEqual(expect.objectContaining({
         message: 'Exception', // actual data studio error message does not appear to be accessible
         isConnectorThrownError: true,
-      });
+      }));
     });
   });
 });

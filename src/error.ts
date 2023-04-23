@@ -6,7 +6,7 @@
  */
 
 import cc from './connector';
-import { log, requestId } from './log';
+import { currentHost, log, requestId } from './log';
 
 const FORUM_URL = 'https://forum.matomo.org/c/looker-studio/25';
 
@@ -41,7 +41,7 @@ export function throwUnexpectedError(message: string) {
     const time = (new Date()).toString();
     const wholeMessage = `An error has occurred - if you need help, please reach out in the Forums here: ${FORUM_URL} or `
       + `contact us by email at hello@matomo.org  (in your message, please use Looker Studio in the subject, and copy paste the error message). `
-      + `Here is the full error message: ${message} (error occurred at ${time}, request id: ${requestId})`;
+      + `Here is the full error message: ${message} (error occurred at ${time}, request ID is ${requestId}, host is ${currentHost})`;
     cc.newUserError().setText(wholeMessage).throwException();
   } catch (e) {
     e.isConnectorThrownError = true;

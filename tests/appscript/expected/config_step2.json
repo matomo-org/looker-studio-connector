@@ -27,7 +27,7 @@
     },
     {
       "displayName": "Default Row Limit",
-      "helpText": "TODO",
+      "helpText": "A number that sets the maximum number of rows fetched from Matomo. By default the connector will try and fetch every row of the report you selected, but in some cases this can be too much data, and Looker Studio will time out trying to get it all. In this case you may want to set a hard limit here.",
       "name": "filter_limit",
       "parameterControl": {
         "allowOverride": true
