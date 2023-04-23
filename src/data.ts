@@ -25,8 +25,8 @@ TODO
 Post MVP issues:
 - allow accessing multiple matomo instances
 - support aggregating all metrics (even processed/computed)
-- support mapping dimension type (might need to put it in the API)?
 - allow goal metrics for Actions plugin (requires archiving goal overview metrics in matomo core)
+- detect when range matches a non-day period and request that, so it's possible to get unique visitors for them if computed in Matomo
 */
 
 const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
@@ -273,7 +273,18 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
     }
   }
 
-  (requestedFields || Object.keys(allMetrics)).forEach((metricId) => {
+  const allFieldsSorted = Object.keys(allMetrics);
+
+  // make sure nb_visits is before unique visitors if it's present so when adding directly to a report, unique visitors
+  // won't be the column that gets added (since won't have data for ranges)
+  const visitsIndex = allFieldsSorted.indexOf('nb_visits');
+  const uniqueVisitorsIndex = allFieldsSorted.indexOf('nb_uniq_visitors');
+  if (visitsIndex > 0 && uniqueVisitorsIndex > 0 && uniqueVisitorsIndex < visitsIndex) {
+    allFieldsSorted.splice(visitsIndex, 1);
+    allFieldsSorted.unshift('nb_visits');
+  }
+
+  (requestedFields || allFieldsSorted).forEach((metricId) => {
     if (fields.getFieldById(metricId)) {
       return;
     }

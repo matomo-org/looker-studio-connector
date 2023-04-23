@@ -3,6 +3,7 @@
   "rows": [
     {
       "values": [
+        "10721",
         "14467",
         "13616",
         "18",
@@ -30,7 +31,6 @@
         "631",
         "33903.35",
         "0",
-        "10721",
         "0",
         "17050",
         "28",
@@ -95,6 +95,16 @@
     }
   ],
   "schema": [
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
     {
       "dataType": "NUMBER",
       "label": "Pageviews",
@@ -359,16 +369,6 @@
       "dataType": "NUMBER",
       "label": "Unique visitors",
       "name": "nb_uniq_visitors",
-      "semantics": {
-        "conceptType": "METRIC",
-        "isReaggregatable": false,
-        "semanticType": "NUMBER"
-      }
-    },
-    {
-      "dataType": "NUMBER",
-      "label": "Visits",
-      "name": "nb_visits",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
