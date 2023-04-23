@@ -20,15 +20,6 @@ const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the req
   + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
   + 'case, limit the data you are requesting to see it in Looker Studio.';
 
-/*
-TODO
-Post MVP issues:
-- allow accessing multiple matomo instances
-- support aggregating all metrics (even processed/computed)
-- allow goal metrics for Actions plugin (requires archiving goal overview metrics in matomo core)
-- detect when range matches a non-day period and request that, so it's possible to get unique visitors for them if computed in Matomo
-*/
-
 const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
   'dimension': cc.FieldType.TEXT,
   'binary': cc.FieldType.TEXT,
