@@ -254,7 +254,7 @@ describe('data', () => {
           },
         });
       }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
-    });
+    }, 300000);
 
     it('should correctly fetch data for a date range spanning multiple days', async () => {
       let result = await Clasp.run('getData', {
@@ -290,7 +290,7 @@ describe('data', () => {
       }
 
       const paramsSuffix = r.parameters ? `(${Object.entries(r.parameters).map(([k, v]) => `${k}_${v}`).join('_')})` : '';
-      it.only(`should correctly map the schema & data for ${method}${paramsSuffix}`, async () => {
+      it(`should correctly map the schema & data for ${method}${paramsSuffix}`, async () => {
         let result = await Clasp.run('getData', {
           configParams: {
             idsite: env.APPSCRIPT_TEST_IDSITE,
