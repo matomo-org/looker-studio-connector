@@ -13,13 +13,13 @@
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "Clicks",
       "name": "nb_clicks",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     },
     {
@@ -33,23 +33,23 @@
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "CTR",
       "name": "ctr",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "Avg. position",
       "name": "position",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     }
   ]

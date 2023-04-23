@@ -1,0 +1,71 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "167",
+        "Diving Jobs, latest Divemaster and Scuba Dive Instructor Job offers!",
+        "201"
+      ]
+    },
+    {
+      "values": [
+        "132",
+        "Cart - Divezone Store",
+        "147"
+      ]
+    },
+    {
+      "values": [
+        "122",
+        "Checkout - Divezone Store",
+        "134"
+      ]
+    },
+    {
+      "values": [
+        "98",
+        "My Account - Divezone Store",
+        "182"
+      ]
+    },
+    {
+      "values": [
+        "70",
+        "Best Diving sites in Bali – Indonesia Scuba dive reviews by Divezone",
+        "71"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Pageviews",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Page Title",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Pageviews",
+      "name": "nb_hits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

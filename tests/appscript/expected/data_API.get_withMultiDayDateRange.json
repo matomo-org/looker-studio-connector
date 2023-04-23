@@ -29,7 +29,9 @@
         "659",
         "631",
         "33903.35",
+        "0",
         "10721",
+        "0",
         "17050",
         "28",
         "10720",
@@ -68,7 +70,7 @@
         "54",
         "292",
         "1161",
-        "",
+        "0",
         "0.0589",
         "0.7",
         "1.6",
@@ -355,8 +357,28 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Visits",
       "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Users",
+      "name": "nb_users",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

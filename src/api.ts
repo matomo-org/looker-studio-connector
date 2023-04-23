@@ -54,7 +54,7 @@ export interface Goal {
   name: string;
 }
 
-type DataTableRow = Record<string, string|number|false>;
+export type DataTableRow = Record<string, string|number|false>;
 
 export interface ProcessedReport {
   metadata: ReportMetadata;

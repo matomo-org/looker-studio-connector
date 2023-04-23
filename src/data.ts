@@ -13,6 +13,7 @@ import {
   throwUnexpectedError,
   callWithUserFriendlyErrorHandling,
 } from './error';
+import { DataTableRow } from './api';
 
 const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the requested data. This may be a momentary issue with '
   + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
@@ -62,15 +63,7 @@ function mapMatomoSemanticTypeToLooker(matomoType: string, siteCurrencyCode: str
   return mapped;
 }
 
-function getSiteCurrency(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-  const idSite = request.configParams.idsite;
-
-  const response = Api.fetch<Api.Site>('SitesManager.getSiteFromId', { idSite: `${idSite}` });
-
-  return response.currency;
-}
-
-function getReportMetadataAndGoals(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
+function getReportMetadataAndGoalsAndCurrency(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
 
@@ -105,6 +98,10 @@ function getReportMetadataAndGoals(request: GoogleAppsScript.Data_Studio.Request
         date: 'today',
       },
     },
+    {
+      method: 'SitesManager.getSiteFromId',
+      params: { idSite: `${idSite}` },
+    },
   ]);
 
   let result = response[0] as Api.ReportMetadata;
@@ -118,10 +115,12 @@ function getReportMetadataAndGoals(request: GoogleAppsScript.Data_Studio.Request
 
   const goals = response[1] as Record<string, Api.Goal>;
 
-  return { reportMetadata: result, goals };
+  const siteCurrency = (response[2] as Api.Site).currency;
+
+  return { reportMetadata: result, goals, siteCurrency };
 }
 
-function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
+function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
   const filter_limit = parseInt(request.configParams.filter_limit || '-1', 10);
@@ -138,10 +137,10 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
 
   // request report data one large chunk at a time to make sure we don't hit the 50mb HTTP response size limit
   // for apps scripts
-  let response: Api.ProcessedReport|null = null;
-  while (!response || response.reportData.length < filter_limit) {
+  let response: DataTableRow[] = null;
+  while (!response || response.length < filter_limit) {
     const limitToUse = filter_limit < 0 || filter_limit >= rowsToFetchAtATime ? rowsToFetchAtATime : filter_limit;
-    const partialResponse = Api.fetch<Api.ProcessedReport>('API.getProcessedReport', {
+    const partialResponse = Api.fetch<DataTableRow[]>(`${reportParams.apiModule}.${reportParams.apiAction}`, {
       ...reportParams,
       idSite: `${idSite}`,
       period,
@@ -149,7 +148,7 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
       format_metrics: '0',
       flat: '1',
       filter_limit: `${limitToUse}`,
-      filter_offset: `${response?.reportData.length || 0}`,
+      filter_offset: `${response?.length || 0}`,
       filter_show_goal_columns_process_goals: '1',
       filter_update_columns_when_show_all_goals: '1',
     }, {
@@ -162,22 +161,17 @@ function getProcessedReport(request: GoogleAppsScript.Data_Studio.Request<Connec
     }
 
     if (!response) {
-      response = partialResponse;
-      if (!response.reportData) { // sanity check
-        response.reportData = [];
-      }
+      response = partialResponse || [];
     } else {
-      response.reportData.push(...partialResponse.reportData);
+      response.push(...partialResponse);
     }
 
-    if (partialResponse.reportData.length < limitToUse) {
+    if (partialResponse.length < limitToUse) {
       break; // less rows than limit returned, so no more data
     }
   }
 
-  const goals = Api.fetch<Record<string, Api.Goal>>('Goals.getGoals', { idSite, period, date });
-
-  return { processedReport: response, goals };
+  return response;
 }
 
 function addMetric(fields: GoogleAppsScript.Data_Studio.Fields, id: string, name: string, matomoType: string, siteCurrency: string) {
@@ -269,7 +263,7 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
     } else if (metricId === 'nb_uniq_visitors') {
       // to support showing nb_uniq_visitors for day periods, but not others, we need to make sure
       // the metric appears in the schema no matter what date range is required. which means adding
-      // it, even if Matomo doesn't mention it in API.getProcessedReport output.
+      // it, even if Matomo doesn't mention it in API.getMetadata output.
       addMetric(fields, 'nb_uniq_visitors', 'Unique Visitors', 'number', siteCurrency);
     }
   });
@@ -291,13 +285,11 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
       throwUserError(`The "Default Row Limit" entered (${request.configParams.filter_limit}) is not valid. Please enter a valid integer or leave it empty.`);
     }
 
-    const { reportMetadata, goals } = getReportMetadataAndGoals(request);
+    const { reportMetadata, goals, siteCurrency } = getReportMetadataAndGoalsAndCurrency(request);
     if (!reportMetadata) {
       const reportParams = JSON.parse(request.configParams.report);
       throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata. (All params = ${request.configParams.report})`);
     }
-
-    const siteCurrency = getSiteCurrency(request);
 
     const fields = getFieldsFromReportMetadata(reportMetadata, goals, siteCurrency);
 
@@ -314,44 +306,36 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
       throwUserError('A date range must be supplied.');
     }
 
-    const { processedReport, goals } = getProcessedReport(request);
-    if (!processedReport) {
+    const { reportMetadata, goals, siteCurrency } = getReportMetadataAndGoalsAndCurrency(request);
+
+    let reportData = getReportData(request);
+    if (reportData === null) {
       const reportParams = JSON.parse(request.configParams.report);
       throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata.`);
     }
 
-    const siteCurrency = getSiteCurrency(request);
-
-    const fields = getFieldsFromReportMetadata(processedReport.metadata, goals, siteCurrency, request.fields?.map((r) => r.name));
+    const fields = getFieldsFromReportMetadata(reportMetadata, goals, siteCurrency, request.fields?.map((r) => r.name));
 
     // API methods that return DataTable\Simple instances are just one row, not an array of rows, so we wrap them
     // in an array in this case
-    const reportData = Array.isArray(processedReport.reportData) ? processedReport.reportData : [processedReport.reportData];
+    reportData = Array.isArray(reportData) ? reportData : [reportData];
 
     let requestedFields = request.fields;
     if (!requestedFields) {
       requestedFields = fields.asArray().map((f) => ({ name: f.getId() }));
     }
 
-    const data = reportData.map((row, i) => {
-      const metadataRow = processedReport?.reportMetadata[i];
-
+    const data = reportData.map((row) => {
       const fieldValues = requestedFields
+        .filter(({ name }) => fields.getFieldById(name))
         .map(({ name }) => {
-          if (typeof row[name] !== 'undefined') {
+          if (typeof row[name] !== 'undefined'
+            && row[name] !== false // edge case that can happen in some report output
+          ) {
             let value = row[name];
 
-            if (value === false) { // edge case that can happen in some report output
-              const type = fields.getFieldById(name).getType();
-              if (type === cc.FieldType.TEXT) {
-                return '';
-              }
-
-              return '0';
-            }
-
             // perform any transformations on the value required by the Matomo type
-            const matomoType = processedReport.metadata?.metricTypes?.[name];
+            const matomoType = reportMetadata?.metricTypes?.[name];
             if (matomoType === 'duration_ms') {
               value = parseInt(value as string, 10) / 1000;
             } else if (matomoType === 'date') {
@@ -372,11 +356,13 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
             return `${value}`;
           }
 
-          if (typeof metadataRow?.[name] !== 'undefined') {
-            return `${metadataRow[name]}`;
+          // no value found
+          const type = fields.getFieldById(name).getType();
+          if (type === cc.FieldType.TEXT) {
+            return '';
           }
 
-          return '';
+          return '0';
         });
 
       return {

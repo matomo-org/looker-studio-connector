@@ -1,0 +1,85 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "32",
+        "Cart change",
+        "added - Diving Tank",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "32",
+        "Cart change",
+        "added - Basic Wetsuit",
+        "1"
+      ]
+    },
+    {
+      "values": [
+        "21",
+        "Cart change",
+        "added - Scuba Fins",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "14",
+        "Cart change",
+        "removed - Basic Wetsuit",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "13",
+        "Cart change",
+        "added - Distance Line & Reel",
+        "3"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "NUMBER",
+      "label": "Events",
+      "name": "nb_events",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Event Action",
+      "name": "Events_EventAction",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Event Name",
+      "name": "Events_EventName",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Maximum Event value",
+      "name": "max_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

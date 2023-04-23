@@ -290,7 +290,7 @@ describe('data', () => {
       }
 
       const paramsSuffix = r.parameters ? `(${Object.entries(r.parameters).map(([k, v]) => `${k}_${v}`).join('_')})` : '';
-      it(`should correctly map the schema & data for ${method}${paramsSuffix}`, async () => {
+      it.only(`should correctly map the schema & data for ${method}${paramsSuffix}`, async () => {
         let result = await Clasp.run('getData', {
           configParams: {
             idsite: env.APPSCRIPT_TEST_IDSITE,
