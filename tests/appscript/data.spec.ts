@@ -256,7 +256,57 @@ describe('data', () => {
       }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
     }, 300000);
 
+    it('should fetch data by day when the date dimension is requested', async () => {
+      let result = await Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'Events', apiAction: 'getName' }),
+          filter_limit: 5,
+        },
+        dateRange: {
+          startDate: RANGE_START_DATE_TO_TEST,
+          endDate: RANGE_END_DATE_TO_TEST,
+        },
+        fields: [
+          { name: 'date' },
+          { name: 'nb_events' },
+          { name: 'Events_EventAction' },
+          { name: 'Events_EventName' },
+          { name: 'max_event_value' },
+        ],
+      });
+      expect(result).toEqual(getExpectedResponse(result, 'data', 'Events.getName_withDateDimension'));
+    });
+
+    it('should paginate correctly when fetch data by day when the date dimension is requested', async () => {
+      await Clasp.setScriptProperties({
+        MAX_ROWS_TO_FETCH_PER_REQUEST: '1',
+      }, true);
+
+      let result = await Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'Events', apiAction: 'getName' }),
+          filter_limit: 5,
+        },
+        dateRange: {
+          startDate: RANGE_START_DATE_TO_TEST,
+          endDate: RANGE_END_DATE_TO_TEST,
+        },
+        fields: [
+          { name: 'date' },
+          { name: 'nb_events' },
+          { name: 'Events_EventAction' },
+          { name: 'Events_EventName' },
+          { name: 'max_event_value' },
+        ],
+      });
+      expect(result).toEqual(getExpectedResponse(result, 'data', 'Events.getName_withDateDimension'));
+    });
+
     it('should correctly fetch data for a date range spanning multiple days', async () => {
+      await Clasp.run('setScriptProperties', {}, true);
+
       let result = await Clasp.run('getData', {
         configParams: {
           idsite: env.APPSCRIPT_TEST_IDSITE,

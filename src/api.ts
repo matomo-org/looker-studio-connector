@@ -83,7 +83,7 @@ interface ApiFetchOptions {
  * @param options
  * @return the parsed responses for each request
  */
-export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptions = {}) {
+export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptions = {}): any[] {
   const cache = CacheService.getUserCache();
   if (options.cacheKey && options.cacheTtl > 0) {
     const cacheEntry = cache.get(options.cacheKey);

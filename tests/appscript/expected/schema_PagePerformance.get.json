@@ -69,6 +69,16 @@
         "isReaggregatable": false,
         "semanticType": "DURATION"
       }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Date",
+      "name": "date",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "isReaggregatable": false,
+        "semanticType": "YEAR_MONTH_DAY"
+      }
     }
   ]
 }

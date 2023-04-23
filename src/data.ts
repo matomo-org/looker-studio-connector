@@ -125,22 +125,45 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   const report = request.configParams.report;
   const filter_limit = parseInt(request.configParams.filter_limit || '-1', 10);
 
-  const rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
+  let rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
 
   const reportParams = JSON.parse(report);
 
-  // some API methods (like Actions.getPageUrlsFollowingSiteSearch) have trouble when using a range for a single day,
-  // so we make sure to do a check for this case
+  const hasDate = !!(request.fields && request.fields.find((f) => f.name === 'date'));
   const isSingleDay = request.dateRange.startDate === request.dateRange.endDate;
-  const period = isSingleDay ? 'day' : 'range';
-  const date = isSingleDay ? request.dateRange.startDate : `${request.dateRange.startDate},${request.dateRange.endDate}`;
+
+  let period = 'range';
+  let date = `${request.dateRange.startDate},${request.dateRange.endDate}`;
+
+  if (hasDate) {
+    period = 'day';
+
+    // note: this calculation doesn't work every time, but it's good enough for determining row counts
+    const MS_IN_DAY = 1000 * 60 * 60 * 24;
+    let numberOfDays = Math.round(((new Date(request.dateRange.endDate)).getTime() - (new Date(request.dateRange.startDate)).getTime()) / MS_IN_DAY);
+    numberOfDays = Math.max(numberOfDays, 1);
+
+    // if we fetch multiple days, the filter_limit will be applied to every day. so we need to change the rows
+    // to fetch to make sure we only select MAX_ROWS_TO_FETCH_PER_REQUEST in total.
+    rowsToFetchAtATime = Math.floor(rowsToFetchAtATime / numberOfDays);
+    rowsToFetchAtATime = Math.max(rowsToFetchAtATime, 1);
+  } else if (isSingleDay) {
+    // some API methods (like Actions.getPageUrlsFollowingSiteSearch) have trouble when using a range for a single day,
+    // so we make sure to do a check for this case
+    period = 'day';
+    date = request.dateRange.startDate;
+  }
 
   // request report data one large chunk at a time to make sure we don't hit the 50mb HTTP response size limit
   // for apps scripts
-  let response: DataTableRow[] = null;
-  while (!response || response.length < filter_limit) {
+  let response: Record<string, DataTableRow[]> = {};
+
+  let offset = 0;
+
+  let hasMoreRowsToFetch = true;
+  while (hasMoreRowsToFetch) {
     const limitToUse = filter_limit < 0 || filter_limit >= rowsToFetchAtATime ? rowsToFetchAtATime : filter_limit;
-    const partialResponse = Api.fetch<DataTableRow[]>(`${reportParams.apiModule}.${reportParams.apiAction}`, {
+    let partialResponseRaw = Api.fetch<DataTableRow[]|Record<string, DataTableRow[]>>(`${reportParams.apiModule}.${reportParams.apiAction}`, {
       ...reportParams,
       idSite: `${idSite}`,
       period,
@@ -148,7 +171,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       format_metrics: '0',
       flat: '1',
       filter_limit: `${limitToUse}`,
-      filter_offset: `${response?.length || 0}`,
+      filter_offset: offset,
       filter_show_goal_columns_process_goals: '1',
       filter_update_columns_when_show_all_goals: '1',
     }, {
@@ -156,22 +179,32 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       runtimeLimitAbortMessage: pastScriptRuntimeLimitErrorMessage,
     });
 
-    if ((partialResponse as any).value === false) {
+    if ((partialResponseRaw as any).value === false) {
       break; // nothing returned by request
     }
 
-    if (!response) {
-      response = partialResponse || [];
-    } else {
-      response.push(...partialResponse);
-    }
+    const partialResponse = hasDate ? partialResponseRaw as Record<string, DataTableRow[]> : { [date]: partialResponseRaw as DataTableRow[] };
+    Object.entries(partialResponse).forEach(([date, rows]) => {
+      if (!response[date]) {
+        response[date] = [];
+      }
 
-    if (partialResponse.length < limitToUse) {
-      break; // less rows than limit returned, so no more data
-    }
+      if (hasDate) {
+        response[date].push(...rows.map((r) => ({ ...r, date })));
+      } else {
+        response[date].push(...rows);
+      }
+    });
+
+    offset += limitToUse;
+
+    hasMoreRowsToFetch = Object.values(partialResponse).some((rows) => rows.length >= limitToUse)
+      && offset < filter_limit;
   }
 
-  return response;
+  const flattenedResponse = [];
+  Object.values(response).forEach((rows) => flattenedResponse.push(...rows));
+  return flattenedResponse;
 }
 
 function addMetric(fields: GoogleAppsScript.Data_Studio.Fields, id: string, name: string, matomoType: string, siteCurrency: string) {
@@ -191,6 +224,15 @@ function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, id: string, d
     .setId(id)
     .setName(dimension)
     .setType(cc.FieldType.TEXT);
+}
+
+function addDateDimension(fields: GoogleAppsScript.Data_Studio.Fields) {
+  fields
+    .newDimension()
+    .setId('date')
+    .setName('Date')
+    .setType(cc.FieldType.YEAR_MONTH_DAY)
+    .setIsReaggregatable(false);
 }
 
 function metricsForEachGoal(metrics: Record<string, string>, goals: Record<string, Api.Goal>) {
@@ -243,6 +285,10 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
       return;
     }
 
+    if (metricId === 'date') {
+      addDateDimension(fields);
+    }
+
     if (reportMetadata.dimensions?.[metricId]) {
       addDimension(fields, metricId, reportMetadata.dimensions[metricId]);
       return;
@@ -292,6 +338,9 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
     }
 
     const fields = getFieldsFromReportMetadata(reportMetadata, goals, siteCurrency);
+
+    // add Date field to support time series'
+    addDateDimension(fields);
 
     return { schema: fields.build() };
   });

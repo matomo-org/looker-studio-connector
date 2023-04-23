@@ -1,0 +1,280 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "2023-02-15",
+        "32",
+        "Cart change",
+        "added - Diving Tank",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-15",
+        "32",
+        "Cart change",
+        "added - Basic Wetsuit",
+        "1"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-15",
+        "21",
+        "Cart change",
+        "added - Scuba Fins",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-15",
+        "14",
+        "Cart change",
+        "removed - Basic Wetsuit",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-15",
+        "13",
+        "Cart change",
+        "added - Distance Line & Reel",
+        "3"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-16",
+        "38",
+        "Cart change",
+        "added - Diving Tank",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-16",
+        "37",
+        "Cart change",
+        "added - Basic Wetsuit",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-16",
+        "24",
+        "Cart change",
+        "added - Scuba Fins",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-16",
+        "19",
+        "Cart change",
+        "added - Diving Knife",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-16",
+        "16",
+        "Cart change",
+        "added - Distance Line & Reel",
+        "4"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-17",
+        "49",
+        "Cart change",
+        "added - Diving Tank",
+        "1"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-17",
+        "41",
+        "Cart change",
+        "added - Basic Wetsuit",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-17",
+        "37",
+        "Cart change",
+        "added - Scuba Fins",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-17",
+        "17",
+        "Cart change",
+        "added - Distance Line & Reel",
+        "4"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-17",
+        "19",
+        "Cart change",
+        "added - Diving Knife",
+        "3"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-18",
+        "30",
+        "Cart change",
+        "added - Diving Tank",
+        "1"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-18",
+        "32",
+        "Cart change",
+        "added - Basic Wetsuit",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-18",
+        "29",
+        "Cart change",
+        "added - Scuba Fins",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-18",
+        "14",
+        "Cart change",
+        "added - Diving Boots",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-18",
+        "13",
+        "Cart change",
+        "removed - Basic Wetsuit",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-19",
+        "45",
+        "Cart change",
+        "added - Diving Tank",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-19",
+        "37",
+        "Cart change",
+        "added - Basic Wetsuit",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-19",
+        "31",
+        "Cart change",
+        "added - Scuba Fins",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-19",
+        "19",
+        "Cart change",
+        "added - Diving Knife",
+        "3"
+      ]
+    },
+    {
+      "values": [
+        "2023-02-19",
+        "21",
+        "Cart change",
+        "added - Silicone Grease",
+        "2"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Date",
+      "name": "date",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "isReaggregatable": false,
+        "semanticType": "YEAR_MONTH_DAY"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Events",
+      "name": "nb_events",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Event Action",
+      "name": "Events_EventAction",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Event Name",
+      "name": "Events_EventName",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Maximum Event value",
+      "name": "max_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}
