@@ -231,8 +231,7 @@ function addDateDimension(fields: GoogleAppsScript.Data_Studio.Fields) {
     .newDimension()
     .setId('date')
     .setName('Date')
-    .setType(cc.FieldType.YEAR_MONTH_DAY)
-    .setIsReaggregatable(false);
+    .setType(cc.FieldType.YEAR_MONTH_DAY);
 }
 
 function metricsForEachGoal(metrics: Record<string, string>, goals: Record<string, Api.Goal>) {
@@ -384,7 +383,11 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
             let value = row[name];
 
             // perform any transformations on the value required by the Matomo type
-            const matomoType = reportMetadata?.metricTypes?.[name];
+            let matomoType = reportMetadata?.metricTypes?.[name];
+            if (name === 'date') {
+              matomoType = 'date';
+            }
+
             if (matomoType === 'duration_ms') {
               value = parseInt(value as string, 10) / 1000;
             } else if (matomoType === 'date') {
