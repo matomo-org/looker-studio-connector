@@ -437,7 +437,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
       filtersApplied: false,
     };
 
-    debugLog('getData(): result is', { ...result, rows: data.slice(0, 5) });
+    debugLog('getData(): result is', { ...result, rows: 'redacted' });
 
     return result;
   });

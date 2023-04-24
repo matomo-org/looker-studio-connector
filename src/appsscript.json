@@ -6,12 +6,18 @@
   "runtimeVersion": "V8",
   "dataStudio": {
     "name": "Matomo Analytics",
-    "description": "The officially supported Matomo connector: explore your Matomo reports in Looker Studio",
+    "description": "The officially supported Matomo connector: explore your Matomo reports in Looker Studio at no cost. Connect to Matomo Cloud instances or self-hosted instances using just a Matomo Auth Token. Learn more: https://matomo.org/looker-studio",
+    "shortDescription": "The officially supported Matomo connector: explore your Matomo reports in Looker Studio at no cost.",
     "logoUrl": "https://static.matomo.org/wp-content/uploads/2022/04/matomo-icon-1.png",
     "company": "Matomo",
     "companyUrl": "https://matomo.org",
     "addonUrl": "https://matomo.org/looker-studio",
-    "supportUrl": "https://matomo.org/looker-studio"
+    "supportUrl": "https://forum.matomo.org/c/looker-studio/25",
+    "sources": ["MATOMO"],
+    "authType": ["USER_TOKEN"],
+    "feeType": ["FREE"],
+    "privacyPolicyUrl": "TODO",
+    "termsOfServiceUrl": "TODO"
   },
   "oauthScopes": [
     "https://www.googleapis.com/auth/script.external_request"
