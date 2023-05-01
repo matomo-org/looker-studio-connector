@@ -37,6 +37,11 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Clasp Project
+        run: echo "$CLASP_PROJECT" > ./.clasp.json
+        env:
+          CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
+
       - name: Creds
         run: echo "$CLASP_CREDENTIALS" > ./creds.json
         env:
