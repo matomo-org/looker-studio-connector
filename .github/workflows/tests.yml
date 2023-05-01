@@ -38,8 +38,7 @@ jobs:
         run: npm ci
 
       - name: Creds
-        run:
-          - echo "$CLASP_CREDENTIALS" > ./creds.json
+        run: echo "$CLASP_CREDENTIALS" > ./creds.json
         env:
           CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
 
