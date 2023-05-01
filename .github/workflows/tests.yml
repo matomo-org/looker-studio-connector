@@ -40,15 +40,12 @@ jobs:
       - name: Clasp Project
         run: echo "$CLASP_PROJECT" > ./.clasp.json
         env:
-          CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
+          CLASP_PROJECT: ${{ secrets.CLASP_PROJECT }}
 
       - name: Creds
         run: echo "$CLASP_CREDENTIALS" > ./creds.json
         env:
           CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
-
-      - name: Debug 1
-        run: ls -la
 
       - name: Clasp Login
         run: npm run clasp -- login --creds=creds.json
