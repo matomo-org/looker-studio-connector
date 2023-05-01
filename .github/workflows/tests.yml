@@ -24,30 +24,30 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-20.04
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Setup node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.13.x
-        cache: npm
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.x
+          cache: npm
 
-    - name: Install
-      run: npm ci
+      - name: Install
+        run: npm ci
 
-    - name: Creds
-      run:
-        - echo "$CLASP_CREDENTIALS" > ./creds.json
-      env:
-        CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
+      - name: Creds
+        run:
+          - echo "$CLASP_CREDENTIALS" > ./creds.json
+        env:
+          CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
 
-    - name: Clasp Login
-      run: npm run clasp -- login --creds=creds.json
+      - name: Clasp Login
+        run: npm run clasp -- login --creds=creds.json
 
-    - name: Remove creds
-      run: rm ./creds.json
+      - name: Remove creds
+        run: rm ./creds.json
 
-    - name: Test
-      run: npm test
+      - name: Test
+        run: npm test
