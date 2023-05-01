@@ -47,6 +47,9 @@ jobs:
         env:
           CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
 
+      - name: Build
+        run: npm run build
+
       - name: Clasp Login
         run: npm run clasp -- login --creds=creds.json
 
