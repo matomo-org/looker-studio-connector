@@ -47,6 +47,9 @@ jobs:
         env:
           CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
 
+      - name: Creds (local)
+        run: cp ~/.clasprc.json .clasprc.json
+
       - name: Check clasp login status
         run: npm run clasp -- login --status
 
