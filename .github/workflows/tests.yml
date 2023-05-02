@@ -43,18 +43,31 @@ jobs:
           CLASP_PROJECT: ${{ secrets.CLASP_PROJECT }}
 
       - name: Creds
-        run: echo "$CLASP_CREDENTIALS" > ./creds.json
+        run: echo "$CLASP_CREDENTIALS" > ~/.clasprc.json
         env:
           CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
 
-      - name: Build
-        run: npm run build
+      - name: Check clasp login status
+        id: clasp_login
+        run: clasp login --status
 
-      - name: Clasp Login
-        run: npm run clasp -- login --creds=creds.json
+      - name: Save current .clasprc.json contents to CLASP_CREDENTIALS_FILE environment variable
+        run: |
+          echo ::add-mask::$(tr -d '\n\r' < ~/.clasprc.json)
+          echo "CLASP_CREDENTIALS_FILE=$(tr -d '\n\r' < ~/.clasprc.json)" >> $GITHUB_ENV        
 
-      - name: Remove creds
-        run: rm ./creds.json
+      - name: Save CLASP_CREDENTIALS_FILE environment variable to CLASP_CREDENTIALS repo secret if different
+        id: set-clasprc-secret
+        if: ${{ env.CLASP_CREDENTIALS_FILE != env.CLASP_CREDENTIALS  }}
+        uses: hmanzur/actions-set-secret@v2.0.0
+        env:
+          CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+        with:
+          name: "CLASP_CREDENTIALS"
+          value: ${{ env.CLASP_CREDENTIALS_FILE }}
+          repository: ${{ github.repository }}
+          token: ${{ secrets.REPO_TOKEN }}
 
       - name: Test
         run: npm test
