@@ -48,7 +48,7 @@ jobs:
           CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
 
       - name: Creds (local)
-        run: echo "$CLASP_CREDENTIALS_LOCAL" > ~/.clasprc.json
+        run: echo "$CLASP_CREDENTIALS_LOCAL" > .clasprc.json
         env:
           CLASP_CREDENTIALS_LOCAL: ${{ secrets.CLASP_CREDENTIALS_LOCAL }}
 
