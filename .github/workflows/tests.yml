@@ -48,8 +48,7 @@ jobs:
           CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
 
       - name: Check clasp login status
-        id: clasp_login
-        run: clasp login --status
+        run: npm run clasp -- login --status
 
       - name: Save current .clasprc.json contents to CLASP_CREDENTIALS_FILE environment variable
         run: |
