@@ -36,6 +36,6 @@ module.exports = async function () {
         method: 'GET',
         url,
     });
-    const allReportMethods = response.data;
+    const allReportMethods = response.data.filter((r) => !(r.module === 'MultiSites' && r.action === 'getOne'));
     global.ALL_REPORT_METADATA = allReportMethods;
 };
