@@ -55,7 +55,7 @@ jobs:
       - name: Check clasp login status
         run: npm run clasp -- login --status
 
-      - name: Save current .clasprc.json contents to CLASP_CREDENTIALS_FILE environment variable
+      - name: Save current ~/.clasprc.json contents to CLASP_CREDENTIALS_FILE environment variable
         run: |
           echo ::add-mask::$(tr -d '\n\r' < ~/.clasprc.json)
           echo "CLASP_CREDENTIALS_FILE=$(tr -d '\n\r' < ~/.clasprc.json)" >> $GITHUB_ENV        
@@ -66,7 +66,6 @@ jobs:
           echo "CLASP_CREDENTIALS_FILE_LOCAL=$(tr -d '\n\r' < .clasprc.json)" >> $GITHUB_ENV        
 
       - name: Save CLASP_CREDENTIALS_FILE environment variable to CLASP_CREDENTIALS repo secret if different
-        id: set-clasprc-secret
         if: ${{ env.CLASP_CREDENTIALS_FILE != env.CLASP_CREDENTIALS  }}
         uses: hmanzur/actions-set-secret@v2.0.0
         env:
@@ -79,7 +78,6 @@ jobs:
           token: ${{ secrets.REPO_TOKEN }}
 
       - name: Save CLASP_CREDENTIALS_FILE_LOCAL environment variable to CLASP_CREDENTIALS_LOCAL repo secret if different
-        id: set-clasprc-secret
         if: ${{ env.CLASP_CREDENTIALS_FILE_LOCAL != env.CLASP_CREDENTIALS_LOCAL  }}
         uses: hmanzur/actions-set-secret@v2.0.0
         env:
