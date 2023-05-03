@@ -102,6 +102,10 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
   const token = options.token as string || userProperties.getProperty('dscc.token');
 
   let baseUrl = instanceUrl;
+  if (!baseUrl) {
+    throw new Error('Unexpected: no matomo base URL configured');
+  }
+
   baseUrl = baseUrl.replace(/[/]+(index\.php\??)?$/, '');
   baseUrl += '/index.php?';
 
