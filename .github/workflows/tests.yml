@@ -55,40 +55,12 @@ jobs:
       - name: Check clasp login status
         run: npm run clasp -- login --status
 
-#      - name: Save current ~/.clasprc.json contents to CLASP_CREDENTIALS_FILE environment variable
-#        run: |
-#          echo ::add-mask::$(tr -d '\n\r' < ~/.clasprc.json)
-#          echo "CLASP_CREDENTIALS_FILE=$(tr -d '\n\r' < ~/.clasprc.json)" >> $GITHUB_ENV
-#
-#      - name: Save current .clasprc.json contents to CLASP_CREDENTIALS_FILE_LOCAL environment variable
-#        run: |
-#          echo ::add-mask::$(tr -d '\n\r' < .clasprc.json)
-#          echo "CLASP_CREDENTIALS_FILE_LOCAL=$(tr -d '\n\r' < .clasprc.json)" >> $GITHUB_ENV
-
-      # TODO: this action is not maintained, we'll want to write our own script
-#      - name: Save CLASP_CREDENTIALS_FILE environment variable to CLASP_CREDENTIALS repo secret if different
-#        if: ${{ env.CLASP_CREDENTIALS_FILE != env.CLASP_CREDENTIALS  }}
-#        uses: hmanzur/actions-set-secret@v2.0.0
-#        env:
-#          CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
-#          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
-#        with:
-#          name: "CLASP_CREDENTIALS"
-#          value: ${{ env.CLASP_CREDENTIALS_FILE }}
-#          repository: ${{ github.repository }}
-#          token: ${{ secrets.REPO_TOKEN }}
-#
-#      - name: Save CLASP_CREDENTIALS_FILE_LOCAL environment variable to CLASP_CREDENTIALS_LOCAL repo secret if different
-#        if: ${{ env.CLASP_CREDENTIALS_FILE_LOCAL != env.CLASP_CREDENTIALS_LOCAL  }}
-#        uses: hmanzur/actions-set-secret@v2.0.0
-#        env:
-#          CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS_LOCAL }}
-#          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
-#        with:
-#          name: "CLASP_CREDENTIALS_LOCAL"
-#          value: ${{ env.CLASP_CREDENTIALS_FILE_LOCAL }}
-#          repository: ${{ github.repository }}
-#          token: ${{ secrets.REPO_TOKEN }}
+      - name: Update secrets if changed by clasp
+        run: npm run update-secrets-in-ci
+        env:
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+          CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
+          CLASP_CREDENTIALS_LOCAL: ${{ secrets.CLASP_CREDENTIALS_LOCAL }}
 
       - name: Test
         run: npm test
