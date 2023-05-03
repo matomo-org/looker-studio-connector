@@ -16,9 +16,11 @@
 
 import * as fs from 'fs';
 import { Octokit } from 'octokit';
-import sodium from 'tweetsodium';
+import sodium from 'libsodium-wrappers';
 
 async function main() {
+  await sodium.ready;
+
   const base = 'repos';
   const repo = process.env.GITHUB_REPOSITORY;
 
@@ -39,7 +41,7 @@ async function main() {
     const newSecretValue = fs.readFileSync(secretFile);
 
     const keyBytes = Buffer.from(key, 'base64');
-    const encryptedBytes = Buffer.from(sodium.seal(newSecretValue, keyBytes)).toString('base64');
+    const encryptedBytes = Buffer.from(sodium.crypto_box_seal(newSecretValue, keyBytes)).toString('base64');
 
     const response = await octokit.request('PUT /:base/:repo/actions/secrets/:name', {
       base: base,
