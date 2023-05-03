@@ -21,7 +21,7 @@ import sodium from 'libsodium-wrappers';
 async function main() {
   await sodium.ready;
 
-  const base = 'repos';
+  const base = 'orgs';
   const repo = process.env.GITHUB_REPOSITORY;
 
   const octokit = new Octokit({ auth: process.env.REPO_TOKEN });
