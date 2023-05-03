@@ -63,10 +63,14 @@ async function main() {
   let secretChangeFailed = false;
   if (hasSecretChanged('CLASP_CREDENTIALS', `${process.env.HOME}/.clasprc.json`)) {
     secretChangeFailed |= await !saveSecret('CLASP_CREDENTIALS', `${process.env.HOME}/.clasprc.json`);
+  } else {
+    console.log('CLASP_CREDENTIALS has not changed');
   }
 
   if (hasSecretChanged('CLASP_CREDENTIALS_LOCAL', '.clasprc.json')) {
     secretChangeFailed |= await !saveSecret('CLASP_CREDENTIALS_LOCAL', '.clasprc.json');
+  } else {
+    console.log('CLASP_CREDENTIALS_LOCAL has not changed');
   }
 
   return secretChangeFailed ? 1 : 0;
