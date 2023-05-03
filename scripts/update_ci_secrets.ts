@@ -26,7 +26,7 @@ async function main() {
 
   const octokit = new Octokit({ auth: process.env.REPO_TOKEN });
 
-  let publicKeyResponse = await octokit.request('GET /:base/:repo/actions/secrets/public-key', { base, repo });
+  let publicKeyResponse = await octokit.request(`GET /:base/${repo}/actions/secrets/public-key`, { base });
   const { key_id, key } = publicKeyResponse.data;
 
   const hasSecretChanged = (secretEnvVarName: string, secretFile: string) => {
@@ -43,9 +43,8 @@ async function main() {
     const keyBytes = Buffer.from(key, 'base64');
     const encryptedBytes = Buffer.from(sodium.crypto_box_seal(newSecretValue, keyBytes)).toString('base64');
 
-    const response = await octokit.request('PUT /:base/:repo/actions/secrets/:name', {
+    const response = await octokit.request(`PUT /:base/${repo}/actions/secrets/:name`, {
       base: base,
-      repo: repo,
       name: secretEnvVarName,
       data: {
         encrypted_value: encryptedBytes,
