@@ -58,12 +58,15 @@ function getReportMetadata(idSite: string) {
   const hasMetricTypes = !!response.find((r) => typeof r.metricTypes === 'object');
 
   // reports that do not define metrics in their metadata cannot be displayed in looker studio
-  response = response.filter((report) => {
-    return report.metrics
-      || report.processedMetrics
-      || report.metricsGoal
-      || report.processedMetricsGoal;
-  });
+  response = response
+    .filter((report) => {
+      return report.metrics
+        || report.processedMetrics
+        || report.metricsGoal
+        || report.processedMetricsGoal;
+    })
+    // don't show MultiSites.getOne since it has no usable label
+    .filter((r) => !(r.module === 'MultiSites' && r.action === 'getOne'));
 
   // remove unused properties from response so the result can fit in the cache
   response = response.map((r) => ({

@@ -1,0 +1,68 @@
+name: 'Tests'
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: "0 0 * * 0"
+
+permissions:
+  actions: none
+  checks: none
+  contents: read
+  deployments: none
+  issues: none
+  packages: none
+  pull-requests: none
+  repository-projects: none
+  security-events: none
+  statuses: none
+
+# This allows a subsequently queued workflow run to interrupt previous runs
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.x
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Clasp Project
+        run: echo "$CLASP_PROJECT" > ./.clasp.json
+        env:
+          CLASP_PROJECT: ${{ secrets.CLASP_PROJECT }}
+
+      - name: Creds
+        run: echo "$CLASP_CREDENTIALS" > ~/.clasprc.json
+        env:
+          CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
+
+      - name: Creds (local)
+        run: echo "$CLASP_CREDENTIALS_LOCAL" > .clasprc.json
+        env:
+          CLASP_CREDENTIALS_LOCAL: ${{ secrets.CLASP_CREDENTIALS_LOCAL }}
+
+      - name: Check clasp login status
+        run: npm run clasp -- login --status
+
+      - name: Update secrets if changed by clasp
+        run: npm run update-secrets-in-ci
+        env:
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+          CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
+          CLASP_CREDENTIALS_LOCAL: ${{ secrets.CLASP_CREDENTIALS_LOCAL }}
+
+      - name: Test
+        run: npm test
