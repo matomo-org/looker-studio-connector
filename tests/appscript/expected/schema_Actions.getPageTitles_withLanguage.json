@@ -1,0 +1,82 @@
+{
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Titre de la page",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Vues de page",
+      "name": "nb_hits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Vues de page uniques",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Temps moyen sur la page",
+      "name": "avg_time_on_page",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Taux de rebond",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Taux de sortie",
+      "name": "exit_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Temps moyen de génération",
+      "name": "avg_time_generation",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Date",
+      "name": "date",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_MONTH_DAY"
+      }
+    }
+  ]
+}

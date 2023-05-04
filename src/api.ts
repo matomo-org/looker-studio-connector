@@ -28,6 +28,11 @@ export interface Site {
   currency: string;
 }
 
+export interface Language {
+  code: string;
+  name: string;
+}
+
 export interface StoredSegment {
   name: string;
   definition: string;

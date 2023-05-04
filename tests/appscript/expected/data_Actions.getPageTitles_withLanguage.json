@@ -1,0 +1,131 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "Diving Jobs, latest Divemaster and Scuba Dive Instructor Job offers!",
+        "201",
+        "167",
+        "44",
+        "0.69",
+        "0.81",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "Cart - Divezone Store",
+        "147",
+        "132",
+        "31",
+        "0.24",
+        "0.56",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "Checkout - Divezone Store",
+        "134",
+        "122",
+        "175",
+        "0.78",
+        "0.71",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "My Account - Divezone Store",
+        "182",
+        "98",
+        "96",
+        "0.33",
+        "0.68",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "Best Diving sites in Bali – Indonesia Scuba dive reviews by Divezone",
+        "71",
+        "70",
+        "14",
+        "0.92",
+        "0.91",
+        "0"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Titre de la page",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Vues de page",
+      "name": "nb_hits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Vues de page uniques",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Temps moyen sur la page",
+      "name": "avg_time_on_page",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Taux de rebond",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Taux de sortie",
+      "name": "exit_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Temps moyen de génération",
+      "name": "avg_time_generation",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    }
+  ]
+}

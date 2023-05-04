@@ -26,6 +26,17 @@
       "type": "SELECT_SINGLE"
     },
     {
+      "displayName": "Report Language",
+      "helpText": "The language to use for report column names. If unset, defaults to the language you've selected in your Google account.",
+      "name": "language",
+      "options": [
+      ],
+      "parameterControl": {
+        "allowOverride": true
+      },
+      "type": "SELECT_SINGLE"
+    },
+    {
       "displayName": "Default Row Limit",
       "helpText": "A number that sets the maximum number of rows fetched from Matomo. By default the connector will try and fetch every row of the report you selected, but in some cases this can be too much data, and Looker Studio will time out trying to get it all. In this case you may want to set a hard limit here.",
       "name": "filter_limit",

@@ -59,6 +59,18 @@ describe('data', () => {
   });
 
   describe('getSchema', () => {
+    it('should use the configured language', async () => {
+      const result = await Clasp.run('getSchema', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'Actions', apiAction: 'getPageTitles' }),
+          filter_limit: 5,
+          language: 'fr',
+        },
+      });
+      expect(result).toEqual(getExpectedResponse(result, 'schema', 'Actions.getPageTitles_withLanguage'));
+    });
+
     it('should report an error if the user does not specify a report', async () => {
       await expect(async () => {
         await Clasp.run('getSchema', {
@@ -125,6 +137,22 @@ describe('data', () => {
   });
 
   describe('getData', () => {
+    it('should use the configured language', async () => {
+      const result = await Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'Actions', apiAction: 'getPageTitles' }),
+          filter_limit: 5,
+          language: 'fr',
+        },
+        dateRange: {
+          startDate: DATE_TO_TEST,
+          endDate: DATE_TO_TEST,
+        },
+      });
+      expect(result).toEqual(getExpectedResponse(result, 'data', 'Actions.getPageTitles_withLanguage'));
+    });
+
     it('should detect if the script run time is past a certain point and abort with a clear message', async () => {
       await Clasp.setScriptProperties({
         SCRIPT_RUNTIME_LIMIT: '0.01',

@@ -52,6 +52,7 @@ function getReportMetadata(idSite: string) {
       period: 'day',
       date: 'yesterday',
       filter_limit: '-1',
+      language: Session.getActiveUserLocale(),
     },
   );
 
@@ -183,6 +184,22 @@ const CONFIG_STEPS = <ConfigStep[]>[
       segments.forEach((segment) => {
         segmentSelect = segmentSelect.addOption(
           config.newOptionBuilder().setLabel(segment.name).setValue(segment.definition),
+        );
+      });
+
+      // report language select
+      const languages = Api.fetch<Api.Language[]>('LanguagesManager.getAvailableLanguageNames');
+
+      let reportLanguage = config
+        .newSelectSingle()
+        .setId('language')
+        .setName('Report Language')
+        .setAllowOverride(true)
+        .setHelpText('The language to use for report column names. If unset, defaults to the language you\'ve selected in your Google account.');
+
+      languages.forEach((language) => {
+        reportLanguage = reportLanguage.addOption(
+          config.newOptionBuilder().setLabel(language.name).setValue(language.code),
         );
       });
 

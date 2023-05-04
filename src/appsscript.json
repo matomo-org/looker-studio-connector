@@ -13,9 +13,15 @@
     "companyUrl": "https://matomo.org",
     "addonUrl": "https://matomo.org/looker-studio",
     "supportUrl": "https://forum.matomo.org/c/looker-studio/25",
-    "sources": ["MATOMO"],
-    "authType": ["USER_TOKEN"],
-    "feeType": ["FREE"],
+    "sources": [
+      "MATOMO"
+    ],
+    "authType": [
+      "USER_TOKEN"
+    ],
+    "feeType": [
+      "FREE"
+    ],
     "privacyPolicyUrl": "TODO",
     "termsOfServiceUrl": "TODO"
   },

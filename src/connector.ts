@@ -12,6 +12,7 @@ export interface ConnectorParams {
   segment?: string;
   filter_limit?: string;
   hierarchical?: boolean; // if false, flat=1, otherwise flat=0 (done this way so we default to flat)
+  language?: string;
 }
 
 export default DataStudioApp.createCommunityConnector();

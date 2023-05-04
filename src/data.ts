@@ -80,6 +80,7 @@ function getReportMetadataAndGoalsAndCurrency(request: GoogleAppsScript.Data_Stu
         idSite: `${idSite}`,
         period: 'day',
         date: 'today',
+        language: request.configParams.language || Session.getActiveUserLocale(),
       },
     },
     {
