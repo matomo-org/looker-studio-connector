@@ -101,6 +101,10 @@ const CONFIG_STEPS = <ConfigStep[]>[
       }
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config) {
+      // add info explaining that authors of Matomo and the connector do not get access to your data
+      config.newInfo().setId('privacy-notice')
+        .setText('The connector can now get your data to Looker Studio, but please note that we, the authors of the connector and Matomo, will NOT have this same access.');
+
       const sitesWithViewAccess = getSitesWithAtLeastViewAccess();
 
       // idsite select
