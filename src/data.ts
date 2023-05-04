@@ -255,6 +255,15 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
     allMetrics = { ...allMetrics, ...metricsForEachGoal(reportMetadata.processedMetricsGoal, goals) };
   }
 
+  // add goal specific conversion_rate if not present in metadata, but other goal metrics are
+  // (in 4.x-dev, this is removed in the API despite the data being available)
+  if (
+    (reportMetadata.metricsGoal || reportMetadata.processedMetricsGoal)
+    && (!reportMetadata.metricsGoal?.conversion_rate && !reportMetadata.processedMetricsGoal?.conversion_rate)
+  ) {
+    allMetrics = { ...allMetrics, ...metricsForEachGoal({ 'conversion_rate': 'Conversion Rate' }, goals) };
+  }
+
   if (!requestedFields?.length) {
     if (reportMetadata.dimensions) {
       Object.entries(reportMetadata.dimensions).forEach(([id, name]) => {

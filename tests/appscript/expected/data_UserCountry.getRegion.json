@@ -30,6 +30,13 @@
         "",
         "",
         "",
+        "",
+        "0",
+        "",
+        "0.0055",
+        "0.0274",
+        "0.0082",
+        "0",
         ""
       ]
     },
@@ -62,6 +69,13 @@
         "",
         "",
         "",
+        "",
+        "0",
+        "",
+        "0",
+        "0.0235",
+        "0.0118",
+        "0.0118",
         ""
       ]
     },
@@ -94,6 +108,13 @@
         "",
         "",
         "",
+        "",
+        "0",
+        "",
+        "0",
+        "0",
+        "0",
+        "0",
         ""
       ]
     },
@@ -126,6 +147,13 @@
         "",
         "",
         "",
+        "",
+        "0",
+        "",
+        "0",
+        "0.0455",
+        "0",
+        "0",
         ""
       ]
     },
@@ -158,6 +186,13 @@
         "",
         "",
         "",
+        "",
+        "0",
+        "",
+        "0",
+        "0",
+        "0",
+        "0",
         ""
       ]
     }
@@ -436,6 +471,76 @@
       "dataType": "STRING",
       "label": "\"Newsletter Signup\" Revenue per Visit",
       "name": "goal_10_revenue_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "\"New Job Application\" Conversion Rate",
+      "name": "goal_4_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "\"View Submit Job\" Conversion Rate",
+      "name": "goal_5_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "\"New Resume\" Conversion Rate",
+      "name": "goal_6_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "\"Liveaboard.com click\" Conversion Rate",
+      "name": "goal_7_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "\"Agoda click\" Conversion Rate",
+      "name": "goal_8_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "\"User Comments\" Conversion Rate",
+      "name": "goal_9_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "\"Newsletter Signup\" Conversion Rate",
+      "name": "goal_10_conversion_rate",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
