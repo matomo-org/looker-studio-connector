@@ -1,6 +1,11 @@
 {
   "configParams": [
     {
+      "name": "privacy-notice",
+      "text": "The connector can now get your data to Looker Studio, but please note that we, the authors of the connector and Matomo, will NOT have this same access.",
+      "type": "INFO"
+    },
+    {
       "displayName": "Website/Measurable",
       "isDynamic": true,
       "name": "idsite",
