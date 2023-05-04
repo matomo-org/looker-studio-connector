@@ -324,6 +324,33 @@ Expected: the modal that displays has a detailed error message and lists how to 
 
 ### Automated tests
 
+#### The tests are failing suddenly, what do I do?
+
+The automated tests are run against `https://demo.matomo.cloud` so if something changes in the deploy there (say
+a new plugin is enabled or a bug is introduced that affects the connector), the tests in the connector will start
+to fail. This is by design.
+
+If you are a developer tasked with fixing these tests, here's how you would go about it:
+
+**without running the connector yourself**
+
+If you do not have your own dev environment for the connector setup, and the test failures are simple (say
+there are new reports in demo.matomo.cloud so there are now some missing expected test files), you can simply
+edit the expected files in `tests/appscript/expected` based on the github action output.
+
+**the testing locally way**
+
+If you have your own dev environment for the connector setup, you can run the specific failing tests by:
+
+* adding a `.only(` to the test's source
+* running the test via `npm test -- ./tests/appscript/failingtest.spec.ts` (replace `failingtest` with the name of the spec file)
+
+This will allow you to debug the connector, inserting console.log() lines and checking the output in Apps Script.
+
+Read the relevant section in README.md to get setup for development. Read below if you need to write new tests.
+
+#### Test System Documentation
+
 The automated tests exist within the `./tests/appscript` directory and can be run via the `npm test` command.
 
 These tests use Jest, but unlike normal unit tests, execute functions within apps script to provide fuller coverage.
