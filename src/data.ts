@@ -113,6 +113,65 @@ function getReportMetadataAndGoalsAndCurrency(request: GoogleAppsScript.Data_Stu
   return { reportMetadata: result, goals, siteCurrency };
 }
 
+function getMatomoPeriodDateRange(period: string, date: string) {
+  const dateObj = new Date(date);
+
+  if (period === 'day') {
+    return [dateObj, dateObj];
+  }
+
+  if (period === 'week') {
+    const daysToMonday = (dateObj.getDay() + 6) % 7;
+
+    const startWeek = new Date(dateObj.getTime());
+    startWeek.setDate(dateObj.getDate() - daysToMonday);
+
+    const endWeek = new Date(startWeek.getTime());
+    endWeek.setDate(startWeek.getDate() + 6);
+
+    return [startWeek, endWeek];
+  }
+
+  if (period === 'month') {
+    const startMonth = new Date(dateObj.getTime());
+    startMonth.setDate(1);
+
+    const endMonth = new Date(dateObj.getTime());
+    endMonth.setDate(1);
+    endMonth.setMonth(endMonth.getMonth() + 1);
+    endMonth.setDate(0);
+
+    return [startMonth, endMonth];
+  }
+
+  if (period === 'year') {
+    const startYear = new Date(dateObj.getTime());
+    startYear.setMonth(0);
+    startYear.setDate(1);
+
+    const endYear = new Date(dateObj.getTime());
+    endYear.setMonth(12);
+    endYear.setDate(0);
+
+    return [startYear, endYear];
+  }
+
+  throw new Error(`unknown matomo period ${period}`);
+}
+
+// exported for tests
+export function detectMatomoPeriodFromRange(dateRange: GoogleAppsScript.Data_Studio.DateRange) {
+  const startDateTime = (new Date(dateRange.startDate)).getTime();
+  const endDateTime = (new Date(dateRange.endDate)).getTime();
+
+  const standardMatomoPeriods = ['day', 'week', 'month', 'year'];
+  const periodMatch = standardMatomoPeriods.find((period) => {
+    const [matomoPeriodStart, matomoPeriodEnd] = getMatomoPeriodDateRange(period, dateRange.startDate);
+    return startDateTime === matomoPeriodStart.getTime() && endDateTime === matomoPeriodEnd.getTime();
+  });
+  return periodMatch;
+}
+
 function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
@@ -123,7 +182,6 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   const reportParams = JSON.parse(report);
 
   const hasDate = !!(request.fields && request.fields.find((f) => f.name === 'date'));
-  const isSingleDay = request.dateRange.startDate === request.dateRange.endDate;
 
   let period = 'range';
   let date = `${request.dateRange.startDate},${request.dateRange.endDate}`;
@@ -140,11 +198,12 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
     // to fetch to make sure we only select MAX_ROWS_TO_FETCH_PER_REQUEST in total.
     rowsToFetchAtATime = Math.floor(rowsToFetchAtATime / numberOfDays);
     rowsToFetchAtATime = Math.max(rowsToFetchAtATime, 1);
-  } else if (isSingleDay) {
-    // some API methods (like Actions.getPageUrlsFollowingSiteSearch) have trouble when using a range for a single day,
-    // so we make sure to do a check for this case
-    period = 'day';
-    date = request.dateRange.startDate;
+  } else {
+    const matomoPeriod = detectMatomoPeriodFromRange(request.dateRange);
+    if (matomoPeriod) {
+      period = 'day';
+      date = request.dateRange.startDate;
+    }
   }
 
   // request report data one large chunk at a time to make sure we don't hit the 50mb HTTP response size limit
