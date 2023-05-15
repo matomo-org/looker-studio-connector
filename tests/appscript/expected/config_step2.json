@@ -36,9 +36,6 @@
       "name": "language",
       "options": [
       ],
-      "parameterControl": {
-        "allowOverride": true
-      },
       "type": "SELECT_SINGLE"
     },
     {
