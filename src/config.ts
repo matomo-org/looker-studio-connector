@@ -198,7 +198,6 @@ const CONFIG_STEPS = <ConfigStep[]>[
         .newSelectSingle()
         .setId('language')
         .setName('Report Language')
-        .setAllowOverride(true)
         .setHelpText('The language to use for report column names. If unset, defaults to the language you\'ve selected in your Google account.');
 
       languages.forEach((language) => {
