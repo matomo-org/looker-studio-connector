@@ -1,0 +1,145 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "added - Diving Tank",
+        "Cart change",
+        "116",
+        "120",
+        "1",
+        "2",
+        "116",
+        "1.03"
+      ]
+    },
+    {
+      "values": [
+        "added - Basic Wetsuit",
+        "Cart change",
+        "88",
+        "92",
+        "1",
+        "2",
+        "88",
+        "1.05"
+      ]
+    },
+    {
+      "values": [
+        "added - Scuba Fins",
+        "Cart change",
+        "84",
+        "87",
+        "1",
+        "2",
+        "84",
+        "1.04"
+      ]
+    },
+    {
+      "values": [
+        "added - Silicone Grease",
+        "Cart change",
+        "44",
+        "49",
+        "1",
+        "2",
+        "44",
+        "1.11"
+      ]
+    },
+    {
+      "values": [
+        "added - Diving Knife",
+        "Cart change",
+        "40",
+        "47",
+        "1",
+        "3",
+        "40",
+        "1.18"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Event Name",
+      "name": "Events_EventName",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Event Action",
+      "name": "Events_EventAction",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Events",
+      "name": "nb_events",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Event value",
+      "name": "sum_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Minimum Event value",
+      "name": "min_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Maximum Event value",
+      "name": "max_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Events with a value",
+      "name": "nb_events_with_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "The average of all values for this event",
+      "name": "avg_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

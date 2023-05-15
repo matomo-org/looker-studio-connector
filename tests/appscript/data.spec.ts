@@ -14,6 +14,12 @@ const DATE_TO_TEST = '2023-02-15';
 const RANGE_START_DATE_TO_TEST = '2023-02-15';
 const RANGE_END_DATE_TO_TEST = '2023-02-19';
 
+const MATOMO_PERIODS_TO_TEST = {
+  week: ['2023-02-13', '2023-02-19'],
+  month: ['2023-02-01', '2023-02-28'],
+  year: ['2022-01-01', '2022-12-31'],
+};
+
 function hasNoMetrics(r) {
   return !r.metrics
     && !r.processedMetrics
@@ -56,6 +62,28 @@ describe('data', () => {
 
       expect(unrecognizedMetricTypes).toEqual([]);
     });
+  });
+
+  describe('detectMatomoPeriodFromRange', () => {
+    it('should correctly detect when a requested date range is a single day', async () => {
+      const detected = await Clasp.run('detectMatomoPeriodFromRange', {
+        startDate: DATE_TO_TEST,
+        endDate: DATE_TO_TEST,
+      });
+
+      expect(detected).toEqual('day');
+    });
+
+    for (let [period, dates] of Object.entries(MATOMO_PERIODS_TO_TEST)) {
+      it(`should correctly detect when a requested date range is a ${period} in Matomo`, async () => {
+        const detected = await Clasp.run('detectMatomoPeriodFromRange', {
+          startDate: dates[0],
+          endDate: dates[1],
+        });
+
+        expect(detected).toEqual(period);
+      });
+    }
   });
 
   describe('getSchema', () => {
@@ -283,6 +311,23 @@ describe('data', () => {
         });
       }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
     }, 300000);
+
+    for (let [period, dates] of Object.entries(MATOMO_PERIODS_TO_TEST)) {
+      it(`should correctly fetch data when the date range matches a matomo ${period}`, async () => {
+        let result = await Clasp.run('getData', {
+          configParams: {
+            idsite: env.APPSCRIPT_TEST_IDSITE,
+            report: JSON.stringify({ apiModule: 'Events', apiAction: 'getName' }),
+            filter_limit: 5,
+          },
+          dateRange: {
+            startDate: dates[0],
+            endDate: dates[1],
+          },
+        });
+        expect(result).toEqual(getExpectedResponse(result, 'data', `Events.getName_${period}`));
+      });
+    }
 
     it('should fetch data by day when the date dimension is requested', async () => {
       let result = await Clasp.run('getData', {
