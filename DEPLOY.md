@@ -24,7 +24,7 @@
   ```
   $ npm run clasp -- deployments
   # note the latest version number in the output for ^
-  $ npm run clasp -- deploy -V <VERSION> -d Production**
+  $ npm run clasp -- deploy -V <VERSION> -d Production
   ```
 
 # Debugging a production deploy
