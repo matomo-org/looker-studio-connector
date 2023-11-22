@@ -1,7 +1,5 @@
 # Looker Studio Connector for Matomo
 
-TODO: follow all steps in blank install to test (on private google account to avoid using a new GCP project)
-
 ## Setting Up for Deployment
 
 **Install clasp**

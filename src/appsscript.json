@@ -22,8 +22,8 @@
     "feeType": [
       "FREE"
     ],
-    "privacyPolicyUrl": "TODO",
-    "termsOfServiceUrl": "TODO"
+    "privacyPolicyUrl": "https://matomo.org/privacy-policy/",
+    "termsOfServiceUrl": "https://matomo.org/faq/matomo-connector-looker-studio-eula/"
   },
   "oauthScopes": [
     "https://www.googleapis.com/auth/script.external_request"
