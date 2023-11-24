@@ -102,8 +102,13 @@ const CONFIG_STEPS = <ConfigStep[]>[
     },
     addControls(config: GoogleAppsScript.Data_Studio.Config) {
       // add info explaining that authors of Matomo and the connector do not get access to your data
-      config.newInfo().setId('privacy-notice')
-        .setText('The connector can now get your data to Looker Studio, but please note that we, the authors of the connector and Matomo, will NOT have this same access.');
+      const link = 'https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes';
+      config.newInfo().setId('google-info-notice')
+        .setText(
+          'Note: The Matomo Connector for Looker Studio\'s use and transfer of information received from Google APIs ' +
+          `to any other app will adhere to Google API Services User Data Policy (${link}), including the Limited Use ` +
+          'requirements.'
+        );
 
       const sitesWithViewAccess = getSitesWithAtLeastViewAccess();
 
