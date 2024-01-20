@@ -82,6 +82,18 @@ interface ApiFetchOptions {
   runtimeLimitAbortMessage?: string;
 }
 
+export function extractBasicAuthFromUrl(url: string): { authHeaders: Record<string, string>, urlWithoutAuth: string } {
+  const authHeaders: Record<string, string> = {};
+
+  const [, protocol, httpUsername, httpPassword, restOfUrl] = /^(https?):\/\/([^:]+)(?::([^@]+)?)?@(.+)/.exec(baseUrl);
+  if (httpUsername) {
+    authHeaders.Authorization = `Basic ${Utilities.base64Encode(`${httpUsername}:${httpPassword}`)}`;
+    url = `${protocol}://${restOfUrl}`;
+  }
+
+  return { authHeaders, urlWithoutAuth: url };
+}
+
 /**
  * Sends multiple API requests simultaneously to the target Matomo.
  *
@@ -113,6 +125,9 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
   baseUrl = baseUrl.replace(/[/]+(index\.php\??)?$/, '');
   baseUrl += '/index.php?';
+
+  const { authHeaders, urlWithoutAuth } = extractBasicAuthFromUrl(baseUrl);
+  baseUrl = urlWithoutAuth;
 
   const allUrls = requests.map(({method, params}) => {
     let url = baseUrl;
@@ -157,7 +172,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
     const urlsToFetch = Object.keys(allUrlsMappedToIndex).map((u) => (<URLFetchRequest>{
       url: u,
-      headers: API_REQUEST_EXTRA_HEADERS,
+      headers: { ...API_REQUEST_EXTRA_HEADERS, ...authHeaders },
       method: 'post',
       payload: { token_auth: token },
     }));
