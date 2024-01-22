@@ -40,7 +40,7 @@ export function throwUnexpectedError(message: string) {
   try {
     const time = (new Date()).toString();
     const wholeMessage = `An error has occurred - if you need help, please reach out in the Forums here: ${FORUM_URL} or `
-      + `contact us by email at hello@matomo.org  (in your message, please use Looker Studio in the subject, and copy paste the error message). `
+      + `contact us by email at hello@matomo.org (in your message, please use Looker Studio in the subject, and copy paste the error message). `
       + `Here is the full error message: ${message} (error occurred at ${time}, execution ID is ${requestId}, host is ${currentHost})`;
     cc.newUserError().setText(wholeMessage).throwException();
   } catch (e) {
