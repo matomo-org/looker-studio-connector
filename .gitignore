@@ -7,3 +7,5 @@ tests/.env
 appsscript.backup.json
 dist/
 tests/appscript/actual/
+/.env
+

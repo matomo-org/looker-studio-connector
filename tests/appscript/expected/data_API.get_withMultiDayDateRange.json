@@ -13,15 +13,15 @@
         "135",
         "44",
         "5239",
-        "49%",
+        "0.49",
         "2337",
-        "22%",
+        "0.22",
         "1435",
-        "13%",
+        "0.13",
         "1699",
-        "16%",
+        "0.16",
         "11",
-        "0%",
+        "0",
         "15",
         "5",
         "4",
@@ -44,6 +44,13 @@
         "0",
         "0",
         "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
         "0",
         "0",
         "0",
@@ -81,6 +88,7 @@
         "0",
         "1",
         "1",
+        "0",
         "0.039",
         "1.368",
         "0.07",
@@ -577,6 +585,76 @@
     },
     {
       "dataType": "NUMBER",
+      "label": "Crash Occurrences",
+      "name": "nb_crash_occurrences",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits With Crashes",
+      "name": "nb_visits_with_crash",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Ignored Crashes",
+      "name": "nb_ignored_crashes",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique Crashes",
+      "name": "nb_uniq_crashes",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "New Crashes",
+      "name": "nb_new_crashes",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Disappeared Crashes",
+      "name": "nb_disappeared_crashes",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Reappeared Crashes",
+      "name": "nb_reappeared_crashes",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
       "label": "Form views",
       "name": "nb_form_views",
       "semantics": {
@@ -656,23 +734,23 @@
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "Plays",
       "name": "nb_plays",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "Plays by unique visitors",
       "name": "nb_unique_visitors_plays",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     },
     {
@@ -686,13 +764,13 @@
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "Impressions by unique visitors",
       "name": "nb_unique_visitors_impressions",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     },
     {
@@ -706,13 +784,13 @@
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "Finishes",
       "name": "nb_finishes",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     },
     {
@@ -722,47 +800,47 @@
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "DURATION"
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "Number of audio plays",
       "name": "sum_total_audio_plays",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "Number of audio impressions",
       "name": "sum_total_audio_impressions",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "Number of video plays",
       "name": "sum_total_video_plays",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "Number of video impressions",
       "name": "sum_total_video_impressions",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     },
     {
@@ -869,6 +947,16 @@
       "dataType": "NUMBER",
       "label": "Bounce Rate for New Visits",
       "name": "bounce_rate_new",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits Crash Rate",
+      "name": "visits_crash_rate",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,

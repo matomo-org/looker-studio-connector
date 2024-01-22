@@ -123,7 +123,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     throw new Error('Unexpected: no matomo base URL configured');
   }
 
-  baseUrl = baseUrl.replace(/[/]+(index\.php\??)?$/, '');
+  baseUrl = baseUrl.replace(/\/+(index\.php\??)?$/, '');
   baseUrl += '/index.php?';
 
   const { authHeaders, urlWithoutAuth } = extractBasicAuthFromUrl(baseUrl);
