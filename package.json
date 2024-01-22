@@ -18,7 +18,6 @@
     "type": "git",
     "url": "git+https://github.com/matomo-org/google-looker-studio.git"
   },
-  "type": "module",
   "author": "",
   "license": "GPL-3.0-or-later",
   "bugs": {
