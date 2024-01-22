@@ -5,7 +5,7 @@
       "values": [
         "Interaction 1 → dive-shop.net/cart → dive-shop.net/checkout",
         "20",
-        "",
+        "0",
         "20",
         "1",
         "0"
@@ -73,23 +73,23 @@
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "Exits",
       "name": "nb_exits",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     },
     {
-      "dataType": "STRING",
+      "dataType": "NUMBER",
       "label": "Proceeded",
       "name": "nb_proceeded",
       "semantics": {
         "conceptType": "METRIC",
         "isReaggregatable": false,
-        "semanticType": "TEXT"
+        "semanticType": "NUMBER"
       }
     },
     {
