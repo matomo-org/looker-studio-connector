@@ -8,15 +8,17 @@
     "build:test": "rollup -c rollup-test.config.js",
     "clasp": "clasp",
     "create": "mkdir -p dist && clasp create --rootDir dist --title='Matomo Looker Studio Connector' --type=standalone && mv ./dist/.clasp.json .",
-    "push": "ts-node ./scripts/push.ts",
+    "push": "tsx ./scripts/push.ts",
     "test:appscript": "jest --config=./jest.config.appscript.ts",
     "test": "npm run test:appscript",
-    "update-secrets-in-ci": "ts-node ./scripts/update_ci_secrets.ts"
+    "test:download-artifacts": "tsx ./scripts/download-expected.ts",
+    "update-secrets-in-ci": "tsx ./scripts/update_ci_secrets.ts"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/matomo-org/google-looker-studio.git"
   },
+  "type": "module",
   "author": "",
   "license": "GPL-3.0-or-later",
   "bugs": {
@@ -41,8 +43,8 @@
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-dotenv": "^0.4.1",
     "ts-jest": "^29.0.5",
-    "ts-node": "^10.9.1",
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.0",
+    "tsx": "^4.7.0"
   },
   "dependencies": {
     "@types/google-apps-script": "^1.0.58"

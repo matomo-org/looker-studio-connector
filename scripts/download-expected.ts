@@ -5,12 +5,17 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
+import * as path from 'path';
 import * as fs from 'fs';
+import { fileURLToPath } from 'url';
 import { Readable } from 'stream';
+import { ReadableStream as ReadableStreamWeb } from 'stream/web';
 import { finished } from 'stream/promises';
 import inquirer from 'inquirer';
 import { execSync } from 'child_process';
 import 'dotenv/config';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function getGithubToken() {
   if (!process.env.GITHUB_TOKEN) {
@@ -35,12 +40,14 @@ async function main() {
 
     builds.add(`${branchName} (workflow run ${buildId})`);
   });
+  console.log(builds);
 
   const answers = await inquirer.prompt([
     {
       name: 'build',
       message: 'Pick a build to download artifacts from',
-      choices: [...builds],
+      choices: Array.from(builds.values()),
+      type: 'list',
     },
   ]);
 
@@ -49,21 +56,21 @@ async function main() {
 
   // download artifact
   console.log('Downloading...');
-  const artifactUrl = `https://api.github.com/repos/matomo-org/matomo-for-wordpress/actions/artifacts/${artifactId}/zip`;
+  const artifactUrl = `https://api.github.com/repos/matomo-org/looker-studio-connector/actions/artifacts/${artifactId}/zip`;
 
   if (fs.existsSync(`${artifactId}.zip`)) {
     fs.unlinkSync(`${artifactId}.zip`);
   }
 
   const stream = fs.createWriteStream(`${artifactId}.zip`);
-  const { artifactsBody } = await fetch(artifactUrl, {
+  const { body } = await fetch(artifactUrl, {
     headers: {
       Accept: 'application/vnd.github+json',
       Authorization: `Bearer ${githubToken}`,
       'X-GitHub-Api-Version': '2022-11-28',
     },
   });
-  await finished(Readable.fromWeb(artifactsBody).pipe(stream));
+  await finished(Readable.fromWeb(body as ReadableStreamWeb<any>).pipe(stream));
 
   // extract artifact
   console.log('Extracting...');
