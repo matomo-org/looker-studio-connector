@@ -50,7 +50,7 @@ These variables and what they affect are listed below, and their default values 
 
 Also note that each variable can also be set dynamically as a Script Property in the Apps Script settings.
 
-* `DEBUG`: whether to deploy with debug mode enabled or not. By default this is set to 0. when this is enabled,
+* `DEBUG`: whether to deploy with debug mode enabled or not. By default this is set to 0. When this is enabled,
   isAdminUser() returns true, which will show any debug text in error messages. Extra console.log() calls
   will be made as well.
 
@@ -77,6 +77,6 @@ Also note that each variable can also be set dynamically as a Script Property in
   passed since we started trying. This variable controls how long to wait before the connector just gives up
   and stops retrying.
 
-* `API_REQUEST_EXTRA_HEADERS`: extra HTTP headers to send in requests to Matomo. for use during development
+* `API_REQUEST_EXTRA_HEADERS`: extra HTTP headers to send in requests to Matomo. For use during development
   if using, for example, a localhost tunneling service like ngrok. Should be set to a JSON stringified object
   such as `{"ngrok-skip-browser-warning":"1"}`.
