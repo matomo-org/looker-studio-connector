@@ -8,7 +8,7 @@
     "name": "Matomo Analytics",
     "description": "The officially supported Matomo connector: explore your Matomo reports in Looker Studio at no cost. Connect to Matomo Cloud instances or self-hosted instances using just a Matomo Auth Token. Connection Guide: https://matomo.org/connect-looker",
     "shortDescription": "The officially supported Matomo connector: explore your Matomo reports in Looker Studio at no cost.",
-    "logoUrl": "https://static.matomo.org/wp-content/uploads/2022/04/matomo-icon-1.png",
+    "logoUrl": "https://matomo.org/wp-content/uploads/2022/04/matomo-icon-1.png",
     "company": "Matomo",
     "companyUrl": "https://matomo.org",
     "addonUrl": "https://matomo.org/looker-studio",
