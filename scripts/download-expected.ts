@@ -40,7 +40,6 @@ async function main() {
 
     builds.add(`${branchName} (workflow run ${buildId})`);
   });
-  console.log(builds);
 
   const answers = await inquirer.prompt([
     {
