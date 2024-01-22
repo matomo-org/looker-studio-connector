@@ -23,7 +23,7 @@ describe('api', () => {
 
     URLS_WITHOUT_CREDENTIALS.forEach((url, i) => {
       it(`should extract nothing from URLs without credentials (#${i})`, async () => {
-        const result = await Clasp.run('extractBasicAuthFromUrl', { url });
+        const result = await Clasp.run('extractBasicAuthFromUrl', url);
 
         expect(result).toEqual({
           authHeaders: {},
@@ -33,9 +33,7 @@ describe('api', () => {
     });
 
     it('should correctly extract credentials when a username is supplied alone', async () => {
-      const result = await Clasp.run('extractBasicAuthFromUrl', {
-        url: 'http://myuser@mymatomo.com',
-      });
+      const result = await Clasp.run('extractBasicAuthFromUrl', 'http://myuser@mymatomo.com');
 
       expect(result).toEqual({
         authHeaders: {
@@ -46,9 +44,7 @@ describe('api', () => {
     });
 
     it('should correctly extract credentials when a username is supplied with an empty password', async () => {
-      const result = await Clasp.run('extractBasicAuthFromUrl', {
-        url: 'http://myuser:@mymatomo.com',
-      });
+      const result = await Clasp.run('extractBasicAuthFromUrl', 'http://myuser:@mymatomo.com');
 
       expect(result).toEqual({
         authHeaders: {
@@ -61,9 +57,10 @@ describe('api', () => {
     it('should correctly extract credentials when a username is supplied with a password', async () => {
       const pass = 'my$@!p/\\ass';
 
-      const result = await Clasp.run('extractBasicAuthFromUrl', {
-        url: `http://myuser:${encodeURIComponent(pass)}@mymatomo.com`,
-      });
+      const result = await Clasp.run(
+        'extractBasicAuthFromUrl',
+        `http://myuser:${encodeURIComponent(pass)}@mymatomo.com`,
+      );
 
       expect(result).toEqual({
         authHeaders: {
