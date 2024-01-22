@@ -50,13 +50,13 @@ $ npm run clasp -- setting projectId <PROJECT_ID>
 
 Visit: `https://console.cloud.google.com/apis/credentials/consent?project=<PROJECT_ID>`.
 
-Set the **Application Name** to `clasp project`. Fill out the required email fields, then click `Save and continue` until
-the wizard completes (you don't need to add any scopes).
+Set the **Application Name** to `clasp project`. Fill out the required email fields, add your current account
+as a test user, then click `Save and continue` until the wizard completes (you don't need to add any scopes).
 
 See instructions here: https://github.com/google/clasp/blob/master/docs/run.md#setup-instructions. Make sure
 to run all clasp commands through npm, for example, instead of `clasp setting ...`, `npm run clasp -- setting ...`.
 
-**Set the GCP Project ID in apps script**
+**Set the GCP Project Number in apps script**
 
 Run:
 
@@ -97,7 +97,7 @@ Download the client credentials and save it as creds.json in the root folder (it
 Run:
 
 ```
-$ clasp login --creds creds.json
+$ npm run clasp -- login --creds creds.json
 ```
 
 Now you'll be able to run the automated tests via `npm test`.

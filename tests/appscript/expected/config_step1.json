@@ -1,8 +1,8 @@
 {
   "configParams": [
     {
-      "name": "privacy-notice",
-      "text": "The connector can now get your data to Looker Studio, but please note that we, the authors of the connector and Matomo, will NOT have this same access.",
+      "name": "google-info-notice",
+      "text": "Note: The Matomo Connector for Looker Studio's use and transfer of information received from Google APIs to any other app will adhere to Google API Services User Data Policy (https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes), including the Limited Use requirements.",
       "type": "INFO"
     },
     {

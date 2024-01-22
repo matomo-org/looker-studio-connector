@@ -9,6 +9,48 @@
         "44",
         "0.69",
         "0.81",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
         "0"
       ]
     },
@@ -20,6 +62,48 @@
         "31",
         "0.24",
         "0.56",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
         "0"
       ]
     },
@@ -31,6 +115,48 @@
         "175",
         "0.78",
         "0.71",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
         "0"
       ]
     },
@@ -42,6 +168,48 @@
         "96",
         "0.33",
         "0.68",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
         "0"
       ]
     },
@@ -53,6 +221,48 @@
         "14",
         "0.92",
         "0.91",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
         "0"
       ]
     }
@@ -125,6 +335,426 @@
         "conceptType": "METRIC",
         "isReaggregatable": false,
         "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"New Job Application\" Conversions",
+      "name": "goal_4_nb_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"New Job Application\" Conversions",
+      "name": "goal_4_nb_conversions_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"New Job Application\" Revenu",
+      "name": "goal_4_revenue_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"View Submit Job\" Conversions",
+      "name": "goal_5_nb_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"View Submit Job\" Conversions",
+      "name": "goal_5_nb_conversions_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"View Submit Job\" Revenu",
+      "name": "goal_5_revenue_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"New Resume\" Conversions",
+      "name": "goal_6_nb_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"New Resume\" Conversions",
+      "name": "goal_6_nb_conversions_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"New Resume\" Revenu",
+      "name": "goal_6_revenue_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Liveaboard.com click\" Conversions",
+      "name": "goal_7_nb_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Liveaboard.com click\" Conversions",
+      "name": "goal_7_nb_conversions_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Liveaboard.com click\" Revenu",
+      "name": "goal_7_revenue_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Agoda click\" Conversions",
+      "name": "goal_8_nb_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Agoda click\" Conversions",
+      "name": "goal_8_nb_conversions_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Agoda click\" Revenu",
+      "name": "goal_8_revenue_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"User Comments\" Conversions",
+      "name": "goal_9_nb_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"User Comments\" Conversions",
+      "name": "goal_9_nb_conversions_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"User Comments\" Revenu",
+      "name": "goal_9_revenue_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Newsletter Signup\" Conversions",
+      "name": "goal_10_nb_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Newsletter Signup\" Conversions",
+      "name": "goal_10_nb_conversions_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Newsletter Signup\" Revenu",
+      "name": "goal_10_revenue_attrib",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"New Job Application\" Revenu par visite",
+      "name": "goal_4_revenue_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"New Job Application\" Viewed before conversion rate",
+      "name": "goal_4_nb_conversions_page_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"View Submit Job\" Revenu par visite",
+      "name": "goal_5_revenue_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"View Submit Job\" Viewed before conversion rate",
+      "name": "goal_5_nb_conversions_page_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"New Resume\" Revenu par visite",
+      "name": "goal_6_revenue_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"New Resume\" Viewed before conversion rate",
+      "name": "goal_6_nb_conversions_page_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Liveaboard.com click\" Revenu par visite",
+      "name": "goal_7_revenue_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Liveaboard.com click\" Viewed before conversion rate",
+      "name": "goal_7_nb_conversions_page_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Agoda click\" Revenu par visite",
+      "name": "goal_8_revenue_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Agoda click\" Viewed before conversion rate",
+      "name": "goal_8_nb_conversions_page_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"User Comments\" Revenu par visite",
+      "name": "goal_9_revenue_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"User Comments\" Viewed before conversion rate",
+      "name": "goal_9_nb_conversions_page_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Newsletter Signup\" Revenu par visite",
+      "name": "goal_10_revenue_per_visit",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Newsletter Signup\" Viewed before conversion rate",
+      "name": "goal_10_nb_conversions_page_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"New Job Application\" Conversion Rate",
+      "name": "goal_4_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"View Submit Job\" Conversion Rate",
+      "name": "goal_5_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"New Resume\" Conversion Rate",
+      "name": "goal_6_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Liveaboard.com click\" Conversion Rate",
+      "name": "goal_7_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Agoda click\" Conversion Rate",
+      "name": "goal_8_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"User Comments\" Conversion Rate",
+      "name": "goal_9_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "\"Newsletter Signup\" Conversion Rate",
+      "name": "goal_10_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
       }
     }
   ]
