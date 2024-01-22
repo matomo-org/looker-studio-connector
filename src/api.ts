@@ -89,7 +89,8 @@ export function extractBasicAuthFromUrl(url: string): { authHeaders: Record<stri
   if (matches) {
     const [, protocol, httpUsername, httpPassword, restOfUrl] = matches;
     if (httpUsername) {
-      authHeaders.Authorization = `Basic ${Utilities.base64Encode(`${httpUsername}:${httpPassword}`)}`;
+      const authStr = `${decodeURIComponent(httpUsername || '')}:${decodeURIComponent(httpPassword || '')}`;
+      authHeaders.Authorization = `Basic ${Utilities.base64Encode(authStr)}`;
       url = `${protocol}://${restOfUrl}`;
     }
   }

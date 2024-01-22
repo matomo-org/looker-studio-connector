@@ -37,7 +37,7 @@ describe('api', () => {
 
       expect(result).toEqual({
         authHeaders: {
-          Authorization: `Basic ${Buffer.from(`myuser:`).toString('base64')}`,
+          Authorization: `Basic ${Buffer.from('myuser:').toString('base64')}`,
         },
         urlWithoutAuth: 'http://mymatomo.com',
       });
