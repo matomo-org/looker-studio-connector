@@ -85,7 +85,7 @@ interface ApiFetchOptions {
 export function extractBasicAuthFromUrl(url: string): { authHeaders: Record<string, string>, urlWithoutAuth: string } {
   const authHeaders: Record<string, string> = {};
 
-  const [, protocol, httpUsername, httpPassword, restOfUrl] = /^(https?):\/\/([^:]+)(?::([^@]+)?)?@(.+)/.exec(baseUrl);
+  const [, protocol, httpUsername, httpPassword, restOfUrl] = /^(https?):\/\/([^:]+)(?::([^@]+)?)?@(.+)/.exec(url);
   if (httpUsername) {
     authHeaders.Authorization = `Basic ${Utilities.base64Encode(`${httpUsername}:${httpPassword}`)}`;
     url = `${protocol}://${restOfUrl}`;

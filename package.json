@@ -29,6 +29,7 @@
     "@jest/globals": "^29.5.0",
     "@rollup/plugin-typescript": "^11.0.0",
     "@types/inquirer": "^8.2.10",
+    "@types/jest": "^29.5.11",
     "@types/libsodium-wrappers": "^0.7.10",
     "axios": "^1.3.4",
     "chalk": "^4.1.0",
