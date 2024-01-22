@@ -9,7 +9,7 @@ import env from './env';
 import { getScriptElapsedTime } from './connector';
 import { throwUnexpectedError } from './error';
 import URLFetchRequest = GoogleAppsScript.URL_Fetch.URLFetchRequest;
-import { log } from './log';
+import { debugLog, log } from './log';
 
 const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
 const API_REQUEST_RETRY_LIMIT_IN_SECS = parseInt(env.API_REQUEST_RETRY_LIMIT_IN_SECS) || 0;
@@ -153,6 +153,8 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
     return url;
   });
+
+  debugLog('making requests to matomo:', allUrls);
 
   const allUrlsMappedToIndex = Object.fromEntries(allUrls.map((url, i) => [url, i]));
 

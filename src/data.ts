@@ -201,7 +201,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   } else {
     const matomoPeriod = detectMatomoPeriodFromRange(request.dateRange);
     if (matomoPeriod) {
-      period = 'day';
+      period = matomoPeriod;
       date = request.dateRange.startDate;
     }
   }
