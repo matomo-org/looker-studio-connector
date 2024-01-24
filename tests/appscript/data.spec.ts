@@ -181,6 +181,22 @@ describe('data', () => {
       expect(result).toEqual(getExpectedResponse(result, 'data', 'Actions.getPageTitles_withLanguage'));
     });
 
+    it('should use the configured segment', async () => {
+      const result = await Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'Actions', apiAction: 'getPageTitles' }),
+          filter_limit: 5,
+          segment: 'countryCode==nz',
+        },
+        dateRange: {
+          startDate: DATE_TO_TEST,
+          endDate: DATE_TO_TEST,
+        },
+      });
+      expect(result).toEqual(getExpectedResponse(result, 'data', 'Actions.getPageTitles_withSegment'));
+    });
+
     it('should detect if the script run time is past a certain point and abort with a clear message', async () => {
       await Clasp.setScriptProperties({
         SCRIPT_RUNTIME_LIMIT: '0.01',

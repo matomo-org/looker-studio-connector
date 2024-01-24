@@ -58,6 +58,7 @@ function mapMatomoSemanticTypeToLooker(matomoType: string, siteCurrencyCode: str
 function getReportMetadataAndGoalsAndCurrency(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
+  const segment = request.configParams.segment || '';
 
   const reportParams = JSON.parse(report) as Record<string, string>;
 
@@ -81,6 +82,7 @@ function getReportMetadataAndGoalsAndCurrency(request: GoogleAppsScript.Data_Stu
         period: 'day',
         date: 'today',
         language: request.configParams.language || Session.getActiveUserLocale(),
+        segment,
       },
     },
     {
@@ -175,11 +177,12 @@ export function detectMatomoPeriodFromRange(dateRange: GoogleAppsScript.Data_Stu
 function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
+  const segment = request.configParams.segment || '';
   const filter_limit = parseInt(request.configParams.filter_limit || '-1', 10);
 
   let rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
 
-  const reportParams = JSON.parse(report);
+  const reportParams = JSON.parse(report) as Record<string, string>;
 
   const hasDate = !!(request.fields && request.fields.find((f) => f.name === 'date'));
 
@@ -220,6 +223,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       idSite: `${idSite}`,
       period,
       date,
+      segment,
       format_metrics: '0',
       flat: '1',
       filter_limit: `${limitToUse}`,
