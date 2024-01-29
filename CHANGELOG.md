@@ -1,5 +1,8 @@
 == Changelog ===
 
+= 1.0.3 =
+* Add default report template.
+
 = 1.0.2 =
 * Fix bug where the segment was not being applied.
 

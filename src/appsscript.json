@@ -23,7 +23,10 @@
       "FREE"
     ],
     "privacyPolicyUrl": "https://matomo.org/privacy-policy/",
-    "termsOfServiceUrl": "https://matomo.org/faq/matomo-connector-looker-studio-eula/"
+    "termsOfServiceUrl": "https://matomo.org/faq/matomo-connector-looker-studio-eula/",
+    "templates": {
+      "default": "969af4fe-7eba-42f8-ad16-089976796247"
+    }
   },
   "oauthScopes": [
     "https://www.googleapis.com/auth/script.external_request"
