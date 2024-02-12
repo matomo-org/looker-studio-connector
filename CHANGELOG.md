@@ -1,5 +1,9 @@
 == Changelog ===
 
+= 1.0.3 =
+* Fix error that can occur in App Script when requesting too many rows from a report that has a summary or totals row.
+* Add link to report template FAQ in configuration section.
+
 = 1.0.2 =
 * Fix bug where the segment was not being applied.
 
