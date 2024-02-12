@@ -110,6 +110,12 @@ const CONFIG_STEPS = <ConfigStep[]>[
           'requirements.'
         );
 
+      const reportTemplateLink = 'https://matomo.org/faq/looker-studio/matomo-connector-template-report/';
+      config.newInfo().setId('new-to-looker')
+        .setText(
+          `New to Looker Studio? Get started quickly with our template Matomo report: ${reportTemplateLink}`
+        );
+
       const sitesWithViewAccess = getSitesWithAtLeastViewAccess();
 
       // idsite select

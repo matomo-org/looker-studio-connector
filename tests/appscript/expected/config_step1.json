@@ -6,6 +6,11 @@
       "type": "INFO"
     },
     {
+      "name": "new-to-looker",
+      "text": "New to Looker Studio? Get started quickly with our template Matomo report: https://matomo.org/faq/looker-studio/matomo-connector-template-report/",
+      "type": "INFO"
+    },
+    {
       "displayName": "Website/Measurable",
       "isDynamic": true,
       "name": "idsite",
