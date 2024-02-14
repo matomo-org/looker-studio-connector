@@ -241,6 +241,10 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
 
     const partialResponse = hasDate ? partialResponseRaw as Record<string, DataTableRow[]> : { [date]: partialResponseRaw as DataTableRow[] };
     Object.entries(partialResponse).forEach(([date, rows]) => {
+      if (!rows) {
+        rows = [];
+      }
+
       if (!response[date]) {
         response[date] = [];
       }

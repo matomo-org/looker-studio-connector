@@ -191,11 +191,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
       // save the response even if it's an error so we can get the server-side error message if needed
       responseContents[responseIndex] = r.getContentText('UTF-8');
-      try {
-        responseContents[responseIndex] = JSON.parse(responseContents[responseIndex] as string);
-      } catch (e) {
-        // ignore
-      }
+      responseContents[responseIndex] = JSON.parse(responseContents[responseIndex] as string);
 
       const code = r.getResponseCode();
       if (code >= 500
