@@ -300,6 +300,25 @@ describe('data', () => {
       expect(result).toEqual(getExpectedResponse(result, 'data', 'Events.getName_withRequestedFields'));
     });
 
+
+    it('should return all data when no filter limit is set', async () => {
+      await Clasp.setScriptProperties({}, true);
+
+      let result = await Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'Actions', apiAction: 'getPageUrls' }),
+          filter_limit: 500,
+        },
+        dateRange: {
+          startDate: '2024-02-13',
+          endDate: '2024-02-13',
+        },
+      });
+
+      expect((result as any).rows.length).toHaveLength(1080);
+    });
+
     it('should fail gracefully when no dateRange is specified', async () => {
       await expect(async () => {
         await Clasp.run('getData', {
