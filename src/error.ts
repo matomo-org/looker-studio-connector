@@ -77,7 +77,7 @@ export function callWithUserFriendlyErrorHandling<T>(callerId: string, fn: () =>
       throw e;
     }
 
-    log(`Unexpected error: ${e.stack || e.message}`);
-    throwUnexpectedError(`${callerId}: ${e.message}`);
+    log(`Unexpected error: ${e.stack || e.message || e}`);
+    throwUnexpectedError(`${callerId}: ${e.message || e}`);
   }
 }
