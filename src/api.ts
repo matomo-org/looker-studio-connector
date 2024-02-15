@@ -189,15 +189,21 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       const urlFetched = urlsToFetch[i].url;
       const responseIndex = allUrlsMappedToIndex[urlFetched];
 
+      const code = r.getResponseCode();
+
+      if (code >= 500
+        || code === 420
+      ) {
+        countOfFailedRequests += 1;
+        return; // retry
+      }
+
       // save the response even if it's an error so we can get the server-side error message if needed
       responseContents[responseIndex] = r.getContentText('UTF-8');
       responseContents[responseIndex] = JSON.parse(responseContents[responseIndex] as string);
 
-      const code = r.getResponseCode();
-      if (code >= 500
-        || code === 420
-        || (responseContents[responseIndex].result === 'error'
-          && !/Requested report.*not found in the list of available reports/.test(responseContents[responseIndex].message))
+      if (responseContents[responseIndex].result === 'error'
+        && !/Requested report.*not found in the list of available reports/.test(responseContents[responseIndex].message)
       ) {
         countOfFailedRequests += 1;
         return; // retry
