@@ -179,12 +179,12 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   const report = request.configParams.report;
   const segment = request.configParams.segment || '';
 
-  const filter_limit = request.configParams.filter_limit
-    ? parseInt(request.configParams.filter_limit, 10)
-    : -1;
-
-  if (!filter_limit) {
-    throwUserError(`Invalid default row limit ${filter_limit} supplied.`);
+  let filter_limit = -1;
+  if (request.configParams.filter_limit) {
+    filter_limit = parseInt(request.configParams.filter_limit, 10);
+    if (filter_limit <= 0 || Number.isNaN(filter_limit)) {
+      throwUserError(`Invalid default row limit ${filter_limit} supplied.`);
+    }
   }
 
   let rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;

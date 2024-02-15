@@ -335,7 +335,7 @@ describe('data', () => {
     });
 
     for (let limit of ['-1', '0', 'sadlfjk']) {
-      it('should fail if an invalid filter_limit is specified', async () => {
+      it(`should fail if an invalid filter_limit is specified (${limit})`, async () => {
         await expect(async () => {
           await Clasp.run('getData', {
             configParams: {
