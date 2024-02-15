@@ -302,13 +302,14 @@ describe('data', () => {
 
 
     it('should return all data when no filter limit is set', async () => {
-      await Clasp.setScriptProperties({}, true);
+      await Clasp.setScriptProperties({
+        MAX_ROWS_TO_FETCH_PER_REQUEST: '500',
+      }, true);
 
       let result = await Clasp.run('getData', {
         configParams: {
           idsite: env.APPSCRIPT_TEST_IDSITE,
           report: JSON.stringify({ apiModule: 'Actions', apiAction: 'getPageUrls' }),
-          filter_limit: 500,
         },
         dateRange: {
           startDate: '2024-02-13',
@@ -316,10 +317,12 @@ describe('data', () => {
         },
       });
 
-      expect((result as any).rows.length).toHaveLength(1080);
-    });
+      expect((result as any).rows).toHaveLength(1080);
+    }, 300000);
 
     it('should fail gracefully when no dateRange is specified', async () => {
+      await Clasp.setScriptProperties({}, true);
+
       await expect(async () => {
         await Clasp.run('getData', {
           configParams: {
