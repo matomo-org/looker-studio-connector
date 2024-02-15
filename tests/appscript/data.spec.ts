@@ -334,6 +334,24 @@ describe('data', () => {
       }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
     });
 
+    for (let limit of ['-1', '0', 'sadlfjk']) {
+      it('should fail if an invalid filter_limit is specified', async () => {
+        await expect(async () => {
+          await Clasp.run('getData', {
+            configParams: {
+              idsite: env.APPSCRIPT_TEST_IDSITE,
+              report: JSON.stringify({ apiModule: 'API', apiAction: 'get' }),
+              filter_limit: limit,
+            },
+            dateRange: {
+              startDate: '2024-02-13',
+              endDate: '2024-02-13',
+            },
+          });
+        }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
+      });
+    }
+
     it('should report an error if a report can no longer be found in the report metadata', async () => {
       await expect(async () => {
         await Clasp.run('getData', {
