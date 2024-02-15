@@ -1,5 +1,9 @@
 == Changelog ===
 
+= 1.0.4 =
+* Reduce number of rows fetched at a time again.
+* Do not silence JSON.parse failures when processing Matomo API response data.
+
 = 1.0.3 =
 * Fix error that can occur in App Script when requesting too many rows from a report that has a summary or totals row.
 * Add link to report template FAQ in configuration section.
