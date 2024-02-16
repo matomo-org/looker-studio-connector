@@ -300,7 +300,29 @@ describe('data', () => {
       expect(result).toEqual(getExpectedResponse(result, 'data', 'Events.getName_withRequestedFields'));
     });
 
+
+    it('should return all data when no filter limit is set', async () => {
+      await Clasp.setScriptProperties({
+        MAX_ROWS_TO_FETCH_PER_REQUEST: '500',
+      }, true);
+
+      let result = await Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'Actions', apiAction: 'getPageUrls' }),
+        },
+        dateRange: {
+          startDate: '2024-02-13',
+          endDate: '2024-02-13',
+        },
+      });
+
+      expect((result as any).rows).toHaveLength(1080);
+    }, 300000);
+
     it('should fail gracefully when no dateRange is specified', async () => {
+      await Clasp.setScriptProperties({}, true);
+
       await expect(async () => {
         await Clasp.run('getData', {
           configParams: {
@@ -311,6 +333,24 @@ describe('data', () => {
         });
       }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
     });
+
+    for (let limit of ['-1', '0', 'sadlfjk']) {
+      it(`should fail if an invalid filter_limit is specified (${limit})`, async () => {
+        await expect(async () => {
+          await Clasp.run('getData', {
+            configParams: {
+              idsite: env.APPSCRIPT_TEST_IDSITE,
+              report: JSON.stringify({ apiModule: 'API', apiAction: 'get' }),
+              filter_limit: limit,
+            },
+            dateRange: {
+              startDate: '2024-02-13',
+              endDate: '2024-02-13',
+            },
+          });
+        }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
+      });
+    }
 
     it('should report an error if a report can no longer be found in the report metadata', async () => {
       await expect(async () => {

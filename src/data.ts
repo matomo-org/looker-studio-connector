@@ -178,7 +178,14 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
   const segment = request.configParams.segment || '';
-  const filter_limit = parseInt(request.configParams.filter_limit || '-1', 10);
+
+  let filter_limit = -1;
+  if (request.configParams.filter_limit) {
+    filter_limit = parseInt(request.configParams.filter_limit, 10);
+    if (filter_limit <= 0 || Number.isNaN(filter_limit)) {
+      throwUserError(`Invalid default row limit ${filter_limit} supplied.`);
+    }
+  }
 
   let rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
 
@@ -259,7 +266,8 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
     offset += limitToUse;
 
     hasMoreRowsToFetch = Object.values(partialResponse).some((rows) => rows.length >= limitToUse)
-      && offset < filter_limit;
+      && (filter_limit < 0
+        || offset < filter_limit);
   }
 
   const flattenedResponse = [];

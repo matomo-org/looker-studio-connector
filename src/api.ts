@@ -194,6 +194,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       if (code >= 500
         || code === 420
       ) {
+        log(`Matomo API request failed with code ${code}.`);
         countOfFailedRequests += 1;
         return; // retry
       }
@@ -205,6 +206,8 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       if (responseContents[responseIndex].result === 'error'
         && !/Requested report.*not found in the list of available reports/.test(responseContents[responseIndex].message)
       ) {
+        log(`Matomo returned an error for request ${urlFetched}: ${responseContents[responseIndex].message}`);
+
         countOfFailedRequests += 1;
         return; // retry
       }
