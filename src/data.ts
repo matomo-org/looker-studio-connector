@@ -71,33 +71,36 @@ function getReportMetadataAndGoalsAndCurrency(request: GoogleAppsScript.Data_Stu
     apiParameters[`apiParameters[${k}]`] = v;
   });
 
-  const response = Api.fetchAll([
-    {
-      method: 'API.getMetadata',
-      params: {
-        apiModule: reportParams.apiModule,
-        apiAction: reportParams.apiAction,
-        ...apiParameters,
-        idSite: `${idSite}`,
-        period: 'day',
-        date: 'today',
-        language: request.configParams.language || Session.getActiveUserLocale(),
-        segment,
+  const response = Api.fetchAll(
+    [
+      {
+        method: 'API.getMetadata',
+        params: {
+          apiModule: reportParams.apiModule,
+          apiAction: reportParams.apiAction,
+          ...apiParameters,
+          idSite: `${idSite}`,
+          period: 'day',
+          date: 'today',
+          language: request.configParams.language || Session.getActiveUserLocale(),
+          segment,
+        },
       },
-    },
-    {
-      method: 'Goals.getGoals',
-      params: {
-        idSite: `${idSite}`,
-        period: 'day',
-        date: 'today',
+      {
+        method: 'Goals.getGoals',
+        params: {
+          idSite: `${idSite}`,
+          period: 'day',
+          date: 'today',
+        },
       },
-    },
-    {
-      method: 'SitesManager.getSiteFromId',
-      params: { idSite: `${idSite}` },
-    },
-  ]);
+      {
+        method: 'SitesManager.getSiteFromId',
+        params: { idSite: `${idSite}` },
+      },
+    ],
+    { throwOnFailedRequest: true }
+  );
 
   let result = response[0] as Api.ReportMetadata;
   if (Array.isArray(result)) {
