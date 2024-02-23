@@ -210,7 +210,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
         };
       } else {
         // save the response even if it's an error so we can get the server-side error message if needed
-        responseContents[responseIndex] = r.getContentText('UTF-8');
+        responseContents[responseIndex] = r.getContentText('UTF-8') || '{}';
         responseContents[responseIndex] = JSON.parse(responseContents[responseIndex] as string);
 
         if (responseContents[responseIndex].result === 'error'
