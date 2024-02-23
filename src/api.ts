@@ -216,6 +216,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
         if (responseContents[responseIndex].result === 'error'
           && !/Requested report.*not found in the list of available reports/.test(responseContents[responseIndex].message)
           && !/does not support multiple/.test(responseContents[responseIndex].message) // for VisitTime.getByDayOfWeek
+          && !/The plugin \w+ is not enabled/.test(responseContents[responseIndex].message)
         ) {
           log(`Matomo returned an error for request ${urlFetched}: ${responseContents[responseIndex].message}`);
 
