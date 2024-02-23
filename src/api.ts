@@ -182,6 +182,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       headers: { ...API_REQUEST_EXTRA_HEADERS, ...authHeaders },
       method: 'post',
       payload: { token_auth: token },
+      muteHttpExceptions: true,
     }));
 
     const responses = UrlFetchApp.fetchAll(urlsToFetch);
@@ -238,12 +239,16 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
   }
 
   if (options.throwOnFailedRequest) {
-    responseContents.forEach((r, i) => {
-      if (r.result === 'error') {
-        const { method, params } = requests[i];
-        throwUnexpectedError(`API method ${method} failed with: "${r.message}". (params = ${JSON.stringify(params)})`);
-      }
-    });
+    const errorResponses = responseContents
+      .map((r, i) => ({ ...r, index: i }))
+      .filter((r) => r.result === 'error');
+
+    if (errorResponses.length === 1) {
+      const { method, params } = requests[errorResponses[0].index];
+      throwUnexpectedError(`API method ${method} failed with: "${errorResponses[0].message}". (params = ${JSON.stringify(params)})`);
+    } else if (errorResponses.length > 1) {
+      throwUnexpectedError(`${errorResponses.length} API methods failed.`);
+    }
   }
 
   if (options.cacheKey && options.cacheTtl > 0) {
