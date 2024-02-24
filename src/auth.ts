@@ -35,6 +35,7 @@ export function setCredentials(request) {
   const instanceUrl = username;
 
   const isValidCreds = checkForValidCreds(instanceUrl, token);
+
   if (!isValidCreds) {
     return {
       errorCode: 'INVALID_CREDENTIALS',

@@ -80,6 +80,7 @@ interface ApiFetchOptions {
   cacheTtl?: number;
   checkRuntimeLimit?: boolean;
   runtimeLimitAbortMessage?: string;
+  throwOnFailedRequest?: boolean;
 }
 
 export function extractBasicAuthFromUrl(url: string): { authHeaders: Record<string, string>, urlWithoutAuth: string } {
@@ -181,6 +182,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       headers: { ...API_REQUEST_EXTRA_HEADERS, ...authHeaders },
       method: 'post',
       payload: { token_auth: token },
+      muteHttpExceptions: true,
     }));
 
     const responses = UrlFetchApp.fetchAll(urlsToFetch);
@@ -191,28 +193,40 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
       const code = r.getResponseCode();
 
-      if (code >= 500
-        || code === 420
-      ) {
+      if (code < 200 || code >= 400) {
         log(`Matomo API request failed with code ${code}.`);
-        countOfFailedRequests += 1;
-        return; // retry
+
+        if (
+          (code >= 502 && code <= 504)
+          || code === 420
+        ) {
+          countOfFailedRequests += 1;
+          return; // retry
+        }
+
+        responseContents[responseIndex] = {
+          result: 'error',
+          message: `Matomo server failed with code ${code}. Truncated response: ${r.getContentText('UTF-8').substring(0, 100)}`,
+        };
+      } else {
+        // save the response even if it's an error so we can get the server-side error message if needed
+        responseContents[responseIndex] = r.getContentText('UTF-8') || '{}';
+        responseContents[responseIndex] = JSON.parse(responseContents[responseIndex] as string);
+
+        if (responseContents[responseIndex].result === 'error'
+          && !/Requested report.*not found in the list of available reports/.test(responseContents[responseIndex].message)
+          && !/does not support multiple/.test(responseContents[responseIndex].message) // for VisitTime.getByDayOfWeek
+          && !/The plugin \w+ is not enabled/.test(responseContents[responseIndex].message)
+        ) {
+          log(`Matomo returned an error for request ${urlFetched}: ${responseContents[responseIndex].message}`);
+
+          countOfFailedRequests += 1;
+          return; // retry
+        }
       }
 
-      // save the response even if it's an error so we can get the server-side error message if needed
-      responseContents[responseIndex] = r.getContentText('UTF-8');
-      responseContents[responseIndex] = JSON.parse(responseContents[responseIndex] as string);
-
-      if (responseContents[responseIndex].result === 'error'
-        && !/Requested report.*not found in the list of available reports/.test(responseContents[responseIndex].message)
-      ) {
-        log(`Matomo returned an error for request ${urlFetched}: ${responseContents[responseIndex].message}`);
-
-        countOfFailedRequests += 1;
-        return; // retry
-      }
-
-      delete allUrlsMappedToIndex[urlFetched]; // this request succeeded, so don't make it again
+      // this request succeeded or failed for a non-random reason, so don't make it again
+      delete allUrlsMappedToIndex[urlFetched];
     });
 
     // if there are still requests to try (because they failed), wait before trying again
@@ -223,6 +237,19 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
       Utilities.sleep(currentWaitBeforeRetryTime);
       currentWaitBeforeRetryTime = Math.min(currentWaitBeforeRetryTime * 2, MAX_WAIT_BEFORE_RETRY * 1000);
+    }
+  }
+
+  if (options.throwOnFailedRequest) {
+    const errorResponses = responseContents
+      .map((r, i) => ({ ...r, index: i }))
+      .filter((r) => r.result === 'error');
+
+    if (errorResponses.length === 1) {
+      const { method, params } = requests[errorResponses[0].index];
+      throwUnexpectedError(`API method ${method} failed with: "${errorResponses[0].message}". (params = ${JSON.stringify(params)})`);
+    } else if (errorResponses.length > 1) {
+      throwUnexpectedError(`${errorResponses.length} API methods failed.`);
     }
   }
 
@@ -246,9 +273,6 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
  * @return the parsed response
  */
 export function fetch<T = any>(method: string, params: Record<string, string> = {}, options: ApiFetchOptions = {}): T {
-  const responses = fetchAll([{ method, params }], options);
-  if (responses[0].result === 'error') {
-    throwUnexpectedError(`API method ${method} failed with: "${responses[0].message}". (params = ${JSON.stringify(params)})`);
-  }
+  const responses = fetchAll([{ method, params }], { ...options, throwOnFailedRequest: true });
   return responses[0] as T;
 }
