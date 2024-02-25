@@ -509,7 +509,8 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
           // no value found
           const field =  fields.getFieldById(name);
           if (field.isDimension()
-            && request.configParams.filter_limit > 0
+            && request.configParams.filter_limit
+            && parseInt(request.configParams.filter_limit, 10) > 0
           ) {
             return row['label'];
           }
