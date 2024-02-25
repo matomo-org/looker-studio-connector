@@ -318,6 +318,9 @@ describe('data', () => {
       });
 
       expect((result as any).rows).toHaveLength(1080);
+
+      const otherRow = (result as any).rows.find((r) => r.values[0] === 'Others');
+      expect(otherRow).toBeNull();
     }, 300000);
 
     it('should fail gracefully when no dateRange is specified', async () => {
