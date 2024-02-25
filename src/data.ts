@@ -182,6 +182,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   const report = request.configParams.report;
   const segment = request.configParams.segment || '';
 
+  // TODO: filter_limit should be renamed to filter_truncate
   let filter_limit = -1;
   if (request.configParams.filter_limit) {
     filter_limit = parseInt(request.configParams.filter_limit, 10);
@@ -236,6 +237,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       segment,
       format_metrics: '0',
       flat: '1',
+      filter_truncate: `${filter_limit}`,
       filter_limit: `${limitToUse}`,
       filter_offset: `${offset}`,
       filter_show_goal_columns_process_goals: '1',
