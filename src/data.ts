@@ -471,10 +471,10 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
       requestedFields = fields.asArray().map((f) => ({ name: f.getId() }));
     }
 
-    const data = reportData.map((row) => {
+    const data = reportData.map((row, index) => {
       const fieldValues = requestedFields
         .filter(({ name }) => fields.getFieldById(name))
-        .map(({ name }, index) => {
+        .map(({ name }) => {
           if (typeof row[name] !== 'undefined'
             && row[name] !== false // edge case that can happen in some report output
           ) {
