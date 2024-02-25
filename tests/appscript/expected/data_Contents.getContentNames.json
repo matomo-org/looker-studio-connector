@@ -3,6 +3,14 @@
   "rows": [
     {
       "values": [
+        "preview-diving-center - Others",
+        "64",
+        "3",
+        "0.0469"
+      ]
+    },
+    {
+      "values": [
         "preview-diving-center - Alam Asmara Dive Resort Bali",
         "8",
         "0",
@@ -29,14 +37,6 @@
       "values": [
         "preview-diving-center - Aqua Dive Paradise",
         "7",
-        "0",
-        "0"
-      ]
-    },
-    {
-      "values": [
-        "preview-diving-center - Adventure Divers Bali",
-        "6",
         "0",
         "0"
       ]

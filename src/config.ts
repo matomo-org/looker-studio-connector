@@ -217,7 +217,8 @@ const CONFIG_STEPS = <ConfigStep[]>[
         );
       });
 
-      // filter_limit input
+      // filter_truncate input (named filter_limit originally, which was incorrect, but
+      // changing it will break existing user configurations, so it's stuck like this)
       config
         .newTextInput()
         .setId('filter_limit')

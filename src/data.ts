@@ -182,11 +182,11 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   const report = request.configParams.report;
   const segment = request.configParams.segment || '';
 
-  let filter_limit = -1;
+  let filter_truncate = -1;
   if (request.configParams.filter_limit) {
-    filter_limit = parseInt(request.configParams.filter_limit, 10);
-    if (filter_limit <= 0 || Number.isNaN(filter_limit)) {
-      throwUserError(`Invalid default row limit ${filter_limit} supplied.`);
+    filter_truncate = parseInt(request.configParams.filter_limit, 10);
+    if (filter_truncate <= 0 || Number.isNaN(filter_truncate)) {
+      throwUserError(`Invalid default row limit ${filter_truncate} supplied.`);
     }
   }
 
@@ -227,7 +227,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
 
   let hasMoreRowsToFetch = true;
   while (hasMoreRowsToFetch) {
-    const limitToUse = filter_limit < 0 || filter_limit >= rowsToFetchAtATime ? rowsToFetchAtATime : filter_limit;
+    const limitToUse = filter_truncate < 0 || filter_truncate >= rowsToFetchAtATime ? rowsToFetchAtATime : filter_truncate;
     let partialResponseRaw = Api.fetch<DataTableRow[]|Record<string, DataTableRow[]>>(`${reportParams.apiModule}.${reportParams.apiAction}`, {
       ...reportParams,
       idSite: `${idSite}`,
@@ -236,6 +236,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       segment,
       format_metrics: '0',
       flat: '1',
+      filter_truncate: filter_truncate <= 0 ? undefined : `${filter_truncate - 1}`,
       filter_limit: `${limitToUse}`,
       filter_offset: `${offset}`,
       filter_show_goal_columns_process_goals: '1',
@@ -269,8 +270,8 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
     offset += limitToUse;
 
     hasMoreRowsToFetch = Object.values(partialResponse).some((rows) => rows.length >= limitToUse)
-      && (filter_limit < 0
-        || offset < filter_limit);
+      && (filter_truncate < 0
+        || offset < filter_truncate);
   }
 
   const flattenedResponse = [];
@@ -470,7 +471,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
       requestedFields = fields.asArray().map((f) => ({ name: f.getId() }));
     }
 
-    const data = reportData.map((row) => {
+    const data = reportData.map((row, index) => {
       const fieldValues = requestedFields
         .filter(({ name }) => fields.getFieldById(name))
         .map(({ name }) => {
@@ -506,7 +507,15 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
           }
 
           // no value found
-          const type = fields.getFieldById(name).getType();
+          const field =  fields.getFieldById(name);
+          if (field.isDimension()
+            && request.configParams.filter_limit
+            && parseInt(request.configParams.filter_limit, 10) > 0
+          ) {
+            return row['label'];
+          }
+
+          const type = field.getType();
           if (type === cc.FieldType.TEXT) {
             return '';
           }
