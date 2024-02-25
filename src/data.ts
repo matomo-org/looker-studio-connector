@@ -474,7 +474,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     const data = reportData.map((row) => {
       const fieldValues = requestedFields
         .filter(({ name }) => fields.getFieldById(name))
-        .map(({ name }) => {
+        .map(({ name }, index) => {
           if (typeof row[name] !== 'undefined'
             && row[name] !== false // edge case that can happen in some report output
           ) {
@@ -507,7 +507,15 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
           }
 
           // no value found
-          const type = fields.getFieldById(name).getType();
+          const field =  fields.getFieldById(name);
+          if (field.isDimension()
+            && index === reportData.length - 1
+            && request.configParams.filter_limit > 0
+          ) {
+            return row['label'];
+          }
+
+          const type = field.getType();
           if (type === cc.FieldType.TEXT) {
             return '';
           }
