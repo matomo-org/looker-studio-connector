@@ -476,6 +476,9 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     }
     requestedFields = requestedFields.filter(({ name }) => fields.getFieldById(name));
 
+    // field instances can be garbage collected if we don't request them specifically first
+    const requestedFieldObjects = requestedFields.map(({ name }) => fields.getFieldById(name));
+
     let reportData = getReportData(request, requestedFields);
     if (reportData === null) {
       const reportParams = JSON.parse(request.configParams.report);
@@ -488,7 +491,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
 
     const data = reportData.map((row) => {
       const fieldValues = requestedFields
-        .map(({ name }) => {
+        .map(({ name }, index) => {
           if (typeof row[name] !== 'undefined'
             && row[name] !== false // edge case that can happen in some report output
           ) {
@@ -521,7 +524,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
           }
 
           // no value found
-          const field =  fields.getFieldById(name);
+          const field = requestedFieldObjects[index];
           if (field.isDimension()
             && request.configParams.filter_limit
             && parseInt(request.configParams.filter_limit, 10) > 0
