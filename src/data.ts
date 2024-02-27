@@ -190,11 +190,22 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
     }
   }
 
-  const showColumns = (requestedFields.map(({ name }) => name)).join(',');
+  const reportParams = JSON.parse(report) as Record<string, string>;
+
+  const SHOW_COLUMNS_UNSUPPORTED_METHODS = [
+    'VisitFrequency.get',
+    'Contents.getContentPieces',
+    'Contents.getContentNames',
+    'Actions.getPageUrlsFollowingSiteSearch',
+  ];
+
+  let showColumns;
+  // showColumns does not work correctly with some API methods
+  if (!SHOW_COLUMNS_UNSUPPORTED_METHODS.includes(`${reportParams.apiModule}.${reportParams.apiAction}`)) {
+    showColumns = (requestedFields.map(({name}) => name)).join(',');
+  }
 
   let rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
-
-  const reportParams = JSON.parse(report) as Record<string, string>;
 
   const hasDate = !!(request.fields && request.fields.find((f) => f.name === 'date'));
 
