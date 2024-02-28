@@ -122,15 +122,19 @@ const CONFIG_STEPS = <ConfigStep[]>[
           `New to Looker Studio? Get started quickly with our template Matomo report: ${reportTemplateLink}`
         );
 
-      const matomoVersion = getMatomoVersion();
-      if (matomoVersion.major < 4
-        || (matomoVersion.major === 4 && matomoVersion.minor < 14)
-      ) {
-        config.newInfo()
-          .setId('matomo-4-warning')
-          .setText(`WARNING: You are trying to connect to a version ${matomoVersion.major}.${matomoVersion.minor} Matomo. This connector ` +
-            'works best with version 4.14 or greater. Other versions will not be able to provide Looker Studio ' +
-            'with all necessary information.');
+      try {
+        const matomoVersion = getMatomoVersion();
+        if (matomoVersion.major < 4
+          || (matomoVersion.major === 4 && matomoVersion.minor < 14)
+        ) {
+          config.newInfo()
+            .setId('matomo-4-warning')
+            .setText(`WARNING: You are trying to connect to a version ${matomoVersion.major}.${matomoVersion.minor} Matomo. This connector ` +
+              'works best with version 4.14 or greater. Other versions will not be able to provide Looker Studio ' +
+              'with all necessary information.');
+        }
+      } catch (e) {
+        log(`Failed to get matomo version: ${e.stack || e.message || e}`);
       }
 
       const sitesWithViewAccess = getSitesWithAtLeastViewAccess();
