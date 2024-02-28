@@ -9,6 +9,7 @@ import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import Clasp from '../utilities/clasp';
 import getExpectedResponse from './getExpectedResponse';
 import env from '../env';
+import { makeMatomo4MockServer } from './api/mockServer';
 
 function cleanUpSelects(response: any) {
   (response.configParams || []).forEach((paramEntry) => {
@@ -28,6 +29,36 @@ function cleanUpSelects(response: any) {
 }
 
 describe('config', () => {
+  let server: ReturnType<typeof makeMatomo4MockServer>;
+  let tunnel;
+
+  if (process.env.USE_LOCALTUNNEL) {
+    beforeAll(async () => {
+      // create localtunnel
+      const localtunnel = (await import('localtunnel')).default;
+      tunnel = await localtunnel({port: 3000});
+    });
+
+    beforeAll(async () => {
+      await Clasp.run('clearEnvInTest');
+    });
+
+    afterEach(async () => {
+      if (server) {
+        await new Promise((r) => {
+          server.close(r);
+        });
+        server = null;
+      }
+    });
+
+    afterAll(async () => {
+      await Clasp.run('clearEnvInTest');
+
+      await tunnel.close();
+    });
+  }
+
   beforeAll(async () => {
     await Clasp.run('setCredentials', {
       userToken: {
@@ -67,5 +98,15 @@ describe('config', () => {
       result = cleanUpSelects(result);
       expect(result).toEqual(getExpectedResponse(result, 'config', 'step2'));
     });
+
+    if (process.env.USE_LOCALTUNNEL) {
+      it('should return the expected response when the Matomo version is < 4.14', async () => {
+        server = makeMatomo4MockServer(3000);
+
+        let result = await Clasp.run('getConfig', {});
+        result = cleanUpSelects(result);
+        expect(result).toEqual(getExpectedResponse(result, 'config', 'oldMatomoVersion'));
+      });
+    }
   });
 });

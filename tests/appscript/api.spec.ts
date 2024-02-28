@@ -7,10 +7,10 @@
 
 import { beforeEach, beforeAll, expect } from '@jest/globals';
 import Clasp from '../utilities/clasp';
-import makeMockServer from './api/mockServer';
+import { makeApiFailureMockServer } from './api/mockServer';
 
 describe('api', () => {
-  let server: ReturnType<typeof makeMockServer>;
+  let server: ReturnType<typeof makeApiFailureMockServer>;
   let tunnel;
 
   if (process.env.USE_LOCALTUNNEL) {
@@ -116,7 +116,7 @@ describe('api', () => {
       }
 
       let requestCount = 0;
-      server = makeMockServer(3000, {
+      server = makeApiFailureMockServer(3000, {
         onRandomError() {
           requestCount += 1;
         },
@@ -159,7 +159,7 @@ describe('api', () => {
       }
 
       let requestCount = 0;
-      server = makeMockServer(3000, {
+      server = makeApiFailureMockServer(3000, {
         onNonRandomError() {
           requestCount += 1;
         },
@@ -200,7 +200,7 @@ describe('api', () => {
       }
 
       let requestCount = 0;
-      server = makeMockServer(3000, {
+      server = makeApiFailureMockServer(3000, {
         onNonRandomError() {
           requestCount += 1;
         },
