@@ -107,6 +107,7 @@ export function extractBasicAuthFromUrl(url: string): { authHeaders: Record<stri
  * @return the parsed responses for each request
  */
 export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptions = {}): any[] {
+  // TODO: this method could probably be cleaned up
   const cache = CacheService.getUserCache();
   if (options.cacheKey && options.cacheTtl > 0) {
     const cacheEntry = cache.get(options.cacheKey);
@@ -135,8 +136,6 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
   baseUrl = urlWithoutAuth;
 
   const allUrls = requests.map(({method, params}) => {
-    let url = baseUrl;
-
     const finalParams = {
       module: 'API',
       method,
@@ -150,9 +149,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       .map(([name, value]) => `${name}=${encodeURIComponent(value)}`)
       .join('&');
 
-    url += query;
-
-    return url;
+    return query;
   });
 
   debugLog('making requests to matomo:', allUrls);
@@ -178,17 +175,18 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     let countOfFailedRequests = 0;
 
     const urlsToFetch = Object.keys(allUrlsMappedToIndex).map((u) => (<URLFetchRequest>{
-      url: u,
+      url: baseUrl,
       headers: { ...API_REQUEST_EXTRA_HEADERS, ...authHeaders },
       method: 'post',
-      payload: { token_auth: token },
+      payload: u + '&token_auth=' + token,
       muteHttpExceptions: true,
+      wholeUrl: u, // used to link urlsToFetch with allUrlsMappedToIndex
     }));
 
     const responses = UrlFetchApp.fetchAll(urlsToFetch);
 
     responses.forEach((r, i) => {
-      const urlFetched = urlsToFetch[i].url;
+      const urlFetched = (urlsToFetch[i] as any).wholeUrl;
       const responseIndex = allUrlsMappedToIndex[urlFetched];
 
       const code = r.getResponseCode();

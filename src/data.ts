@@ -177,7 +177,7 @@ export function detectMatomoPeriodFromRange(dateRange: GoogleAppsScript.Data_Stu
   return periodMatch;
 }
 
-function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
+function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>, requestedFields: { name: string }[]) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
   const segment = request.configParams.segment || '';
@@ -190,9 +190,22 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
     }
   }
 
-  let rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
-
   const reportParams = JSON.parse(report) as Record<string, string>;
+
+  const SHOW_COLUMNS_UNSUPPORTED_METHODS = [
+    'VisitFrequency.get',
+    'Contents.getContentPieces',
+    'Contents.getContentNames',
+    'Actions.getPageUrlsFollowingSiteSearch',
+  ];
+
+  let showColumns;
+  // showColumns does not work correctly with some API methods
+  if (!SHOW_COLUMNS_UNSUPPORTED_METHODS.includes(`${reportParams.apiModule}.${reportParams.apiAction}`)) {
+    showColumns = (requestedFields.map(({name}) => name)).join(',');
+  }
+
+  let rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
 
   const hasDate = !!(request.fields && request.fields.find((f) => f.name === 'date'));
 
@@ -241,6 +254,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       filter_offset: `${offset}`,
       filter_show_goal_columns_process_goals: '1',
       filter_update_columns_when_show_all_goals: '1',
+      showColumns,
     }, {
       checkRuntimeLimit: true,
       runtimeLimitAbortMessage: pastScriptRuntimeLimitErrorMessage,
@@ -454,27 +468,30 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
 
     const { reportMetadata, goals, siteCurrency } = getReportMetadataAndGoalsAndCurrency(request);
 
-    let reportData = getReportData(request);
-    if (reportData === null) {
-      const reportParams = JSON.parse(request.configParams.report);
-      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata.`);
-    }
-
     const fields = getFieldsFromReportMetadata(reportMetadata, goals, siteCurrency, request.fields?.map((r) => r.name));
-
-    // API methods that return DataTable\Simple instances are just one row, not an array of rows, so we wrap them
-    // in an array in this case
-    reportData = Array.isArray(reportData) ? reportData : [reportData];
 
     let requestedFields = request.fields;
     if (!requestedFields) {
       requestedFields = fields.asArray().map((f) => ({ name: f.getId() }));
     }
+    requestedFields = requestedFields.filter(({ name }) => fields.getFieldById(name));
 
-    const data = reportData.map((row, index) => {
+    // field instances can be garbage collected if we don't request them specifically first
+    const requestedFieldObjects = requestedFields.map(({ name }) => fields.getFieldById(name));
+
+    let reportData = getReportData(request, requestedFields);
+    if (reportData === null) {
+      const reportParams = JSON.parse(request.configParams.report);
+      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata.`);
+    }
+
+    // API methods that return DataTable\Simple instances are just one row, not an array of rows, so we wrap them
+    // in an array in this case
+    reportData = Array.isArray(reportData) ? reportData : [reportData];
+
+    const data = reportData.map((row) => {
       const fieldValues = requestedFields
-        .filter(({ name }) => fields.getFieldById(name))
-        .map(({ name }) => {
+        .map(({ name }, index) => {
           if (typeof row[name] !== 'undefined'
             && row[name] !== false // edge case that can happen in some report output
           ) {
@@ -507,7 +524,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
           }
 
           // no value found
-          const field =  fields.getFieldById(name);
+          const field = requestedFieldObjects[index];
           if (field.isDimension()
             && request.configParams.filter_limit
             && parseInt(request.configParams.filter_limit, 10) > 0
