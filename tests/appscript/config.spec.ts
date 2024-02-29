@@ -70,52 +70,55 @@ describe('config', () => {
       expect(result).toEqual(getExpectedResponse(result, 'config', 'step2'));
     });
 
-    if (process.env.USE_LOCALTUNNEL) {
-      describe('#localtunnel tests', () => {
-        let server: ReturnType<typeof makeMatomo4MockServer>;
-        let tunnel;
+    describe('#localtunnel tests', () => {
+      let server: ReturnType<typeof makeMatomo4MockServer>;
+      let tunnel;
 
-        if (process.env.USE_LOCALTUNNEL) {
-          beforeAll(async () => {
-            // create localtunnel
-            tunnel = await localtunnel({
-              port: 3000,
-              host: process.env.USE_LOCALTUNNEL,
+      if (process.env.USE_LOCALTUNNEL) {
+        beforeAll(async () => {
+          // create localtunnel
+          tunnel = await localtunnel({
+            port: 3000,
+            host: process.env.USE_LOCALTUNNEL,
+          });
+        });
+
+        afterEach(async () => {
+          if (server) {
+            await new Promise((r) => {
+              server.close(r);
             });
-          });
+            server = null;
+          }
+        });
 
-          afterEach(async () => {
-            if (server) {
-              await new Promise((r) => {
-                server.close(r);
-              });
-              server = null;
-            }
-          });
+        afterAll(async () => {
+          await tunnel.close();
+        });
+      }
 
-          afterAll(async () => {
-            await tunnel.close();
-          });
+      it('should return the expected response when the Matomo version is < 4.14', async () => {
+        if (!process.env.USE_LOCALTUNNEL) {
+          console.log('*** SKIPPING TEST ***');
+          return;
         }
 
-        it('should return the expected response when the Matomo version is < 4.14', async () => {
-          server = makeMatomo4MockServer(3000);
+        server = makeMatomo4MockServer(3000);
 
-          // use the mock server's path that forces a non-random error
-          const setCredentialsResult = await Clasp.run('setCredentials', {
-            userToken: {
-              username: tunnel.url,
-              token: 'ignored',
-            },
-          });
-
-          expect(setCredentialsResult).toEqual({ errorCode: 'NONE' });
-
-          let result = await Clasp.run('getConfig', {});
-          result = cleanUpSelects(result);
-          expect(result).toEqual(getExpectedResponse(result, 'config', 'oldMatomoVersion'));
+        // use the mock server's path that forces a non-random error
+        const setCredentialsResult = await Clasp.run('setCredentials', {
+          userToken: {
+            username: tunnel.url,
+            token: 'ignored',
+          },
         });
+
+        expect(setCredentialsResult).toEqual({ errorCode: 'NONE' });
+
+        let result = await Clasp.run('getConfig', {});
+        result = cleanUpSelects(result);
+        expect(result).toEqual(getExpectedResponse(result, 'config', 'oldMatomoVersion'));
       });
-    }
+    });
   });
 });

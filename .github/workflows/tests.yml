@@ -66,6 +66,8 @@ jobs:
 
       - name: Test
         run: npm test
+        env:
+          USE_LOCALTUNNEL: ${{ secrets.USE_LOCALTUNNEL }}
 
       - name: Archive test artifacts (actual)
         uses: actions/upload-artifact@v3
