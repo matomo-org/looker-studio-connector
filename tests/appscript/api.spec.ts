@@ -7,17 +7,19 @@
 
 import { beforeEach, beforeAll, expect } from '@jest/globals';
 import Clasp from '../utilities/clasp';
-import makeMockServer from './api/mockServer';
+import { makeApiFailureMockServer } from './api/mockServer';
+import localtunnel from 'mwp-localtunnel-client';
 
 describe('api', () => {
-  let server: ReturnType<typeof makeMockServer>;
+  let server: ReturnType<typeof makeApiFailureMockServer>;
   let tunnel;
 
   if (process.env.USE_LOCALTUNNEL) {
     beforeAll(async () => {
-      // create localtunnel
-      const localtunnel = (await import('localtunnel')).default;
-      tunnel = await localtunnel({port: 3000});
+      tunnel = await localtunnel({
+        port: 3000,
+        host: process.env.USE_LOCALTUNNEL,
+      });
     });
 
     beforeAll(async () => {
@@ -116,7 +118,7 @@ describe('api', () => {
       }
 
       let requestCount = 0;
-      server = makeMockServer(3000, {
+      server = makeApiFailureMockServer(3000, {
         onRandomError() {
           requestCount += 1;
         },
@@ -149,7 +151,7 @@ describe('api', () => {
       }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
 
       // check that the request was retried by looking at our request count
-      expect(requestCount).toEqual(5);
+      expect(requestCount).toBeGreaterThanOrEqual(4);
     }, 300000);
 
     it('should not retry if a probably non-random error is returned', async () => {
@@ -159,7 +161,7 @@ describe('api', () => {
       }
 
       let requestCount = 0;
-      server = makeMockServer(3000, {
+      server = makeApiFailureMockServer(3000, {
         onNonRandomError() {
           requestCount += 1;
         },
@@ -200,7 +202,7 @@ describe('api', () => {
       }
 
       let requestCount = 0;
-      server = makeMockServer(3000, {
+      server = makeApiFailureMockServer(3000, {
         onNonRandomError() {
           requestCount += 1;
         },

@@ -33,7 +33,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.x
+          node-version: 20.10.x
           cache: npm
 
       - name: Install
@@ -66,6 +66,8 @@ jobs:
 
       - name: Test
         run: npm test
+        env:
+          USE_LOCALTUNNEL: ${{ secrets.USE_LOCALTUNNEL }}
 
       - name: Archive test artifacts (actual)
         uses: actions/upload-artifact@v3

@@ -1,0 +1,28 @@
+{
+  "configParams": [
+    {
+      "name": "google-info-notice",
+      "text": "Note: The Matomo Connector for Looker Studio's use and transfer of information received from Google APIs to any other app will adhere to Google API Services User Data Policy (https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes), including the Limited Use requirements.",
+      "type": "INFO"
+    },
+    {
+      "name": "new-to-looker",
+      "text": "New to Looker Studio? Get started quickly with our template Matomo report: https://matomo.org/faq/looker-studio/matomo-connector-template-report/",
+      "type": "INFO"
+    },
+    {
+      "name": "matomo-4-warning",
+      "text": "WARNING: You are trying to connect to a version 4.13 Matomo. This connector works best with version 4.14 or greater. Other versions will not be able to provide Looker Studio with all necessary information.",
+      "type": "INFO"
+    },
+    {
+      "displayName": "Website/Measurable",
+      "isDynamic": true,
+      "name": "idsite",
+      "options": [
+      ],
+      "type": "SELECT_SINGLE"
+    }
+  ],
+  "isSteppedConfig": true
+}

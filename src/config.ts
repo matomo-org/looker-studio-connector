@@ -32,6 +32,12 @@ function getSitesWithAtLeastViewAccess() {
   });
 }
 
+function getMatomoVersion() {
+  const version = Api.fetch<{ value: string }>('API.getMatomoVersion').value;
+  const [major, minor] = version.split('.').map((s) => parseInt(s, 10));
+  return { major, minor };
+}
+
 function getReportMetadata(idSite: string) {
   const cache = CacheService.getUserCache();
   const cacheKey = `getConfig.API.getReportMetadata.${idSite}`;
@@ -115,6 +121,21 @@ const CONFIG_STEPS = <ConfigStep[]>[
         .setText(
           `New to Looker Studio? Get started quickly with our template Matomo report: ${reportTemplateLink}`
         );
+
+      try {
+        const matomoVersion = getMatomoVersion();
+        if (matomoVersion.major < 4
+          || (matomoVersion.major === 4 && matomoVersion.minor < 14)
+        ) {
+          config.newInfo()
+            .setId('matomo-4-warning')
+            .setText(`WARNING: You are trying to connect to a version ${matomoVersion.major}.${matomoVersion.minor} Matomo. This connector ` +
+              'works best with version 4.14 or greater. Other versions will not be able to provide Looker Studio ' +
+              'with all necessary information.');
+        }
+      } catch (e) {
+        log(`Failed to get matomo version: ${e.stack || e.message || e}`);
+      }
 
       const sitesWithViewAccess = getSitesWithAtLeastViewAccess();
 
