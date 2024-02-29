@@ -7,11 +7,14 @@
 
 export default {
   rootDir: 'tests/appscript',
-  preset: 'ts-jest',
+  preset: 'ts-jest/presets/js-with-ts-esm',
   testEnvironment: 'node',
   testTimeout: 120000,
   globalSetup: '../globalSetup.js',
   globalTeardown: '../globalTeardown.js',
   maxWorkers: 1, // since we run our tests within apps script, we can't run them in parallel
   setupFiles: ['dotenv/config'],
+  transformIgnorePatterns: [
+    "node_modules/(?!mwp-localtunnel-client/.*)",
+  ],
 };
