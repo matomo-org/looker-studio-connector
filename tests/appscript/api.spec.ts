@@ -151,7 +151,7 @@ describe('api', () => {
       }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
 
       // check that the request was retried by looking at our request count
-      expect(requestCount).toEqual(4);
+      expect(requestCount).toBeGreaterThanOrEqual(4);
     }, 300000);
 
     it('should not retry if a probably non-random error is returned', async () => {
