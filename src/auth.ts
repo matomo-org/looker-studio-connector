@@ -12,7 +12,7 @@ import { debugLog } from './log';
 export function getAuthType() {
     return cc.newAuthTypeResponse()
         .setAuthType(cc.AuthType.USER_TOKEN)
-        .setHelpUrl('https://matomo.org/looker-studio')
+        .setHelpUrl('https://matomo.org/connect-looker')
         .build();
 }
 
