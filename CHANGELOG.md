@@ -1,5 +1,13 @@
 == Changelog ===
 
+= 1.0.5 =
+* Change the Help URL of the Login form to go directly to the connection guide.
+* Add a warning if a user tries connecting with a pre-4.14 version Matomo.
+* Use the showColumns parameter to lessen the amount of data returned by Matomo.
+* Make sure to apply filter_truncate on the last request when a Default Row Limit is set.
+* Improve Matomo API request error handling and retry logic.
+* Better handling of the Default Row Limit setting.
+
 = 1.0.4 =
 * Reduce number of rows fetched at a time again.
 * Do not silence JSON.parse failures when processing Matomo API response data.
