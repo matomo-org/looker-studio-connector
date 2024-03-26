@@ -107,10 +107,15 @@ export function extractBasicAuthFromUrl(url: string): { authHeaders: Record<stri
  * @return the parsed responses for each request
  */
 export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptions = {}): any[] {
+  const userProperties = PropertiesService.getUserProperties();
+  const instanceUrl = options.instanceUrl as string || userProperties.getProperty('dscc.username');
+
   // TODO: this method could probably be cleaned up
   const cache = CacheService.getUserCache();
   if (options.cacheKey && options.cacheTtl > 0) {
-    const cacheEntry = cache.get(options.cacheKey);
+    const cacheKey = `${instanceUrl}.${options.cacheKey}`;
+
+    const cacheEntry = cache.get(cacheKey);
     if (typeof cacheEntry !== 'undefined' && cacheEntry !== null) {
       try {
         return JSON.parse(cacheEntry);
@@ -120,8 +125,6 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     }
   }
 
-  const userProperties = PropertiesService.getUserProperties();
-  const instanceUrl = options.instanceUrl as string || userProperties.getProperty('dscc.username');
   const token = options.token as string || userProperties.getProperty('dscc.token');
 
   let baseUrl = instanceUrl;
@@ -253,7 +256,8 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
   if (options.cacheKey && options.cacheTtl > 0) {
     try {
-      cache.put(options.cacheKey, JSON.stringify(responseContents), options.cacheTtl);
+      const cacheKey = `${instanceUrl}.${options.cacheKey}`;
+      cache.put(cacheKey, JSON.stringify(responseContents), options.cacheTtl);
     } catch (e) {
       log(`unexpected: failed to save cache data for ${options.cacheKey}`);
     }
