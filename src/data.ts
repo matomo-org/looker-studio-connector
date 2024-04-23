@@ -192,6 +192,11 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
 
   const reportParams = JSON.parse(report) as Record<string, string>;
 
+  const apiMethod = `${reportParams.apiModule}.${reportParams.apiAction}`;
+  if (apiMethod === 'MultiSites.getAll') {
+    reportParams.enhanced = '1';
+  }
+
   const SHOW_COLUMNS_UNSUPPORTED_METHODS = [
     'VisitFrequency.get',
     'Contents.getContentPieces',
@@ -201,7 +206,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
 
   let showColumns;
   // showColumns does not work correctly with some API methods
-  if (!SHOW_COLUMNS_UNSUPPORTED_METHODS.includes(`${reportParams.apiModule}.${reportParams.apiAction}`)) {
+  if (!SHOW_COLUMNS_UNSUPPORTED_METHODS.includes(apiMethod)) {
     showColumns = (requestedFields.map(({name}) => name)).join(',');
   }
 
