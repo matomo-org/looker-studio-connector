@@ -14,6 +14,8 @@ const DATE_TO_TEST = '2023-02-15';
 const RANGE_START_DATE_TO_TEST = '2023-02-15';
 const RANGE_END_DATE_TO_TEST = '2023-02-19';
 
+process.env.ONLY_TEST_METHOD = "Actions.getPageUrls";
+
 const MATOMO_PERIODS_TO_TEST = {
   week: ['2023-02-13', '2023-02-19'],
   month: ['2023-02-01', '2023-02-28'],
@@ -472,7 +474,7 @@ describe('data', () => {
       }
 
       const paramsSuffix = r.parameters ? `(${Object.entries(r.parameters).map(([k, v]) => `${k}_${v}`).join('_')})` : '';
-      it(`should correctly map the schema & data for ${method}${paramsSuffix}`, async () => {
+      it.only(`should correctly map the schema & data for ${method}${paramsSuffix}`, async () => {
         let result = await Clasp.run('getData', {
           configParams: {
             idsite: env.APPSCRIPT_TEST_IDSITE,

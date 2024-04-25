@@ -152,6 +152,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     return query;
   });
 
+  console.log(allUrls);
   debugLog('making requests to matomo:', allUrls);
 
   const allUrlsMappedToIndex = Object.fromEntries(allUrls.map((url, i) => [url, i]));
