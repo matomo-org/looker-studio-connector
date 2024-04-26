@@ -257,8 +257,8 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       filter_truncate: filter_truncate <= 0 ? undefined : `${filter_truncate - 1}`,
       filter_limit: `${limitToUse}`,
       filter_offset: `${offset}`,
-      filter_show_goal_columns_process_goals: '1',
       filter_update_columns_when_show_all_goals: '1',
+      idGoal: '0', // calculate for all goals
       showColumns,
     }, {
       checkRuntimeLimit: true,
