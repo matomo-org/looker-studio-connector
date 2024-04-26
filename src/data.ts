@@ -246,7 +246,8 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   let hasMoreRowsToFetch = true;
   while (hasMoreRowsToFetch) {
     const limitToUse = filter_truncate < 0 || filter_truncate >= rowsToFetchAtATime ? rowsToFetchAtATime : filter_truncate;
-    let partialResponseRaw = Api.fetch<DataTableRow[]|Record<string, DataTableRow[]>>(`${reportParams.apiModule}.${reportParams.apiAction}`, {
+
+    const params: Record<string, string> = {
       ...reportParams,
       idSite: `${idSite}`,
       period,
@@ -257,10 +258,15 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       filter_truncate: filter_truncate <= 0 ? undefined : `${filter_truncate - 1}`,
       filter_limit: `${limitToUse}`,
       filter_offset: `${offset}`,
-      filter_show_goal_columns_process_goals: '1',
-      filter_update_columns_when_show_all_goals: '1',
       showColumns,
-    }, {
+    };
+
+    if (reportParams.apiModule !== 'Goals') {
+      params.filter_update_columns_when_show_all_goals = '1';
+      params.idGoal = '0'; // calculate extra metrics for all goals
+    }
+
+    let partialResponseRaw = Api.fetch<DataTableRow[]|Record<string, DataTableRow[]>>(`${reportParams.apiModule}.${reportParams.apiAction}`, params, {
       checkRuntimeLimit: true,
       runtimeLimitAbortMessage: pastScriptRuntimeLimitErrorMessage,
     });
