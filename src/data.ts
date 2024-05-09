@@ -576,7 +576,8 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
               value = value.toString().split('-').slice(0, 2).join('');
             } else if (matomoType === 'date_week') {
               // value is in YYYY-MM-DD, but must be converted to YYYYww
-              value = value.toString().split('-').shift() + dayjs(value).week();
+              const start = value.split(',')[0];
+              value = start.toString().split('-').shift() + dayjs(start).week().toString().padStart(2, '0');
             } else if (matomoType === 'date_year') {
               value = value.toString().split('-').shift();
             } else if (matomoType === 'datetime') {

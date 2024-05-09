@@ -108,6 +108,33 @@
         "conceptType": "DIMENSION",
         "semanticType": "YEAR_MONTH_DAY"
       }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Month",
+      "name": "date_month",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_MONTH"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Week (Mon - Sun)",
+      "name": "date_week",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_WEEK"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Year",
+      "name": "date_year",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR"
+      }
     }
   ]
 }

@@ -435,7 +435,7 @@ describe('data', () => {
           { name: 'max_event_value' },
         ],
       });
-      expect(result).toEqual(getExpectedResponse(result, 'data', 'Events.getName_withDateDimension'));
+      expect(result).toEqual(getExpectedResponse(result, 'data', 'Events.getName_withDateDimension_date'));
     });
 
     it('should correctly fetch data for a date range spanning multiple days', async () => {
