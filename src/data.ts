@@ -45,6 +45,29 @@ const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
   'unspecified': cc.FieldType.TEXT,
 };
 
+const DATE_DIMENSIONS = {
+  date: {
+    name: 'Date',
+    type: cc.FieldType.YEAR_MONTH_DAY,
+    daysInPeriod: 1,
+  },
+  date_month: {
+    name: 'Month',
+    type: cc.FieldType.YEAR_MONTH,
+    daysInPeriod: 30,
+  },
+  date_week: {
+    name: 'Week (Mon - Sun)',
+    type: cc.FieldType.YEAR_WEEK,
+    daysInPeriod: 7,
+  },
+  date_year: {
+    name: 'Year',
+    type: cc.FieldType.YEAR,
+    daysInPeriod: 365,
+  },
+};
+
 // exported for tests
 export function getMatomoSemanticTypeToLookerMapping() {
   return MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING;
@@ -228,12 +251,14 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
 
     // note: this calculation doesn't work every time, but it's good enough for determining row counts
     const MS_IN_DAY = 1000 * 60 * 60 * 24;
-    let numberOfDays = Math.round(((new Date(request.dateRange.endDate)).getTime() - (new Date(request.dateRange.startDate)).getTime()) / MS_IN_DAY);
-    numberOfDays = Math.max(numberOfDays, 1);
+
+    let numberOfPeriods = Math.round(((new Date(request.dateRange.endDate)).getTime() - (new Date(request.dateRange.startDate)).getTime()) / MS_IN_DAY);
+    numberOfPeriods = numberOfPeriods / DATE_DIMENSIONS[dateMetricIfPresent.name].daysInPeriod;
+    numberOfPeriods = Math.max(numberOfPeriods, 1);
 
     // if we fetch multiple days, the filter_limit will be applied to every day. so we need to change the rows
     // to fetch to make sure we only select MAX_ROWS_TO_FETCH_PER_REQUEST in total.
-    rowsToFetchAtATime = Math.floor(rowsToFetchAtATime / numberOfDays);
+    rowsToFetchAtATime = Math.floor(rowsToFetchAtATime / numberOfPeriods);
     rowsToFetchAtATime = Math.max(rowsToFetchAtATime, 1);
   } else {
     const matomoPeriod = detectMatomoPeriodFromRange(request.dateRange);
@@ -328,25 +353,6 @@ function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, id: string, d
     .setName(dimension)
     .setType(cc.FieldType.TEXT);
 }
-
-const DATE_DIMENSIONS = {
-  date: {
-    name: 'Date',
-    type: cc.FieldType.YEAR_MONTH_DAY,
-  },
-  date_month: {
-    name: 'Month',
-    type: cc.FieldType.YEAR_MONTH,
-  },
-  date_week: {
-    name: 'Week (Mon - Sun)',
-    type: cc.FieldType.YEAR_WEEK,
-  },
-  date_year: {
-    name: 'Year',
-    type: cc.FieldType.YEAR,
-  },
-};
 
 function addDateDimensions(
   fields: GoogleAppsScript.Data_Studio.Fields,
