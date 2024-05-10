@@ -388,26 +388,28 @@ describe('data', () => {
       });
     }
 
-    it('should fetch data by day when the date dimension is requested', async () => {
-      let result = await Clasp.run('getData', {
-        configParams: {
-          idsite: env.APPSCRIPT_TEST_IDSITE,
-          report: JSON.stringify({ apiModule: 'Events', apiAction: 'getName' }),
-          filter_limit: 5,
-        },
-        dateRange: {
-          startDate: RANGE_START_DATE_TO_TEST,
-          endDate: RANGE_END_DATE_TO_TEST,
-        },
-        fields: [
-          { name: 'date' },
-          { name: 'nb_events' },
-          { name: 'Events_EventAction' },
-          { name: 'Events_EventName' },
-          { name: 'max_event_value' },
-        ],
+    ['date', 'date_week', 'date_month', 'date_year'].forEach((dimensionName) => {
+      it(`should fetch data by day when the ${dimensionName} dimension is requested`, async () => {
+        let result = await Clasp.run('getData', {
+          configParams: {
+            idsite: env.APPSCRIPT_TEST_IDSITE,
+            report: JSON.stringify({ apiModule: 'Events', apiAction: 'getName' }),
+            filter_limit: 5,
+          },
+          dateRange: {
+            startDate: RANGE_START_DATE_TO_TEST,
+            endDate: RANGE_END_DATE_TO_TEST,
+          },
+          fields: [
+            { name: dimensionName },
+            { name: 'nb_events' },
+            { name: 'Events_EventAction' },
+            { name: 'Events_EventName' },
+            { name: 'max_event_value' },
+          ],
+        });
+        expect(result).toEqual(getExpectedResponse(result, 'data', `Events.getName_withDateDimension_${dimensionName}`));
       });
-      expect(result).toEqual(getExpectedResponse(result, 'data', 'Events.getName_withDateDimension'));
     });
 
     it('should paginate correctly when fetch data by day when the date dimension is requested', async () => {
@@ -433,7 +435,7 @@ describe('data', () => {
           { name: 'max_event_value' },
         ],
       });
-      expect(result).toEqual(getExpectedResponse(result, 'data', 'Events.getName_withDateDimension'));
+      expect(result).toEqual(getExpectedResponse(result, 'data', 'Events.getName_withDateDimension_date'));
     });
 
     it('should correctly fetch data for a date range spanning multiple days', async () => {

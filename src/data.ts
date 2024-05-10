@@ -5,6 +5,8 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
+import dayjs from 'dayjs/esm';
+import weekOfYear from 'dayjs/esm/plugin/weekOfYear';
 import cc, { ConnectorParams } from './connector';
 import * as Api from './api';
 import env from './env';
@@ -15,6 +17,8 @@ import {
 } from './error';
 import { DataTableRow } from './api';
 import { debugLog } from './log';
+
+dayjs.extend(weekOfYear);
 
 const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the requested data. This may be a momentary issue with '
   + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
@@ -39,6 +43,29 @@ const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
   'bool': cc.FieldType.BOOLEAN,
   'percent': cc.FieldType.PERCENT,
   'unspecified': cc.FieldType.TEXT,
+};
+
+const DATE_DIMENSIONS = {
+  date: {
+    name: 'Date',
+    type: cc.FieldType.YEAR_MONTH_DAY,
+    daysInPeriod: 1,
+  },
+  date_month: {
+    name: 'Month',
+    type: cc.FieldType.YEAR_MONTH,
+    daysInPeriod: 30,
+  },
+  date_week: {
+    name: 'Week (Mon - Sun)',
+    type: cc.FieldType.YEAR_WEEK,
+    daysInPeriod: 7,
+  },
+  date_year: {
+    name: 'Year',
+    type: cc.FieldType.YEAR,
+    daysInPeriod: 365,
+  },
 };
 
 // exported for tests
@@ -212,22 +239,26 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
 
   let rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
 
-  const hasDate = !!(request.fields && request.fields.find((f) => f.name === 'date'));
+  const dateMetricIfPresent = request.fields && request.fields
+    .filter((f) => DATE_DIMENSIONS[f.name])
+    .pop(); // always use the last occurrence, since 'date' will be requested along with the other dimension
 
   let period = 'range';
   let date = `${request.dateRange.startDate},${request.dateRange.endDate}`;
 
-  if (hasDate) {
-    period = 'day';
+  if (dateMetricIfPresent) {
+    period = dateMetricIfPresent.name.split('_')[1] || 'day';
 
     // note: this calculation doesn't work every time, but it's good enough for determining row counts
     const MS_IN_DAY = 1000 * 60 * 60 * 24;
-    let numberOfDays = Math.round(((new Date(request.dateRange.endDate)).getTime() - (new Date(request.dateRange.startDate)).getTime()) / MS_IN_DAY);
-    numberOfDays = Math.max(numberOfDays, 1);
+
+    let numberOfPeriods = Math.round(((new Date(request.dateRange.endDate)).getTime() - (new Date(request.dateRange.startDate)).getTime()) / MS_IN_DAY);
+    numberOfPeriods = numberOfPeriods / DATE_DIMENSIONS[dateMetricIfPresent.name].daysInPeriod;
+    numberOfPeriods = Math.max(numberOfPeriods, 1);
 
     // if we fetch multiple days, the filter_limit will be applied to every day. so we need to change the rows
     // to fetch to make sure we only select MAX_ROWS_TO_FETCH_PER_REQUEST in total.
-    rowsToFetchAtATime = Math.floor(rowsToFetchAtATime / numberOfDays);
+    rowsToFetchAtATime = Math.floor(rowsToFetchAtATime / numberOfPeriods);
     rowsToFetchAtATime = Math.max(rowsToFetchAtATime, 1);
   } else {
     const matomoPeriod = detectMatomoPeriodFromRange(request.dateRange);
@@ -275,7 +306,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       break; // nothing returned by request
     }
 
-    const partialResponse = hasDate ? partialResponseRaw as Record<string, DataTableRow[]> : { [date]: partialResponseRaw as DataTableRow[] };
+    const partialResponse = dateMetricIfPresent ? partialResponseRaw as Record<string, DataTableRow[]> : { [date]: partialResponseRaw as DataTableRow[] };
     Object.entries(partialResponse).forEach(([date, rows]) => {
       if (!rows) {
         rows = [];
@@ -285,7 +316,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
         response[date] = [];
       }
 
-      if (hasDate) {
+      if (dateMetricIfPresent) {
         response[date].push(...rows.map((r) => ({ ...r, date })));
       } else {
         response[date].push(...rows);
@@ -323,12 +354,21 @@ function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, id: string, d
     .setType(cc.FieldType.TEXT);
 }
 
-function addDateDimension(fields: GoogleAppsScript.Data_Studio.Fields) {
-  fields
-    .newDimension()
-    .setId('date')
-    .setName('Date')
-    .setType(cc.FieldType.YEAR_MONTH_DAY);
+function addDateDimensions(
+  fields: GoogleAppsScript.Data_Studio.Fields,
+  includeOnly: string[] = Object.keys(DATE_DIMENSIONS),
+) {
+  includeOnly.forEach((id) => {
+    if (!DATE_DIMENSIONS[id]) {
+      return;
+    }
+
+    fields
+      .newDimension()
+      .setId(id)
+      .setName(DATE_DIMENSIONS[id].name)
+      .setType(DATE_DIMENSIONS[id].type);
+  });
 }
 
 function metricsForEachGoal(metrics: Record<string, string>, goals: Record<string, Api.Goal>) {
@@ -401,8 +441,8 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
       return;
     }
 
-    if (metricId === 'date') {
-      addDateDimension(fields);
+    if (DATE_DIMENSIONS[metricId]) {
+      addDateDimensions(fields, [metricId]);
     }
 
     if (reportMetadata.dimensions?.[metricId]) {
@@ -456,7 +496,7 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
     const fields = getFieldsFromReportMetadata(reportMetadata, goals, siteCurrency);
 
     // add Date field to support time series'
-    addDateDimension(fields);
+    addDateDimensions(fields);
 
     const result = { schema: fields.build() };
 
@@ -503,22 +543,31 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     const data = reportData.map((row) => {
       const fieldValues = requestedFields
         .map(({ name }, index) => {
-          if (typeof row[name] !== 'undefined'
-            && row[name] !== false // edge case that can happen in some report output
+          let matomoType = reportMetadata?.metricTypes?.[name];
+          if (DATE_DIMENSIONS[name]) {
+            matomoType = name;
+            name = 'date';
+          }
+
+          let value = row[name];
+          if (typeof value !== 'undefined'
+            && value !== false // edge case that can happen in some report output
           ) {
-            let value = row[name];
-
             // perform any transformations on the value required by the Matomo type
-            let matomoType = reportMetadata?.metricTypes?.[name];
-            if (name === 'date') {
-              matomoType = 'date';
-            }
-
             if (matomoType === 'duration_ms') {
               value = parseInt(value as string, 10) / 1000;
             } else if (matomoType === 'date') {
               // value is in YYYY-MM-DD format, but must be converted to YYYYMMDD
               value = value.toString().replace(/-/g, '');
+            } else if (matomoType === 'date_month') {
+              // value is in YYYY-MM-DD format, but must be converted to YYYYMM
+              value = value.toString().split('-').slice(0, 2).join('');
+            } else if (matomoType === 'date_week') {
+              // value is in YYYY-MM-DD, but must be converted to YYYYww
+              const start = value.split(',')[0];
+              value = start.toString().split('-').shift() + dayjs(start).week().toString().padStart(2, '0');
+            } else if (matomoType === 'date_year') {
+              value = value.toString().split('-').shift();
             } else if (matomoType === 'datetime') {
               // value is in YYYY-MM-DD HH:MM:SS format, but must be converted to YYYYMMDDHHMMSS
               value = value.toString().replace(/[-:\s]/g, '');

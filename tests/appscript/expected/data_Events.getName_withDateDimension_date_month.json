@@ -1,0 +1,99 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "202302",
+        "1220",
+        "Cart change",
+        "added - Diving Tank",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "202302",
+        "1087",
+        "Cart change",
+        "added - Basic Wetsuit",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "202302",
+        "986",
+        "Cart change",
+        "added - Scuba Fins",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "202302",
+        "495",
+        "Cart change",
+        "added - Diving Knife",
+        "3"
+      ]
+    },
+    {
+      "values": [
+        "202302",
+        "6492",
+        "Others",
+        "Others",
+        "11852"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Month",
+      "name": "date_month",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_MONTH"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Events",
+      "name": "nb_events",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Event Action",
+      "name": "Events_EventAction",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Event Name",
+      "name": "Events_EventName",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Maximum Event value",
+      "name": "max_event_value",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}
