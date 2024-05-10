@@ -249,7 +249,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   if (dateMetricIfPresent) {
     period = dateMetricIfPresent.name.split('_')[1] || 'day';
 
-    // note: this calculation doesn't work every time, but it's good enough for determining row counts
+    // note: this calculation is imprecise, but it's good enough for determining row counts
     const MS_IN_DAY = 1000 * 60 * 60 * 24;
 
     let numberOfPeriods = Math.round(((new Date(request.dateRange.endDate)).getTime() - (new Date(request.dateRange.startDate)).getTime()) / MS_IN_DAY);
