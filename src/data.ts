@@ -217,28 +217,14 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   let rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
 
   const dateMetricIfPresent = request.fields && request.fields
-    .filter((f) => DATE_METRIC_IDS.includes(f.name))
+    .filter((f) => DATE_DIMENSIONS[f.name])
     .pop(); // always use the last occurrence, since 'date' will be requested along with the other dimension
 
   let period = 'range';
   let date = `${request.dateRange.startDate},${request.dateRange.endDate}`;
 
   if (dateMetricIfPresent) {
-    switch (dateMetricIfPresent.name) {
-      case 'date_year':
-        period = 'year';
-        break;
-      case 'date_month':
-        period = 'month';
-        break;
-      case 'date_week':
-        period = 'week';
-        break;
-      case 'date':
-      default:
-        period = 'day';
-        break;
-    }
+    period = dateMetricIfPresent.name.split('_')[1] || 'day';
 
     // note: this calculation doesn't work every time, but it's good enough for determining row counts
     const MS_IN_DAY = 1000 * 60 * 60 * 24;
@@ -343,43 +329,40 @@ function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, id: string, d
     .setType(cc.FieldType.TEXT);
 }
 
-const DATE_METRIC_IDS = ['date', 'date_month', 'date_week', 'date_year'];
+const DATE_DIMENSIONS = {
+  date: {
+    name: 'Date',
+    type: cc.FieldType.YEAR_MONTH_DAY,
+  },
+  date_month: {
+    name: 'Month',
+    type: cc.FieldType.YEAR_MONTH,
+  },
+  date_week: {
+    name: 'Week (Mon - Sun)',
+    type: cc.FieldType.YEAR_WEEK,
+  },
+  date_year: {
+    name: 'Year',
+    type: cc.FieldType.YEAR,
+  },
+};
 
 function addDateDimensions(
   fields: GoogleAppsScript.Data_Studio.Fields,
-  includeOnly: string[] = DATE_METRIC_IDS,
+  includeOnly: string[] = Object.keys(DATE_DIMENSIONS),
 ) {
-  if (includeOnly.includes('date')) {
-    fields
-      .newDimension()
-      .setId('date')
-      .setName('Date')
-      .setType(cc.FieldType.YEAR_MONTH_DAY);
-  }
+  includeOnly.forEach((id) => {
+    if (!DATE_DIMENSIONS[id]) {
+      return;
+    }
 
-  if (includeOnly.includes('date_month')) {
     fields
       .newDimension()
-      .setId('date_month')
-      .setName('Month')
-      .setType(cc.FieldType.YEAR_MONTH);
-  }
-
-  if (includeOnly.includes('date_week')) {
-    fields
-      .newDimension()
-      .setId('date_week')
-      .setName('Week (Mon - Sun)')
-      .setType(cc.FieldType.YEAR_WEEK);
-  }
-
-  if (includeOnly.includes('date_year')) {
-    fields
-      .newDimension()
-      .setId('date_year')
-      .setName('Year')
-      .setType(cc.FieldType.YEAR);
-  }
+      .setId(id)
+      .setName(DATE_DIMENSIONS[id].name)
+      .setType(DATE_DIMENSIONS[id].type);
+  });
 }
 
 function metricsForEachGoal(metrics: Record<string, string>, goals: Record<string, Api.Goal>) {
@@ -452,7 +435,7 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
       return;
     }
 
-    if (DATE_METRIC_IDS.includes(metricId)) {
+    if (DATE_DIMENSIONS[metricId]) {
       addDateDimensions(fields, [metricId]);
     }
 
@@ -554,18 +537,17 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     const data = reportData.map((row) => {
       const fieldValues = requestedFields
         .map(({ name }, index) => {
-          // perform any transformations on the value required by the Matomo type
           let matomoType = reportMetadata?.metricTypes?.[name];
-          if (DATE_METRIC_IDS.includes(name)) {
+          if (DATE_DIMENSIONS[name]) {
             matomoType = name;
             name = 'date';
           }
 
-          if (typeof row[name] !== 'undefined'
-            && row[name] !== false // edge case that can happen in some report output
+          let value = row[name];
+          if (typeof value !== 'undefined'
+            && value !== false // edge case that can happen in some report output
           ) {
-            let value = row[name];
-
+            // perform any transformations on the value required by the Matomo type
             if (matomoType === 'duration_ms') {
               value = parseInt(value as string, 10) / 1000;
             } else if (matomoType === 'date') {
