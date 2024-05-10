@@ -1,5 +1,10 @@
 == Changelog ===
 
+= 1.1.0 =
+* New time dimensions that map to Matomo periods: Year, Month and Week.
+* Fix bug causing some goal metrics to always be reported as 0.
+* Fix bug causing some metrics in the All Websites report to always be reported as 0.
+
 = 1.0.5 =
 * Change the Help URL of the Login form to go directly to the connection guide.
 * Add a warning if a user tries connecting with a pre-4.14 version Matomo.
