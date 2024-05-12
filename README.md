@@ -8,10 +8,6 @@ or On-Premise instances using just a Matomo Auth Token.
 
 ## Using the connector
 
-_Note: The Matomo Connector for Looker Studio is currently awaiting approval as a Community
-Connector. Once it is approved you will be able to find it within Looker Studio's connect to data
-workflow._
-
 Learn more in our [official guides](https://matomo.org/guide/apis/looker-studio/).
 
 ## Support
