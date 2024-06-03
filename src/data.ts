@@ -399,13 +399,21 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
     allMetrics = { ...allMetrics, ...metricsForEachGoal(reportMetadata.processedMetricsGoal, goals) };
   }
 
-  // add goal specific conversion_rate if not present in metadata, but other goal metrics are
-  // (in 4.x-dev, this is removed in the API despite the data being available)
-  if (
-    (reportMetadata.metricsGoal || reportMetadata.processedMetricsGoal)
-    && (!reportMetadata.metricsGoal?.conversion_rate && !reportMetadata.processedMetricsGoal?.conversion_rate)
-  ) {
-    allMetrics = { ...allMetrics, ...metricsForEachGoal({ 'conversion_rate': 'Conversion Rate' }, goals) };
+  if (reportMetadata.metricsGoal || reportMetadata.processedMetricsGoal) {
+    // add goal specific conversion_rate if not present in metadata, but other goal metrics are
+    // (in 4.x-dev, this is removed in the API despite the data being available)
+    if (!reportMetadata.metricsGoal?.conversion_rate && !reportMetadata.processedMetricsGoal?.conversion_rate) {
+      allMetrics = { ...allMetrics, ...metricsForEachGoal({ 'conversion_rate': 'Conversion Rate' }, goals) };
+    }
+
+    // pre 5.1.0, the overall conversions and revenue sum metrics were not present in metadata output,
+    // but the data exists in the actual API output
+    if (!reportMetadata.metrics?.conversion) {
+      allMetrics['nb_conversions'] = 'Conversions';
+    }
+    if (!reportMetadata.metrics?.revenue) {
+      allMetrics['revenue'] = 'Revenue';
+    }
   }
 
   if (!requestedFields?.length) {
