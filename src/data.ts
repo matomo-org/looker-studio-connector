@@ -408,11 +408,13 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
 
     // pre 5.1.0, the overall conversions and revenue sum metrics were not present in metadata output,
     // but the data exists in the actual API output
-    if (!reportMetadata.metrics?.conversion) {
-      allMetrics['nb_conversions'] = 'Conversions';
-    }
-    if (!reportMetadata.metrics?.revenue) {
-      allMetrics['revenue'] = 'Revenue';
+    if (reportMetadata.module !== 'Actions') {
+      if (!reportMetadata.metrics?.conversion) {
+        allMetrics['nb_conversions'] = 'Conversions';
+      }
+      if (!reportMetadata.metrics?.revenue) {
+        allMetrics['revenue'] = 'Revenue';
+      }
     }
   }
 
