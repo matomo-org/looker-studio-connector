@@ -300,6 +300,16 @@
       }
     },
     {
+      "dataType": "NUMBER",
+      "label": "Revenue",
+      "name": "revenue",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
+      }
+    },
+    {
       "dataType": "STRING",
       "label": "Date",
       "name": "date",

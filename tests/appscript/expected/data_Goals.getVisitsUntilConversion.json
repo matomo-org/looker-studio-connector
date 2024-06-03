@@ -32,12 +32,14 @@
         "0",
         "0",
         "0",
+        "0",
         "0"
       ]
     },
     {
       "values": [
         "2 visits",
+        "0",
         "0",
         "0",
         "0",
@@ -100,12 +102,14 @@
         "0",
         "0",
         "0",
+        "0",
         "0"
       ]
     },
     {
       "values": [
         "4 visits",
+        "0",
         "0",
         "0",
         "0",
@@ -141,6 +145,7 @@
       "values": [
         "Others",
         "82",
+        "0",
         "0",
         "0",
         "0",
@@ -470,6 +475,16 @@
         "conceptType": "METRIC",
         "isReaggregatable": false,
         "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Revenue",
+      "name": "revenue",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
       }
     }
   ]
