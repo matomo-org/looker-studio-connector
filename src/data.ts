@@ -411,9 +411,11 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
     if (reportMetadata.module !== 'Actions') {
       if (!reportMetadata.metrics?.conversion) {
         allMetrics['nb_conversions'] = 'Conversions';
+        reportMetadata.metricTypes['nb_conversions'] = 'number';
       }
       if (!reportMetadata.metrics?.revenue) {
         allMetrics['revenue'] = 'Revenue';
+        reportMetadata.metricTypes['revenue'] = 'money';
       }
     }
   }
