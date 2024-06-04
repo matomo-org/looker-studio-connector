@@ -37,7 +37,9 @@
         "0.0203",
         "0.0068",
         "0.0027",
-        "0"
+        "0",
+        "50",
+        "3837.4500000000003"
       ]
     },
     {
@@ -76,7 +78,9 @@
         "0.0242",
         "0.0081",
         "0",
-        "0"
+        "0",
+        "24",
+        "173.9"
       ]
     },
     {
@@ -115,7 +119,9 @@
         "0.0263",
         "0.0075",
         "0.0038",
-        "0"
+        "0",
+        "33",
+        "2625.7000000000003"
       ]
     },
     {
@@ -154,7 +160,9 @@
         "0.0265",
         "0.0053",
         "0",
-        "0"
+        "0",
+        "8",
+        "1005"
       ]
     },
     {
@@ -193,7 +201,9 @@
         "0.0202",
         "0.0404",
         "0",
-        "0"
+        "0",
+        "8",
+        "6"
       ]
     }
   ],
@@ -545,6 +555,26 @@
         "conceptType": "METRIC",
         "isReaggregatable": false,
         "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Conversions",
+      "name": "nb_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Revenue",
+      "name": "revenue",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "CURRENCY_USD"
       }
     }
   ]
