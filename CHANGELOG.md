@@ -1,5 +1,8 @@
 == Changelog ===
 
+= 1.1.1 =
+* Expose Overall Goal Conversions and Revenue metrics for reports that support them in Matomo (workaround for core Matomo bug).
+
 = 1.1.0 =
 * New time dimensions that map to Matomo periods: Year, Month and Week.
 * Fix bug causing some goal metrics to always be reported as 0.
