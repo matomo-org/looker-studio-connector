@@ -10,6 +10,7 @@ import * as Api from '../api';
 import {
   DATE_DIMENSIONS,
   mapMatomoSemanticTypeToLooker,
+  mapMatomoAggregationTypeToLooker,
 } from "./data-types";
 
 export function getReportMetadataAndGoalsAndCurrency(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
@@ -87,15 +88,28 @@ function metricsForEachGoal(metrics: Record<string, string>, goals: Record<strin
   return perGoalMetrics;
 }
 
-function addMetric(fields: GoogleAppsScript.Data_Studio.Fields, id: string, name: string, matomoType: string, siteCurrency: string) {
+function addMetric(
+  fields: GoogleAppsScript.Data_Studio.Fields,
+  id: string,
+  name: string,
+  matomoType: string,
+  siteCurrency: string,
+  reaggregation?: string,
+) {
   let type = mapMatomoSemanticTypeToLooker(matomoType, siteCurrency);
+  let aggregationType = mapMatomoAggregationTypeToLooker(reaggregation);
 
-  fields
+  const field = fields
     .newMetric()
     .setId(id)
     .setName(name)
-    .setType(type)
-    .setIsReaggregatable(false);
+    .setType(type);
+
+  if (aggregationType) {
+    field.setAggregation(aggregationType);
+  } else {
+    field.setIsReaggregatable(false);
+  }
 }
 
 function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, id: string, dimension: string) {
@@ -209,16 +223,19 @@ export function getFieldsFromReportMetadata(
 
     if (allMetrics[metricId]) {
       let matomoType: string;
+      let aggregationType: string;
 
       const m = metricId.match(/^goal_\d+_(.*)/)
       if (m) {
         matomoType = reportMetadata.metricTypesGoal?.[m[1]];
+        aggregationType = reportMetadata.metricAggregationTypesGoal?.[m[1]]; // TODO: handle in core
       } else {
         matomoType = reportMetadata.metricTypes?.[metricId];
+        aggregationType = reportMetadata.metricAggregationTypes?.[metricId];
       }
       matomoType = matomoType || 'text';
 
-      addMetric(fields, metricId, allMetrics[metricId], matomoType, siteCurrency);
+      addMetric(fields, metricId, allMetrics[metricId], matomoType, siteCurrency, aggregationType);
     } else if (metricId === 'nb_uniq_visitors') {
       // to support showing nb_uniq_visitors for day periods, but not others, we need to make sure
       // the metric appears in the schema no matter what date range is required. which means adding

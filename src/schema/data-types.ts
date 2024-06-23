@@ -5,8 +5,10 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
+import AggregationType = GoogleAppsScript.Data_Studio.AggregationType;
 import cc from '../connector';
-import dayjs from "dayjs/esm";
+import dayjs from 'dayjs/esm';
+import { log } from '../log';
 
 export const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
   'dimension': cc.FieldType.TEXT,
@@ -96,4 +98,24 @@ export function convertMatomoTypeToLooker(value: any, matomoType: string) {
   // fumble sometimes when it's not a string (for example, when the metric is marked as a duration) and
   // fail to display the data.
   return `${value}`;
+}
+
+export function mapMatomoAggregationTypeToLooker(matomoAggregation: string): AggregationType|undefined {
+  switch (matomoAggregation.toLowerCase()) {
+    case 'avg':
+      return AggregationType.AVG;
+    case 'count': // TODO: do we really need to support count and count_distinct? does not seem to apply to matomo
+      return AggregationType.COUNT;
+    case 'count_distinct':
+      return AggregationType.COUNT_DISTINCT;
+    case 'max':
+      return AggregationType.SUM;
+    case 'min':
+      return AggregationType.MIN;
+    case 'sum':
+      return AggregationType.SUM;
+    default:
+      log(`unknown matomo aggregation type encountered: ${matomoAggregation}`);
+      return undefined;
+  }
 }

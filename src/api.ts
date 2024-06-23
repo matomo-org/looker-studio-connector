@@ -52,6 +52,8 @@ export interface ReportMetadata {
   metricTypes?: Record<string, string>;
   metricTypesGoal?: Record<string, string>;
   parameters?: Record<string, string>;
+  metricAggregationTypes?: Record<string, string>;
+  metricAggregationTypesGoal?: Record<string, string>;
 }
 
 export interface Goal {
