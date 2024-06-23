@@ -7,6 +7,7 @@
 
 import dayjs from 'dayjs/esm';
 import weekOfYear from 'dayjs/esm/plugin/weekOfYear';
+import { create, all } from 'mathjs/lib/esm/number';
 import cc, { ConnectorParams } from './connector';
 import * as Api from './api';
 import env from './env';
@@ -19,6 +20,8 @@ import { DataTableRow } from './api';
 import { debugLog } from './log';
 
 dayjs.extend(weekOfYear);
+
+const math = create(all);
 
 const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the requested data. This may be a momentary issue with '
   + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
