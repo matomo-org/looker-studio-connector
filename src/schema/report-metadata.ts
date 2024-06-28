@@ -97,7 +97,7 @@ function addMetric(
   matomoType: string,
   siteCurrency: string,
   reaggregation?: string,
-  formula?: string,
+  lookerFormula?: string,
 ) {
   let type = mapMatomoSemanticTypeToLooker(matomoType, siteCurrency);
   let aggregationType = mapMatomoAggregationTypeToLooker(reaggregation);
@@ -108,9 +108,7 @@ function addMetric(
     .setName(name)
     .setType(type);
 
-  if (formula) {
-    let { lookerFormula } = mapMatomoFormulaToLooker(formula);
-
+  if (lookerFormula) {
     field
       .setFormula(lookerFormula)
       .setAggregation(AggregationType.AUTO);
@@ -146,6 +144,26 @@ function addDateDimensions(
   });
 }
 
+function addTemporaryMetric(
+  fields: GoogleAppsScript.Data_Studio.Fields,
+  metricId: string,
+  matomoType: string,
+  siteCurrency: string,
+  aggregationType?: string,
+) {
+  const field = fields
+    .newMetric()
+    .setId(metricId)
+    .setName(metricId)
+    .setIsHidden(true)
+    .setType(mapMatomoSemanticTypeToLooker(matomoType, siteCurrency));
+
+  const tempFieldAggregation = mapMatomoAggregationTypeToLooker(aggregationType);
+  if (tempFieldAggregation) {
+    field.setAggregation(tempFieldAggregation);
+  }
+}
+
 export function getFieldsFromReportMetadata(
   reportMetadata: Api.ReportMetadata,
   goals: Record<string, Api.Goal>,
@@ -154,41 +172,22 @@ export function getFieldsFromReportMetadata(
 ) {
   const fields = cc.getFields();
 
-  // TODO: add temporary metrics first? how do we handle metadata that is only present in getData()?
-  /*
-  for (const tempMetric of temporaryMetrics) {
-    const tempField = fields
-      .newMetric()
-      .setId(tempMetric.id)
-      .setName(tempMetric.id)
-      .setIsHidden(true)
-      .setType(mapMatomoSemanticTypeToLooker(tempMetric.type, siteCurrency));
-
-    const tempFieldAggregation = mapMatomoAggregationTypeToLooker(tempMetric.aggregationType);
-    if (tempFieldAggregation) {
-      tempField.setAggregation(tempFieldAggregation);
-    }
-  }
-  */
-
-  let allMetrics = {
-    ...reportMetadata.metrics,
-    ...reportMetadata.processedMetrics,
-  };
+  let allMetrics = { ...reportMetadata.metrics };
+  let allProcessedMetrics = { ...reportMetadata.processedMetrics };
 
   if (reportMetadata.metricsGoal) {
     allMetrics = { ...allMetrics, ...metricsForEachGoal(reportMetadata.metricsGoal, goals) };
   }
 
   if (reportMetadata.processedMetricsGoal) {
-    allMetrics = { ...allMetrics, ...metricsForEachGoal(reportMetadata.processedMetricsGoal, goals) };
+    allProcessedMetrics = { ...allProcessedMetrics, ...metricsForEachGoal(reportMetadata.processedMetricsGoal, goals) };
   }
 
   if (reportMetadata.metricsGoal || reportMetadata.processedMetricsGoal) {
     // add goal specific conversion_rate if not present in metadata, but other goal metrics are
     // (in 4.x-dev, this is removed in the API despite the data being available)
     if (!reportMetadata.metricsGoal?.conversion_rate && !reportMetadata.processedMetricsGoal?.conversion_rate) {
-      allMetrics = { ...allMetrics, ...metricsForEachGoal({ 'conversion_rate': 'Conversion Rate' }, goals) };
+      allProcessedMetrics = { ...allProcessedMetrics, ...metricsForEachGoal({ 'conversion_rate': 'Conversion Rate' }, goals) };
     }
 
     // pre 5.1.0, the overall conversions and revenue sum metrics were not present in metadata output,
@@ -215,7 +214,7 @@ export function getFieldsFromReportMetadata(
     }
   }
 
-  const allFieldsSorted = Object.keys(allMetrics);
+  const allFieldsSorted = Object.keys({ ...allMetrics, ...allProcessedMetrics });
 
   // make sure nb_visits is before unique visitors if it's present so when adding directly to a report, unique visitors
   // won't be the column that gets added (since won't have data for ranges)
@@ -226,6 +225,7 @@ export function getFieldsFromReportMetadata(
     allFieldsSorted.unshift('nb_visits');
   }
 
+  const allTemporaryMetrics = new Set<string>();
   (requestedFields || allFieldsSorted).forEach((metricId) => {
     if (fields.getFieldById(metricId)) {
       return;
@@ -240,6 +240,7 @@ export function getFieldsFromReportMetadata(
 
     if (DATE_DIMENSIONS[metricId]) {
       addDateDimensions(fields, [metricId]);
+      return;
     }
 
     if (reportMetadata.dimensions?.[metricId]) {
@@ -247,27 +248,43 @@ export function getFieldsFromReportMetadata(
       return;
     }
 
-    if (allMetrics[metricId]) {
+    if (allMetrics[metricId] || allProcessedMetrics[metricId]) {
       let matomoType: string;
       let aggregationType: string;
 
       const m = metricId.match(/^goal_\d+_(.*)/)
       if (m) {
         matomoType = reportMetadata.metricTypesGoal?.[m[1]];
-        aggregationType = reportMetadata.metricAggregationTypesGoal?.[m[1]]; // TODO: handle in core
+        aggregationType = reportMetadata.metricAggregationTypesGoal?.[m[1]]; // TODO: handle in core (in Goals plugin)
       } else {
         matomoType = reportMetadata.metricTypes?.[metricId];
         aggregationType = reportMetadata.metricAggregationTypes?.[metricId];
       }
       matomoType = matomoType || 'text';
 
-      addMetric(fields, metricId, allMetrics[metricId], matomoType, siteCurrency, aggregationType);
+      const formula = reportMetadata.processedMetricFormulas?.[metricId];
+      let { lookerFormula, temporaryMetrics } = mapMatomoFormulaToLooker(formula);
+
+      temporaryMetrics.forEach(m => allTemporaryMetrics.add(m));
+
+      addMetric(fields, metricId, allMetrics[metricId] || allProcessedMetrics[metricId], matomoType, siteCurrency, aggregationType, lookerFormula);
     } else if (metricId === 'nb_uniq_visitors') {
       // to support showing nb_uniq_visitors for day periods, but not others, we need to make sure
       // the metric appears in the schema no matter what date range is required. which means adding
       // it, even if Matomo doesn't mention it in API.getMetadata output.
       addMetric(fields, 'nb_uniq_visitors', 'Unique Visitors', 'number', siteCurrency);
     }
+  });
+
+  allTemporaryMetrics.forEach((metricId) => {
+    const aggregationType = reportMetadata.temporaryMetricAggregationTypes[metricId];
+    const matomoType = reportMetadata.temporaryMetricSemanticTypes[metricId];
+
+    if (!matomoType) {
+      return;
+    }
+
+    addTemporaryMetric(fields, metricId, matomoType, siteCurrency, aggregationType);
   });
 
   return fields;
