@@ -9,9 +9,11 @@ import cc, { ConnectorParams } from '../connector';
 import * as Api from '../api';
 import {
   DATE_DIMENSIONS,
-  mapMatomoSemanticTypeToLooker,
   mapMatomoAggregationTypeToLooker,
-} from "./data-types";
+  mapMatomoSemanticTypeToLooker,
+} from './data-types';
+import AggregationType = GoogleAppsScript.Data_Studio.AggregationType;
+import { mapMatomoFormulaToLooker } from './formula';
 
 export function getReportMetadataAndGoalsAndCurrency(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   const idSite = request.configParams.idsite;
@@ -95,6 +97,7 @@ function addMetric(
   matomoType: string,
   siteCurrency: string,
   reaggregation?: string,
+  formula?: string,
 ) {
   let type = mapMatomoSemanticTypeToLooker(matomoType, siteCurrency);
   let aggregationType = mapMatomoAggregationTypeToLooker(reaggregation);
@@ -105,7 +108,13 @@ function addMetric(
     .setName(name)
     .setType(type);
 
-  if (aggregationType) {
+  if (formula) {
+    let { lookerFormula } = mapMatomoFormulaToLooker(formula);
+
+    field
+      .setFormula(lookerFormula)
+      .setAggregation(AggregationType.AUTO);
+  } else if (aggregationType) {
     field.setAggregation(aggregationType);
   } else {
     field.setIsReaggregatable(false);
@@ -144,6 +153,23 @@ export function getFieldsFromReportMetadata(
   requestedFields?: string[],
 ) {
   const fields = cc.getFields();
+
+  // TODO: add temporary metrics first? how do we handle metadata that is only present in getData()?
+  /*
+  for (const tempMetric of temporaryMetrics) {
+    const tempField = fields
+      .newMetric()
+      .setId(tempMetric.id)
+      .setName(tempMetric.id)
+      .setIsHidden(true)
+      .setType(mapMatomoSemanticTypeToLooker(tempMetric.type, siteCurrency));
+
+    const tempFieldAggregation = mapMatomoAggregationTypeToLooker(tempMetric.aggregationType);
+    if (tempFieldAggregation) {
+      tempField.setAggregation(tempFieldAggregation);
+    }
+  }
+  */
 
   let allMetrics = {
     ...reportMetadata.metrics,
