@@ -34,7 +34,11 @@ const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the req
   + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
   + 'case, limit the data you are requesting to see it in Looker Studio.';
 
-function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>, requestedFields: { name: string }[]) {
+function getReportData(
+  request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>,
+  requestedFields: { name: string }[],
+  requiredTemporaryMetrics: string[],
+) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
   const segment = request.configParams.segment || '';
@@ -61,10 +65,17 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
     'Actions.getPageUrlsFollowingSiteSearch',
   ];
 
+  let showRawMetrics = requiredTemporaryMetrics.length ? '1' : '0';
+
   let showColumns;
   // showColumns does not work correctly with some API methods
   if (!SHOW_COLUMNS_UNSUPPORTED_METHODS.includes(apiMethod)) {
-    showColumns = (requestedFields.map(({name}) => name)).join(',');
+    let showColumnsMetrics = requestedFields.map(({name}) => name);
+    if (requiredTemporaryMetrics.length) {
+      showColumnsMetrics.push(...requiredTemporaryMetrics);
+    }
+
+    showColumns = showColumnsMetrics.join(',');
   }
 
   let rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
@@ -120,6 +131,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       filter_limit: `${limitToUse}`,
       filter_offset: `${offset}`,
       showColumns,
+      showRawMetrics,
     };
 
     if (reportParams.apiModule !== 'Goals') {
@@ -216,10 +228,13 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     }
     requestedFields = requestedFields.filter(({ name }) => fields.getFieldById(name));
 
+    // get all temporary metrics required by requested processed metrics
+    const temporaryMetrics = fields.asArray().filter(f => f.isDefault()).map(f => f.getId());
+
     // field instances can be garbage collected if we don't request them specifically first
     const requestedFieldObjects = requestedFields.map(({ name }) => fields.getFieldById(name));
 
-    let reportData = getReportData(request, requestedFields);
+    let reportData = getReportData(request, requestedFields, temporaryMetrics);
     if (reportData === null) {
       const reportParams = JSON.parse(request.configParams.report);
       throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata.`);
