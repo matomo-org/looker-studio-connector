@@ -21,6 +21,12 @@ import {
 
 const math = create(all);
 
+const SUPPORTED_FUNCTIONS = {
+  min: 'NARY_MIN',
+  max: 'NARY_MAX',
+  abs: 'ABS',
+};
+
 function toLookerString(ast: MathNode): string {
   if (!ast) {
     return '';
@@ -67,9 +73,14 @@ function toLookerString(ast: MathNode): string {
     case 'ConstantNode':
     case 'SymbolNode':
       return ast.toString();
+    case 'FunctionNode':
+      if (!SUPPORTED_FUNCTIONS[ast.fn.name]) {
+        throw new Error(`Unknown function used in Matomo formula: ${ast.fn.name}.`);
+      }
+      ast.fn.name = SUPPORTED_FUNCTIONS[ast.fn.name];
+      return ast.toString();
     case 'ArrayNode':
     case 'AssignmentNode':
-    case 'FunctionNode':
     case 'BlockNode':
     case 'RangeNode':
     case 'ObjectNode':
