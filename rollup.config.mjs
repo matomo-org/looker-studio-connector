@@ -37,6 +37,7 @@ export default {
         if (/\/mathjs\//.test(id)) {
           code = code.replace('export const path = "expression.transform"', '');
         }
+        code = code.replace(/\/\*\*.*?\*\//gms, ''); // strip comments since they can have stray imports/exports
         return code;
       },
     },

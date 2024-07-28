@@ -111,7 +111,7 @@ function addMetric(
   if (lookerFormula) {
     field
       .setFormula(lookerFormula)
-      .setAggregation(AggregationType.AUTO);
+      .setAggregation(cc.AggregationType.AUTO);
   } else if (aggregationType) {
     field.setAggregation(aggregationType);
   } else {

@@ -103,17 +103,17 @@ export function convertMatomoTypeToLooker(value: any, matomoType: string) {
 export function mapMatomoAggregationTypeToLooker(matomoAggregation: string): AggregationType|undefined {
   switch (matomoAggregation.toLowerCase()) {
     case 'avg':
-      return AggregationType.AVG;
+      return cc.AggregationType.AVG;
     case 'count': // TODO: do we really need to support count and count_distinct? does not seem to apply to matomo
-      return AggregationType.COUNT;
+      return cc.AggregationType.COUNT;
     case 'count_distinct':
-      return AggregationType.COUNT_DISTINCT;
+      return cc.AggregationType.COUNT_DISTINCT;
     case 'max':
-      return AggregationType.SUM;
+      return cc.AggregationType.SUM;
     case 'min':
-      return AggregationType.MIN;
+      return cc.AggregationType.MIN;
     case 'sum':
-      return AggregationType.SUM;
+      return cc.AggregationType.SUM;
     default:
       log(`unknown matomo aggregation type encountered: ${matomoAggregation}`);
       return undefined;
