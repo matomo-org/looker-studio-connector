@@ -16,7 +16,6 @@ import {
   RelationalNode,
   SymbolNode,
   ConstantNode,
-  OperatorNodeMap,
 } from 'mathjs/lib/esm/number';
 
 const math = create(all);
@@ -25,6 +24,40 @@ const SUPPORTED_FUNCTIONS = {
   min: 'NARY_MIN',
   max: 'NARY_MAX',
   abs: 'ABS',
+};
+
+// required for RelationalNodeMap
+const OperatorNodeMap = {
+  xor: 'xor',
+  and: 'and',
+  or: 'or',
+  bitOr: '|',
+  bitXor: '^|',
+  bitAnd: '&',
+  equal: '==',
+  unequal: '!=',
+  smaller: '<',
+  larger: '>',
+  smallerEq: '<=',
+  largerEq: '>=',
+  leftShift: '<<',
+  rightArithShift: '>>',
+  rightLogShift: '>>>',
+  to: 'to',
+  add: '+',
+  subtract: '-',
+  multiply: '*',
+  divide: '/',
+  dotMultiply: '.*',
+  dotDivide: './',
+  mod: 'mod',
+  unaryPlus: '+',
+  unaryMinus: '-',
+  bitNot: '~',
+  not: 'not',
+  pow: '^',
+  dotPow: '.^',
+  factorial: '!',
 };
 
 function toLookerString(ast: MathNode): string {
