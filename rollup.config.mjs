@@ -31,6 +31,15 @@ export default {
     name: 'MatomoLookerStudio',
   },
   plugins: [
+    {
+      transform(code, id) {
+        // the commonjs rollup plugin does not handle export statements in strings well
+        if (/\/mathjs\//.test(id)) {
+          code = code.replace('export const path = "expression.transform"', '');
+        }
+        return code;
+      },
+    },
     commonjs(),
     nodeResolve(),
     typescript(),
