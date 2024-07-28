@@ -27,6 +27,7 @@
   "devDependencies": {
     "@google/clasp": "^2.4.2",
     "@jest/globals": "^29.5.0",
+    "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.0.0",
     "@types/inquirer": "^8.2.10",
@@ -47,7 +48,6 @@
     "rollup": "^3.20.2",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-dotenv": "^0.4.1",
-    "rollup-plugin-import-map": "^3.0.0",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.2",
     "tslib": "^2.5.0",
