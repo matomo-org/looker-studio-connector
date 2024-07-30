@@ -214,6 +214,17 @@ export function getFieldsFromReportMetadata(
     }
   }
 
+  const lookerFormulas: Record<string, string> = {};
+
+  const allTemporaryMetrics = new Set<string>();
+  Object.keys(allProcessedMetrics).forEach((metricId) => {
+    const formula = reportMetadata.processedMetricFormulas?.[metricId];
+    let { lookerFormula, temporaryMetrics } = mapMatomoFormulaToLooker(formula);
+
+    lookerFormulas[metricId] = lookerFormula;
+    temporaryMetrics.forEach(m => allTemporaryMetrics.add(m));
+  });
+
   const allFieldsSorted = Object.keys({ ...allMetrics, ...allProcessedMetrics });
 
   // make sure nb_visits is before unique visitors if it's present so when adding directly to a report, unique visitors
@@ -225,7 +236,6 @@ export function getFieldsFromReportMetadata(
     allFieldsSorted.unshift('nb_visits');
   }
 
-  const allTemporaryMetrics = new Set<string>();
   (requestedFields || allFieldsSorted).forEach((metricId) => {
     if (fields.getFieldById(metricId)) {
       return;
@@ -262,10 +272,7 @@ export function getFieldsFromReportMetadata(
       }
       matomoType = matomoType || 'text';
 
-      const formula = reportMetadata.processedMetricFormulas?.[metricId];
-      let { lookerFormula, temporaryMetrics } = mapMatomoFormulaToLooker(formula);
-
-      temporaryMetrics.forEach(m => allTemporaryMetrics.add(m));
+      const lookerFormula = lookerFormulas[metricId];
 
       addMetric(fields, metricId, allMetrics[metricId] || allProcessedMetrics[metricId], matomoType, siteCurrency, aggregationType, lookerFormula);
     } else if (metricId === 'nb_uniq_visitors') {
@@ -273,20 +280,21 @@ export function getFieldsFromReportMetadata(
       // the metric appears in the schema no matter what date range is required. which means adding
       // it, even if Matomo doesn't mention it in API.getMetadata output.
       addMetric(fields, 'nb_uniq_visitors', 'Unique Visitors', 'number', siteCurrency);
+    } else if (allTemporaryMetrics.has(metricId)) {
+      const matomoType = reportMetadata.temporaryMetricSemanticTypes?.[metricId]
+        || reportMetadata.metricTypes?.[metricId];
+
+      const aggregationType = reportMetadata.temporaryMetricAggregationTypes?.[metricId]
+        || reportMetadata.metricAggregationTypes?.[metricId];
+
+      if (!matomoType) {
+        // this error will cause a fatal in Looker Studio when getting data, so we fail early
+        // here
+        throw new Error(`Matomo Error: Missing temporary metric metadata for '${metricId}' in ${reportMetadata.module}.${reportMetadata.action} report metadata.`);
+      }
+
+      addTemporaryMetric(fields, metricId, matomoType, siteCurrency, aggregationType);
     }
-  });
-
-  allTemporaryMetrics.forEach((metricId) => {
-    const aggregationType = reportMetadata.temporaryMetricAggregationTypes?.[metricId];
-    const matomoType = reportMetadata.temporaryMetricSemanticTypes?.[metricId];
-
-    if (!matomoType) {
-      // this error will cause a fatal in Looker Studio when getting data, so we fail early
-      // here
-      throw new Error(`Matomo Error: Missing temporary metric metadata for '${metricId}' in ${reportMetadata.module}.${reportMetadata.action} report metadata.`);
-    }
-
-    addTemporaryMetric(fields, metricId, matomoType, siteCurrency, aggregationType);
   });
 
   return fields;
