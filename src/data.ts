@@ -15,8 +15,18 @@ import {
   throwUnexpectedError,
   callWithUserFriendlyErrorHandling,
 } from './error';
+import {
+  DATE_DIMENSIONS,
+  convertMatomoTypeToLooker,
+} from './schema/data-types';
+import {
+  getReportMetadataAndGoalsAndCurrency,
+  getFieldsFromReportMetadata,
+  getSelectableFieldsFromReportMetadata,
+} from './schema/report-metadata';
 import { DataTableRow } from './api';
 import { debugLog } from './log';
+import { detectMatomoPeriodFromRange } from './matomo/period';
 
 dayjs.extend(weekOfYear);
 
@@ -24,187 +34,11 @@ const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the req
   + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
   + 'case, limit the data you are requesting to see it in Looker Studio.';
 
-const MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING = {
-  'dimension': cc.FieldType.TEXT,
-  'binary': cc.FieldType.TEXT,
-  'text': cc.FieldType.TEXT,
-  'enum': cc.FieldType.TEXT,
-  'money': 'currency',
-  'byte': cc.FieldType.NUMBER,
-  'duration_ms': cc.FieldType.DURATION,
-  'duration_s': cc.FieldType.DURATION,
-  'number': cc.FieldType.NUMBER,
-  'float': cc.FieldType.NUMBER,
-  'url': cc.FieldType.URL,
-  'date': cc.FieldType.YEAR_MONTH_DAY,
-  'time': cc.FieldType.TEXT,
-  'datetime': cc.FieldType.YEAR_MONTH_DAY_SECOND,
-  'timestamp': cc.FieldType.YEAR_MONTH_DAY_SECOND,
-  'bool': cc.FieldType.BOOLEAN,
-  'percent': cc.FieldType.PERCENT,
-  'unspecified': cc.FieldType.TEXT,
-};
-
-const DATE_DIMENSIONS = {
-  date: {
-    name: 'Date',
-    type: cc.FieldType.YEAR_MONTH_DAY,
-    daysInPeriod: 1,
-  },
-  date_month: {
-    name: 'Month',
-    type: cc.FieldType.YEAR_MONTH,
-    daysInPeriod: 30,
-  },
-  date_week: {
-    name: 'Week (Mon - Sun)',
-    type: cc.FieldType.YEAR_WEEK,
-    daysInPeriod: 7,
-  },
-  date_year: {
-    name: 'Year',
-    type: cc.FieldType.YEAR,
-    daysInPeriod: 365,
-  },
-};
-
-// exported for tests
-export function getMatomoSemanticTypeToLookerMapping() {
-  return MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING;
-}
-
-function mapMatomoSemanticTypeToLooker(matomoType: string, siteCurrencyCode: string) {
-  let mapped = MATOMO_SEMANTIC_TYPE_TO_LOOKER_MAPPING[matomoType] || cc.FieldType.TEXT;
-  if (mapped === 'currency') {
-    // NOTE: not all currencies supported in Matomo are supported by looker studio
-    mapped = cc.FieldType[`CURRENCY_${siteCurrencyCode.toUpperCase()}`] || cc.FieldType.NUMBER;
-  }
-  return mapped;
-}
-
-function getReportMetadataAndGoalsAndCurrency(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
-  const idSite = request.configParams.idsite;
-  const report = request.configParams.report;
-  const segment = request.configParams.segment || '';
-
-  const reportParams = JSON.parse(report) as Record<string, string>;
-
-  let apiParameters: Record<string, string> = {};
-  Object.entries(reportParams).forEach(([k, v]) => {
-    if (k === 'apiModule' || k === 'apiAction') {
-      return;
-    }
-
-    apiParameters[`apiParameters[${k}]`] = v;
-  });
-
-  const response = Api.fetchAll(
-    [
-      {
-        method: 'API.getMetadata',
-        params: {
-          apiModule: reportParams.apiModule,
-          apiAction: reportParams.apiAction,
-          ...apiParameters,
-          idSite: `${idSite}`,
-          period: 'day',
-          date: 'today',
-          language: request.configParams.language || Session.getActiveUserLocale(),
-          segment,
-        },
-      },
-      {
-        method: 'Goals.getGoals',
-        params: {
-          idSite: `${idSite}`,
-          period: 'day',
-          date: 'today',
-        },
-      },
-      {
-        method: 'SitesManager.getSiteFromId',
-        params: { idSite: `${idSite}` },
-      },
-    ],
-    { throwOnFailedRequest: true }
-  );
-
-  let result = response[0] as Api.ReportMetadata;
-  if (Array.isArray(result)) {
-    result = result[0] as Api.ReportMetadata;
-  }
-
-  if ((result as any).value === false) {
-    result = null;
-  }
-
-  const goals = response[1] as Record<string, Api.Goal>;
-
-  const siteCurrency = (response[2] as Api.Site).currency;
-
-  return { reportMetadata: result, goals, siteCurrency };
-}
-
-function getMatomoPeriodDateRange(period: string, date: string) {
-  const dateObj = new Date(date);
-
-  if (period === 'day') {
-    return [dateObj, dateObj];
-  }
-
-  if (period === 'week') {
-    const daysToMonday = (dateObj.getDay() + 6) % 7;
-
-    const startWeek = new Date(dateObj.getTime());
-    startWeek.setDate(dateObj.getDate() - daysToMonday);
-
-    const endWeek = new Date(startWeek.getTime());
-    endWeek.setDate(startWeek.getDate() + 6);
-
-    return [startWeek, endWeek];
-  }
-
-  if (period === 'month') {
-    const startMonth = new Date(dateObj.getTime());
-    startMonth.setDate(1);
-
-    const endMonth = new Date(dateObj.getTime());
-    endMonth.setDate(1);
-    endMonth.setMonth(endMonth.getMonth() + 1);
-    endMonth.setDate(0);
-
-    return [startMonth, endMonth];
-  }
-
-  if (period === 'year') {
-    const startYear = new Date(dateObj.getTime());
-    startYear.setMonth(0);
-    startYear.setDate(1);
-
-    const endYear = new Date(dateObj.getTime());
-    endYear.setMonth(12);
-    endYear.setDate(0);
-
-    return [startYear, endYear];
-  }
-
-  throw new Error(`unknown matomo period ${period}`);
-}
-
-// exported for tests
-export function detectMatomoPeriodFromRange(dateRange: GoogleAppsScript.Data_Studio.DateRange) {
-  const startDateTime = (new Date(dateRange.startDate)).getTime();
-  const endDateTime = (new Date(dateRange.endDate)).getTime();
-
-  const standardMatomoPeriods = ['day', 'week', 'month', 'year'];
-  const periodMatch = standardMatomoPeriods.find((period) => {
-    const [matomoPeriodStart, matomoPeriodEnd] = getMatomoPeriodDateRange(period, dateRange.startDate);
-    return startDateTime === matomoPeriodStart.getTime() && endDateTime === matomoPeriodEnd.getTime();
-  });
-  return periodMatch;
-}
-
-function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>, requestedFields: { name: string }[]) {
+function getReportData(
+  request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>,
+  requestedFields: { name: string }[],
+  requiredTemporaryMetrics: string[],
+) {
   const idSite = request.configParams.idsite;
   const report = request.configParams.report;
   const segment = request.configParams.segment || '';
@@ -231,10 +65,17 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
     'Actions.getPageUrlsFollowingSiteSearch',
   ];
 
+  let showRawMetrics = requiredTemporaryMetrics.length ? '1' : '0';
+
   let showColumns;
   // showColumns does not work correctly with some API methods
   if (!SHOW_COLUMNS_UNSUPPORTED_METHODS.includes(apiMethod)) {
-    showColumns = (requestedFields.map(({name}) => name)).join(',');
+    let showColumnsMetrics = requestedFields.map(({name}) => name);
+    if (requiredTemporaryMetrics.length) {
+      showColumnsMetrics.push(...requiredTemporaryMetrics);
+    }
+
+    showColumns = showColumnsMetrics.join(',');
   }
 
   let rowsToFetchAtATime = parseInt(env.MAX_ROWS_TO_FETCH_PER_REQUEST, 10) || 100000;
@@ -290,6 +131,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       filter_limit: `${limitToUse}`,
       filter_offset: `${offset}`,
       showColumns,
+      showRawMetrics,
     };
 
     if (reportParams.apiModule !== 'Goals') {
@@ -335,156 +177,6 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   return flattenedResponse;
 }
 
-function addMetric(fields: GoogleAppsScript.Data_Studio.Fields, id: string, name: string, matomoType: string, siteCurrency: string) {
-  let type = mapMatomoSemanticTypeToLooker(matomoType, siteCurrency);
-
-  fields
-    .newMetric()
-    .setId(id)
-    .setName(name)
-    .setType(type)
-    .setIsReaggregatable(false);
-}
-
-function addDimension(fields: GoogleAppsScript.Data_Studio.Fields, id: string, dimension: string) {
-  fields
-    .newDimension()
-    .setId(id)
-    .setName(dimension)
-    .setType(cc.FieldType.TEXT);
-}
-
-function addDateDimensions(
-  fields: GoogleAppsScript.Data_Studio.Fields,
-  includeOnly: string[] = Object.keys(DATE_DIMENSIONS),
-) {
-  includeOnly.forEach((id) => {
-    if (!DATE_DIMENSIONS[id]) {
-      return;
-    }
-
-    fields
-      .newDimension()
-      .setId(id)
-      .setName(DATE_DIMENSIONS[id].name)
-      .setType(DATE_DIMENSIONS[id].type);
-  });
-}
-
-function metricsForEachGoal(metrics: Record<string, string>, goals: Record<string, Api.Goal>) {
-  const perGoalMetrics = {};
-  Object.values(goals).forEach((goal) => {
-    Object.entries(metrics).forEach(([id, name]) => {
-      const goalMetricId = `goal_${goal.idgoal}_${id}`;
-      const goalMetricName = `"${goal.name}" ${name}`;
-      perGoalMetrics[goalMetricId] = goalMetricName;
-    });
-  });
-  return perGoalMetrics;
-}
-
-function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: Record<string, Api.Goal>, siteCurrency: string, requestedFields?: string[]) {
-  const fields = cc.getFields();
-
-  let allMetrics = {
-    ...reportMetadata.metrics,
-    ...reportMetadata.processedMetrics,
-  };
-
-  if (reportMetadata.metricsGoal) {
-    allMetrics = { ...allMetrics, ...metricsForEachGoal(reportMetadata.metricsGoal, goals) };
-  }
-
-  if (reportMetadata.processedMetricsGoal) {
-    allMetrics = { ...allMetrics, ...metricsForEachGoal(reportMetadata.processedMetricsGoal, goals) };
-  }
-
-  if (reportMetadata.metricsGoal || reportMetadata.processedMetricsGoal) {
-    // add goal specific conversion_rate if not present in metadata, but other goal metrics are
-    // (in 4.x-dev, this is removed in the API despite the data being available)
-    if (!reportMetadata.metricsGoal?.conversion_rate && !reportMetadata.processedMetricsGoal?.conversion_rate) {
-      allMetrics = { ...allMetrics, ...metricsForEachGoal({ 'conversion_rate': 'Conversion Rate' }, goals) };
-    }
-
-    // pre 5.1.0, the overall conversions and revenue sum metrics were not present in metadata output,
-    // but the data exists in the actual API output
-    if (reportMetadata.module !== 'Actions') {
-      if (!reportMetadata.metrics?.conversion) {
-        allMetrics['nb_conversions'] = 'Conversions';
-        reportMetadata.metricTypes['nb_conversions'] = 'number';
-      }
-      if (!reportMetadata.metrics?.revenue) {
-        allMetrics['revenue'] = 'Revenue';
-        reportMetadata.metricTypes['revenue'] = 'money';
-      }
-    }
-  }
-
-  if (!requestedFields?.length) {
-    if (reportMetadata.dimensions) {
-      Object.entries(reportMetadata.dimensions).forEach(([id, name]) => {
-        addDimension(fields, id, name);
-      });
-    } else if (reportMetadata.dimension) {
-      addDimension(fields, 'label', reportMetadata.dimension);
-    }
-  }
-
-  const allFieldsSorted = Object.keys(allMetrics);
-
-  // make sure nb_visits is before unique visitors if it's present so when adding directly to a report, unique visitors
-  // won't be the column that gets added (since won't have data for ranges)
-  const visitsIndex = allFieldsSorted.indexOf('nb_visits');
-  const uniqueVisitorsIndex = allFieldsSorted.indexOf('nb_uniq_visitors');
-  if (visitsIndex > 0 && uniqueVisitorsIndex > 0 && uniqueVisitorsIndex < visitsIndex) {
-    allFieldsSorted.splice(visitsIndex, 1);
-    allFieldsSorted.unshift('nb_visits');
-  }
-
-  (requestedFields || allFieldsSorted).forEach((metricId) => {
-    if (fields.getFieldById(metricId)) {
-      return;
-    }
-
-    if (metricId === 'label') {
-      if (reportMetadata.dimension) {
-        addDimension(fields, 'label', reportMetadata.dimension);
-      }
-      return;
-    }
-
-    if (DATE_DIMENSIONS[metricId]) {
-      addDateDimensions(fields, [metricId]);
-    }
-
-    if (reportMetadata.dimensions?.[metricId]) {
-      addDimension(fields, metricId, reportMetadata.dimensions[metricId]);
-      return;
-    }
-
-    if (allMetrics[metricId]) {
-      let matomoType: string;
-
-      const m = metricId.match(/^goal_\d+_(.*)/)
-      if (m) {
-        matomoType = reportMetadata.metricTypesGoal?.[m[1]];
-      } else {
-        matomoType = reportMetadata.metricTypes?.[metricId];
-      }
-      matomoType = matomoType || 'text';
-
-      addMetric(fields, metricId, allMetrics[metricId], matomoType, siteCurrency);
-    } else if (metricId === 'nb_uniq_visitors') {
-      // to support showing nb_uniq_visitors for day periods, but not others, we need to make sure
-      // the metric appears in the schema no matter what date range is required. which means adding
-      // it, even if Matomo doesn't mention it in API.getMetadata output.
-      addMetric(fields, 'nb_uniq_visitors', 'Unique Visitors', 'number', siteCurrency);
-    }
-  });
-
-  return fields;
-}
-
 export function getSchema(request: GoogleAppsScript.Data_Studio.Request<ConnectorParams>) {
   return callWithUserFriendlyErrorHandling(`getSchema(${request.configParams?.report})`, () => {
     debugLog('getSchema(): request is', request);
@@ -505,14 +197,11 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
       throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata. (All params = ${request.configParams.report})`);
     }
 
-    const fields = getFieldsFromReportMetadata(reportMetadata, goals, siteCurrency);
-
-    // add Date field to support time series'
-    addDateDimensions(fields);
+    const fields = getSelectableFieldsFromReportMetadata(reportMetadata, goals, siteCurrency);
 
     const result = { schema: fields.build() };
 
-    debugLog('getSchema(): result is', result);
+    debugLog('getSchema(): result is', JSON.stringify(result, null, 2));
 
     return result;
   });
@@ -539,10 +228,13 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     }
     requestedFields = requestedFields.filter(({ name }) => fields.getFieldById(name));
 
+    // get all temporary metrics required by requested processed metrics
+    const temporaryMetrics = fields.asArray().filter(f => f.isDefault()).map(f => f.getId());
+
     // field instances can be garbage collected if we don't request them specifically first
     const requestedFieldObjects = requestedFields.map(({ name }) => fields.getFieldById(name));
 
-    let reportData = getReportData(request, requestedFields);
+    let reportData = getReportData(request, requestedFields, temporaryMetrics);
     if (reportData === null) {
       const reportParams = JSON.parse(request.configParams.report);
       throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata.`);
@@ -561,38 +253,9 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
             name = 'date';
           }
 
-          let value = row[name];
-          if (typeof value !== 'undefined'
-            && value !== false // edge case that can happen in some report output
-          ) {
-            // perform any transformations on the value required by the Matomo type
-            if (matomoType === 'duration_ms') {
-              value = parseInt(value as string, 10) / 1000;
-            } else if (matomoType === 'date') {
-              // value is in YYYY-MM-DD format, but must be converted to YYYYMMDD
-              value = value.toString().replace(/-/g, '');
-            } else if (matomoType === 'date_month') {
-              // value is in YYYY-MM-DD format, but must be converted to YYYYMM
-              value = value.toString().split('-').slice(0, 2).join('');
-            } else if (matomoType === 'date_week') {
-              // value is in YYYY-MM-DD, but must be converted to YYYYww
-              const start = value.split(',')[0];
-              value = start.toString().split('-').shift() + dayjs(start).week().toString().padStart(2, '0');
-            } else if (matomoType === 'date_year') {
-              value = value.toString().split('-').shift();
-            } else if (matomoType === 'datetime') {
-              // value is in YYYY-MM-DD HH:MM:SS format, but must be converted to YYYYMMDDHHMMSS
-              value = value.toString().replace(/[-:\s]/g, '');
-            } else if (matomoType === 'timestamp') {
-              // value is a timestamp, but must be converted to YYYYMMDDHHMMSS
-              const d = new Date(parseInt(value as string, 10));
-              value = `${d.getUTCFullYear()}${d.getUTCMonth() + 1}${d.getUTCDate()}${d.getUTCHours()}${d.getUTCMinutes()}${d.getUTCSeconds()}`;
-            }
-
-            // NOTE: the value MUST be a string, even if it's declared a number or something else. Looker studio will
-            // fumble sometimes when it's not a string (for example, when the metric is marked as a duration) and
-            // fail to display the data.
-            return `${value}`;
+          let value = convertMatomoTypeToLooker(row[name], matomoType);
+          if (value) {
+            return value;
           }
 
           // no value found
@@ -623,7 +286,8 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
       filtersApplied: false,
     };
 
-    debugLog('getData(): result is', { ...result, rows: 'redacted' });
+    // TODO: only JSON.stringify if debug logging is enabled (allow passing functions)
+    debugLog('getData(): result is', JSON.stringify({ ...result, rows: 'redacted' }, null, 2));
 
     return result;
   });

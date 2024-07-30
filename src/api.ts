@@ -52,6 +52,11 @@ export interface ReportMetadata {
   metricTypes?: Record<string, string>;
   metricTypesGoal?: Record<string, string>;
   parameters?: Record<string, string>;
+  metricAggregationTypes?: Record<string, string>;
+  metricAggregationTypesGoal?: Record<string, string>;
+  processedMetricFormulas?: Record<string, string>;
+  temporaryMetricAggregationTypes?: Record<string, string>;
+  temporaryMetricSemanticTypes?: Record<string, string>;
 }
 
 export interface Goal {
@@ -202,10 +207,14 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
           return; // retry
         }
 
+        const content = r.getContentText('UTF-8');
+
         responseContents[responseIndex] = {
           result: 'error',
-          message: `Matomo server failed with code ${code}. Truncated response: ${r.getContentText('UTF-8').substring(0, 100)}`,
+          message: `Matomo server failed with code ${code}. Truncated response: ${content.substring(0, 100)}`,
         };
+
+        debugLog(`Whole response: ${content}`);
       } else {
         // save the response even if it's an error so we can get the server-side error message if needed
         responseContents[responseIndex] = r.getContentText('UTF-8') || '{}';
