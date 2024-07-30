@@ -201,7 +201,7 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
 
     const result = { schema: fields.build() };
 
-    debugLog('getSchema(): result is', JSON.stringify(result));
+    debugLog('getSchema(): result is', JSON.stringify(result, null, 2));
 
     return result;
   });
@@ -286,7 +286,8 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
       filtersApplied: false,
     };
 
-    debugLog('getData(): result is', { ...result, rows: 'redacted' });
+    // TODO: only JSON.stringify if debug logging is enabled (allow passing functions)
+    debugLog('getData(): result is', JSON.stringify({ ...result, rows: 'redacted' }, null, 2));
 
     return result;
   });
