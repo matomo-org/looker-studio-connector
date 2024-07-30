@@ -281,7 +281,9 @@ export function getFieldsFromReportMetadata(
     const matomoType = reportMetadata.temporaryMetricSemanticTypes?.[metricId];
 
     if (!matomoType) {
-      return;
+      // this error will cause a fatal in Looker Studio when getting data, so we fail early
+      // here
+      throw new Error(`Matomo Error: Missing temporary metric metadata for '${metricId}' in ${reportMetadata.module}.${reportMetadata.action} report metadata.`);
     }
 
     addTemporaryMetric(fields, metricId, matomoType, siteCurrency, aggregationType);
