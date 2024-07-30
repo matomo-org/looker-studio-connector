@@ -201,7 +201,7 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
 
     const result = { schema: fields.build() };
 
-    debugLog('getSchema(): result is', result);
+    debugLog('getSchema(): result is', JSON.stringify(result));
 
     return result;
   });

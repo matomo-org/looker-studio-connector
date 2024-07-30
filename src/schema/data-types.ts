@@ -100,7 +100,11 @@ export function convertMatomoTypeToLooker(value: any, matomoType: string) {
   return `${value}`;
 }
 
-export function mapMatomoAggregationTypeToLooker(matomoAggregation: string): AggregationType|undefined {
+export function mapMatomoAggregationTypeToLooker(matomoAggregation?: string): AggregationType|undefined {
+  if (!matomoAggregation) {
+    return undefined;
+  }
+
   switch (matomoAggregation.toLowerCase()) {
     case 'avg':
       return cc.AggregationType.AVG;

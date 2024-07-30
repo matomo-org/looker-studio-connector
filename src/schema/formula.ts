@@ -220,16 +220,27 @@ function toLookerString(ast: MathNode): string {
   }
 }
 
-export function mapMatomoFormulaToLooker(formula: string): {
-  lookerFormula: string,
+export function mapMatomoFormulaToLooker(formula?: string): {
+  lookerFormula?: string,
   temporaryMetrics: string[],
 } {
-  const ast = math.parse(formula);
+  if (!formula) {
+    return {
+      temporaryMetrics: [],
+    };
+  }
+
+  let ast;
+  try {
+    ast = math.parse(formula);
+  } catch (e) {
+    throw new Error(`Failed to parse formula '${formula}': ${e.stack || e.message || e}`);
+  }
 
   const temporaryMetrics = [];
   ast.traverse((node) => {
     if (node.type === 'SymbolNode' && (node as SymbolNode).name.startsWith('$')) {
-      temporaryMetrics.push((node as SymbolNode).name);
+      temporaryMetrics.push((node as SymbolNode).name.substring(1));
     }
   });
 

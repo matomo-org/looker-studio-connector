@@ -277,8 +277,8 @@ export function getFieldsFromReportMetadata(
   });
 
   allTemporaryMetrics.forEach((metricId) => {
-    const aggregationType = reportMetadata.temporaryMetricAggregationTypes[metricId];
-    const matomoType = reportMetadata.temporaryMetricSemanticTypes[metricId];
+    const aggregationType = reportMetadata.temporaryMetricAggregationTypes?.[metricId];
+    const matomoType = reportMetadata.temporaryMetricSemanticTypes?.[metricId];
 
     if (!matomoType) {
       return;
