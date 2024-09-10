@@ -115,7 +115,7 @@ describe('api', () => {
       await Clasp.setScriptProperties({}, true);
     });
 
-    it.only('should retry if a probably random error is returned', async () => {
+    it('should retry if a probably random error is returned', async () => {
       if (!process.env.USE_LOCALTUNNEL) {
         console.log('*** SKIPPING TEST ***');
         return;
@@ -127,6 +127,8 @@ describe('api', () => {
           requestCount += 1;
         },
       });
+
+      await new Promise((resolve) => setTimeout(resolve, 3000));
 
       // use the mock server's path that forces a random error
       const result = await Clasp.run('setCredentials', {
