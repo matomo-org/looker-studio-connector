@@ -20,6 +20,10 @@ describe('api', () => {
         port: 3000,
         host: process.env.USE_LOCALTUNNEL,
       });
+
+      if ( ! tunnel.url ) {
+        throw new Error('Failed to setup localtunnel!');
+      }
     });
 
     beforeAll(async () => {
