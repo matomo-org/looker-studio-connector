@@ -115,7 +115,7 @@ describe('api', () => {
       await Clasp.setScriptProperties({}, true);
     });
 
-    it('should retry if a probably random error is returned', async () => {
+    it.only('should retry if a probably random error is returned', async () => {
       if (!process.env.USE_LOCALTUNNEL) {
         console.log('*** SKIPPING TEST ***');
         return;

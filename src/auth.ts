@@ -18,10 +18,12 @@ export function getAuthType() {
 
 export function checkForValidCreds(instanceUrl?: string, token?: string) {
   try {
+    console.log(instanceUrl, token);
     const responseContent = Api.fetch('SitesManager.getSitesIdWithAtLeastViewAccess', {}, {
         instanceUrl,
         token,
     });
+    console.log(responseContent);
     return Array.isArray(responseContent) && !!responseContent.length;
   } catch (error) {
     debugLog('checkForValidCreds:', 'failed to get sites ID with parameters', error.stack || error.message);

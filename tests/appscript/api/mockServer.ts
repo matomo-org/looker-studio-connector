@@ -20,6 +20,7 @@ export function makeApiFailureMockServer(port: number = 3000, options: MockServe
   const app = new Koa();
 
   app.use(async (ctx) => {
+    console.log(`handling url in mock server ${ctx.url}`);
     const { pathname, search } = new URL(`http://ignored.com${ctx.url}`);
 
     const body = await getBody(ctx.req);
