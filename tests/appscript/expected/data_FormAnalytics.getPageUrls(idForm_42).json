@@ -1,0 +1,251 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "",
+        "2",
+        "2",
+        "0",
+        "0",
+        "2",
+        "2",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0.001",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "dive-shop.net/",
+        "37",
+        "35",
+        "4",
+        "4",
+        "5",
+        "5",
+        "0",
+        "0",
+        "0.114",
+        "0",
+        "1.25",
+        "3.914",
+        "0.001",
+        "102.498"
+      ]
+    },
+    {
+      "values": [
+        "dive-shop.net/best-of-the-best/",
+        "25",
+        "25",
+        "8",
+        "8",
+        "8",
+        "8",
+        "0",
+        "0",
+        "0.32",
+        "0",
+        "1",
+        "3.25",
+        "0.001",
+        "23.617"
+      ]
+    },
+    {
+      "values": [
+        "dive-shop.net/cart/",
+        "4",
+        "4",
+        "0",
+        "0",
+        "3",
+        "3",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0.001",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "Others",
+        "206",
+        "192",
+        "37",
+        "37",
+        "43",
+        "43",
+        "0",
+        "1",
+        "0.193",
+        "0.027",
+        "1.162",
+        "8.796",
+        "0.001",
+        "52.983"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Page URL",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form views",
+      "name": "nb_form_views",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form viewers",
+      "name": "nb_form_viewers",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form starts",
+      "name": "nb_form_starts",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form starters",
+      "name": "nb_form_starters",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form submissions",
+      "name": "nb_form_submissions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form submitters",
+      "name": "nb_form_submitters",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form re-submitters",
+      "name": "nb_form_resubmitters",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form conversions",
+      "name": "nb_form_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form starters rate",
+      "name": "form_starters_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form conversion rate",
+      "name": "form_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form submitter rate",
+      "name": "form_submitter_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form avg. hesitation time",
+      "name": "avg_form_time_hesitation",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form avg. time to first submit",
+      "name": "avg_form_time_to_first_submission",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Form avg. time spent",
+      "name": "avg_form_time_spent",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

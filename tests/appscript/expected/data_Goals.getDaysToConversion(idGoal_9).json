@@ -1,0 +1,56 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "0 days",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "1 day",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "2 days",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "3 days",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "Others",
+        "4"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Days to Conversion",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Conversions",
+      "name": "nb_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}
