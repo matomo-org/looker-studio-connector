@@ -83,12 +83,11 @@ interface ApiFetchOptions {
   throwOnFailedRequest?: boolean;
 }
 
-// TODO: unit test
 export function isApiErrorNonRandom(message: string) {
   return /Requested report.*not found in the list of available reports/i.test(message)
     || /does not support multiple/i.test(message) // for VisitTime.getByDayOfWeek
     || /The plugin \w+ is not enabled/i.test(message)
-    || /requested.*?does not exist/i.test(message)
+    || /does not exist/i.test(message)
     || /You can't access this resource/i.test(message)
     || /An unexpected website was found/i.test(message)
     || /Referrers\.getAll with multiple sites or dates is not supported/i.test(message);
@@ -222,7 +221,6 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
         responseContents[responseIndex] = r.getContentText('UTF-8') || '{}';
         responseContents[responseIndex] = JSON.parse(responseContents[responseIndex] as string);
 
-        // TODO: move to function and unit test
         if (responseContents[responseIndex].result === 'error'
           && !isApiErrorNonRandom(responseContents[responseIndex].message)
         ) {

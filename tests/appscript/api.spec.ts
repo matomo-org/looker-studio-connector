@@ -246,4 +246,54 @@ describe('api', () => {
       expect(requestCount).toEqual(1);
     });
   });
+
+  describe('isApiErrorNonRandom()', function () {
+    const testCases = [
+      {
+        type: 'unknown report',
+        message: 'Requested report CustomReports.getCustomReport for Website id=1 not found in the list of available reports.',
+        expected: true,
+      },
+      {
+        type: 'VisitTime.getByDayOfWeek with multiple sites/dates',
+        message: 'VisitTime.getByDayOfWeek does not support multiple dates.',
+        expected: true,
+      },
+      {
+        type: 'plugin no longer enabled',
+        message: 'The plugin Funnels is not enabled.',
+        expected: true,
+      },
+      {
+        type: 'entity does not exist',
+        message: 'Dimension 999 for website 1 does not exist',
+        expected: true,
+      },
+      {
+        type: 'unauthorized access to resource',
+        message: 'You can\'t access this resource as it requires \'admin\' access for the website id = 3.',
+        expected: true,
+      },
+      {
+        type: 'unexpected website found',
+        message: 'An unexpected website was found in the request: website id was set to \'10\'',
+        expected: true,
+      },
+      {
+        type: 'Referrers.getAll with multiple sites/dates',
+        message: 'Referrers.getAll with multiple sites or dates is not supported (yet).',
+        expected: true,
+      },
+    ];
+
+    testCases.forEach(function ({ type, message, expected }) {
+      it(`should return ${expected ? 'true' : 'false'} for '${type}' error messages`, async function () {
+        const actual = await Clasp.run('isApiErrorNonRandom', {
+          message,
+        });
+
+        expect(expected).toEqual(actual);
+      });
+    });
+  });
 });
