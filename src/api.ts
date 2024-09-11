@@ -211,10 +211,14 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
         responseContents[responseIndex] = r.getContentText('UTF-8') || '{}';
         responseContents[responseIndex] = JSON.parse(responseContents[responseIndex] as string);
 
+        // TODO: move to function and unit test
         if (responseContents[responseIndex].result === 'error'
-          && !/Requested report.*not found in the list of available reports/.test(responseContents[responseIndex].message)
-          && !/does not support multiple/.test(responseContents[responseIndex].message) // for VisitTime.getByDayOfWeek
-          && !/The plugin \w+ is not enabled/.test(responseContents[responseIndex].message)
+          && !/Requested report.*not found in the list of available reports/i.test(responseContents[responseIndex].message)
+          && !/does not support multiple/i.test(responseContents[responseIndex].message) // for VisitTime.getByDayOfWeek
+          && !/The plugin \w+ is not enabled/i.test(responseContents[responseIndex].message)
+          && !/requested.*?does not exist/i.test(responseContents[responseIndex].message)
+          && !/You can't access this resource/i.test(responseContents[responseIndex].message)
+          && !/An unexpected website was found/i.test(responseContents[responseIndex].message)
         ) {
           log(`Unexpected error, Matomo returned an error for request ${urlFetched}: ${responseContents[responseIndex].message}`);
 
@@ -255,7 +259,8 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     try {
       cache.put(options.cacheKey, JSON.stringify(responseContents), options.cacheTtl);
     } catch (e) {
-      log(`unexpected: failed to save cache data for ${options.cacheKey}`);
+      // TODO: move all logs like this to another function
+      log(`Unexpected error: failed to save cache data for ${options.cacheKey}`);
     }
   }
 
