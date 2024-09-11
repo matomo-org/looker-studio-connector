@@ -31,7 +31,7 @@ module.exports = async function () {
     Clasp.startWatchingLogs();
 
     // request data used to dynamically generate test cases (which cannot be done within a describe() call)
-    const url = `${env.APPSCRIPT_TEST_MATOMO.replace(/[/]+$/g, '')}/index.php?idSite=${env.APPSCRIPT_TEST_IDSITE}&period=day&date=today&module=API&method=API.getReportMetadata&token_auth=${env.APPSCRIPT_TEST_TOKEN}&format=JSON`;
+    const url = `${env.APPSCRIPT_TEST_MATOMO.replace(/[/]+$/g, '')}/index.php?idSite=${env.APPSCRIPT_TEST_IDSITE}&period=day&date=today&module=API&method=API.getReportMetadata&token_auth=${env.APPSCRIPT_TEST_TOKEN}&format=JSON&filter_limit=-1`;
     const response = await axios({
         method: 'GET',
         url,
