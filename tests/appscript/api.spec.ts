@@ -128,13 +128,11 @@ describe('api', () => {
         },
       });
 
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-
       // use the mock server's path that forces a random error
       const result = await Clasp.run('setCredentials', {
         userToken: {
           username: `${ tunnel.url }/forced-random-error/`,
-          token: 'ignored',
+          token: 'forcedrandomerror',
         },
       });
 
@@ -172,6 +170,8 @@ describe('api', () => {
           requestCount += 1;
         },
       });
+
+      await new Promise((resolve) => setTimeout(resolve, 5000));
 
       // use the mock server's path that forces a non-random error
       await Clasp.run('setCredentials', {
