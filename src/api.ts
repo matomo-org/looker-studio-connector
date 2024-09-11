@@ -167,7 +167,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
         const allRequests = Object.keys(allUrlsMappedToIndex).join(', ');
         let message = options.runtimeLimitAbortMessage || 'This request is taking too long, aborting.';
         message = `${message} (Requests being sent: ${allRequests}).`;
-        throwUnexpectedError(message);
+        throwUnexpectedError(new Error(message), 'api client');
         return;
       }
     }
@@ -216,7 +216,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
           && !/does not support multiple/.test(responseContents[responseIndex].message) // for VisitTime.getByDayOfWeek
           && !/The plugin \w+ is not enabled/.test(responseContents[responseIndex].message)
         ) {
-          log(`Matomo returned an error for request ${urlFetched}: ${responseContents[responseIndex].message}`);
+          log(`Unexpected error, Matomo returned an error for request ${urlFetched}: ${responseContents[responseIndex].message}`);
 
           countOfFailedRequests += 1;
           return; // retry
@@ -245,9 +245,9 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
     if (errorResponses.length === 1) {
       const { method, params } = requests[errorResponses[0].index];
-      throwUnexpectedError(`API method ${method} failed with: "${errorResponses[0].message}". (params = ${JSON.stringify(params)})`);
+      throwUnexpectedError(new Error(`API method ${method} failed with: "${errorResponses[0].message}". (params = ${JSON.stringify(params)})`), 'api client');
     } else if (errorResponses.length > 1) {
-      throwUnexpectedError(`${errorResponses.length} API methods failed.`);
+      throwUnexpectedError(new Error(`${errorResponses.length} API methods failed.`), 'api client');
     }
   }
 
