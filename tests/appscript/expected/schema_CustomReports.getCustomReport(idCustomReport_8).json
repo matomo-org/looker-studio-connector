@@ -1,0 +1,80 @@
+{
+  "schema": [
+    {
+      "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Conversions goal \"Liveaboard.com click\" (ID 7 )",
+      "name": "goal_7_conversion",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "\"Goal Liveaboard.com click\" conversion rate",
+      "name": "goal_7_conversion_uniq_visitors_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Conversions goal \"New Job Application\" (ID 4 )",
+      "name": "goal_4_conversion",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Date",
+      "name": "date",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_MONTH_DAY"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Month",
+      "name": "date_month",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_MONTH"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Week (Mon - Sun)",
+      "name": "date_week",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_WEEK"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Year",
+      "name": "date_year",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR"
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "filtersApplied": false,
+  "rows": [
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Visits to Conversion",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Conversions",
+      "name": "nb_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

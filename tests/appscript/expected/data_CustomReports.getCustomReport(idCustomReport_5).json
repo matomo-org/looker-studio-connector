@@ -1,0 +1,100 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "United States",
+        "Returning Customer",
+        "399",
+        "12",
+        "0.03"
+      ]
+    },
+    {
+      "values": [
+        "Germany",
+        "Returning Customer",
+        "161",
+        "4",
+        "0.025"
+      ]
+    },
+    {
+      "values": [
+        "United Kingdom",
+        "Returning Customer",
+        "156",
+        "3",
+        "0.019"
+      ]
+    },
+    {
+      "values": [
+        "Australia",
+        "Returning Customer",
+        "147",
+        "4",
+        "0.027"
+      ]
+    },
+    {
+      "values": [
+        "Others",
+        "Others",
+        "1193",
+        "27",
+        "0.023"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Country",
+      "name": "UserCountry_Country",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Visit type",
+      "name": "CoreHome_VisitorReturning",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Conversions goal \"Liveaboard.com click\" (ID 7 )",
+      "name": "goal_7_conversion",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "\"Goal Liveaboard.com click\" conversion rate",
+      "name": "goal_7_conversion_uniq_visitors_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    }
+  ]
+}

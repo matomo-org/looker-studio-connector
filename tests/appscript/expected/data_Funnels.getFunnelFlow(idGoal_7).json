@@ -1,0 +1,122 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "Any divezone page",
+        "1464",
+        "1464",
+        "733",
+        "0",
+        "731",
+        "0",
+        "0.5"
+      ]
+    },
+    {
+      "values": [
+        "Diving page",
+        "880",
+        "156",
+        "875",
+        "724",
+        "5",
+        "7",
+        "0.01"
+      ]
+    },
+    {
+      "values": [
+        "Liveaboard.com click",
+        "51",
+        "39",
+        "0",
+        "12",
+        "0",
+        "0",
+        "0"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Step",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step visits",
+      "name": "step_nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step entries",
+      "name": "step_nb_entries",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step exits",
+      "name": "step_nb_exits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step progressions",
+      "name": "step_nb_progressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step proceeds",
+      "name": "step_nb_proceeded",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step skips",
+      "name": "step_nb_skipped",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Proceeded Rate",
+      "name": "step_proceeded_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

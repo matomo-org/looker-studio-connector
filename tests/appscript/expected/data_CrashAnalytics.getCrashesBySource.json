@@ -1,0 +1,55 @@
+{
+  "filtersApplied": false,
+  "rows": [
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Source",
+      "name": "CrashAnalytics_CrashResourceUri",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Crash",
+      "name": "CrashAnalytics_Crash",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Crash Occurrences",
+      "name": "nb_crash_occurrences",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits With Crashes",
+      "name": "nb_visits_with_crash",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits Crash Rate",
+      "name": "visits_crash_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "Homepage",
+        "95",
+        "95",
+        "94",
+        "0",
+        "1",
+        "0",
+        "0.01"
+      ]
+    },
+    {
+      "values": [
+        "50% off scuba diving masks promotion",
+        "7",
+        "6",
+        "6",
+        "1",
+        "1",
+        "0",
+        "0.14"
+      ]
+    },
+    {
+      "values": [
+        "Item added to cart",
+        "1",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "View cart",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "Others",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Step",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step visits",
+      "name": "step_nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step entries",
+      "name": "step_nb_entries",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step exits",
+      "name": "step_nb_exits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step progressions",
+      "name": "step_nb_progressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step proceeds",
+      "name": "step_nb_proceeded",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step skips",
+      "name": "step_nb_skipped",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Proceeded Rate",
+      "name": "step_proceeded_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

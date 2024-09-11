@@ -1,0 +1,100 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "Best Diving sites in Bali – Indonesia Scuba dive reviews by Divezone",
+        "Returning Customer",
+        "70",
+        "71",
+        "70"
+      ]
+    },
+    {
+      "values": [
+        "USS Liberty Wreck Dive Site – Map & Review of USS Liberty Wreck in Tulamben, Bali",
+        "Returning Customer",
+        "25",
+        "27",
+        "26"
+      ]
+    },
+    {
+      "values": [
+        "Best Diving sites in Nusa Penida / Nusa Lembongan – Bali Scuba dive reviews by Divezone",
+        "Returning Customer",
+        "13",
+        "14",
+        "13"
+      ]
+    },
+    {
+      "values": [
+        "Manta Point Dive Site – Map & Review of Manta Point in Nusa Penida / Nusa Lembongan, Bali",
+        "Returning Customer",
+        "13",
+        "14",
+        "13"
+      ]
+    },
+    {
+      "values": [
+        "Others",
+        "Others",
+        "78",
+        "84",
+        "78"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Page Title",
+      "name": "Actions_PageTitle",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Visit type",
+      "name": "CoreHome_VisitorReturning",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Pageviews",
+      "name": "pageviews",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

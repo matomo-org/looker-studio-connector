@@ -1,0 +1,36 @@
+{
+  "filtersApplied": false,
+  "rows": [
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Crash",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Crash Occurrences",
+      "name": "nb_crash_occurrences",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits With Crashes",
+      "name": "nb_visits_with_crash",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "Indonesia Preview",
+        "10",
+        "35",
+        "10",
+        "32",
+        "1",
+        "0.29",
+        "0.1",
+        "0",
+        "181",
+        "0.59",
+        "121",
+        "307"
+      ]
+    },
+    {
+      "values": [
+        "Red Sea 2009: Reefs and Sharks HD",
+        "10",
+        "17",
+        "9",
+        "13",
+        "0",
+        "0.59",
+        "0",
+        "0",
+        "189",
+        "0.56",
+        "84",
+        "337"
+      ]
+    },
+    {
+      "values": [
+        "The Murky Side Of Lembeh",
+        "7",
+        "12",
+        "5",
+        "10",
+        "1",
+        "0.58",
+        "0.14",
+        "0",
+        "261",
+        "0.53",
+        "25",
+        "492"
+      ]
+    },
+    {
+      "values": [
+        "North Sulawesi",
+        "5",
+        "15",
+        "5",
+        "15",
+        "0",
+        "0.33",
+        "0",
+        "0",
+        "157",
+        "0.52",
+        "8",
+        "302"
+      ]
+    },
+    {
+      "values": [
+        "Others",
+        "33",
+        "138",
+        "33",
+        "135",
+        "4",
+        "0.24",
+        "0.12",
+        "0.03",
+        "224",
+        "0.71",
+        "55",
+        "313"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Media Title",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Plays",
+      "name": "nb_plays",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Impressions",
+      "name": "nb_impressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Plays by unique visitors",
+      "name": "nb_unique_visitors_plays",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Impressions by unique visitors",
+      "name": "nb_unique_visitors_impressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Finishes",
+      "name": "nb_finishes",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Play rate",
+      "name": "play_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Finish rate",
+      "name": "finish_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Fullscreen rate",
+      "name": "fullscreen_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. time spent",
+      "name": "avg_time_watched",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Avg. Completion",
+      "name": "avg_completion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Time To Play",
+      "name": "avg_time_to_play",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Media Length",
+      "name": "avg_media_length",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    }
+  ]
+}

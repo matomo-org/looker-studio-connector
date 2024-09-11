@@ -1,0 +1,119 @@
+{
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Step",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step visits",
+      "name": "step_nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step entries",
+      "name": "step_nb_entries",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step exits",
+      "name": "step_nb_exits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step progressions",
+      "name": "step_nb_progressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step proceeds",
+      "name": "step_nb_proceeded",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Step skips",
+      "name": "step_nb_skipped",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Proceeded Rate",
+      "name": "step_proceeded_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Date",
+      "name": "date",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_MONTH_DAY"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Month",
+      "name": "date_month",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_MONTH"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Week (Mon - Sun)",
+      "name": "date_week",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_WEEK"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Year",
+      "name": "date_year",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR"
+      }
+    }
+  ]
+}

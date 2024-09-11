@@ -290,9 +290,11 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       filter_limit: `${limitToUse}`,
       filter_offset: `${offset}`,
       showColumns,
+      apiModule: null,
+      apiAction: null,
     };
 
-    if (reportParams.apiModule !== 'Goals') {
+    if (reportParams.apiModule !== 'Goals' && typeof params.idGoal === 'undefined') {
       params.filter_update_columns_when_show_all_goals = '1';
       params.idGoal = '0'; // calculate extra metrics for all goals
     }

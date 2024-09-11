@@ -1,0 +1,174 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "vimeo",
+        "64",
+        "216",
+        "60",
+        "199",
+        "6",
+        "0.3",
+        "0.09",
+        "211",
+        "0.63",
+        "64",
+        "336"
+      ]
+    },
+    {
+      "values": [
+        "html5Audio",
+        "1",
+        "6",
+        "1",
+        "5",
+        "0",
+        "0.17",
+        "0",
+        "976",
+        "0.46",
+        "114",
+        "2100"
+      ]
+    },
+    {
+      "values": [
+        "youtube",
+        "1",
+        "1",
+        "1",
+        "1",
+        "0",
+        "1",
+        "0",
+        "180",
+        "0.73",
+        "11",
+        "248"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Player Name",
+      "name": "label",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Plays",
+      "name": "nb_plays",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Impressions",
+      "name": "nb_impressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Plays by unique visitors",
+      "name": "nb_unique_visitors_plays",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Impressions by unique visitors",
+      "name": "nb_unique_visitors_impressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Finishes",
+      "name": "nb_finishes",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Play rate",
+      "name": "play_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Finish rate",
+      "name": "finish_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. time spent",
+      "name": "avg_time_watched",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Avg. Completion",
+      "name": "avg_completion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Time To Play",
+      "name": "avg_time_to_play",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Avg. Media Length",
+      "name": "avg_media_length",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    }
+  ]
+}

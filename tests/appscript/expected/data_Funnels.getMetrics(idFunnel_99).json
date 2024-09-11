@@ -1,0 +1,66 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "0",
+        "101",
+        "101",
+        "0",
+        "1"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "NUMBER",
+      "label": "Funnel conversions",
+      "name": "funnel_nb_conversions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Funnel entries",
+      "name": "funnel_sum_entries",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Funnel exits",
+      "name": "funnel_sum_exits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Funnel conversion rate",
+      "name": "funnel_conversion_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Funnel abandoned rate",
+      "name": "funnel_abandoned_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}

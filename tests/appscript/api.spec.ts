@@ -20,6 +20,10 @@ describe('api', () => {
         port: 3000,
         host: process.env.USE_LOCALTUNNEL,
       });
+
+      if ( ! tunnel.url ) {
+        throw new Error('Failed to setup localtunnel!');
+      }
     });
 
     beforeAll(async () => {
@@ -128,7 +132,7 @@ describe('api', () => {
       const result = await Clasp.run('setCredentials', {
         userToken: {
           username: `${ tunnel.url }/forced-random-error/`,
-          token: 'ignored',
+          token: 'forcedrandomerror',
         },
       });
 
@@ -166,6 +170,9 @@ describe('api', () => {
           requestCount += 1;
         },
       });
+
+      // waiting seems to be required here, or the mock server isn't used in time
+      await new Promise((resolve) => setTimeout(resolve, 5000));
 
       // use the mock server's path that forces a non-random error
       await Clasp.run('setCredentials', {

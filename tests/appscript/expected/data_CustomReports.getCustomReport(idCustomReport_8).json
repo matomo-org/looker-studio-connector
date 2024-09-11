@@ -1,0 +1,55 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "2064",
+        "51",
+        "0.025",
+        "2"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Conversions goal \"Liveaboard.com click\" (ID 7 )",
+      "name": "goal_7_conversion",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "\"Goal Liveaboard.com click\" conversion rate",
+      "name": "goal_7_conversion_uniq_visitors_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Conversions goal \"New Job Application\" (ID 4 )",
+      "name": "goal_4_conversion",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "TEXT"
+      }
+    }
+  ]
+}

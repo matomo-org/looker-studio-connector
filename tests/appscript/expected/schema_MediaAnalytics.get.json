@@ -1,0 +1,170 @@
+{
+  "schema": [
+    {
+      "dataType": "NUMBER",
+      "label": "Plays",
+      "name": "nb_plays",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Plays by unique visitors",
+      "name": "nb_unique_visitors_plays",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Impressions",
+      "name": "nb_impressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Impressions by unique visitors",
+      "name": "nb_unique_visitors_impressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Impression rate",
+      "name": "impression_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Finishes",
+      "name": "nb_finishes",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Time spent on media",
+      "name": "sum_total_time_watched",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "DURATION"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Number of audio plays",
+      "name": "sum_total_audio_plays",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Number of audio impressions",
+      "name": "sum_total_audio_impressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Number of video plays",
+      "name": "sum_total_video_plays",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Number of video impressions",
+      "name": "sum_total_video_impressions",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Play rate",
+      "name": "play_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Finish rate",
+      "name": "finish_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Date",
+      "name": "date",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_MONTH_DAY"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Month",
+      "name": "date_month",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_MONTH"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Week (Mon - Sun)",
+      "name": "date_week",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR_WEEK"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Year",
+      "name": "date_year",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "YEAR"
+      }
+    }
+  ]
+}

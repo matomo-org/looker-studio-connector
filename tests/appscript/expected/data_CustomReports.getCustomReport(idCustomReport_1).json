@@ -1,0 +1,100 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "Returning Customer",
+        "Others",
+        "693",
+        "697",
+        "727"
+      ]
+    },
+    {
+      "values": [
+        "Returning Customer",
+        "Diving Jobs, latest Divemaster and Scuba Dive Instructor Job offers!",
+        "167",
+        "167",
+        "201"
+      ]
+    },
+    {
+      "values": [
+        "Returning Customer",
+        "Cart - Divezone Store",
+        "127",
+        "128",
+        "142"
+      ]
+    },
+    {
+      "values": [
+        "Returning Customer",
+        "Checkout - Divezone Store",
+        "110",
+        "112",
+        "121"
+      ]
+    },
+    {
+      "values": [
+        "Others",
+        "Others",
+        "1454",
+        "1473",
+        "1665"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "STRING",
+      "label": "Visit type",
+      "name": "CoreHome_VisitorReturning",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "STRING",
+      "label": "Page Title",
+      "name": "Actions_PageTitle",
+      "semantics": {
+        "conceptType": "DIMENSION",
+        "semanticType": "TEXT"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Unique visitors",
+      "name": "nb_uniq_visitors",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Visits",
+      "name": "nb_visits",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    },
+    {
+      "dataType": "NUMBER",
+      "label": "Pageviews",
+      "name": "pageviews",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "NUMBER"
+      }
+    }
+  ]
+}
