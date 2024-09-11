@@ -18,15 +18,12 @@ export function getAuthType() {
 
 export function checkForValidCreds(instanceUrl?: string, token?: string) {
   try {
-    console.log('checking4', instanceUrl, token);
     const responseContent = Api.fetch('SitesManager.getSitesIdWithAtLeastViewAccess', {}, {
         instanceUrl,
         token,
     });
-    console.log('checking4', responseContent, Array.isArray(responseContent), !!responseContent.length);
     return Array.isArray(responseContent) && !!responseContent.length;
   } catch (error) {
-    console.log('checking4', error.message, error.stack);
     debugLog('checkForValidCreds:', 'failed to get sites ID with parameters', error.stack || error.message);
     return false;
   }
@@ -38,7 +35,6 @@ export function setCredentials(request) {
   const instanceUrl = username;
 
   const isValidCreds = checkForValidCreds(instanceUrl, token);
-  console.log('checking4', instanceUrl, token, isValidCreds);
 
   if (!isValidCreds) {
     return {

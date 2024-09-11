@@ -171,6 +171,7 @@ describe('api', () => {
         },
       });
 
+      // waiting seems to be required here, or the mock server isn't used in time
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
       // use the mock server's path that forces a non-random error
