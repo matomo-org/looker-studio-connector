@@ -1,5 +1,8 @@
 == Changelog ===
 
+= 1.1.2 =
+* Fix regression causing Funnels reports to fail to load.
+
 = 1.1.1 =
 * Expose Overall Goal Conversions and Revenue metrics for reports that support them in Matomo (workaround for core Matomo bug).
 
