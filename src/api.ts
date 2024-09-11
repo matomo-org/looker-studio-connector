@@ -90,7 +90,8 @@ export function isApiErrorNonRandom(message: string) {
     || /The plugin \w+ is not enabled/i.test(message)
     || /requested.*?does not exist/i.test(message)
     || /You can't access this resource/i.test(message)
-    || /An unexpected website was found/i.test(message);
+    || /An unexpected website was found/i.test(message)
+    || /Referrers\.getAll with multiple sites or dates is not supported/i.test(message);
 }
 
 export function extractBasicAuthFromUrl(url: string): { authHeaders: Record<string, string>, urlWithoutAuth: string } {
