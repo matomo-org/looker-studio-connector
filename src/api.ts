@@ -83,6 +83,16 @@ interface ApiFetchOptions {
   throwOnFailedRequest?: boolean;
 }
 
+// TODO: unit test
+export function isApiErrorNonRandom(message: string) {
+  return /Requested report.*not found in the list of available reports/i.test(message)
+    || /does not support multiple/i.test(message) // for VisitTime.getByDayOfWeek
+    || /The plugin \w+ is not enabled/i.test(message)
+    || /requested.*?does not exist/i.test(message)
+    || /You can't access this resource/i.test(message)
+    || /An unexpected website was found/i.test(message);
+}
+
 export function extractBasicAuthFromUrl(url: string): { authHeaders: Record<string, string>, urlWithoutAuth: string } {
   const authHeaders: Record<string, string> = {};
 
@@ -213,12 +223,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
         // TODO: move to function and unit test
         if (responseContents[responseIndex].result === 'error'
-          && !/Requested report.*not found in the list of available reports/i.test(responseContents[responseIndex].message)
-          && !/does not support multiple/i.test(responseContents[responseIndex].message) // for VisitTime.getByDayOfWeek
-          && !/The plugin \w+ is not enabled/i.test(responseContents[responseIndex].message)
-          && !/requested.*?does not exist/i.test(responseContents[responseIndex].message)
-          && !/You can't access this resource/i.test(responseContents[responseIndex].message)
-          && !/An unexpected website was found/i.test(responseContents[responseIndex].message)
+          && !isApiErrorNonRandom(responseContents[responseIndex].message)
         ) {
           log(`Unexpected error, Matomo returned an error for request ${urlFetched}: ${responseContents[responseIndex].message}`);
 
