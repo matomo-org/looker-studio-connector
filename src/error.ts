@@ -6,7 +6,7 @@
  */
 
 import cc from './connector';
-import { currentHost, log, requestId } from './log';
+import {currentHost, log, logError, requestId} from './log';
 
 const FORUM_URL = 'https://forum.matomo.org/c/looker-studio/25';
 
@@ -39,9 +39,9 @@ export function throwUserError(message: string) {
  */
 export function throwUnexpectedError(error: Error, callerId?: string) {
   try {
-    const { message, stack } = error;
+    logError(error, callerId);
 
-    log(`Unexpected error${callerId ? ` in ${callerId}` : ''}: ${stack}`);
+    const { message } = error;
 
     const time = (new Date()).toString();
     const wholeMessage = `An error has occurred - if you need help, please reach out in the Forums here: ${FORUM_URL} or `

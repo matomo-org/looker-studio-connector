@@ -9,7 +9,7 @@ import env from './env';
 import { getScriptElapsedTime } from './connector';
 import { throwUnexpectedError } from './error';
 import URLFetchRequest = GoogleAppsScript.URL_Fetch.URLFetchRequest;
-import { debugLog, log } from './log';
+import { debugLog, log, logError } from './log';
 
 const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
 const API_REQUEST_RETRY_LIMIT_IN_SECS = parseInt(env.API_REQUEST_RETRY_LIMIT_IN_SECS) || 0;
@@ -125,7 +125,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       try {
         return JSON.parse(cacheEntry);
       } catch (e) {
-        log(`unexpected: failed to parse cache data for ${options.cacheKey}`);
+        logError(new Error(`failed to parse cache data for ${options.cacheKey}`), 'api client');
       }
     }
   }
@@ -224,7 +224,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
         if (responseContents[responseIndex].result === 'error'
           && !isApiErrorNonRandom(responseContents[responseIndex].message)
         ) {
-          log(`Unexpected error, Matomo returned an error for request ${urlFetched}: ${responseContents[responseIndex].message}`);
+          logError(new Error(`Matomo returned an error for request ${urlFetched}: ${responseContents[responseIndex].message}`), 'api client');
 
           countOfFailedRequests += 1;
           return; // retry
@@ -263,8 +263,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     try {
       cache.put(options.cacheKey, JSON.stringify(responseContents), options.cacheTtl);
     } catch (e) {
-      // TODO: move all logs like this to another function
-      log(`Unexpected error: failed to save cache data for ${options.cacheKey}`);
+      logError(new Error(`failed to save cache data for ${options.cacheKey}`), 'api client');
     }
   }
 
