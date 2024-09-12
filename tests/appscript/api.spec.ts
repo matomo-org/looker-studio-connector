@@ -215,6 +215,8 @@ describe('api', () => {
         },
       });
 
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+
       // use the mock server's path that forces a non-random error
       await Clasp.run('setCredentials', {
         userToken: {
@@ -288,10 +290,7 @@ describe('api', () => {
 
     testCases.forEach(function ({ type, message, expected }) {
       it(`should return ${expected ? 'true' : 'false'} for '${type}' error messages`, async function () {
-        const actual = await Clasp.run('isApiErrorNonRandom', {
-          message,
-        });
-
+        const actual = await Clasp.run('isApiErrorNonRandom', message);
         expect(expected).toEqual(actual);
       });
     });
