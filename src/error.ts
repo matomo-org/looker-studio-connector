@@ -6,7 +6,7 @@
  */
 
 import cc from './connector';
-import { currentHost, log, requestId } from './log';
+import {currentHost, log, logError, requestId} from './log';
 
 const FORUM_URL = 'https://forum.matomo.org/c/looker-studio/25';
 
@@ -33,11 +33,16 @@ export function throwUserError(message: string) {
  * where the user can get support. This should be called for errors that are unexpected and could
  * point to issues in the connector, or for errors that are not easy for the user to resolve themselves.
  *
- * @param message
+ * @param error Error the error that occurred
+ * @param callerId
  * @throws Error
  */
-export function throwUnexpectedError(message: string) {
+export function throwUnexpectedError(error: Error, callerId?: string) {
   try {
+    logError(error, callerId);
+
+    const { message } = error;
+
     const time = (new Date()).toString();
     const wholeMessage = `An error has occurred - if you need help, please reach out in the Forums here: ${FORUM_URL} or `
       + `contact us by email at hello@matomo.org (in your message, please use Looker Studio in the subject, and copy paste the error message). `
@@ -77,7 +82,6 @@ export function callWithUserFriendlyErrorHandling<T>(callerId: string, fn: () =>
       throw e;
     }
 
-    log(`Unexpected error: ${e.stack || e.message || e}`);
-    throwUnexpectedError(`${callerId}: ${e.message || e}`);
+    throwUnexpectedError(e, callerId);
   }
 }

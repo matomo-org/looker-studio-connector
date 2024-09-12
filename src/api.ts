@@ -9,7 +9,7 @@ import env from './env';
 import { getScriptElapsedTime } from './connector';
 import { throwUnexpectedError } from './error';
 import URLFetchRequest = GoogleAppsScript.URL_Fetch.URLFetchRequest;
-import { debugLog, log } from './log';
+import { debugLog, log, logError } from './log';
 
 const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
 const API_REQUEST_RETRY_LIMIT_IN_SECS = parseInt(env.API_REQUEST_RETRY_LIMIT_IN_SECS) || 0;
@@ -83,6 +83,16 @@ interface ApiFetchOptions {
   throwOnFailedRequest?: boolean;
 }
 
+export function isApiErrorNonRandom(message: string) {
+  return /Requested report.*not found in the list of available reports/i.test(message)
+    || /does not support multiple/i.test(message) // for VisitTime.getByDayOfWeek
+    || /The plugin \w+ is not enabled/i.test(message)
+    || /does not exist/i.test(message)
+    || /You can't access this resource/i.test(message)
+    || /An unexpected website was found/i.test(message)
+    || /Referrers\.getAll with multiple sites or dates is not supported/i.test(message);
+}
+
 export function extractBasicAuthFromUrl(url: string): { authHeaders: Record<string, string>, urlWithoutAuth: string } {
   const authHeaders: Record<string, string> = {};
 
@@ -115,7 +125,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       try {
         return JSON.parse(cacheEntry);
       } catch (e) {
-        log(`unexpected: failed to parse cache data for ${options.cacheKey}`);
+        logError(new Error(`failed to parse cache data for ${options.cacheKey}`), 'api client');
       }
     }
   }
@@ -167,7 +177,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
         const allRequests = Object.keys(allUrlsMappedToIndex).join(', ');
         let message = options.runtimeLimitAbortMessage || 'This request is taking too long, aborting.';
         message = `${message} (Requests being sent: ${allRequests}).`;
-        throwUnexpectedError(message);
+        throwUnexpectedError(new Error(message), 'api client');
         return;
       }
     }
@@ -212,11 +222,9 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
         responseContents[responseIndex] = JSON.parse(responseContents[responseIndex] as string);
 
         if (responseContents[responseIndex].result === 'error'
-          && !/Requested report.*not found in the list of available reports/.test(responseContents[responseIndex].message)
-          && !/does not support multiple/.test(responseContents[responseIndex].message) // for VisitTime.getByDayOfWeek
-          && !/The plugin \w+ is not enabled/.test(responseContents[responseIndex].message)
+          && !isApiErrorNonRandom(responseContents[responseIndex].message)
         ) {
-          log(`Matomo returned an error for request ${urlFetched}: ${responseContents[responseIndex].message}`);
+          logError(new Error(`Matomo returned an error for request ${urlFetched}: ${responseContents[responseIndex].message}`), 'api client');
 
           countOfFailedRequests += 1;
           return; // retry
@@ -245,9 +253,9 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
     if (errorResponses.length === 1) {
       const { method, params } = requests[errorResponses[0].index];
-      throwUnexpectedError(`API method ${method} failed with: "${errorResponses[0].message}". (params = ${JSON.stringify(params)})`);
+      throwUnexpectedError(new Error(`API method ${method} failed with: "${errorResponses[0].message}". (params = ${JSON.stringify(params)})`), 'api client');
     } else if (errorResponses.length > 1) {
-      throwUnexpectedError(`${errorResponses.length} API methods failed.`);
+      throwUnexpectedError(new Error(`${errorResponses.length} API methods failed.`), 'api client');
     }
   }
 
@@ -255,7 +263,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     try {
       cache.put(options.cacheKey, JSON.stringify(responseContents), options.cacheTtl);
     } catch (e) {
-      log(`unexpected: failed to save cache data for ${options.cacheKey}`);
+      logError(new Error(`failed to save cache data for ${options.cacheKey}`), 'api client');
     }
   }
 

@@ -23,6 +23,12 @@ export function log(...args: unknown[]): void {
   console.log(prefix, ...args);
 }
 
+export function logError(error: Error, callerId?: string): void {
+  const { stack } = error;
+
+  log(`Unexpected error${callerId ? ` in ${callerId}` : ''}: ${stack}`);
+}
+
 export function debugLog(...args: unknown[]): void {
   if (!isDebug) {
     return;

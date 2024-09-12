@@ -504,7 +504,7 @@ export function getSchema(request: GoogleAppsScript.Data_Studio.Request<Connecto
     const { reportMetadata, goals, siteCurrency } = getReportMetadataAndGoalsAndCurrency(request);
     if (!reportMetadata) {
       const reportParams = JSON.parse(request.configParams.report);
-      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata. (All params = ${request.configParams.report})`);
+      throwUnexpectedError(new Error(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata. (All params = ${request.configParams.report})`), 'getSchema()');
     }
 
     const fields = getFieldsFromReportMetadata(reportMetadata, goals, siteCurrency);
@@ -547,7 +547,7 @@ export function getData(request: GoogleAppsScript.Data_Studio.Request<ConnectorP
     let reportData = getReportData(request, requestedFields);
     if (reportData === null) {
       const reportParams = JSON.parse(request.configParams.report);
-      throwUnexpectedError(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata.`);
+      throwUnexpectedError(new Error(`The "${reportParams.apiModule}.${reportParams.apiAction}" report cannot be found in the Matomo's report metadata.`), 'getData()');
     }
 
     // API methods that return DataTable\Simple instances are just one row, not an array of rows, so we wrap them
