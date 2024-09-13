@@ -253,7 +253,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
     if (errorResponses.length === 1) {
       const { method, params } = requests[errorResponses[0].index];
-      throwUnexpectedError(new Error(`API method ${method} failed with: "${errorResponses[0].message}". (params = ${JSON.stringify(params)})`), 'api client');
+      throwUnexpectedError(new Error(`API method ${method} failed (params = ${JSON.stringify(params)}): "${errorResponses[0].message}".`), 'api client');
     } else if (errorResponses.length > 1) {
       throwUnexpectedError(new Error(`${errorResponses.length} API methods failed.`), 'api client');
     }
