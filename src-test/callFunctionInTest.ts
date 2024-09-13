@@ -7,7 +7,7 @@
 
 export function callFunctionInTest(functionName: string, testName: string, ...params: unknown[]) {
   try {
-    console.log(`calling ${functionName} in test "${testName}}`);
+    console.log(`calling ${functionName} in test "${testName}"`);
 
     // there is no global object (like window) in apps script, so this is how we get a global function by name
     const fn = eval(functionName);
