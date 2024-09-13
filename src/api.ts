@@ -14,6 +14,7 @@ import { debugLog, log, logError } from './log';
 const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
 const API_REQUEST_RETRY_LIMIT_IN_SECS = parseInt(env.API_REQUEST_RETRY_LIMIT_IN_SECS) || 0;
 const MAX_WAIT_BEFORE_RETRY = 32;
+const FETCH_USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0';
 
 let API_REQUEST_EXTRA_HEADERS = {};
 try {
@@ -186,7 +187,11 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
     const urlsToFetch = Object.keys(allUrlsMappedToIndex).map((u) => (<URLFetchRequest>{
       url: baseUrl,
-      headers: { ...API_REQUEST_EXTRA_HEADERS, ...authHeaders },
+      headers: {
+        'User-Agent': FETCH_USER_AGENT,
+        ...API_REQUEST_EXTRA_HEADERS,
+        ...authHeaders,
+      },
       method: 'post',
       payload: u + '&token_auth=' + token,
       muteHttpExceptions: true,
