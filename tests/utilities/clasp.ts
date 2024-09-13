@@ -73,7 +73,8 @@ class Clasp {
   }
 
   async run(functionName: string, ...args: any[]) {
-    return this.runExecutable(['run', '-p', JSON.stringify([functionName, ...args]), 'callFunctionInTest']);
+    const testName = expect.getState().currentTestName;
+    return this.runExecutable(['run', '-p', JSON.stringify([functionName, testName, ...args]), 'callFunctionInTest']);
   }
 
   async setScriptProperties(properties: Record<string, string>, deleteExisting = false) {
