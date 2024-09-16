@@ -301,7 +301,7 @@ describe('data', () => {
     });
 
 
-    it.only('should return all data when no filter limit is set', async () => {
+    it('should return all data when no filter limit is set', async () => {
       await Clasp.setScriptProperties({
         MAX_ROWS_TO_FETCH_PER_REQUEST: '500',
       }, true);
