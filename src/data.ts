@@ -408,6 +408,8 @@ function getFieldsFromReportMetadata(reportMetadata: Api.ReportMetadata, goals: 
       allMetrics = { ...allMetrics, ...metricsForEachGoal({ 'conversion_rate': 'Conversion Rate' }, goals) };
     }
 
+    reportMetadata.metricTypes = reportMetadata.metricTypes || {};
+
     // pre 5.1.0, the overall conversions and revenue sum metrics were not present in metadata output,
     // but the data exists in the actual API output
     if (reportMetadata.module !== 'Actions') {

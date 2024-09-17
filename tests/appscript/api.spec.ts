@@ -128,6 +128,8 @@ describe('api', () => {
         },
       });
 
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+
       // use the mock server's path that forces a random error
       const result = await Clasp.run('setCredentials', {
         userToken: {
