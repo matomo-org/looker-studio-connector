@@ -8,7 +8,7 @@
 import { beforeEach, beforeAll, expect } from '@jest/globals';
 import Clasp from '../utilities/clasp';
 import { makeApiFailureMockServer } from './api/mockServer';
-import localtunnel from 'mwp-localtunnel-client';
+import localtunnel from '../utilities/mwp-localtunnel-client';
 
 describe('api', () => {
   let server: ReturnType<typeof makeApiFailureMockServer>;

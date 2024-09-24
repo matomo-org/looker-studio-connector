@@ -64,6 +64,9 @@ jobs:
           CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
           CLASP_CREDENTIALS_LOCAL: ${{ secrets.CLASP_CREDENTIALS_LOCAL }}
 
+      - name: Prepare
+        run: npm run test:prepare
+
       - name: Test
         run: npm test
         env:

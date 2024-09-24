@@ -1,11 +1,11 @@
 .idea/
-.clasp.json
+.clasp.json*
 node_modules/
 tests/.env
-/creds.json
+/creds.json*
 .clasprc.json
 appsscript.backup.json
 dist/
 tests/appscript/actual/
 /.env
-
+/tests/utilities/mwp-localtunnel-client
