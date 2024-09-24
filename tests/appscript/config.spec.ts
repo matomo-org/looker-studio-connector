@@ -6,7 +6,6 @@
  */
 
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
-import localtunnel from 'mwp-localtunnel-client';
 import Clasp from '../utilities/clasp';
 import getExpectedResponse from './getExpectedResponse';
 import env from '../env';
@@ -76,6 +75,8 @@ describe('config', () => {
 
       if (process.env.USE_LOCALTUNNEL) {
         beforeAll(async () => {
+          const localtunnel = (await import('../utilities/mwp-localtunnel-client')).default;
+
           // create localtunnel
           tunnel = await localtunnel({
             port: 3000,
