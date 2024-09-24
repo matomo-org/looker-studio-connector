@@ -8,7 +8,6 @@
 import { beforeEach, beforeAll, expect } from '@jest/globals';
 import Clasp from '../utilities/clasp';
 import { makeApiFailureMockServer } from './api/mockServer';
-import localtunnel from '../utilities/mwp-localtunnel-client';
 
 describe('api', () => {
   let server: ReturnType<typeof makeApiFailureMockServer>;
@@ -16,6 +15,8 @@ describe('api', () => {
 
   if (process.env.USE_LOCALTUNNEL) {
     beforeAll(async () => {
+      const localtunnel = (await import('../utilities/mwp-localtunnel-client')).default;
+
       tunnel = await localtunnel({
         port: 3000,
         host: process.env.USE_LOCALTUNNEL,
