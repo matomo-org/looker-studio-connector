@@ -15,7 +15,7 @@
 // continue running w/o a human doing something.
 
 import * as fs from 'fs';
-import { Octokit } from 'octokit';
+import { Octokit } from '@octokit/core';
 import sodium from 'libsodium-wrappers';
 
 async function main() {
