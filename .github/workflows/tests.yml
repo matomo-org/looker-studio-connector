@@ -65,7 +65,11 @@ jobs:
           CLASP_CREDENTIALS_LOCAL: ${{ secrets.CLASP_CREDENTIALS_LOCAL }}
 
       - name: Prepare
-        run: npm run test:prepare
+        run: |
+          mkdir -p ./tests/utilities/mwp-localtunnel-client
+          curl "https://gist.githubusercontent.com/$MWP_LOCALTUNNEL_CLIENT_URL_PATH" > ./tests/utilities/mwp-localtunnel-client/index.js
+        env:
+          MWP_LOCALTUNNEL_CLIENT_URL_PATH: ${{ secrets.MWP_LOCALTUNNEL_CLIENT_URL_PATH }}
 
       - name: Test
         run: npm test
