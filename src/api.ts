@@ -7,7 +7,7 @@
 
 import env from './env';
 import { getScriptElapsedTime } from './connector';
-import { throwUnexpectedError } from './error';
+import { throwUnexpectedError, throwUserError } from './error';
 import URLFetchRequest = GoogleAppsScript.URL_Fetch.URLFetchRequest;
 import { debugLog, log, logError } from './log';
 
@@ -263,8 +263,8 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
     // if there are still requests to try (because they failed), wait before trying again
     const remainingRequestCount = Object.keys(allUrlsMappedToIndex).length;
-    const requestsFailed = !!remainingRequestCount;
-    if (requestsFailed) {
+    const haveRequestsFailed = remainingRequestCount > 0;
+    if (haveRequestsFailed) {
       log(`${countOfFailedRequests} request(s) failed, retrying after ${currentWaitBeforeRetryTime / 1000} seconds.`);
 
       Utilities.sleep(currentWaitBeforeRetryTime);
