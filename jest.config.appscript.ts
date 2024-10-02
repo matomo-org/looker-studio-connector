@@ -17,4 +17,8 @@ export default {
   transformIgnorePatterns: [
     "node_modules/(?!mwp-localtunnel-client/.*)",
   ],
+  testMatch: [
+    '**/api.spec.ts',
+    '**/*.spec.ts',
+  ],
 };
