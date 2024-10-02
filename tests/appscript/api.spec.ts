@@ -8,6 +8,7 @@
 import { beforeEach, beforeAll, expect } from '@jest/globals';
 import Clasp from '../utilities/clasp';
 import { makeApiFailureMockServer } from './api/mockServer';
+import axios from 'axios';
 
 describe('api', () => {
   let server: ReturnType<typeof makeApiFailureMockServer>;
@@ -45,6 +46,26 @@ describe('api', () => {
 
       await tunnel.close();
     });
+  }
+
+  async function waitForMockServer() {
+    const testUrl = `${tunnel.url}/index.php`;
+    const body = {
+      method: 'SitesManager.getSitesIdWithAtLeastViewAccess',
+    };
+
+    while (true) {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      try {
+        const response = await axios.post(testUrl, body);
+        if (Array.isArray(response.data) && response.data[0] === 1) {
+          return;
+        }
+      } catch (e) {
+        // retry
+      }
+    }
   }
 
   describe('extractBasicAuthFromUrl()', () => {
@@ -129,7 +150,7 @@ describe('api', () => {
         },
       });
 
-      await new Promise((resolve) => setTimeout(resolve, 10000));
+      await waitForMockServer();
 
       // use the mock server's path that forces a random error
       const result = await Clasp.run('setCredentials', {
@@ -175,7 +196,7 @@ describe('api', () => {
       });
 
       // waiting seems to be required here, or the mock server isn't used in time
-      await new Promise((resolve) => setTimeout(resolve, 10000));
+      await waitForMockServer();
 
       // use the mock server's path that forces a non-random error
       await Clasp.run('setCredentials', {
@@ -218,7 +239,7 @@ describe('api', () => {
         },
       });
 
-      await new Promise((resolve) => setTimeout(resolve, 10000));
+      await waitForMockServer();
 
       // use the mock server's path that forces a non-random error
       await Clasp.run('setCredentials', {
