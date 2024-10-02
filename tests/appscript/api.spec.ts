@@ -64,10 +64,7 @@ describe('api', () => {
       }
 
       try {
-        console.log(`requesting ${testUrl} with ${body}`);
         const response = await axios.post(testUrl, body);
-        console.log('response: ' + typeof(response.data));
-        console.log(JSON.stringify(response.data));
         if (Array.isArray(response.data) && response.data[0] === 1) {
           return;
         }
