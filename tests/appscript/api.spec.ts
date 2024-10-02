@@ -278,7 +278,7 @@ describe('api', () => {
       expect(requestCount).toEqual(1);
     });
 
-    it('should abort when UrlFetchApp throws an unknown error', async () => {
+    it.only('should abort when UrlFetchApp throws an unknown error', async () => {
       if (!process.env.USE_LOCALTUNNEL) {
         console.log('*** SKIPPING TEST ***');
         return;
@@ -299,7 +299,6 @@ describe('api', () => {
       const errorMessage = 'unknown error';
 
       await expect(async () => {
-        // check it does not throw when an Error is used
         await Clasp.runWithFixture(
           { name: 'urlfetchapp', params: [ errorMessage ] },
           'fetchAll',
@@ -314,7 +313,6 @@ describe('api', () => {
         );
       }).rejects.toHaveProperty('message', errorMessage);
 
-      // check it does not throw when a string is used
       await expect(async () => {
         await Clasp.runWithFixture(
           { name: 'urlfetchapp', params: [ errorMessage, true ] },

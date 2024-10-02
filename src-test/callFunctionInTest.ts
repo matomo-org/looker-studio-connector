@@ -27,6 +27,9 @@ export function callFunctionInTestWithMockFixture(
   ...params: unknown[]
 ) {
   const fixtureInstance = (ALL_FIXTURES[fixture.name])(...params);
+  console.log(fixture.name);
+  console.log(ALL_FIXTURES[fixture.name].toString());
+  console.log(UrlFetchApp.fetchAll.toString());
   fixtureInstance.setUp();
   try {
     return callFunctionInTest(functionName, testName, ...params);
