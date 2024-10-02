@@ -49,6 +49,8 @@ describe('api', () => {
   }
 
   async function waitForMockServer() {
+    const currentTest = expect.getState().currentTestName;
+
     const testUrl = `${tunnel.url}/index.php`;
     const body = {
       method: 'SitesManager.getSitesIdWithAtLeastViewAccess',
@@ -57,8 +59,15 @@ describe('api', () => {
     while (true) {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
+      if (currentTest !== expect.getState().currentTestName) { // test timed out
+        return;
+      }
+
       try {
+        console.log(`requesting ${testUrl} with ${body}`);
         const response = await axios.post(testUrl, body);
+        console.log('response: ' + typeof(response.data));
+        console.log(JSON.stringify(response.data));
         if (Array.isArray(response.data) && response.data[0] === 1) {
           return;
         }
