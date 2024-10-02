@@ -156,6 +156,20 @@ class Clasp {
       }
     });
   }
+
+  async runWithFixture(
+    fixture: { name: string; params: unknown[] },
+    functionName: string,
+    ...args: any[]
+  ) {
+    const testName = expect.getState().currentTestName;
+    return this.runExecutable([
+      'run',
+      '-p',
+      JSON.stringify([functionName, fixture, testName, ...args]),
+      'callFunctionInTestWithMockFixture',
+    ]);
+  }
 }
 
 export default new Clasp();

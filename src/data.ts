@@ -304,6 +304,10 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       runtimeLimitAbortMessage: pastScriptRuntimeLimitErrorMessage,
     });
 
+    if (!partialResponseRaw) {
+      continue; // request failed in some unknown way
+    }
+
     if ((partialResponseRaw as any).value === false) {
       break; // nothing returned by request
     }

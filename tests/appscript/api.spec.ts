@@ -8,6 +8,7 @@
 import { beforeEach, beforeAll, expect } from '@jest/globals';
 import Clasp from '../utilities/clasp';
 import { makeApiFailureMockServer } from './api/mockServer';
+import axios from 'axios';
 
 describe('api', () => {
   let server: ReturnType<typeof makeApiFailureMockServer>;
@@ -45,6 +46,32 @@ describe('api', () => {
 
       await tunnel.close();
     });
+  }
+
+  async function waitForMockServer() {
+    const currentTest = expect.getState().currentTestName;
+
+    const testUrl = `${tunnel.url}/index.php`;
+    const body = {
+      method: 'SitesManager.getSitesIdWithAtLeastViewAccess',
+    };
+
+    while (true) {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      if (currentTest !== expect.getState().currentTestName) { // test timed out
+        return;
+      }
+
+      try {
+        const response = await axios.post(testUrl, body);
+        if (Array.isArray(response.data) && response.data[0] === 1) {
+          return;
+        }
+      } catch (e) {
+        // retry
+      }
+    }
   }
 
   describe('extractBasicAuthFromUrl()', () => {
@@ -129,7 +156,7 @@ describe('api', () => {
         },
       });
 
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+      await waitForMockServer();
 
       // use the mock server's path that forces a random error
       const result = await Clasp.run('setCredentials', {
@@ -175,7 +202,7 @@ describe('api', () => {
       });
 
       // waiting seems to be required here, or the mock server isn't used in time
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+      await waitForMockServer();
 
       // use the mock server's path that forces a non-random error
       await Clasp.run('setCredentials', {
@@ -218,7 +245,7 @@ describe('api', () => {
         },
       });
 
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+      await waitForMockServer();
 
       // use the mock server's path that forces a non-random error
       await Clasp.run('setCredentials', {
@@ -249,6 +276,170 @@ describe('api', () => {
 
       // check that the request was only made once
       expect(requestCount).toEqual(1);
+    });
+
+    it('should abort when UrlFetchApp throws an unknown error', async () => {
+      if (!process.env.USE_LOCALTUNNEL) {
+        console.log('*** SKIPPING TEST ***');
+        return;
+      }
+
+      server = makeApiFailureMockServer(3000);
+
+      await waitForMockServer();
+
+      // use the mock server's path that forces a non-random error
+      await Clasp.run('setCredentials', {
+        userToken: {
+          username: `${ tunnel.url }/`,
+          token: 'ignored',
+        },
+      });
+
+      const errorMessage = 'unknown error';
+
+      await expect(async () => {
+        await Clasp.runWithFixture(
+          { name: 'urlfetchapp', params: [ errorMessage ] },
+          'fetchAll',
+          [
+            {
+              method: 'SitesManager.getSitesIdWithAtLeastViewAccess',
+            },
+          ],
+          {
+            throwOnFailedRequest: true,
+          },
+        );
+      }).rejects.toHaveProperty('message', errorMessage);
+
+      await expect(async () => {
+        await Clasp.runWithFixture(
+          { name: 'urlfetchapp', params: [ errorMessage, true ] },
+          'fetchAll',
+          [
+            {
+              method: 'SitesManager.getSitesIdWithAtLeastViewAccess',
+            },
+          ],
+          {
+            throwOnFailedRequest: true,
+          },
+        );
+      }).rejects.toHaveProperty('message', errorMessage);
+    });
+
+    const TEMPORARY_ERRORS = [
+      {
+        name: 'address unavailable',
+        errorMessage: 'Address unavailable: test.whatever.com/index.php?',
+      },
+      {
+        name: 'dns error',
+        errorMessage: 'DNS error: https://matomo.whatever.com/index.php?',
+      },
+      {
+        name: 'urlfetchapp property',
+        errorMessage: 'Unexpected error while getting the method or property fetchAll on object UrlFetchApp.',
+      },
+    ];
+
+    TEMPORARY_ERRORS.forEach(({ name, errorMessage }) => {
+      it(`should retry when UrlFetchApp throws a "${name}" temporary error`, async () => {
+        if (!process.env.USE_LOCALTUNNEL) {
+          console.log('*** SKIPPING TEST ***');
+          return;
+        }
+
+        server = makeApiFailureMockServer(3000);
+
+        await waitForMockServer();
+
+        // use the mock server's path that forces a non-random error
+        await Clasp.run('setCredentials', {
+          userToken: {
+            username: `${ tunnel.url }/`,
+            token: 'ignored',
+          },
+        });
+
+        // check it does not throw when an Error is used
+        await Clasp.runWithFixture(
+          { name: 'urlfetchapp', params: [ errorMessage ] },
+          'fetchAll',
+          [
+            {
+              method: 'SitesManager.getSitesIdWithAtLeastViewAccess',
+            },
+          ],
+          {
+            throwOnFailedRequest: true,
+          },
+        );
+
+        // check it does not throw when a string is used
+        await Clasp.runWithFixture(
+          { name: 'urlfetchapp', params: [ errorMessage, true ] },
+          'fetchAll',
+          [
+            {
+              method: 'SitesManager.getSitesIdWithAtLeastViewAccess',
+            },
+          ],
+          {
+            throwOnFailedRequest: true,
+          },
+        );
+      });
+    });
+
+    it('should abort with a readable error message when a quota limit reached error is thrown', async () => {
+      if (!process.env.USE_LOCALTUNNEL) {
+        console.log('*** SKIPPING TEST ***');
+        return;
+      }
+
+      server = makeApiFailureMockServer(3000);
+
+      await waitForMockServer();
+
+      // use the mock server's path that forces a non-random error
+      await Clasp.run('setCredentials', {
+        userToken: {
+          username: `${ tunnel.url }/`,
+          token: 'ignored',
+        },
+      });
+
+      await expect(async () => {
+        await Clasp.runWithFixture(
+          { name: 'urlfetchapp', params: [ 'Service invoked too many times for one day: urlfetch.' ] },
+          'fetchAll',
+          [
+            {
+              method: 'SitesManager.getSitesIdWithAtLeastViewAccess',
+            },
+          ],
+          {
+            throwOnFailedRequest: true,
+          },
+        );
+      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
+
+      await expect(async () => {
+        await Clasp.runWithFixture(
+          { name: 'urlfetchapp', params: [ 'Service invoked too many times for one day: urlfetch.', true ] },
+          'fetchAll',
+          [
+            {
+              method: 'SitesManager.getSitesIdWithAtLeastViewAccess',
+            },
+          ],
+          {
+            throwOnFailedRequest: true,
+          },
+        );
+      }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
     });
   });
 

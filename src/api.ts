@@ -7,9 +7,10 @@
 
 import env from './env';
 import { getScriptElapsedTime } from './connector';
-import { throwUnexpectedError } from './error';
+import { throwUnexpectedError, throwUserError } from './error';
 import URLFetchRequest = GoogleAppsScript.URL_Fetch.URLFetchRequest;
 import { debugLog, log, logError } from './log';
+import { getServices } from './services';
 
 const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
 const API_REQUEST_RETRY_LIMIT_IN_SECS = parseInt(env.API_REQUEST_RETRY_LIMIT_IN_SECS) || 0;
@@ -110,6 +111,20 @@ export function extractBasicAuthFromUrl(url: string): { authHeaders: Record<stri
   return { authHeaders, urlWithoutAuth: url };
 }
 
+function isUrlFetchErrorQuotaLimitReachedError(errorMessage: unknown) {
+  return typeof errorMessage === 'string'
+    && errorMessage.toLowerCase().includes('service invoked too many times for one day: urlfetch')
+}
+
+function isUrlFetchErrorProbablyTemporary(errorMessage: unknown) {
+  return typeof errorMessage === 'string'
+    && (
+      errorMessage.toLowerCase().includes('address unavailable')
+      || errorMessage.toLowerCase().includes('dns error')
+      || errorMessage.toLowerCase().includes('property fetchall on object urlfetchapp')
+    );
+}
+
 /**
  * Sends multiple API requests simultaneously to the target Matomo.
  *
@@ -198,7 +213,22 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       wholeUrl: u, // used to link urlsToFetch with allUrlsMappedToIndex
     }));
 
-    const responses = UrlFetchApp.fetchAll(urlsToFetch);
+    let responses = [];
+    try {
+      responses = getServices().UrlFetchApp.fetchAll(urlsToFetch);
+    } catch (e) {
+      const errorMessage = e.message || e;
+
+      // throw user friendly error messages if possible
+      if (isUrlFetchErrorQuotaLimitReachedError(errorMessage)) {
+        throwUserError('The "urlfetch" daily quota for your account has been reached, further requests for today may not work. See https://developers.google.com/apps-script/guides/services/quotas for more information.');
+      }
+
+      // only rethrow for unknown errors, otherwise retry
+      if (!isUrlFetchErrorProbablyTemporary(errorMessage)) {
+        throw e;
+      }
+    }
 
     responses.forEach((r, i) => {
       const urlFetched = (urlsToFetch[i] as any).wholeUrl;
@@ -242,8 +272,8 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
     // if there are still requests to try (because they failed), wait before trying again
     const remainingRequestCount = Object.keys(allUrlsMappedToIndex).length;
-    const requestsFailed = !!remainingRequestCount;
-    if (requestsFailed) {
+    const haveRequestsFailed = remainingRequestCount > 0;
+    if (haveRequestsFailed) {
       log(`${countOfFailedRequests} request(s) failed, retrying after ${currentWaitBeforeRetryTime / 1000} seconds.`);
 
       Utilities.sleep(currentWaitBeforeRetryTime);
