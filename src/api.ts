@@ -198,7 +198,22 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       wholeUrl: u, // used to link urlsToFetch with allUrlsMappedToIndex
     }));
 
-    const responses = UrlFetchApp.fetchAll(urlsToFetch);
+    let responses = [];
+    try {
+      responses = UrlFetchApp.fetchAll(urlsToFetch);
+    } catch (e) {
+      // only rethrow for unknown errors, otherwise retry
+      const errorMessage = e.message || e;
+      if (!errorMessage
+        || (
+          !errorMessage.toLowerCase().includes('address unavailable')
+          && !errorMessage.toLowerCase().includes('dns error')
+          && !errorMessage.toLowerCase().includes('property fetchall on object urlfetchapp')
+        )
+      ) {
+        throw e;
+      }
+    }
 
     responses.forEach((r, i) => {
       const urlFetched = (urlsToFetch[i] as any).wholeUrl;
