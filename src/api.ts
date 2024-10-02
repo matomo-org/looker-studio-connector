@@ -110,6 +110,18 @@ export function extractBasicAuthFromUrl(url: string): { authHeaders: Record<stri
   return { authHeaders, urlWithoutAuth: url };
 }
 
+function isUrlFetchErrorQuotaLimitReachedError(errorMessage: unknown) {
+  return typeof errorMessage === 'string'
+    && errorMessage.toLowerCase().includes('service invoked too many times for one day: urlfetch')
+}
+
+function isUrlFetchErrorProbablyTemporary(errorMessage: unknown) {
+  return typeof errorMessage === 'string'
+    && !errorMessage.toLowerCase().includes('address unavailable')
+    && !errorMessage.toLowerCase().includes('dns error')
+    && !errorMessage.toLowerCase().includes('property fetchall on object urlfetchapp');
+}
+
 /**
  * Sends multiple API requests simultaneously to the target Matomo.
  *
@@ -205,18 +217,12 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       const errorMessage = e.message || e;
 
       // throw user friendly error messages if possible
-      if (errorMessage && errorMessage.toLowerCase().includes('service invoked too many times for one day: urlfetch')) {
+      if (isUrlFetchErrorQuotaLimitReachedError(errorMessage)) {
         throwUserError('The "urlfetch" daily quota for your account has been reached, further requests for today may not work. See https://developers.google.com/apps-script/guides/services/quotas for more information.');
       }
 
       // only rethrow for unknown errors, otherwise retry
-      if (!errorMessage
-        || (
-          !errorMessage.toLowerCase().includes('address unavailable')
-          && !errorMessage.toLowerCase().includes('dns error')
-          && !errorMessage.toLowerCase().includes('property fetchall on object urlfetchapp')
-        )
-      ) {
+      if (isUrlFetchErrorProbablyTemporary(errorMessage)) {
         throw e;
       }
     }
