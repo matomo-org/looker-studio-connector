@@ -218,7 +218,6 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       responses = getServices().UrlFetchApp.fetchAll(urlsToFetch);
     } catch (e) {
       const errorMessage = e.message || e;
-      console.log(errorMessage);
 
       // throw user friendly error messages if possible
       if (isUrlFetchErrorQuotaLimitReachedError(errorMessage)) {

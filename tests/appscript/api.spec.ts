@@ -399,11 +399,6 @@ describe('api', () => {
         return;
       }
 
-      if (!process.env.USE_LOCALTUNNEL) {
-        console.log('*** SKIPPING TEST ***');
-        return;
-      }
-
       server = makeApiFailureMockServer(3000);
 
       await waitForMockServer();
