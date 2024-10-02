@@ -10,6 +10,7 @@ import { getScriptElapsedTime } from './connector';
 import { throwUnexpectedError, throwUserError } from './error';
 import URLFetchRequest = GoogleAppsScript.URL_Fetch.URLFetchRequest;
 import { debugLog, log, logError } from './log';
+import { getServices } from './services';
 
 const SCRIPT_RUNTIME_LIMIT = parseInt(env.SCRIPT_RUNTIME_LIMIT) || 0;
 const API_REQUEST_RETRY_LIMIT_IN_SECS = parseInt(env.API_REQUEST_RETRY_LIMIT_IN_SECS) || 0;
@@ -117,9 +118,11 @@ function isUrlFetchErrorQuotaLimitReachedError(errorMessage: unknown) {
 
 function isUrlFetchErrorProbablyTemporary(errorMessage: unknown) {
   return typeof errorMessage === 'string'
-    && !errorMessage.toLowerCase().includes('address unavailable')
-    && !errorMessage.toLowerCase().includes('dns error')
-    && !errorMessage.toLowerCase().includes('property fetchall on object urlfetchapp');
+    && (
+      errorMessage.toLowerCase().includes('address unavailable')
+      || errorMessage.toLowerCase().includes('dns error')
+      || errorMessage.toLowerCase().includes('property fetchall on object urlfetchapp')
+    );
 }
 
 /**
@@ -212,9 +215,10 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
     let responses = [];
     try {
-      responses = UrlFetchApp.fetchAll(urlsToFetch);
+      responses = getServices().UrlFetchApp.fetchAll(urlsToFetch);
     } catch (e) {
       const errorMessage = e.message || e;
+      console.log(errorMessage);
 
       // throw user friendly error messages if possible
       if (isUrlFetchErrorQuotaLimitReachedError(errorMessage)) {
@@ -222,7 +226,7 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       }
 
       // only rethrow for unknown errors, otherwise retry
-      if (isUrlFetchErrorProbablyTemporary(errorMessage)) {
+      if (!isUrlFetchErrorProbablyTemporary(errorMessage)) {
         throw e;
       }
     }

@@ -10,7 +10,7 @@
     "create": "mkdir -p dist && clasp create --rootDir dist --title='Matomo Looker Studio Connector' --type=standalone && mv ./dist/.clasp.json .",
     "push": "tsx ./scripts/push.ts",
     "test:appscript": "jest --config=./jest.config.appscript.ts",
-    "test": "npm run test:appscript -- ./tests/appscript/api.spec.ts",
+    "test": "npm run test:appscript",
     "test:download-artifacts": "tsx ./scripts/download-expected.ts",
     "update-secrets-in-ci": "tsx ./scripts/update_ci_secrets.ts"
   },

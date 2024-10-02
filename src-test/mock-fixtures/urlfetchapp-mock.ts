@@ -6,27 +6,37 @@
  */
 
 export default function urlFetchAppMock(errorToThrow: string, throwAsString: boolean = false) {
-  const previousFetchAll = UrlFetchApp.fetchAll;
   let isThrown = false;
+
+  const mockUrlFetchApp = new Proxy(UrlFetchApp, {
+    get(target, prop) {
+      if (prop === 'fetchAll') {
+        return function (...args) {
+          if (!isThrown) {
+            isThrown = true;
+
+            if (throwAsString) {
+              throw errorToThrow;
+            } else {
+              throw new Error(errorToThrow);
+            }
+          } else {
+            return target[prop].call(this, ...args);
+          }
+        };
+      }
+      return target[prop];
+    }
+  });
 
   return {
     setUp() {
-      UrlFetchApp.fetchAll = function (...args) {
-        if (!isThrown) {
-          isThrown = true;
-
-          if (throwAsString) {
-            throw errorToThrow;
-          } else {
-            throw new Error(errorToThrow);
-          }
-        } else {
-          return previousFetchAll.call(this, ...args);
-        }
-      };
+      const getServices = (new Function('return getServices;'))();
+      getServices().UrlFetchApp = mockUrlFetchApp;
     },
     tearDown() {
-      UrlFetchApp.fetchAll = previousFetchAll;
+      const getServices = (new Function('return getServices;'))();
+      getServices().UrlFetchApp = UrlFetchApp;
     },
   };
 }

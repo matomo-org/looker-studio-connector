@@ -278,7 +278,7 @@ describe('api', () => {
       expect(requestCount).toEqual(1);
     });
 
-    it.only('should abort when UrlFetchApp throws an unknown error', async () => {
+    it('should abort when UrlFetchApp throws an unknown error', async () => {
       if (!process.env.USE_LOCALTUNNEL) {
         console.log('*** SKIPPING TEST ***');
         return;
@@ -326,7 +326,7 @@ describe('api', () => {
             throwOnFailedRequest: true,
           },
         );
-      }).rejects.toEqual(errorMessage);
+      }).rejects.toHaveProperty('message', errorMessage);
     });
 
     const TEMPORARY_ERRORS = [
