@@ -1,5 +1,13 @@
 == Changelog ===
 
+= 1.1.3 =
+* Detect more common Matomo API errors sooner.
+* Improved logging to proactively catch edge cases.
+* Send a browser user agent just in case the target Matomo rate limits bots.
+* Fix error that occurs when querying older Matomos without metricTypes metadata.
+* Update dependencies.
+* Catch random/temporary errors thrown by UrlFetchApp and retry requests instead of failing outright.
+
 = 1.1.2 =
 * Fix regression causing Funnels reports to fail to load.
 
