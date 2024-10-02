@@ -202,8 +202,14 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
     try {
       responses = UrlFetchApp.fetchAll(urlsToFetch);
     } catch (e) {
-      // only rethrow for unknown errors, otherwise retry
       const errorMessage = e.message || e;
+
+      // throw user friendly error messages if possible
+      if (errorMessage && errorMessage.toLowerCase().includes('service invoked too many times for one day: urlfetch')) {
+        throwUserError('The "urlfetch" daily quota for your account has been reached, further requests for today may not work. See https://developers.google.com/apps-script/guides/services/quotas for more information.');
+      }
+
+      // only rethrow for unknown errors, otherwise retry
       if (!errorMessage
         || (
           !errorMessage.toLowerCase().includes('address unavailable')
