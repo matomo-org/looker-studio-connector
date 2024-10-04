@@ -225,6 +225,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   }
 
   const SHOW_COLUMNS_UNSUPPORTED_METHODS = [
+    'API.get', // only works for some metrics
     'VisitFrequency.get',
     'Contents.getContentPieces',
     'Contents.getContentNames',
@@ -290,8 +291,8 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       filter_limit: `${limitToUse}`,
       filter_offset: `${offset}`,
       showColumns,
-      apiModule: null,
-      apiAction: null,
+      apiModule: undefined,
+      apiAction: undefined,
     };
 
     if (reportParams.apiModule !== 'Goals' && typeof params.idGoal === 'undefined') {
