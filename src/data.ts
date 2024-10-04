@@ -225,8 +225,6 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   }
 
   const SHOW_COLUMNS_UNSUPPORTED_METHODS = [
-    'API.get', // only works for some metrics
-    'VisitFrequency.get',
     'Contents.getContentPieces',
     'Contents.getContentNames',
     'Actions.getPageUrlsFollowingSiteSearch',
@@ -234,7 +232,9 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
 
   let showColumns;
   // showColumns does not work correctly with some API methods
-  if (!SHOW_COLUMNS_UNSUPPORTED_METHODS.includes(apiMethod)) {
+  if (!SHOW_COLUMNS_UNSUPPORTED_METHODS.includes(apiMethod)
+    && reportParams.apiAction !== 'get' // showColumns does not work for API methods like API.get or VisitFrequency.get
+  ) {
     showColumns = (requestedFields.map(({name}) => name)).join(',');
   }
 
