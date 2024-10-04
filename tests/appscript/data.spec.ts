@@ -438,6 +438,24 @@ describe('data', () => {
       expect(result).toEqual(getExpectedResponse(result, 'data', 'Events.getName_withDateDimension_date'));
     });
 
+    it('should correctly fetch a single column from a **.get API method', async () => {
+      let result = await Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'API', apiAction: 'get' }),
+          filter_limit: 5,
+        },
+        dateRange: {
+          startDate: DATE_TO_TEST,
+          endDate: DATE_TO_TEST,
+        },
+        fields: [
+          { name: 'bounce_rate' },
+        ],
+      });
+      expect(result).toEqual(getExpectedResponse(result, 'data', `API.get_singleProcessedMetric`));
+    });
+
     it('should correctly fetch data for a date range spanning multiple days', async () => {
       await Clasp.run('setScriptProperties', {}, true);
 
