@@ -225,7 +225,6 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
   }
 
   const SHOW_COLUMNS_UNSUPPORTED_METHODS = [
-    'VisitFrequency.get',
     'Contents.getContentPieces',
     'Contents.getContentNames',
     'Actions.getPageUrlsFollowingSiteSearch',
@@ -233,7 +232,9 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
 
   let showColumns;
   // showColumns does not work correctly with some API methods
-  if (!SHOW_COLUMNS_UNSUPPORTED_METHODS.includes(apiMethod)) {
+  if (!SHOW_COLUMNS_UNSUPPORTED_METHODS.includes(apiMethod)
+    && reportParams.apiAction !== 'get' // showColumns does not work for API methods like API.get or VisitFrequency.get
+  ) {
     showColumns = (requestedFields.map(({name}) => name)).join(',');
   }
 
@@ -290,8 +291,8 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
       filter_limit: `${limitToUse}`,
       filter_offset: `${offset}`,
       showColumns,
-      apiModule: null,
-      apiAction: null,
+      apiModule: undefined,
+      apiAction: undefined,
     };
 
     if (reportParams.apiModule !== 'Goals' && typeof params.idGoal === 'undefined') {
