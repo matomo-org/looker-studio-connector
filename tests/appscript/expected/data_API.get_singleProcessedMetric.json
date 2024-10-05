@@ -1,0 +1,22 @@
+{
+  "filtersApplied": false,
+  "rows": [
+    {
+      "values": [
+        "0.73"
+      ]
+    }
+  ],
+  "schema": [
+    {
+      "dataType": "NUMBER",
+      "label": "Bounce Rate",
+      "name": "bounce_rate",
+      "semantics": {
+        "conceptType": "METRIC",
+        "isReaggregatable": false,
+        "semanticType": "PERCENT"
+      }
+    }
+  ]
+}
