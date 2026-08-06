@@ -254,7 +254,15 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
       } else {
         // save the response even if it's an error so we can get the server-side error message if needed
         responseContents[responseIndex] = r.getContentText('UTF-8') || '{}';
-        responseContents[responseIndex] = JSON.parse(responseContents[responseIndex] as string);
+
+        try {
+          responseContents[responseIndex] = JSON.parse(responseContents[responseIndex] as string);
+        } catch (e) {
+          logError(new Error(`Matomo returned invalid for request ${urlFetched}: ${responseContents[responseIndex]}`), 'api client');
+
+          countOfFailedRequests += 1;
+          return; // retry
+        }
 
         if (responseContents[responseIndex].result === 'error'
           && !isApiErrorNonRandom(responseContents[responseIndex].message)
