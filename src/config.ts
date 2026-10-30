@@ -38,7 +38,7 @@ function getMatomoVersion() {
   return { major, minor };
 }
 
-function getReportMetadata(idSite: string) {
+export function getReportMetadata(idSite: string) {
   const cache = CacheService.getUserCache();
   const cacheKey = `getConfig.API.getReportMetadata.${idSite}`;
 
