@@ -132,6 +132,24 @@ describe('data', () => {
       }).rejects.toHaveProperty('message', 'Exception'); // actual data studio error message does not appear to be accessible
     });
 
+    it('should reject a crafted method parameter before requesting report metadata', async () => {
+      await expect(async () => Clasp.run('getSchema', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'Actions', apiAction: 'getPageTitles', method: 'UsersManager.setUserAccess' }),
+        },
+      })).rejects.toHaveProperty('message', 'Exception');
+    });
+
+    it('should reject a substituted API method', async () => {
+      await expect(async () => Clasp.run('getSchema', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'UsersManager', apiAction: 'setUserAccess' }),
+        },
+      })).rejects.toHaveProperty('message', 'Exception');
+    });
+
     const methodsTested = {};
     global.ALL_REPORT_METADATA.forEach((r) => {
       if (hasNoMetrics(r)) {
@@ -165,6 +183,16 @@ describe('data', () => {
   });
 
   describe('getData', () => {
+    it('should reject injected report parameters before making the data request', async () => {
+      await expect(async () => Clasp.run('getData', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({ apiModule: 'Actions', apiAction: 'getPageTitles', method: 'UsersManager.setUserAccess' }),
+        },
+        dateRange: { startDate: DATE_TO_TEST, endDate: DATE_TO_TEST },
+      })).rejects.toHaveProperty('message', 'Exception');
+    });
+
     it('should use the configured language', async () => {
       const result = await Clasp.run('getData', {
         configParams: {
