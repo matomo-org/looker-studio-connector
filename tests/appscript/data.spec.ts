@@ -150,6 +150,27 @@ describe('data', () => {
       })).rejects.toHaveProperty('message', 'Exception');
     });
 
+    it('should accept a parameterized variant when another variant has no parameters', async () => {
+      const parameterizedGoalReport = global.ALL_REPORT_METADATA.find((r) =>
+        r.module === 'Goals' && r.action === 'get' && r.parameters
+        && Object.prototype.hasOwnProperty.call(r.parameters, 'idGoal'));
+      if (!parameterizedGoalReport) {
+        return;
+      }
+
+      const result = await Clasp.run('getSchema', {
+        configParams: {
+          idsite: env.APPSCRIPT_TEST_IDSITE,
+          report: JSON.stringify({
+            apiModule: parameterizedGoalReport.module,
+            apiAction: parameterizedGoalReport.action,
+            ...parameterizedGoalReport.parameters,
+          }),
+        },
+      });
+      expect(result).toHaveProperty('schema');
+    });
+
     const methodsTested = {};
     global.ALL_REPORT_METADATA.forEach((r) => {
       if (hasNoMetrics(r)) {

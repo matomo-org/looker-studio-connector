@@ -19,7 +19,7 @@ export class UserFacingError extends Error {}
  * @param message
  * @throws Error
  */
-export function throwUserError(message: string) {
+export function throwUserError(message: string): never {
   try {
     cc.newUserError().setText(message).throwException();
   } catch (e) {

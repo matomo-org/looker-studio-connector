@@ -23,7 +23,7 @@ dayjs.extend(weekOfYear);
 
 /** Parse the saved report selection as untrusted input and constrain it to a
  * report and parameter names Matomo advertises for this site. */
-function getValidatedReportParams(idSite: string, report: string): Record<string, string> {
+export function getValidatedReportParams(idSite: string, report: string): Record<string, string> {
   let supplied: Record<string, unknown>;
   try {
     supplied = JSON.parse(report);
@@ -35,10 +35,20 @@ function getValidatedReportParams(idSite: string, report: string): Record<string
     throwUserError('The selected Matomo report is invalid. Please reconfigure the connector.');
   }
 
-  const metadata = getReportMetadata(idSite).reportMetadata.find((candidate) =>
+  const candidates = getReportMetadata(idSite).reportMetadata.filter((candidate) =>
     candidate.module === supplied.apiModule && candidate.action === supplied.apiAction);
-  if (!metadata) {
+  if (!candidates.length) {
     throwUserError('The selected Matomo report is not available for this site. Please reconfigure the connector.');
+  }
+
+  // Methods can be advertised with multiple valid parameter sets.
+  const suppliedParamNames = Object.keys(supplied).filter((key) => key !== 'apiModule' && key !== 'apiAction');
+  const metadata = candidates.find((candidate) => {
+    const allowedNames = Object.keys(candidate.parameters || {});
+    return suppliedParamNames.every((key) => allowedNames.includes(key));
+  });
+  if (!metadata) {
+    throwUserError('The selected Matomo report contains unsupported parameters. Please reconfigure the connector.');
   }
 
   const allowed = metadata.parameters || {};

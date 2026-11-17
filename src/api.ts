@@ -163,10 +163,10 @@ export function fetchAll(requests: MatomoRequestParams[], options: ApiFetchOptio
 
   const allUrls = requests.map(({method, params}) => {
     const finalParams = {
+      ...params,
       module: 'API',
       method,
       format: 'JSON',
-      ...params,
       [env.API_REQUEST_SOURCE_IDENTIFIER]: '1',
     };
 
