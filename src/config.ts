@@ -38,7 +38,7 @@ function getMatomoVersion() {
   return { major, minor };
 }
 
-function getReportMetadata(idSite: string) {
+export function getReportMetadata(idSite: string) {
   const cache = CacheService.getUserCache();
   const cacheKey = `getConfig.API.getReportMetadata.${idSite}`;
 
@@ -87,7 +87,9 @@ function getReportMetadata(idSite: string) {
   const result = { reportMetadata: response, hasMetricTypes };
 
   try {
-    cache.put(cacheKey, JSON.stringify(result));
+    // Report metadata changes infrequently; keep it warm across Looker Studio
+    // schema and data requests to avoid repeating the full API.getReportMetadata call.
+    cache.put(cacheKey, JSON.stringify(result), 21600);
   } catch (e) {
     log(`unable to save cache value for ${cacheKey}`);
   }

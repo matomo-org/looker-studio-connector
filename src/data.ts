@@ -17,8 +17,55 @@ import {
 } from './error';
 import { DataTableRow } from './api';
 import { debugLog } from './log';
+import { getReportMetadata } from './config';
 
 dayjs.extend(weekOfYear);
+
+/** Parse the saved report selection as untrusted input and constrain it to a
+ * report and parameter names Matomo advertises for this site. */
+export function getValidatedReportParams(idSite: string, report: string): Record<string, string> {
+  let supplied: Record<string, unknown>;
+  try {
+    supplied = JSON.parse(report);
+  } catch (e) {
+    throwUserError('The selected Matomo report is invalid. Please reconfigure the connector.');
+  }
+  if (!supplied || typeof supplied !== 'object' || Array.isArray(supplied)
+    || typeof supplied.apiModule !== 'string' || typeof supplied.apiAction !== 'string') {
+    throwUserError('The selected Matomo report is invalid. Please reconfigure the connector.');
+  }
+
+  const candidates = getReportMetadata(idSite).reportMetadata.filter((candidate) =>
+    candidate.module === supplied.apiModule && candidate.action === supplied.apiAction);
+  if (!candidates.length) {
+    throwUserError('The selected Matomo report is not available for this site. Please reconfigure the connector.');
+  }
+
+  // Methods can be advertised with multiple valid parameter sets.
+  const suppliedParamNames = Object.keys(supplied).filter((key) => key !== 'apiModule' && key !== 'apiAction');
+  const metadata = candidates.find((candidate) => {
+    const allowedNames = Object.keys(candidate.parameters || {});
+    return suppliedParamNames.every((key) => allowedNames.includes(key));
+  });
+  if (!metadata) {
+    throwUserError('The selected Matomo report contains unsupported parameters. Please reconfigure the connector.');
+  }
+
+  const allowed = metadata.parameters || {};
+  const normalized: Record<string, string> = {
+    apiModule: metadata.module,
+    apiAction: metadata.action,
+  };
+  Object.entries(supplied).forEach(([key, value]) => {
+    if (key === 'apiModule' || key === 'apiAction') return;
+    if (!Object.prototype.hasOwnProperty.call(allowed, key)
+      || (typeof value !== 'string' && typeof value !== 'number' && typeof value !== 'boolean')) {
+      throwUserError('The selected Matomo report contains unsupported parameters. Please reconfigure the connector.');
+    }
+    normalized[key] = String(value);
+  });
+  return normalized;
+}
 
 const pastScriptRuntimeLimitErrorMessage = 'It\'s taking too long to get the requested data. This may be a momentary issue with '
   + 'your Matomo, but if it continues to occur for this report, then you may be requesting too much data. In this '
@@ -87,7 +134,7 @@ function getReportMetadataAndGoalsAndCurrency(request: GoogleAppsScript.Data_Stu
   const report = request.configParams.report;
   const segment = request.configParams.segment || '';
 
-  const reportParams = JSON.parse(report) as Record<string, string>;
+  const reportParams = getValidatedReportParams(idSite, report);
 
   let apiParameters: Record<string, string> = {};
   Object.entries(reportParams).forEach(([k, v]) => {
@@ -217,7 +264,7 @@ function getReportData(request: GoogleAppsScript.Data_Studio.Request<ConnectorPa
     }
   }
 
-  const reportParams = JSON.parse(report) as Record<string, string>;
+  const reportParams = getValidatedReportParams(idSite, report);
 
   const apiMethod = `${reportParams.apiModule}.${reportParams.apiAction}`;
   if (apiMethod === 'MultiSites.getAll') {
