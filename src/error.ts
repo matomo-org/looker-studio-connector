@@ -7,6 +7,7 @@
 
 import cc from './connector';
 import {currentHost, log, logError, requestId} from './log';
+import {redactUrlCredentials} from './url';
 
 const FORUM_URL = 'https://forum.matomo.org/c/looker-studio/25';
 
@@ -41,7 +42,7 @@ export function throwUnexpectedError(error: Error, callerId?: string) {
   try {
     logError(error, callerId);
 
-    const { message } = error;
+    const message = redactUrlCredentials(error.message);
 
     const time = (new Date()).toString();
     const wholeMessage = `An error has occurred - if you need help, please reach out in the Forums here: ${FORUM_URL} or `
